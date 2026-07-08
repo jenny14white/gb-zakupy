@@ -1,0 +1,334 @@
+.public-page {
+  min-height: 100vh;
+  padding: 18px;
+  background: radial-gradient(
+      circle at top left,
+      rgba(255, 221, 143, 0.55),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #f9e6bf, #f5f7fb);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.admin-link {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: #0b559f;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  z-index: 50;
+  box-shadow: 0 8px 20px rgba(11, 85, 159, 0.25);
+}
+
+.paper {
+  width: min(720px, 100%);
+  margin-top: 42px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fffaf0 0,
+    #fffaf0 34px,
+    #dbeafe 35px
+  );
+  border-radius: 22px;
+  padding: 34px 24px 28px 46px;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.paper::before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: rgba(239, 68, 68, 0.22);
+}
+
+.holes {
+  position: absolute;
+  left: 12px;
+  top: 28px;
+  display: grid;
+  gap: 22px;
+}
+
+.holes span {
+  width: 15px;
+  height: 15px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.14);
+}
+
+.logo {
+  display: block;
+  width: 132px;
+  max-height: 92px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+}
+
+.paper h1 {
+  text-align: center;
+  color: #083f88;
+  font-size: clamp(34px, 9vw, 56px);
+  margin: 0 0 20px;
+  font-family: 'Comic Sans MS', 'Segoe Print', cursive;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+}
+
+.intro-box {
+  background: rgba(255, 238, 186, 0.82);
+  border-radius: 20px;
+  padding: 18px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.shopping-form,
+.current-list-wrapper {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 22px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+.shopping-form {
+  display: grid;
+  gap: 16px;
+}
+
+.shopping-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.shopping-form input,
+.shopping-form textarea,
+.shopping-form select {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 15px;
+  background: white;
+  font-size: 16px;
+}
+
+.shopping-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.submit-button {
+  border: none;
+  background: linear-gradient(135deg, #075fb4, #003f88);
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 17px;
+  min-height: 54px;
+}
+
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.current-list-wrapper h2 {
+  margin-top: 0;
+}
+
+.current-list {
+  display: grid;
+  gap: 12px;
+}
+
+.shopping-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  gap: 5px;
+}
+
+.shopping-item strong {
+  color: #0f3d75;
+  font-size: 17px;
+}
+
+.shopping-item span,
+.shopping-item small {
+  color: #64748b;
+}
+
+.thanks {
+  text-align: center;
+  color: #075fb4;
+  font-size: 28px;
+  font-family: 'Comic Sans MS', 'Segoe Print', cursive;
+}
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+  .public-page {
+    padding: 0;
+    background: #fffaf0;
+  }
+
+  .admin-link {
+    top: 10px;
+    right: 10px;
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+
+  .paper {
+    width: 100%;
+    min-height: 100vh;
+    margin-top: 0;
+    border-radius: 0;
+    padding: 58px 12px 28px 34px;
+    box-shadow: none;
+  }
+
+  .paper::before {
+    left: 28px;
+  }
+
+  .holes {
+    left: 8px;
+    top: 66px;
+    gap: 21px;
+  }
+
+  .holes span {
+    width: 13px;
+    height: 13px;
+  }
+
+  .logo {
+    width: 112px;
+    max-height: 76px;
+  }
+
+  .paper h1 {
+    font-size: 38px;
+    margin-bottom: 16px;
+    text-underline-offset: 7px;
+  }
+
+  .intro-box {
+    padding: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .intro-box p {
+    margin: 0 0 10px;
+  }
+
+  .intro-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .shopping-form,
+  .current-list-wrapper {
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .shopping-form input,
+  .shopping-form textarea,
+  .shopping-form select {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .submit-button {
+    width: 100%;
+    min-height: 56px;
+    font-size: 16px;
+  }
+
+  .current-list-wrapper h2 {
+    font-size: 20px;
+  }
+
+  .shopping-item {
+    padding: 13px;
+    border-radius: 13px;
+  }
+
+  .shopping-item strong {
+    font-size: 16px;
+  }
+
+  .thanks {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+}
+
+/* BARDZO MAŁE TELEFONY */
+
+@media (max-width: 380px) {
+  .paper {
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+
+  .paper::before {
+    left: 25px;
+  }
+
+  .holes {
+    left: 7px;
+  }
+
+  .paper h1 {
+    font-size: 34px;
+  }
+
+  .intro-box {
+    font-size: 13px;
+  }
+}
