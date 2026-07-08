@@ -397,3 +397,33 @@
     flex: 1;
   }
 }
+.month-toggle {
+  width: 100%;
+  border: none;
+  background: #e0f2fe;
+  color: #075985;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.month-toggle:hover {
+  background: #d0ebff;
+}
+
+.month-count {
+  font-size: 15px;
+  color: #475569;
+  font-weight: 700;
+}
+
+.month-section {
+  display: grid;
+  gap: 14px;
+}
