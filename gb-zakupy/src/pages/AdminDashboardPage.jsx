@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { logoutAdmin } from '../firebase/auth';
 import { useAdminOrders } from '../hooks/useAdminOrders';
 import { useLogs } from '../hooks/useLogs';
 import { getOrderedOrders, getPendingOrders } from '../utils/orderUtils';
@@ -10,22 +9,24 @@ import AdminNotifications from '../components/admin/AdminNotifications';
 import AdminCompletedList from '../components/admin/AdminCompletedList';
 import AdminEventLog from '../components/admin/AdminEventLog';
 
-export default function AdminDashboardPage({ goBack }) {
+export default function AdminDashboardPage({ goBack, logout }) {
   const [activeTab, setActiveTab] = useState('lista');
   const { orders, loading } = useAdminOrders();
   const logs = useLogs();
 
-  const pendingOrders = useMemo(() => getPendingOrders(orders), [orders]);
-  const orderedOrders = useMemo(() => getOrderedOrders(orders), [orders]);
+  const pendingOrders = useMemo(
+    () => getPendingOrders(orders),
+    [orders]
+  );
+
+  const orderedOrders = useMemo(
+    () => getOrderedOrders(orders),
+    [orders]
+  );
 
   const unreadNotifications = useMemo(() => {
     return pendingOrders.filter((order) => !order.notificationRead);
   }, [pendingOrders]);
-
-  async function handleLogout() {
-    await logoutAdmin();
-    goBack();
-  }
 
   return (
     <main className="admin-page">
@@ -36,7 +37,7 @@ export default function AdminDashboardPage({ goBack }) {
         orderedCount={orderedOrders.length}
         unreadNotificationsCount={unreadNotifications.length}
         goBack={goBack}
-        logout={handleLogout}
+        logout={logout}
       />
 
       <section className="dashboard">
@@ -49,7 +50,11 @@ export default function AdminDashboardPage({ goBack }) {
           orderedCount={orderedOrders.length}
         />
 
-        {loading && <div className="empty-admin-box">Ładowanie danych...</div>}
+        {loading && (
+          <div className="empty-admin-box">
+            Ładowanie danych...
+          </div>
+        )}
 
         {!loading && activeTab === 'lista' && (
           <AdminShoppingList orders={pendingOrders} />
@@ -63,7 +68,9 @@ export default function AdminDashboardPage({ goBack }) {
           <AdminCompletedList orders={orderedOrders} />
         )}
 
-        {!loading && activeTab === 'dziennik' && <AdminEventLog logs={logs} />}
+        {!loading && activeTab === 'dziennik' && (
+          <AdminEventLog logs={logs} />
+        )}
       </section>
     </main>
   );
