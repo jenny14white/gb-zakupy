@@ -79,18 +79,42 @@
 .paper h1 {
   text-align: center;
   color: #0b4f99;
-  font-size: clamp(32px,7vw,52px);
+  font-size: clamp(34px, 7vw, 50px);
   margin: 0 0 18px;
-  font-family: "Brush Script MT","Segoe Script",cursive;
-  font-weight: 400;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: .4px;
 }
 
 .intro-box {
-  background: rgba(255,238,186,.82);
-  border-radius: 18px;
-  padding: 18px;
-  line-height: 1.65;
-  margin-bottom: 20px;
+  background: linear-gradient(135deg,#fff4c9,#fff9e9);
+  border:1px solid rgba(255,214,102,.45);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+  line-height:1.75;
+  font-size:16px;
+  color:#374151;
+}
+
+.intro-box p{
+  margin:0 0 14px;
+}
+
+.intro-box p:last-child{
+  margin-bottom:0;
+}
+
+.intro-box strong{
+  color:#0b4f99;
+}
+
+.intro-footer{
+  margin-top:18px;
+  text-align:center;
+  color:#0b63b8;
+  font-weight:700;
+  font-size:17px;
 }
 
 .shopping-form,
@@ -128,7 +152,13 @@
   resize: vertical;
   min-height: 110px;
 }
-
+.shopping-form input:focus,
+.shopping-form textarea:focus,
+.shopping-form select:focus{
+  outline:none;
+  border-color:#0b63b8;
+  box-shadow:0 0 0 4px rgba(11,99,184,.12);
+}
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -136,15 +166,24 @@
 }
 
 .submit-button {
-  border: none;
-  background: linear-gradient(135deg,#075fb4,#003f88);
-  color: white;
-  border-radius: 14px;
-  min-height: 54px;
-  font-size: 17px;
-  font-weight: 800;
+  border:none;
+  background:linear-gradient(135deg,#0b63b8,#084b91);
+  color:white;
+  border-radius:14px;
+  min-height:54px;
+  font-size:17px;
+  font-weight:800;
+  transition:.25s;
 }
 
+.submit-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(11,99,184,.22);
+}
+
+.submit-button:active{
+  transform:scale(.98);
+}
 .success-message{
   background:#dcfce7;
   color:#166534;
@@ -171,10 +210,16 @@
 }
 
 .shopping-item{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
+  background:#fbfcff;
+  border:1px solid #dbe4ef;
+  border-left:5px solid #0b63b8;
   border-radius:14px;
-  padding:14px;
+  padding:15px;
+  transition:.2s;
+}
+
+.shopping-item:hover{
+  transform:translateX(4px);
 }
 
 .shopping-item strong{
@@ -188,9 +233,11 @@
 
 .thanks{
   text-align:center;
-  color:#0b4f99;
-  font-size:30px;
-  font-family:"Brush Script MT","Segoe Script",cursive;
+  color:#0b63b8;
+  font-size:24px;
+  font-family:"Playfair Display",serif;
+  font-weight:700;
+  margin-top:10px;
 }
 
 /* ================= MOBILE ================= */
