@@ -55,37 +55,63 @@ export async function updateOrder(orderId, data) {
     updatedAt: serverTimestamp(),
   };
 
-  await updateDoc(doc(db, 'orders', orderId), updatedOrder);
+  try {
+    await updateDoc(doc(db, 'orders', orderId), updatedOrder);
 
-  await addLog(`Admin edytował zamówienie: ${updatedOrder.product}`, 'edited');
+    await addLog(
+      `Admin edytował zamówienie: ${updatedOrder.product}`,
+      'edited'
+    );
+  } catch (error) {
+    console.error('Błąd podczas edycji:', error);
+    alert(error.message);
+  }
 }
 
 export async function markNotificationAsRead(order) {
   if (order.notificationRead) return;
 
-  await updateDoc(doc(db, 'orders', order.id), {
-    notificationRead: true,
-    notificationReadAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
+  try {
+    await updateDoc(doc(db, 'orders', order.id), {
+      notificationRead: true,
+      notificationReadAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
 
-  await addLog(
-    `Admin oznaczył powiadomienie jako przeczytane: ${order.product}`,
-    'read'
-  );
+    await addLog(
+      `Admin oznaczył powiadomienie jako przeczytane: ${order.product}`,
+      'read'
+    );
+  } catch (error) {
+    console.error('Błąd podczas oznaczania powiadomienia:', error);
+    alert(error.message);
+  }
 }
 
 export async function markOrderAsOrdered(order, adminComment) {
   if (order.status === ORDER_STATUS.ORDERED) return;
 
-  await updateDoc(doc(db, 'orders', order.id), {
-    status: ORDER_STATUS.ORDERED,
-    adminComment: adminComment.trim(),
-    notificationRead: true,
-    notificationReadAt: order.notificationReadAt || serverTimestamp(),
-    orderedAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
+  console.log('=== START ===');
+  console.log(order);
 
-  await addLog(`Admin oznaczył jako zamówione: ${order.product}`, 'ordered');
+  try {
+    await updateDoc(doc(db, 'orders', order.id), {
+      status: ORDER_STATUS.ORDERED,
+      adminComment: adminComment.trim(),
+      notificationRead: true,
+      notificationReadAt: serverTimestamp(),
+      orderedAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+
+    console.log('✅ UPDATE OK');
+
+    await addLog(
+      `Admin oznaczył jako zamówione: ${order.product}`,
+      'ordered'
+    );
+  } catch (error) {
+    console.error('❌ UPDATE ERROR:', error);
+    alert(error.message);
+  }
 }
