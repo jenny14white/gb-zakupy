@@ -7,16 +7,26 @@ export function useAuth() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL?.toLowerCase();
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (
+        currentUser &&
+        currentUser.email?.toLowerCase() === ADMIN_EMAIL?.toLowerCase()
+      ) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  return { user, isAdmin, loading };
+  return {
+    user,
+    loading,
+    isAdmin: !!user,
+  };
 }
