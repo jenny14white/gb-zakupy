@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   onSnapshot,
   serverTimestamp,
@@ -91,9 +92,6 @@ export async function markNotificationAsRead(order) {
 export async function markOrderAsOrdered(order, adminComment) {
   if (order.status === ORDER_STATUS.ORDERED) return;
 
-  console.log('=== START ===');
-  console.log(order);
-
   try {
     await updateDoc(doc(db, 'orders', order.id), {
       status: ORDER_STATUS.ORDERED,
@@ -104,14 +102,26 @@ export async function markOrderAsOrdered(order, adminComment) {
       updatedAt: serverTimestamp(),
     });
 
-    console.log('✅ UPDATE OK');
-
     await addLog(
       `Admin oznaczył jako zamówione: ${order.product}`,
       'ordered'
     );
   } catch (error) {
-    console.error('❌ UPDATE ERROR:', error);
+    console.error('Błąd podczas oznaczania jako zamówione:', error);
+    alert(error.message);
+  }
+}
+
+export async function deleteOrder(order) {
+  try {
+    await deleteDoc(doc(db, 'orders', order.id));
+
+    await addLog(
+      `Admin usunął zamówienie: ${order.product}`,
+      'deleted'
+    );
+  } catch (error) {
+    console.error('Błąd podczas usuwania zamówienia:', error);
     alert(error.message);
   }
 }
