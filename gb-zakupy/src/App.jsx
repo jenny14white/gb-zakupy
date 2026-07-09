@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PublicShoppingPage from './pages/PublicShoppingPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import { logoutAdmin } from './firebase/auth';
 
 export default function App() {
   const [page, setPage] = useState('public');
@@ -10,15 +11,23 @@ export default function App() {
     sessionStorage.getItem('admin') === 'true'
   );
 
+  async function handleLogout() {
+    try {
+      await logoutAdmin();
+    } catch (error) {
+      console.error(error);
+    }
+
+    sessionStorage.removeItem('admin');
+    setIsAdmin(false);
+    setPage('public');
+  }
+
   if (page === 'admin') {
     return isAdmin ? (
       <AdminDashboardPage
         goBack={() => setPage('public')}
-        logout={() => {
-          sessionStorage.removeItem('admin');
-          setIsAdmin(false);
-          setPage('public');
-        }}
+        logout={handleLogout}
       />
     ) : (
       <AdminLoginPage
@@ -28,5 +37,9 @@ export default function App() {
     );
   }
 
-  return <PublicShoppingPage goToAdmin={() => setPage('admin')} />;
+  return (
+    <PublicShoppingPage
+      goToAdmin={() => setPage('admin')}
+    />
+  );
 }
