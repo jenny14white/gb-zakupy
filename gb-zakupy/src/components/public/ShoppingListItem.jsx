@@ -3,15 +3,19 @@ import { formatDate } from '../../utils/dateUtils';
 export default function ShoppingListItem({ item }) {
   return (
     <article className="shopping-item">
-      <strong>{item.product}</strong>
+      <div className="shopping-item-header">
+        <h3>{item.product}</h3>
 
-      <span>
-        Ilość: {item.quantity} {item.unit}
-      </span>
+        <span className="shopping-badge">
+          {item.quantity} {item.unit}
+        </span>
+      </div>
 
-      <span>Dodane przez: {item.requestedBy}</span>
+      <div className="shopping-meta">
+        <span>👤 {item.requestedBy}</span>
 
-      <small>{formatDate(item.createdAt)}</small>
+        <span>🕒 {formatDate(item.createdAt)}</span>
+      </div>
     </article>
   );
 }
