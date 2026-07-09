@@ -1,23 +1,31 @@
 import { useState } from 'react';
+import { loginAdmin } from '../firebase/auth';
 import Logo from '../components/shared/Logo';
 
-const ADMIN_PASSWORD = 'ui8Loongunah';
-
 export default function AdminLoginPage({ goBack, onLogin }) {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  function handleLogin(event) {
+  async function handleLogin(event) {
     event.preventDefault();
 
     setError('');
 
-    if (password === ADMIN_PASSWORD) {
+    try {
+      setLoading(true);
+
+      await loginAdmin(email, password);
+
       sessionStorage.setItem('admin', 'true');
       onLogin();
-    } else {
-      setError('Nieprawidłowe hasło.');
-      setPassword('');
+    } catch (error) {
+      console.error(error);
+
+      setError('Nieprawidłowy adres e-mail lub hasło.');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -35,20 +43,32 @@ export default function AdminLoginPage({ goBack, onLogin }) {
         <Logo className="admin-logo" />
 
         <h1>Panel admina</h1>
-        <p>Wprowadź hasło administratora.</p>
+        <p>Zaloguj się jako administrator.</p>
+
+        <input
+          type="email"
+          placeholder="Adres e-mail"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          autoFocus
+          required
+        />
 
         <input
           type="password"
+          placeholder="Hasło"
           value={password}
-          placeholder="Hasło administratora"
           onChange={(event) => setPassword(event.target.value)}
-          autoFocus
+          required
         />
 
         {error && <div className="admin-error">{error}</div>}
 
-        <button className="admin-button">
-          Zaloguj
+        <button
+          className="admin-button"
+          disabled={loading}
+        >
+          {loading ? 'Logowanie...' : 'Zaloguj'}
         </button>
       </form>
     </main>
