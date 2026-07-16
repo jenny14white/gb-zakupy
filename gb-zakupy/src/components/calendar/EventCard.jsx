@@ -1,35 +1,41 @@
 export default function EventCard({ event }) {
   return (
-    <article className="event-card">
-
-      <div className="event-title">
-
-        <span>
-          {event.emoji}
+    <article className={`event-card ${event.type || ''}`}>
+      <div className="event-header">
+        <span className="event-emoji">
+          {event.emoji || '📅'}
         </span>
 
-        <strong>
-          {event.title}
-        </strong>
+        <div className="event-header-content">
+          <strong className="event-title">
+            {event.title}
+          </strong>
 
+          {event.type && (
+            <span className="event-type">
+              {event.type}
+            </span>
+          )}
+        </div>
       </div>
 
       {event.time && (
-        <div className="event-time">
+        <div className="event-row">
+          🕒 <span>{event.time}</span>
+        </div>
+      )}
 
-          🕒 {event.time}
-
+      {event.location && (
+        <div className="event-row">
+          📍 <span>{event.location}</span>
         </div>
       )}
 
       {event.description && (
-        <p>
-
+        <div className="event-description">
           {event.description}
-
-        </p>
+        </div>
       )}
-
     </article>
   );
 }
