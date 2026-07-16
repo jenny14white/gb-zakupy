@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PublicShoppingPage from './pages/PublicShoppingPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import CalendarPage from './pages/CalendarPage';
 import { logoutAdmin } from './firebase/auth';
 
 export default function App() {
@@ -23,6 +24,10 @@ export default function App() {
     setPage('public');
   }
 
+  // =======================
+  // PANEL ADMINA
+  // =======================
+
   if (page === 'admin') {
     return isAdmin ? (
       <AdminDashboardPage
@@ -37,9 +42,26 @@ export default function App() {
     );
   }
 
+  // =======================
+  // KALENDARZ
+  // =======================
+
+  if (page === 'calendar') {
+    return (
+      <CalendarPage
+        goBack={() => setPage('public')}
+      />
+    );
+  }
+
+  // =======================
+  // STRONA GŁÓWNA
+  // =======================
+
   return (
     <PublicShoppingPage
       goToAdmin={() => setPage('admin')}
+      goToCalendar={() => setPage('calendar')}
     />
   );
 }
