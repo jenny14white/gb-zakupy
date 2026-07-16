@@ -568,3 +568,43 @@ button:disabled {
     font-size: 13px;
   }
 }
+.shopping-status{
+  margin-top:4px;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+  width:fit-content;
+}
+
+.shopping-status.pending{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.shopping-status.accepted{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.shopping-comment{
+  margin-top:8px;
+  padding:10px 12px;
+  background:#f8fafc;
+  border-radius:12px;
+  color:#475569;
+  font-size:14px;
+  border-left:4px solid #0b63b8;
+}
+
+@media (max-width:600px){
+
+.shopping-status{
+    font-size:13px;
+}
+
+.shopping-comment{
+    font-size:13px;
+}
+
+}
