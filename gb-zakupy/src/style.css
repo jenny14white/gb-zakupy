@@ -608,3 +608,103 @@ button:disabled {
 }
 
 }
+/* ========================= */
+/* CHMURKA KALENDARZA */
+/* ========================= */
+
+.calendar-bubble {
+  position: fixed;
+  left: 18px;
+  top: 20px;
+  z-index: 20;
+
+  width: 190px;
+
+  background: white;
+  border: 4px solid #111827;
+  border-radius: 28px;
+
+  padding: 18px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  text-align: center;
+
+  box-shadow: 8px 8px 0 rgba(0,0,0,.12);
+
+  transition: .25s;
+
+  cursor: pointer;
+}
+
+.calendar-bubble::after {
+  content: "";
+  position: absolute;
+
+  left: 30px;
+  bottom: -22px;
+
+  width: 34px;
+  height: 34px;
+
+  background: white;
+
+  border-left: 4px solid #111827;
+  border-bottom: 4px solid #111827;
+
+  transform: rotate(-45deg);
+}
+
+.calendar-bubble:hover {
+  transform: translateY(-6px) rotate(-2deg);
+  box-shadow: 12px 12px 0 rgba(0,0,0,.18);
+}
+
+.calendar-bubble:active {
+  transform: scale(.97);
+}
+
+.bubble-icon {
+  font-size: 42px;
+}
+
+.calendar-bubble strong {
+  color: #075fb4;
+  font-size: 22px;
+}
+
+.calendar-bubble span {
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.calendar-bubble small {
+  margin-top: 6px;
+  font-weight: 800;
+  color: #075fb4;
+}
+
+/* ========================= */
+/* TELEFON */
+/* ========================= */
+
+@media (max-width:900px){
+
+.calendar-bubble{
+    position:relative;
+    left:auto;
+    top:auto;
+
+    margin:16px auto 18px;
+
+    width:100%;
+    max-width:320px;
+}
+
+.calendar-bubble::after{
+    display:none;
+}
+
+}
