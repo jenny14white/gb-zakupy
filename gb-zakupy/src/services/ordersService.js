@@ -89,6 +89,30 @@ export async function markNotificationAsRead(order) {
   }
 }
 
+/* ================= NOWE ================= */
+
+export async function markOrderAsAccepted(order, adminComment = '') {
+  if (order.status === ORDER_STATUS.ACCEPTED) return;
+
+  try {
+    await updateDoc(doc(db, 'orders', order.id), {
+      status: ORDER_STATUS.ACCEPTED,
+      adminComment: adminComment.trim(),
+      updatedAt: serverTimestamp(),
+    });
+
+    await addLog(
+      `Admin przyjął do realizacji: ${order.product}`,
+      'accepted'
+    );
+  } catch (error) {
+    console.error('Błąd podczas przyjmowania zamówienia:', error);
+    alert(error.message);
+  }
+}
+
+/* ======================================== */
+
 export async function markOrderAsOrdered(order, adminComment) {
   if (order.status === ORDER_STATUS.ORDERED) return;
 
