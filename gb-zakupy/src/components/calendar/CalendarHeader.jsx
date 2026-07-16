@@ -21,24 +21,54 @@ export default function CalendarHeader({
 }) {
   return (
     <header className="calendar-header">
-      <button onClick={onPrev}>
+
+      <button
+        className="calendar-nav-button"
+        onClick={onPrev}
+        aria-label="Poprzedni miesiąc"
+      >
         ←
       </button>
 
-      <h2>
-        {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
-      </h2>
+      <div className="calendar-title">
 
-      <button onClick={onNext}>
-        →
-      </button>
+        <span className="calendar-title-icon">
+          📅
+        </span>
 
-      <button
-        className="today-button"
-        onClick={onToday}
-      >
-        Dzisiaj
-      </button>
+        <div>
+
+          <h2>
+            {MONTHS[currentDate.getMonth()]}
+          </h2>
+
+          <small>
+            {currentDate.getFullYear()}
+          </small>
+
+        </div>
+
+      </div>
+
+      <div className="calendar-actions">
+
+        <button
+          className="today-button"
+          onClick={onToday}
+        >
+          Dzisiaj
+        </button>
+
+        <button
+          className="calendar-nav-button"
+          onClick={onNext}
+          aria-label="Następny miesiąc"
+        >
+          →
+        </button>
+
+      </div>
+
     </header>
   );
 }
