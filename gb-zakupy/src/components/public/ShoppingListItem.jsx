@@ -1,4 +1,8 @@
 import { formatDate } from '../../utils/dateUtils';
+import {
+  ORDER_STATUS,
+  ORDER_STATUS_LABELS,
+} from '../../utils/constants';
 
 export default function ShoppingListItem({ item }) {
   return (
@@ -16,6 +20,22 @@ export default function ShoppingListItem({ item }) {
 
         <span>🕒 {formatDate(item.createdAt)}</span>
       </div>
+
+      <div
+        className={`shopping-status ${
+          item.status === ORDER_STATUS.ACCEPTED
+            ? 'accepted'
+            : 'pending'
+        }`}
+      >
+        {ORDER_STATUS_LABELS[item.status]}
+      </div>
+
+      {item.adminComment && (
+        <div className="shopping-comment">
+          💬 {item.adminComment}
+        </div>
+      )}
     </article>
   );
 }
