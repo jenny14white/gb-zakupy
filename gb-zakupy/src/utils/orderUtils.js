@@ -2,11 +2,17 @@ import { ORDER_STATUS } from './constants';
 import { getMonthYear, sortByDateDesc } from './dateUtils';
 
 export function getPendingOrders(orders) {
-  return orders.filter((order) => order.status === ORDER_STATUS.PENDING);
+  return orders.filter(
+    (order) =>
+      order.status === ORDER_STATUS.PENDING ||
+      order.status === ORDER_STATUS.ACCEPTED
+  );
 }
 
 export function getOrderedOrders(orders) {
-  return orders.filter((order) => order.status === ORDER_STATUS.ORDERED);
+  return orders.filter(
+    (order) => order.status === ORDER_STATUS.ORDERED
+  );
 }
 
 export function groupOrdersByOrderedMonth(orders) {
