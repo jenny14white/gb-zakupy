@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
+  markOrderAsAccepted,
   markOrderAsOrdered,
   deleteOrder,
 } from '../../services/ordersService';
+import { ORDER_STATUS } from '../../utils/constants';
 import { formatDate } from '../../utils/dateUtils';
 import AdminOrderEditForm from './AdminOrderEditForm';
 import ConfirmDialog from '../shared/ConfirmDialog';
@@ -17,8 +19,22 @@ export default function AdminOrderCard({ order, canOrder }) {
     setAdminComment(order.adminComment || '');
   }, [order]);
 
+  async function handleAccept() {
+    if (loading) return;
+
+    try {
+      setLoading(true);
+      await markOrderAsAccepted(order, adminComment);
+    } catch (error) {
+      console.error(error);
+      alert('Nie udało się przyjąć zamówienia.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleMarkAsOrdered() {
-    if (!canOrder || loading) return;
+    if (loading) return;
 
     try {
       setLoading(true);
@@ -54,6 +70,10 @@ export default function AdminOrderCard({ order, canOrder }) {
     );
   }
 
+  const isPending = order.status === ORDER_STATUS.PENDING;
+  const isAccepted = order.status === ORDER_STATUS.ACCEPTED;
+  const isOrdered = order.status === ORDER_STATUS.ORDERED;
+
   return (
     <>
       <ConfirmDialog
@@ -67,7 +87,7 @@ export default function AdminOrderCard({ order, canOrder }) {
         onCancel={() => setShowDeleteDialog(false)}
       />
 
-      <article className={`admin-order ${!canOrder ? 'done' : ''}`}>
+      <article className={`admin-order ${isOrdered ? 'done' : ''}`}>
         <div>
           <strong>{order.product}</strong>
 
@@ -89,19 +109,30 @@ export default function AdminOrderCard({ order, canOrder }) {
         </div>
 
         <div className="status-badge">
-          {canOrder ? 'Oczekuje' : 'Zamówione'}
+          {isPending && '🟡 Oczekuje'}
+          {isAccepted && '🟢 Przyjęto do realizacji'}
+          {isOrdered && '✅ Zamówione'}
         </div>
 
         <textarea
           rows="2"
           value={adminComment}
           onChange={(event) => setAdminComment(event.target.value)}
-          placeholder="Komentarz, np. zamówione w Action..."
-          disabled={!canOrder || loading}
+          placeholder="Komentarz..."
+          disabled={isOrdered || loading}
         />
 
         <div className="admin-actions">
-          {canOrder && (
+          {isPending && (
+            <button
+              onClick={handleAccept}
+              disabled={loading}
+            >
+              {loading ? 'Zapisywanie...' : 'Przyjmij do realizacji'}
+            </button>
+          )}
+
+          {isAccepted && (
             <button
               onClick={handleMarkAsOrdered}
               disabled={loading}
@@ -110,13 +141,15 @@ export default function AdminOrderCard({ order, canOrder }) {
             </button>
           )}
 
-          <button
-            className="gray-button"
-            onClick={() => setIsEditing(true)}
-            disabled={loading}
-          >
-            Edytuj
-          </button>
+          {!isOrdered && (
+            <button
+              className="gray-button"
+              onClick={() => setIsEditing(true)}
+              disabled={loading}
+            >
+              Edytuj
+            </button>
+          )}
 
           <button
             className="delete-button"
