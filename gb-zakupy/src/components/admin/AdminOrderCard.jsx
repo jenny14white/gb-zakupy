@@ -108,11 +108,19 @@ export default function AdminOrderCard({ order, canOrder }) {
           )}
         </div>
 
-        <div className="status-badge">
-          {isPending && '🟡 Oczekuje'}
-          {isAccepted && '🟢 Przyjęto do realizacji'}
-          {isOrdered && '✅ Zamówione'}
-        </div>
+        <div
+  className={`status-badge ${
+    isPending
+      ? 'pending'
+      : isAccepted
+      ? 'accepted'
+      : 'ordered'
+  }`}
+>
+  {isPending && '🟡 Oczekuje'}
+  {isAccepted && '🟢 Przyjęto do realizacji'}
+  {isOrdered && '🔵 Zamówione'}
+</div>
 
         <textarea
           rows="2"
