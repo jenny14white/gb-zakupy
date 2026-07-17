@@ -1,9 +1,11 @@
 import { useState } from 'react';
+
 import PublicShoppingPage from './pages/PublicShoppingPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import CalendarPage from './pages/CalendarPage';
 import AdminEventsPage from './pages/AdminEventsPage';
+
 import { logoutAdmin } from './firebase/auth';
 
 export default function App() {
@@ -26,69 +28,53 @@ export default function App() {
   }
 
   function handleLogin() {
-    setIsAdmin(true);
     sessionStorage.setItem('admin', 'true');
+    setIsAdmin(true);
   }
 
-  // =======================
-  // PANEL ADMINA
-  // =======================
+  switch (page) {
+    case 'admin':
+      return isAdmin ? (
+        <AdminDashboardPage
+          goBack={() => setPage('public')}
+          logout={handleLogout}
+          goToEvents={() => setPage('admin-events')}
+        />
+      ) : (
+        <AdminLoginPage
+          goBack={() => setPage('public')}
+          onLogin={handleLogin}
+        />
+      );
 
-  if (page === 'admin') {
-    return isAdmin ? (
-      <AdminDashboardPage
-        goBack={() => setPage('public')}
-        logout={handleLogout}
-        goToEvents={() => setPage('admin-events')}
-      />
-    ) : (
-      <AdminLoginPage
-        goBack={() => setPage('public')}
-        onLogin={handleLogin}
-      />
-    );
+    case 'admin-events':
+      return isAdmin ? (
+        <AdminEventsPage
+          goBack={() => setPage('admin')}
+        />
+      ) : (
+        <AdminLoginPage
+          goBack={() => setPage('public')}
+          onLogin={() => {
+            handleLogin();
+            setPage('admin-events');
+          }}
+        />
+      );
+
+    case 'calendar':
+      return (
+        <CalendarPage
+          goBack={() => setPage('public')}
+        />
+      );
+
+    default:
+      return (
+        <PublicShoppingPage
+          goToAdmin={() => setPage('admin')}
+          goToCalendar={() => setPage('calendar')}
+        />
+      );
   }
-
-  // =======================
-  // ZARZĄDZANIE WYDARZENIAMI
-  // =======================
-
-  if (page === 'admin-events') {
-    return isAdmin ? (
-      <AdminEventsPage
-        goBack={() => setPage('admin')}
-      />
-    ) : (
-      <AdminLoginPage
-        goBack={() => setPage('public')}
-        onLogin={() => {
-          handleLogin();
-          setPage('admin-events');
-        }}
-      />
-    );
-  }
-
-  // =======================
-  // KALENDARZ
-  // =======================
-
-  if (page === 'calendar') {
-    return (
-      <CalendarPage
-        goBack={() => setPage('public')}
-      />
-    );
-  }
-
-  // =======================
-  // STRONA GŁÓWNA
-  // =======================
-
-  return (
-    <PublicShoppingPage
-      goToAdmin={() => setPage('admin')}
-      goToCalendar={() => setPage('calendar')}
-    />
-  );
 }
