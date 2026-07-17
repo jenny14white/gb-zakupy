@@ -3,6 +3,7 @@ import PublicShoppingPage from './pages/PublicShoppingPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import CalendarPage from './pages/CalendarPage';
+import AdminEventsPage from './pages/AdminEventsPage';
 import { logoutAdmin } from './firebase/auth';
 
 export default function App() {
@@ -33,11 +34,33 @@ export default function App() {
       <AdminDashboardPage
         goBack={() => setPage('public')}
         logout={handleLogout}
+        goToEvents={() => setPage('admin-events')}
       />
     ) : (
       <AdminLoginPage
         goBack={() => setPage('public')}
         onLogin={() => setIsAdmin(true)}
+      />
+    );
+  }
+
+  // =======================
+  // ZARZĄDZANIE WYDARZENIAMI
+  // =======================
+
+  if (page === 'admin-events') {
+    if (!isAdmin) {
+      return (
+        <AdminLoginPage
+          goBack={() => setPage('public')}
+          onLogin={() => setIsAdmin(true)}
+        />
+      );
+    }
+
+    return (
+      <AdminEventsPage
+        goBack={() => setPage('admin')}
       />
     );
   }
