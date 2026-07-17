@@ -1,1 +1,316 @@
+/* =====================================================
+   GB ACCESS PAGE
+===================================================== */
 
+
+.access-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+
+    background:
+
+        radial-gradient(
+            circle at top,
+            rgba(129,195,215,.35),
+            transparent 40%
+        ),
+
+        linear-gradient(
+            135deg,
+            #F8FBFF,
+            #D9DCD6
+        );
+
+}
+
+
+
+.access-card{
+
+    width:100%;
+
+    max-width:420px;
+
+    background:white;
+
+    padding:40px 35px;
+
+    border-radius:32px;
+
+
+    text-align:center;
+
+
+    border:1px solid #81C3D7;
+
+
+    box-shadow:
+
+        0 25px 60px rgba(22,66,91,.15);
+
+
+    animation:
+        accessFade .4s ease;
+
+}
+
+
+
+
+
+.access-logo{
+
+    width:80px;
+
+    height:80px;
+
+
+    margin:0 auto 20px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:50%;
+
+
+    background:#EAF7FB;
+
+
+    font-size:40px;
+
+}
+
+
+
+
+
+.access-card h1{
+
+    margin:0;
+
+
+    font-family:
+        "Bebas Neue",
+        sans-serif;
+
+
+    font-size:48px;
+
+
+    letter-spacing:3px;
+
+
+    color:#16425B;
+
+}
+
+
+
+
+.access-card p{
+
+    color:#3A7CA5;
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+
+.access-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+
+
+
+
+.access-card input{
+
+
+    height:52px;
+
+
+    border-radius:16px;
+
+
+    border:2px solid #81C3D7;
+
+
+    padding:0 18px;
+
+
+    font-size:18px;
+
+
+    text-align:center;
+
+
+    color:#16425B;
+
+
+    outline:none;
+
+
+}
+
+
+
+.access-card input:focus{
+
+    border-color:#2F6690;
+
+}
+
+
+
+
+
+
+
+.access-card button{
+
+
+    height:52px;
+
+
+    border:none;
+
+
+    border-radius:16px;
+
+
+    background:#16425B;
+
+
+    color:white;
+
+
+    font-weight:900;
+
+
+    font-size:16px;
+
+
+    cursor:pointer;
+
+
+    transition:.25s;
+
+}
+
+
+
+
+.access-card button:hover{
+
+    background:#2F6690;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+
+.access-error{
+
+
+    margin-top:18px;
+
+
+    padding:12px;
+
+
+    border-radius:14px;
+
+
+    background:#FFF1F2;
+
+
+    color:#DC2626;
+
+
+    font-weight:800;
+
+
+}
+
+
+
+
+
+
+
+@keyframes accessFade{
+
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+
+
+
+
+
+@media(max-width:480px){
+
+
+    .access-card{
+
+        padding:30px 20px;
+
+        border-radius:24px;
+
+    }
+
+
+
+    .access-card h1{
+
+        font-size:40px;
+
+    }
+
+
+}
