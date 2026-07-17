@@ -31,6 +31,7 @@ export default function CalendarDay({
 
 
 
+
   function getEventClass(type = "") {
 
     switch(type.toLowerCase()){
@@ -84,6 +85,8 @@ export default function CalendarDay({
 
 
 
+
+
   return (
 
     <div
@@ -118,6 +121,7 @@ export default function CalendarDay({
 
 
 
+
       <div className="calendar-day-number">
 
         {day.getDate()}
@@ -129,16 +133,19 @@ export default function CalendarDay({
 
 
 
-
       {events.length > 0 && (
 
 
-        <div className="calendar-day-events">
+        <>
 
 
-          {events
-            .slice(0,2)
-            .map((event,index)=>(
+          {/* DESKTOP - EVENT BUBBLE */}
+
+
+          <div className="calendar-day-events">
+
+
+            {events.slice(0,2).map((event,index)=>(
 
 
               <div
@@ -150,8 +157,7 @@ export default function CalendarDay({
 
 
                 className={
-                  `calendar-event-bubble 
-                  ${getEventClass(event.type)}`
+                  `calendar-event-bubble ${getEventClass(event.type)}`
                 }
 
 
@@ -160,11 +166,13 @@ export default function CalendarDay({
               >
 
 
+
                 <span className="event-emoji">
 
                   {event.emoji || "📅"}
 
                 </span>
+
 
 
 
@@ -185,26 +193,67 @@ export default function CalendarDay({
 
 
 
-          {events.length > 2 && (
+
+            {events.length > 2 && (
 
 
-            <div className="calendar-event-more">
+              <div className="calendar-event-more">
 
-              +{events.length - 2}
+                +{events.length - 2}
 
-
-            </div>
-
-
-          )}
+              </div>
 
 
+            )}
 
-        </div>
+
+
+          </div>
+
+
+
+
+
+
+
+          {/* MOBILE - KROPKI */}
+
+
+          <div className="calendar-mobile-dots">
+
+
+            {events.slice(0,5).map((event,index)=>(
+
+
+              <span
+
+                key={
+                  event.id ??
+                  `${event.title}-dot-${index}`
+                }
+
+
+                className={
+                  `calendar-event-dot ${getEventClass(event.type)}`
+                }
+
+
+                title={event.title}
+
+              />
+
+
+            ))}
+
+
+          </div>
+
+
+
+        </>
 
 
       )}
-
 
 
 
