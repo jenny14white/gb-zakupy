@@ -12,33 +12,38 @@ export default function PublicShoppingPage({
   return (
     <main className="public-page">
 
-      <button
-        className="admin-link"
-        onClick={goToAdmin}
-      >
-        Panel admina
-      </button>
+      <div className="top-actions">
 
-      <button
-        className="calendar-bubble"
-        onClick={goToCalendar}
-      >
-        <span className="bubble-icon">
-          📅
-        </span>
+        <button
+          className="calendar-button"
+          onClick={goToCalendar}
+        >
+          <span className="action-icon">📅</span>
 
-        <div className="bubble-content">
-          <strong>Kalendarz firmowy</strong>
+          <div className="action-content">
+            <strong>Kalendarz firmowy</strong>
+            <span>
+              Sprawdź wydarzenia,
+              urlopy i urodziny
+            </span>
+          </div>
+        </button>
 
-          <span>
-            Sprawdź wydarzenia,
-            <br />
-            urlopy i urodziny.
-          </span>
+        <button
+          className="admin-button-top"
+          onClick={goToAdmin}
+        >
+          <span className="action-icon">👤</span>
 
-          <small>Otwórz →</small>
-        </div>
-      </button>
+          <div className="action-content">
+            <strong>Panel admina</strong>
+            <span>
+              Zarządzaj zamówieniami
+            </span>
+          </div>
+        </button>
+
+      </div>
 
       <section className="paper">
 
