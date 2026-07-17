@@ -14,32 +14,22 @@ export default function EventCard({ event }) {
 
     switch (type.toLowerCase()) {
       case "company":
-        return "🏭 Firma";
-
       case "firma":
         return "🏭 Firma";
 
       case "holiday":
-        return "🎉 Święto";
-
       case "święto":
         return "🎉 Święto";
 
       case "birthday":
-        return "🎂 Urodziny";
-
       case "urodziny":
         return "🎂 Urodziny";
 
       case "meeting":
-        return "👥 Spotkanie";
-
       case "spotkanie":
         return "👥 Spotkanie";
 
       case "vacation":
-        return "🌴 Urlop";
-
       case "urlop":
         return "🌴 Urlop";
 
@@ -48,6 +38,37 @@ export default function EventCard({ event }) {
     }
   }
 
+  function formatDate(value) {
+    if (!value) return "";
+
+    // Firestore Timestamp
+    if (typeof value?.toDate === "function") {
+      return value.toDate().toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
+
+    // JS Date
+    if (value instanceof Date) {
+      return value.toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
+
+    // String
+    if (typeof value === "string") {
+      return value;
+    }
+
+    return "";
+  }
+
+  const formattedDate = formatDate(date);
+
   return (
     <article className="event-card">
       <h3 className="event-title">
@@ -55,10 +76,10 @@ export default function EventCard({ event }) {
         {title}
       </h3>
 
-      {(date || time) && (
+      {(formattedDate || time) && (
         <div className="event-date">
-          {date && <span>{date}</span>}
-          {date && time && <span> • </span>}
+          {formattedDate && <span>{formattedDate}</span>}
+          {formattedDate && time && <span> • </span>}
           {time && <span>{time}</span>}
         </div>
       )}
