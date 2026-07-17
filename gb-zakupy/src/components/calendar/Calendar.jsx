@@ -69,33 +69,49 @@ export default function Calendar() {
     setSelectedDate(day);
   }
 
-  const selectedEvents = getEventsForDate(
-    selectedDate,
-    events
-  );
+  const selectedEvents = useMemo(() => {
+    return getEventsForDate(selectedDate, events);
+  }, [selectedDate, events]);
 
   const calendarDays = useMemo(() => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
     const firstDay = new Date(year, month, 1);
+
     const startOffset = (firstDay.getDay() + 6) % 7;
-    const startDate = new Date(year, month, 1 - startOffset);
+
+    const startDate = new Date(
+      year,
+      month,
+      1 - startOffset
+    );
 
     return Array.from({ length: 42 }, (_, index) => {
       const day = new Date(startDate);
 
       day.setDate(startDate.getDate() + index);
 
+      const jsDay = day.getDay();
+
       return {
         date: day,
+
         events: getEventsForDate(day, events),
-        isCurrentMonth: day.getMonth() === month,
+
+        isCurrentMonth:
+          day.getMonth() === month,
+
         isToday:
-          day.toDateString() === new Date().toDateString(),
+          day.toDateString() ===
+          new Date().toDateString(),
+
         isSelected:
           day.toDateString() ===
           selectedDate.toDateString(),
+
+        isWeekend:
+          jsDay === 0 || jsDay === 6,
       };
     });
   }, [currentDate, selectedDate, events]);
@@ -128,6 +144,7 @@ export default function Calendar() {
             isToday,
             isCurrentMonth,
             isSelected,
+            isWeekend,
           }) => (
             <CalendarDay
               key={date.toISOString()}
@@ -136,6 +153,7 @@ export default function Calendar() {
               isToday={isToday}
               isCurrentMonth={isCurrentMonth}
               isSelected={isSelected}
+              isWeekend={isWeekend}
               onClick={handleDayClick}
             />
           )
@@ -144,12 +162,12 @@ export default function Calendar() {
 
       <aside className="calendar-sidebar">
         <h3 className="selected-day">
-          📅{' '}
-          {selectedDate.toLocaleDateString('pl-PL', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
+          📅{" "}
+          {selectedDate.toLocaleDateString("pl-PL", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
           })}
         </h3>
 
