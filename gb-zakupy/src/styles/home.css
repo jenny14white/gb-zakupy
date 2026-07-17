@@ -1,1 +1,342 @@
+/* =====================================================
+   GB HOME PAGE
+===================================================== */
 
+
+.home-page{
+
+
+    min-height:100vh;
+
+
+    padding:30px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+
+    background:
+
+
+        radial-gradient(
+            circle at top,
+            rgba(129,195,215,.35),
+            transparent 40%
+        ),
+
+
+        linear-gradient(
+            135deg,
+            #F8FBFF,
+            #D9DCD6
+        );
+
+
+}
+
+
+
+
+
+.home-container{
+
+
+    width:100%;
+
+
+    max-width:900px;
+
+
+}
+
+
+
+
+
+
+.home-header{
+
+
+    text-align:center;
+
+
+    margin-bottom:40px;
+
+
+}
+
+
+
+
+.home-logo{
+
+
+    width:90px;
+
+
+    height:90px;
+
+
+    margin:0 auto 20px;
+
+
+    border-radius:50%;
+
+
+    background:#EAF7FB;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    font-size:45px;
+
+
+}
+
+
+
+
+
+.home-header h1{
+
+
+    margin:0;
+
+
+    font-family:
+
+        "Bebas Neue",
+        sans-serif;
+
+
+    font-size:70px;
+
+
+    letter-spacing:5px;
+
+
+    color:#16425B;
+
+
+}
+
+
+
+
+
+.home-header p{
+
+
+    color:#3A7CA5;
+
+
+    font-size:18px;
+
+
+}
+
+
+
+
+
+
+
+
+.home-options{
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+        repeat(2,1fr);
+
+
+    gap:25px;
+
+
+}
+
+
+
+
+
+
+.home-card{
+
+
+    border:none;
+
+
+    background:white;
+
+
+    border-radius:32px;
+
+
+    padding:35px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:20px;
+
+
+    align-items:center;
+
+
+    text-align:center;
+
+
+    cursor:pointer;
+
+
+    border:1px solid #81C3D7;
+
+
+    box-shadow:
+
+
+        0 20px 45px rgba(22,66,91,.12);
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+
+.home-card:hover{
+
+
+    transform:translateY(-8px);
+
+
+    box-shadow:
+
+
+        0 30px 60px rgba(22,66,91,.18);
+
+
+}
+
+
+
+
+
+.home-card-icon{
+
+
+    font-size:65px;
+
+}
+
+
+
+
+
+.home-card h2{
+
+
+    margin:0;
+
+
+    color:#16425B;
+
+
+    font-size:28px;
+
+
+}
+
+
+
+
+
+.home-card p{
+
+
+    color:#3A7CA5;
+
+
+    line-height:1.5;
+
+
+}
+
+
+
+
+
+
+
+@media(max-width:700px){
+
+
+
+    .home-page{
+
+        padding:15px;
+
+    }
+
+
+
+    .home-header h1{
+
+        font-size:50px;
+
+    }
+
+
+
+
+    .home-options{
+
+
+        grid-template-columns:1fr;
+
+
+        gap:15px;
+
+
+    }
+
+
+
+    .home-card{
+
+
+        padding:25px;
+
+
+        border-radius:24px;
+
+    }
+
+
+
+}
