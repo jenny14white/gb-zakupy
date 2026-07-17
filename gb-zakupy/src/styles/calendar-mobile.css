@@ -1,6 +1,7 @@
 /* =====================================================
-   GB KALENDARZ - MOBILE PREMIUM BLUE
-   ===================================================== */
+   GB KALENDARZ - MOBILE PREMIUM INDUSTRIAL
+===================================================== */
+
 
 @media (max-width:767px){
 
@@ -9,17 +10,32 @@
    STRONA
 ================================ */
 
+
 .calendar-page{
+
+    width:100%;
+
+    max-width:520px;
+
+    margin:0 auto;
 
     padding:12px;
 
     min-height:100vh;
 
+
     background:
+
+        radial-gradient(
+            circle at top,
+            rgba(129,195,215,.35),
+            transparent 35%
+        ),
+
         linear-gradient(
             180deg,
-            #E5F0FF,
-            #F8FBFF
+            #F8FBFF,
+            #D9DCD6
         );
 
 }
@@ -27,36 +43,51 @@
 
 
 /* ===============================
-   NAGŁÓWEK
+ HEADER STRONY
 ================================ */
+
 
 .calendar-page-header{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
 
     background:white;
 
+    border-radius:24px;
+
     padding:18px;
 
-    border-radius:22px;
+    border:1px solid #81C3D7;
 
-    border:1px solid #CCE0FF;
 
     box-shadow:
-        0 10px 25px rgba(0,61,153,.10);
+
+        0 12px 30px rgba(22,66,91,.12);
 
 }
 
 
 .calendar-page-header h1{
 
-    font-size:28px;
 
-    color:#003D99;
+    font-size:26px;
+
+    line-height:1.2;
+
+    color:#16425B;
+
+    margin:8px 0;
+
+
+}
+
+
+.calendar-eyebrow{
+
+    font-size:10px;
+
+    letter-spacing:.22em;
+
+    color:#2F6690;
 
 }
 
@@ -64,39 +95,34 @@
 
 .calendar-description{
 
-    font-size:14px;
+    font-size:13px;
+
+    color:#3A7CA5;
 
     line-height:1.5;
 
-    color:#475569;
-
 }
 
-
-.calendar-eyebrow{
-
-    font-size:11px;
-
-}
 
 
 
 /* ===============================
-   POWRÓT
+ POWRÓT
 ================================ */
 
 
 .back-button{
 
+
     width:100%;
 
-    padding:14px;
+    padding:12px;
 
     border:none;
 
-    border-radius:16px;
+    border-radius:14px;
 
-    background:#0052CC;
+    background:#16425B;
 
     color:white;
 
@@ -106,36 +132,88 @@
 
 
 
+
+
 /* ===============================
-   WRAPPER
+ WRAPPER
 ================================ */
 
 
 .calendar-wrapper{
 
-    gap:16px;
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
 
 }
 
 
 
+
+
 /* ===============================
-   HEADER KALENDARZA
+ HEADER MIESIĄCA
 ================================ */
 
 
 .calendar-header{
 
-    border-radius:24px;
 
-    padding:18px;
+    overflow:hidden;
+
+    position:relative;
+
+
+    padding:22px 14px 35px;
+
+
+    border-radius:26px;
+
 
     background:
+
         linear-gradient(
-            145deg,
-            #003D99,
-            #0066FF
+            150deg,
+            #16425B,
+            #3A7CA5
         );
+
+
+    box-shadow:
+
+        0 15px 35px rgba(22,66,91,.25);
+
+
+}
+
+
+
+.calendar-header::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+    left:-20%;
+
+    right:-20%;
+
+    bottom:-80px;
+
+    height:130px;
+
+    background:#F8FBFF;
+
+    border-radius:50%;
+
 
 }
 
@@ -143,26 +221,75 @@
 
 .calendar-header-top{
 
+
+    position:relative;
+
+    z-index:2;
+
+
     display:grid;
 
+
     grid-template-columns:
-        45px
+
+        40px
+
         1fr
-        45px;
+
+        40px;
+
 
     align-items:center;
 
     gap:8px;
 
+
 }
+
 
 
 
 .calendar-title{
 
+
     text-align:center;
 
+
 }
+
+
+
+.calendar-title h2{
+
+
+    margin:0;
+
+
+    font-size:24px;
+
+    color:white;
+
+    font-weight:900;
+
+
+    font-family:
+
+        "Playfair Display",
+        serif;
+
+
+}
+
+
+
+.calendar-title small{
+
+
+    display:none;
+
+
+}
+
 
 
 
@@ -174,97 +301,105 @@
 
 
 
-.calendar-title h2{
-
-    color:white;
-
-    font-size:22px;
-
-    margin:0;
-
-}
-
-
-
-.calendar-title small{
-
-    display:none;
-
-}
-
-
 
 .calendar-nav-button{
 
-    width:42px;
 
-    height:42px;
+    width:40px;
+
+    height:40px;
+
 
     border-radius:14px;
 
-    font-size:20px;
+
+    background:#D9DCD6;
+
+    color:#16425B;
+
+
+    font-size:18px;
+
 
 }
+
+
 
 
 
 .calendar-actions{
 
-    margin-top:14px;
+
+    position:relative;
+
+    z-index:3;
+
+
+    margin-top:12px;
+
+    display:flex;
+
+    justify-content:center;
+
 
 }
+
 
 
 
 .today-button{
 
-    width:100%;
 
-    padding:12px;
+    width:150px;
+
+
+    padding:11px;
+
 
     border-radius:14px;
 
-    background:#E5F0FF;
 
-    color:#003D99;
+    background:white;
+
+
+    color:#16425B;
+
 
     font-weight:900;
+
 
 }
 
 
 
+
 /* ===============================
-   UKŁAD
+ UKŁAD
 ================================ */
 
 
 .calendar-content{
 
+
     display:flex;
 
     flex-direction:column;
 
-    gap:18px;
+    gap:14px;
+
 
 }
 
-
-
-.calendar-main{
-
-    width:100%;
-
-}
 
 
 
 /* ===============================
-   DNI TYGODNIA
+ DNI TYGODNIA
 ================================ */
 
 
 .calendar-weekdays{
+
 
     display:grid;
 
@@ -272,83 +407,121 @@
 
     gap:4px;
 
+
 }
 
 
 
 .calendar-weekday{
 
-    padding:8px 2px;
 
-    font-size:11px;
+    padding:8px 0;
 
-    background:#003D99;
+
+    background:#16425B;
+
 
     color:white;
 
+
+    font-size:10px;
+
+
+    text-align:center;
+
+
     border-radius:10px;
+
+
+    font-weight:900;
+
 
 }
 
 
 
+
+
 /* ===============================
-   SIATKA
+ SIATKA
 ================================ */
 
 
 .calendar-grid{
 
+
     display:grid;
+
 
     grid-template-columns:repeat(7,1fr);
 
+
     gap:5px;
+
 
     padding:8px;
 
-    border-radius:22px;
 
     background:white;
 
-    border:1px solid #CCE0FF;
+
+    border-radius:22px;
+
+
+    border:1px solid #81C3D7;
+
+
+    box-shadow:
+
+        0 12px 25px rgba(22,66,91,.10);
+
 
 }
 
 
 
+
 /* ===============================
-   DNI
+ DZIEŃ
 ================================ */
 
 
 .calendar-day{
 
-    min-height:62px;
+
+    min-height:58px;
+
+
+    aspect-ratio:1;
+
 
     padding:5px;
 
+
+    overflow:hidden;
+
+
     border-radius:12px;
+
 
     background:#F8FBFF;
 
-    border:1px solid #CCE0FF;
+
+    border:
+
+        1px solid #D9DCD6;
+
 
 }
 
-
-
-.calendar-day:hover{
-
-    transform:none;
-
-}
 
 
 
 .calendar-day.today{
 
-    background:#99C2FF;
+
+    background:#81C3D7;
+
 
 }
 
@@ -356,91 +529,120 @@
 
 .calendar-day.selected{
 
-    background:#0066FF;
+
+    background:#16425B;
+
 
 }
+
 
 
 
 .calendar-day-number{
 
-    font-size:14px;
 
-    font-weight:900;
+    font-size:13px;
+
+
+    color:#16425B;
+
 
 }
 
 
 
-.calendar-day.selected .calendar-day-number{
+
+.calendar-day.selected
+.calendar-day-number{
+
 
     color:white;
 
+
 }
+
+
 
 
 
 /* ===============================
-   EVENTY W KAFELKU
+ KROPKI WYDARZEŃ
 ================================ */
 
 
 .calendar-day-event{
 
+
     display:none;
 
+
 }
+
 
 
 .calendar-events{
 
+
+    margin-top:6px;
+
+
     display:flex;
+
 
     gap:3px;
 
-    flex-wrap:wrap;
-
-    margin-top:10px;
 
 }
+
 
 
 
 .calendar-event-dot{
 
-    width:7px;
 
-    height:7px;
+    width:6px;
+
+    height:6px;
 
     border-radius:50%;
 
-    background:#0066FF;
+
+    background:#3A7CA5;
+
 
 }
 
 
 
+
+
 /* ===============================
-   SIDEBAR
+ SIDEBAR
 ================================ */
 
 
 .calendar-sidebar{
 
-    position:static;
 
     width:100%;
 
+
     padding:18px;
+
 
     border-radius:22px;
 
+
     background:white;
 
-    border:1px solid #CCE0FF;
+
+    border:1px solid #81C3D7;
+
 
     box-shadow:
-        0 10px 25px rgba(0,61,153,.10);
+
+        0 12px 30px rgba(22,66,91,.10);
+
 
 }
 
@@ -448,30 +650,42 @@
 
 .selected-day{
 
+
     font-size:18px;
 
-    color:#003D99;
+
+    color:#16425B;
+
 
 }
 
 
 
+
 /* ===============================
-   EVENT CARD
+ EVENT CARD
 ================================ */
 
 
 .event-card{
 
-    padding:15px;
+
+    margin-top:12px;
+
+
+    padding:14px;
+
 
     border-radius:16px;
 
-    margin-top:14px;
 
     background:#F8FBFF;
 
-    border-left:4px solid #0066FF;
+
+    border-left:
+
+        4px solid #3A7CA5;
+
 
 }
 
@@ -479,7 +693,12 @@
 
 .event-title{
 
-    font-size:16px;
+
+    font-size:15px;
+
+
+    color:#16425B;
+
 
 }
 
@@ -487,58 +706,147 @@
 
 .event-description{
 
-    font-size:14px;
+
+    font-size:13px;
+
 
     padding:10px;
+
 
 }
 
 
 
+
 .event-badge{
 
-    font-size:12px;
 
-    padding:5px 12px;
+    font-size:11px;
+
+
+    padding:5px 10px;
+
+
+    background:#81C3D7;
+
+
+    color:#16425B;
+
+
+}
+
+
+
+
+
+/* ===============================
+ LEGENDA
+================================ */
+
+
+.calendar-legend{
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+        repeat(2,1fr);
+
+
+    gap:6px;
+
+
+    padding:8px;
+
+
+}
+
+
+
+
+.legend-item{
+
+
+    padding:8px;
+
+
+    text-align:center;
+
+
+    font-size:11px;
+
+
+    border-radius:12px;
+
+
+    background:white;
+
+
+    color:#16425B;
+
+
+    border:
+
+        1px solid #81C3D7;
+
+
+}
+
+
+
+
 
 }
 
 
 
 /* ===============================
-   LEGENDA
+ BARDZO MAŁE TELEFONY
 ================================ */
 
 
-.calendar-legend{
+@media(max-width:360px){
 
-    display:grid;
 
-    grid-template-columns:1fr 1fr;
+.calendar-page{
 
-    gap:8px;
-
-    padding:10px;
+    padding:8px;
 
 }
 
 
 
-.legend-item{
+.calendar-title h2{
 
-    text-align:center;
+    font-size:20px;
 
-    font-size:12px;
+}
 
-    padding:9px;
 
-    border-radius:14px;
 
-    background:white;
+.calendar-day{
 
-    color:#003D99;
+    min-height:48px;
 
-    border:1px solid #CCE0FF;
+    padding:4px;
+
+}
+
+
+
+.calendar-day-number{
+
+    font-size:11px;
+
+}
+
+
+
+.calendar-weekday{
+
+    font-size:9px;
 
 }
 
