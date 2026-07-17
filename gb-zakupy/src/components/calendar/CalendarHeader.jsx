@@ -1,16 +1,16 @@
 const MONTHS = [
-  'Styczeń',
-  'Luty',
-  'Marzec',
-  'Kwiecień',
-  'Maj',
-  'Czerwiec',
-  'Lipiec',
-  'Sierpień',
-  'Wrzesień',
-  'Październik',
-  'Listopad',
-  'Grudzień',
+  "STYCZEŃ",
+  "LUTY",
+  "MARZEC",
+  "KWIECIEŃ",
+  "MAJ",
+  "CZERWIEC",
+  "LIPIEC",
+  "SIERPIEŃ",
+  "WRZESIEŃ",
+  "PAŹDZIERNIK",
+  "LISTOPAD",
+  "GRUDZIEŃ",
 ];
 
 export default function CalendarHeader({
@@ -21,30 +21,42 @@ export default function CalendarHeader({
 }) {
   return (
     <header className="calendar-header">
-      <button
-        type="button"
-        className="calendar-nav-button"
-        onClick={onPrev}
-        aria-label="Poprzedni miesiąc"
-      >
-        ←
-      </button>
 
-      <div className="calendar-title">
-        <span className="calendar-title-icon" aria-hidden="true">
-          📅
-        </span>
+      <div className="calendar-header-top">
 
-        <div>
-          <h2>
-            {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
-          </h2>
-
-          <small>Wybierz dzień, aby zobaczyć wydarzenia</small>
+        <div className="calendar-year">
+          {currentDate.getFullYear()}
         </div>
+
+        <h1 className="calendar-month">
+          {MONTHS[currentDate.getMonth()]}
+        </h1>
+
+        <p className="calendar-subtitle">
+          Kalendarz wydarzeń GB Zakupy
+        </p>
+
+        <div className="calendar-divider">
+          <span></span>
+          <div className="calendar-divider-icon">
+            ⚙
+          </div>
+          <span></span>
+        </div>
+
       </div>
 
-      <div className="calendar-actions">
+      <div className="calendar-navigation">
+
+        <button
+          type="button"
+          className="calendar-nav-button"
+          onClick={onPrev}
+          aria-label="Poprzedni miesiąc"
+        >
+          ←
+        </button>
+
         <button
           type="button"
           className="today-button"
@@ -61,7 +73,9 @@ export default function CalendarHeader({
         >
           →
         </button>
+
       </div>
+
     </header>
   );
 }
