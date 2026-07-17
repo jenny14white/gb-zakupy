@@ -1,22 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
-import CalendarHeader from './CalendarHeader';
-import CalendarDay from './CalendarDay';
-import EventCard from './EventCard';
+import { useEffect, useMemo, useState } from "react";
+import CalendarHeader from "./CalendarHeader";
+import CalendarDay from "./CalendarDay";
+import EventCard from "./EventCard";
 
-import { listenToEvents } from '../../services/calendarService';
+import { listenToEvents } from "../../services/calendarService";
 import {
   getAllCalendarEvents,
   getEventsForDate,
-} from '../../utils/calendarUtils';
+} from "../../utils/calendarUtils";
 
 const WEEK_DAYS = [
-  'Pon',
-  'Wt',
-  'Śr',
-  'Czw',
-  'Pt',
-  'Sob',
-  'Ndz',
+  "Pon",
+  "Wt",
+  "Śr",
+  "Czw",
+  "Pt",
+  "Sob",
+  "Ndz",
 ];
 
 export default function Calendar() {
@@ -96,20 +96,14 @@ export default function Calendar() {
 
       return {
         date: day,
-
         events: getEventsForDate(day, events),
-
-        isCurrentMonth:
-          day.getMonth() === month,
-
+        isCurrentMonth: day.getMonth() === month,
         isToday:
           day.toDateString() ===
           new Date().toDateString(),
-
         isSelected:
           day.toDateString() ===
           selectedDate.toDateString(),
-
         isWeekend:
           jsDay === 0 || jsDay === 6,
       };
@@ -118,6 +112,7 @@ export default function Calendar() {
 
   return (
     <div className="calendar-wrapper">
+
       <CalendarHeader
         currentDate={currentDate}
         onPrev={previousMonth}
@@ -125,66 +120,122 @@ export default function Calendar() {
         onToday={today}
       />
 
-      <div className="calendar-weekdays">
-        {WEEK_DAYS.map((day) => (
-          <div
-            key={day}
-            className="calendar-weekday"
-          >
-            {day}
+      <main className="calendar-content">
+
+        <section className="calendar-main">
+
+          <div className="calendar-weekdays">
+            {WEEK_DAYS.map((day) => (
+              <div
+                key={day}
+                className="calendar-weekday"
+              >
+                {day}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="calendar-grid">
-        {calendarDays.map(
-          ({
-            date,
-            events,
-            isToday,
-            isCurrentMonth,
-            isSelected,
-            isWeekend,
-          }) => (
-            <CalendarDay
-              key={date.toISOString()}
-              day={date}
-              events={events}
-              isToday={isToday}
-              isCurrentMonth={isCurrentMonth}
-              isSelected={isSelected}
-              isWeekend={isWeekend}
-              onClick={handleDayClick}
-            />
-          )
-        )}
-      </div>
+          <div className="calendar-grid">
+            {calendarDays.map(
+              ({
+                date,
+                events,
+                isToday,
+                isCurrentMonth,
+                isSelected,
+                isWeekend,
+              }) => (
+                <CalendarDay
+                  key={date.toISOString()}
+                  day={date}
+                  events={events}
+                  isToday={isToday}
+                  isCurrentMonth={isCurrentMonth}
+                  isSelected={isSelected}
+                  isWeekend={isWeekend}
+                  onClick={handleDayClick}
+                />
+              )
+            )}
+          </div>
 
-      <aside className="calendar-sidebar">
-        <h3 className="selected-day">
-          📅{" "}
-          {selectedDate.toLocaleDateString("pl-PL", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
-        </h3>
+        </section>
 
-        {selectedEvents.length === 0 ? (
-          <p>Brak wydarzeń.</p>
-        ) : (
-          selectedEvents.map((event) => (
-            <EventCard
-              key={
-                event.id ??
-                `${event.title}-${event.date}`
+        <aside className="calendar-sidebar">
+
+          <h3 className="selected-day">
+            {selectedDate.toLocaleDateString(
+              "pl-PL",
+              {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
               }
-              event={event}
-            />
-          ))
-        )}
-      </aside>
+            )}
+          </h3>
+
+          {selectedEvents.length === 0 ? (
+            <div className="calendar-empty">
+
+              <div className="calendar-empty-icon">
+                📅
+              </div>
+
+              <h4>
+                Brak wydarzeń
+              </h4>
+
+              <p>
+                W wybranym dniu nie ma
+                zaplanowanych wydarzeń.
+              </p>
+
+            </div>
+          ) : (
+            selectedEvents.map((event) => (
+              <EventCard
+                key={
+                  event.id ??
+                  `${event.title}-${event.date}`
+                }
+                event={event}
+              />
+            ))
+          )}
+
+        </aside>
+
+      </main>
+
+      <footer className="calendar-legend">
+
+        <div className="legend-item">
+          👥 Spotkanie
+        </div>
+
+        <div className="legend-item">
+          🎂 Urodziny
+        </div>
+
+        <div className="legend-item">
+          🏭 Firma
+        </div>
+
+        <div className="legend-item">
+          🎉 Święto
+        </div>
+
+        <div className="legend-item">
+          🌴 Urlop
+        </div>
+
+        <div className="legend-item">
+          📝 Inne
+        </div>
+
+      </footer>
+
     </div>
   );
 }
