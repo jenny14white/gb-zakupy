@@ -859,15 +859,39 @@
 
     .calendar-header-top{
 
-        display:grid;
+    display:grid;
 
-        grid-template-columns:48px 1fr 48px;
+    grid-template-columns:50px 1fr 50px;
 
-        align-items:center;
+    align-items:center;
 
-        gap:8px;
+    gap:10px;
 
-    }
+}
+
+.calendar-title{
+
+    justify-content:center;
+
+    text-align:center;
+
+    gap:10px;
+
+}
+
+.calendar-title h2{
+
+    font-size:20px;
+
+}
+
+.calendar-title small{
+
+    display:block;
+
+    font-size:12px;
+
+}
 
     .calendar-title{
 
