@@ -1,79 +1,271 @@
-/* ================================================= */
-/* GB ZAKUPY - KALENDARZ */
-/* ================================================= */
+/* ==========================================================
+   GB ZAKUPY
+   KALENDARZ FIRMOWY
+========================================================== */
 
-.calendar-page{
-    min-height:100vh;
-    background:#f4f7fb;
-    padding:40px;
+:root{
+
+    --primary:#1565c0;
+    --primary-dark:#0d47a1;
+    --primary-light:#eff6ff;
+
+    --surface:#ffffff;
+    --surface-2:#f8fbff;
+
+    --border:#dbeafe;
+
+    --text:#1e293b;
+    --muted:#64748b;
+
+    --radius:24px;
+
+    --shadow-sm:
+        0 8px 18px rgba(15,23,42,.05);
+
+    --shadow:
+        0 18px 45px rgba(30,64,175,.08);
+
 }
 
+/* ==========================================================
+   STRONA
+========================================================== */
+
+.calendar-page{
+
+    min-height:100vh;
+
+    padding:38px;
+
+    background:
+
+        radial-gradient(
+            circle at top left,
+            rgba(96,165,250,.18),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(59,130,246,.10),
+            transparent 40%
+        ),
+
+        linear-gradient(
+            180deg,
+            #edf5ff 0%,
+            #f7fbff 45%,
+            #ffffff 100%
+        );
+
+}
+
+/* ==========================================================
+   NAGŁÓWEK STRONY
+========================================================== */
+
 .calendar-page-header{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-start;
-    gap:24px;
-    margin-bottom:30px;
+
+    gap:28px;
+
     flex-wrap:wrap;
+
+    margin-bottom:34px;
+
 }
 
 .calendar-page-header h1{
+
     margin:0;
-    color:#0b63b8;
-    font-size:36px;
+
+    color:var(--primary);
+
+    font-size:44px;
+
+    font-weight:900;
+
+    letter-spacing:-.02em;
+
 }
 
 .calendar-page-header p{
-    margin-top:8px;
+
+    margin:12px 0 0;
+
+    color:var(--muted);
+
+    font-size:16px;
+
+    line-height:1.8;
+
 }
 
 .calendar-eyebrow{
+
     margin:0 0 8px;
+
+    color:#6b7280;
+
     text-transform:uppercase;
-    letter-spacing:.14em;
-    color:#64748b;
+
+    letter-spacing:.18em;
+
     font-size:12px;
+
     font-weight:900;
+
 }
 
 .calendar-description{
-    max-width:700px;
-    color:#64748b;
-    line-height:1.6;
+
+    max-width:720px;
+
+    color:var(--muted);
+
 }
 
-/* ================================================= */
-/* GŁÓWNY UKŁAD */
-/* ================================================= */
+/* ==========================================================
+   PRZYCISK POWROTU
+========================================================== */
+
+.back-button{
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:14px 22px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef6ff
+        );
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:var(--shadow);
+
+}
+
+.back-button:hover{
+
+    transform:translateY(-2px);
+
+    background:white;
+
+}
+
+.back-button:active{
+
+    transform:scale(.98);
+
+}
+
+.back-button:focus-visible{
+
+    outline:3px solid rgba(21,101,192,.18);
+
+    outline-offset:3px;
+
+}
+/* ==========================================================
+   GŁÓWNY UKŁAD
+========================================================== */
 
 .calendar-wrapper{
 
     display:grid;
 
-    grid-template-columns:minmax(0,1fr) 340px;
+    grid-template-columns:minmax(0,1fr) 360px;
 
     grid-template-areas:
         "header header"
         "weekdays sidebar"
         "grid sidebar";
 
-    gap:24px;
+    gap:28px;
 
     align-items:start;
 
 }
 
+/* ==========================================================
+   PANEL GŁÓWNY
+========================================================== */
+
 .calendar-header{
+
     grid-area:header;
 
-    background:white;
+    position:relative;
 
-    border-radius:24px;
+    overflow:hidden;
 
-    padding:22px 26px;
+    background:
 
-    box-shadow:0 12px 30px rgba(15,23,42,.08);
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f7fbff 100%
+        );
+
+    border-radius:30px;
+
+    border:1px solid var(--border);
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
 }
+
+/* niebieski pasek u góry */
+
+.calendar-header::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:6px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #1565c0,
+            #42a5f5,
+            #90caf9
+        );
+
+}
+
+/* ==========================================================
+   GÓRNA CZĘŚĆ PANELU
+========================================================== */
 
 .calendar-header-top{
 
@@ -83,9 +275,13 @@
 
     justify-content:space-between;
 
-    gap:20px;
+    gap:26px;
 
 }
+
+/* ==========================================================
+   TYTUŁ
+========================================================== */
 
 .calendar-title{
 
@@ -97,15 +293,39 @@
 
     align-items:center;
 
-    gap:18px;
-
-    text-align:center;
+    gap:22px;
 
 }
 
 .calendar-title-icon{
 
-    font-size:44px;
+    width:72px;
+
+    height:72px;
+
+    border-radius:22px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #eff6ff
+        );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:40px;
+
+    box-shadow:
+
+        inset 0 2px 8px rgba(255,255,255,.8),
+
+        0 10px 20px rgba(59,130,246,.12);
 
 }
 
@@ -113,9 +333,13 @@
 
     margin:0;
 
-    font-size:34px;
+    color:var(--primary);
 
-    color:#0b63b8;
+    font-size:40px;
+
+    font-weight:900;
+
+    letter-spacing:-.03em;
 
 }
 
@@ -125,11 +349,69 @@
 
     margin-top:6px;
 
-    color:#64748b;
+    color:var(--muted);
 
-    font-size:14px;
+    font-size:15px;
 
 }
+
+/* ==========================================================
+   PRZYCISKI MIESIĄCA
+========================================================== */
+
+.calendar-nav-button{
+
+    width:58px;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #1565c0,
+            #1976d2
+        );
+
+    color:white;
+
+    font-size:26px;
+
+    font-weight:800;
+
+    transition:.25s;
+
+    box-shadow:
+
+        0 14px 28px rgba(21,101,192,.20);
+
+}
+
+.calendar-nav-button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 20px 38px rgba(21,101,192,.28);
+
+}
+
+.calendar-nav-button:active{
+
+    transform:scale(.96);
+
+}
+
+/* ==========================================================
+   PRZYCISK DZISIAJ
+========================================================== */
 
 .calendar-actions{
 
@@ -137,39 +419,7 @@
 
     justify-content:center;
 
-    margin-top:20px;
-
-}
-
-.calendar-nav-button{
-
-    width:52px;
-
-    height:52px;
-
-    border:none;
-
-    border-radius:16px;
-
-    background:#0b63b8;
-
-    color:white;
-
-    font-size:24px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-.calendar-nav-button:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:0 14px 22px rgba(11,99,184,.22);
+    margin-top:28px;
 
 }
 
@@ -177,30 +427,45 @@
 
     border:none;
 
-    background:#e2e8f0;
+    cursor:pointer;
 
-    color:#0f172a;
+    padding:16px 32px;
 
-    padding:14px 26px;
+    border-radius:18px;
 
-    border-radius:16px;
+    background:
+
+        linear-gradient(
+            135deg,
+            #eef5ff,
+            #dbeafe
+        );
+
+    color:var(--text);
+
+    font-size:15px;
 
     font-weight:800;
 
-    cursor:pointer;
-
     transition:.25s;
+
+    box-shadow:
+
+        inset 0 1px 0 rgba(255,255,255,.9);
 
 }
 
 .today-button:hover{
 
-    background:#cbd5e1;
+    background:white;
+
+    transform:translateY(-2px);
 
 }
-/* ================================================= */
-/* DNI TYGODNIA */
-/* ================================================= */
+
+/* ==========================================================
+   DNI TYGODNIA
+========================================================== */
 
 .calendar-weekdays{
 
@@ -210,31 +475,42 @@
 
     grid-template-columns:repeat(7,1fr);
 
-    gap:10px;
+    gap:12px;
 
 }
 
 .calendar-weekday{
 
-    background:white;
+    padding:16px;
 
-    border-radius:14px;
-
-    padding:12px;
+    border-radius:18px;
 
     text-align:center;
 
-    font-weight:800;
+    font-size:15px;
 
-    color:#64748b;
+    font-weight:900;
 
-    box-shadow:0 6px 18px rgba(15,23,42,.05);
+    letter-spacing:.04em;
+
+    color:#5b6b82;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f4f8ff
+        );
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow-sm);
 
 }
-
-/* ================================================= */
-/* SIATKA KALENDARZA */
-/* ================================================= */
+/* ==========================================================
+   SIATKA KALENDARZA
+========================================================== */
 
 .calendar-grid{
 
@@ -244,71 +520,141 @@
 
     grid-template-columns:repeat(7,1fr);
 
-    gap:10px;
-
-    background:white;
-
-    border-radius:24px;
+    gap:12px;
 
     padding:18px;
 
-    box-shadow:0 12px 30px rgba(15,23,42,.08);
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:30px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
 
 }
 
-/* ================================================= */
-/* POJEDYNCZY DZIEŃ */
-/* ================================================= */
+/* ==========================================================
+   POJEDYNCZY DZIEŃ
+========================================================== */
 
 .calendar-day{
 
-    min-height:125px;
-
-    background:#fbfcff;
-
-    border:2px solid #edf2f7;
-
-    border-radius:18px;
-
-    padding:10px;
+    position:relative;
 
     display:flex;
 
     flex-direction:column;
 
-    transition:.25s;
+    min-height:135px;
+
+    padding:12px;
+
+    border-radius:20px;
+
+    background:white;
+
+    border:1px solid #e6eef8;
 
     cursor:pointer;
 
+    overflow:hidden;
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background .22s ease;
+
 }
+
+/* delikatne światło */
+
+.calendar-day::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.65),
+            transparent 45%
+        );
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   HOVER
+========================================================== */
 
 .calendar-day:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 
-    border-color:#0b63b8;
+    border-color:#8ec5ff;
 
-    box-shadow:0 12px 22px rgba(11,99,184,.14);
+    box-shadow:
+
+        0 18px 30px rgba(59,130,246,.14);
 
 }
+
+/* ==========================================================
+   DZISIAJ
+========================================================== */
 
 .calendar-day.today{
 
-    background:#eff6ff;
+    background:
 
-    border-color:#0b63b8;
+        linear-gradient(
+            180deg,
+            #eff7ff,
+            #ffffff
+        );
+
+    border:2px solid #2f80ed;
+
+    box-shadow:
+
+        0 0 0 4px rgba(47,128,237,.10);
 
 }
+
+/* ==========================================================
+   WYBRANY DZIEŃ
+========================================================== */
 
 .calendar-day.selected{
 
-    background:#dbeafe;
+    background:
 
-    border-color:#075fb4;
+        linear-gradient(
+            180deg,
+            #dceeff,
+            #f6fbff
+        );
 
-    box-shadow:0 0 0 3px rgba(11,99,184,.14);
+    border:2px solid var(--primary);
+
+    box-shadow:
+
+        0 0 0 5px rgba(21,101,192,.12);
 
 }
+
+/* ==========================================================
+   INNY MIESIĄC
+========================================================== */
 
 .calendar-day.other-month{
 
@@ -318,6 +664,26 @@
 
 }
 
+/* ==========================================================
+   WEEKEND
+========================================================== */
+
+.calendar-day.weekend{
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #fffefd,
+            #fff7f5
+        );
+
+}
+
+/* ==========================================================
+   NAGŁÓWEK DNIA
+========================================================== */
+
 .calendar-day-header{
 
     display:flex;
@@ -326,59 +692,79 @@
 
     align-items:center;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
+/* ==========================================================
+   NUMER DNIA
+========================================================== */
+
 .calendar-day-number{
 
-    font-size:20px;
+    font-size:22px;
 
     font-weight:900;
 
-    color:#0f172a;
+    color:var(--text);
+
+    transition:.2s;
 
 }
 
 .calendar-day.today .calendar-day-number{
 
-    color:#075fb4;
+    color:#1565c0;
 
 }
 
 .calendar-day.selected .calendar-day-number{
 
-    color:#075fb4;
+    color:#0d47a1;
 
 }
 
+/* ==========================================================
+   LICZNIK WYDARZEŃ
+========================================================== */
+
 .calendar-events-count{
 
-    min-width:24px;
+    min-width:26px;
 
-    height:24px;
+    height:26px;
 
     border-radius:999px;
 
-    background:#0b63b8;
+    background:
+
+        linear-gradient(
+            135deg,
+            #1976d2,
+            #42a5f5
+        );
 
     color:white;
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
+
+    align-items:center;
 
     font-size:12px;
 
-    font-weight:800;
+    font-weight:900;
+
+    box-shadow:
+
+        0 6px 14px rgba(25,118,210,.22);
 
 }
 
-/* ================================================= */
-/* IKONY WYDARZEŃ */
-/* ================================================= */
+/* ==========================================================
+   IKONY
+========================================================== */
 
 .calendar-icons{
 
@@ -388,25 +774,33 @@
 
     flex-wrap:wrap;
 
-    gap:6px;
+    gap:8px;
 
 }
 
 .calendar-icon{
 
-    width:30px;
+    width:34px;
 
-    height:30px;
+    height:34px;
 
-    border-radius:50%;
+    border-radius:12px;
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
 
-    background:#f1f5f9;
+    align-items:center;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #eef5ff
+        );
+
+    border:1px solid #dbeafe;
 
     font-size:18px;
 
@@ -416,19 +810,17 @@
 
 .calendar-icon:hover{
 
-    transform:scale(1.15);
+    transform:scale(1.12);
 
 }
 
 .calendar-more-events{
 
-    height:30px;
+    height:34px;
 
-    padding:0 10px;
+    padding:0 12px;
 
     border-radius:999px;
-
-    background:#e2e8f0;
 
     display:flex;
 
@@ -436,56 +828,101 @@
 
     justify-content:center;
 
+    background:#edf5ff;
+
+    color:#1565c0;
+
     font-size:12px;
 
     font-weight:800;
 
-    color:#475569;
+    border:1px solid #dbeafe;
 
 }
-/* ================================================= */
-/* SIDEBAR */
-/* ================================================= */
+/* ==========================================================
+   PANEL BOCZNY
+========================================================== */
 
 .calendar-sidebar{
 
     grid-area:sidebar;
 
-    background:white;
+    position:sticky;
 
-    border-radius:24px;
+    top:24px;
 
-    padding:24px;
-
-    box-shadow:0 12px 30px rgba(15,23,42,.08);
+    align-self:start;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:18px;
+    gap:20px;
 
-    position:sticky;
+    padding:26px;
 
-    top:20px;
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f7fbff
+        );
 
-    align-self:start;
+    border-radius:30px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
 
 }
+
+/* niebieski pasek */
+
+.calendar-sidebar::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1565c0,
+            #42a5f5,
+            #90caf9
+        );
+
+}
+
+/* ==========================================================
+   WYBRANY DZIEŃ
+========================================================== */
 
 .selected-day{
 
     margin:0;
 
-    color:#0b63b8;
+    padding-bottom:18px;
 
-    font-size:22px;
+    border-bottom:1px solid #e5eef8;
+
+    color:var(--primary);
+
+    font-size:24px;
+
+    font-weight:900;
 
     line-height:1.4;
-
-    padding-bottom:14px;
-
-    border-bottom:1px solid #e2e8f0;
 
 }
 
@@ -493,43 +930,59 @@
 
     margin:0;
 
-    color:#64748b;
+    color:var(--muted);
 
-    line-height:1.7;
+    line-height:1.8;
+
+    font-size:15px;
 
 }
 
-/* ================================================= */
-/* KARTA WYDARZENIA */
-/* ================================================= */
+/* ==========================================================
+   KARTA WYDARZENIA
+========================================================== */
 
 .event-card{
-
-    background:#f8fafc;
-
-    border-left:5px solid #0b63b8;
-
-    border-radius:18px;
-
-    padding:18px;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:14px;
+    gap:16px;
 
-    transition:.25s;
+    padding:20px;
+
+    background:white;
+
+    border-radius:22px;
+
+    border:1px solid #e4edf8;
+
+    border-left:6px solid var(--primary);
+
+    box-shadow:
+
+        0 10px 24px rgba(15,23,42,.05);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease;
 
 }
 
 .event-card:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 
-    box-shadow:0 14px 28px rgba(15,23,42,.10);
+    box-shadow:
+
+        0 20px 36px rgba(30,64,175,.10);
 
 }
+
+/* ==========================================================
+   GÓRA KARTY
+========================================================== */
 
 .event-header{
 
@@ -537,19 +990,17 @@
 
     align-items:center;
 
-    gap:14px;
+    gap:16px;
 
 }
 
 .event-emoji{
 
-    width:48px;
+    width:54px;
 
-    height:48px;
+    height:54px;
 
-    border-radius:50%;
-
-    background:#eff6ff;
+    border-radius:18px;
 
     display:flex;
 
@@ -557,19 +1008,25 @@
 
     align-items:center;
 
-    font-size:26px;
-
     flex-shrink:0;
+
+    font-size:28px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e8f2ff,
+            #f6fbff
+        );
+
+    border:1px solid var(--border);
 
 }
 
 .event-header-content{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:5px;
+    flex:1;
 
     min-width:0;
 
@@ -579,11 +1036,13 @@
 
     margin:0;
 
-    font-size:17px;
+    color:var(--text);
 
-    font-weight:800;
+    font-size:18px;
 
-    color:#0f172a;
+    font-weight:900;
+
+    line-height:1.4;
 
     word-break:break-word;
 
@@ -591,15 +1050,21 @@
 
 .event-type{
 
-    width:fit-content;
+    display:inline-flex;
 
-    padding:4px 12px;
+    align-items:center;
+
+    justify-content:center;
+
+    margin-top:8px;
+
+    padding:6px 12px;
 
     border-radius:999px;
 
-    background:#dbeafe;
+    background:#e8f2ff;
 
-    color:#075fb4;
+    color:#1565c0;
 
     font-size:12px;
 
@@ -607,39 +1072,56 @@
 
 }
 
+/* ==========================================================
+   INFORMACJE
+========================================================== */
+
 .event-row{
 
     display:flex;
 
-    align-items:center;
+    align-items:flex-start;
 
-    gap:8px;
+    gap:10px;
 
     color:#475569;
 
     font-size:14px;
 
-    line-height:1.5;
-
-}
-
-.event-description{
-
-    background:white;
-
-    border-radius:14px;
-
-    padding:14px;
-
-    color:#334155;
-
     line-height:1.7;
 
 }
 
-/* ================================================= */
-/* KOLORY TYPÓW */
-/* ================================================= */
+.event-row strong{
+
+    color:var(--text);
+
+}
+
+/* ==========================================================
+   OPIS
+========================================================== */
+
+.event-description{
+
+    padding:16px;
+
+    background:#f8fbff;
+
+    border-radius:16px;
+
+    border:1px solid #e6eef8;
+
+    color:#334155;
+
+    line-height:1.8;
+
+    font-size:14px;
+
+}
+/* ==========================================================
+   KOLORY TYPÓW WYDARZEŃ
+========================================================== */
 
 .event-card.spotkanie{
 
@@ -647,9 +1129,21 @@
 
 }
 
+.event-card.spotkanie .event-emoji{
+
+    background:linear-gradient(135deg,#dbeafe,#eff6ff);
+
+}
+
 .event-card.urodziny{
 
     border-left-color:#ec4899;
+
+}
+
+.event-card.urodziny .event-emoji{
+
+    background:linear-gradient(135deg,#fce7f3,#fdf2f8);
 
 }
 
@@ -660,9 +1154,22 @@
 
 }
 
+.event-card.swieto .event-emoji,
+.event-card.holiday .event-emoji{
+
+    background:linear-gradient(135deg,#dcfce7,#f0fdf4);
+
+}
+
 .event-card.urlop{
 
     border-left-color:#f59e0b;
+
+}
+
+.event-card.urlop .event-emoji{
+
+    background:linear-gradient(135deg,#fef3c7,#fffbeb);
 
 }
 
@@ -672,16 +1179,178 @@
 
 }
 
+.event-card.firma .event-emoji{
+
+    background:linear-gradient(135deg,#ede9fe,#f5f3ff);
+
+}
+
 .event-card.inne{
 
     border-left-color:#64748b;
 
 }
-/* ================================================= */
-/* RESPONSIVE */
-/* ================================================= */
 
-@media (max-width:1100px){
+.event-card.inne .event-emoji{
+
+    background:linear-gradient(135deg,#e2e8f0,#f8fafc);
+
+}
+
+/* ==========================================================
+   ANIMACJE
+========================================================== */
+
+.calendar-day,
+.calendar-icon,
+.calendar-nav-button,
+.today-button,
+.back-button,
+.event-card{
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        color .22s ease;
+
+}
+
+.calendar-day:hover .calendar-day-number{
+
+    color:var(--primary);
+
+}
+
+.calendar-day:hover .calendar-icon{
+
+    transform:translateY(-2px);
+
+}
+
+.calendar-day.selected:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.calendar-icon:hover{
+
+    box-shadow:
+
+        0 8px 18px rgba(59,130,246,.18);
+
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.calendar-nav-button:focus-visible,
+.today-button:focus-visible,
+.back-button:focus-visible,
+.calendar-day:focus-visible{
+
+    outline:3px solid rgba(21,101,192,.18);
+
+    outline-offset:4px;
+
+}
+
+/* ==========================================================
+   SCROLLBAR SIDEBAR
+========================================================== */
+
+.calendar-sidebar::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.calendar-sidebar::-webkit-scrollbar-track{
+
+    background:#eef5ff;
+
+    border-radius:999px;
+
+}
+
+.calendar-sidebar::-webkit-scrollbar-thumb{
+
+    background:#b6d6ff;
+
+    border-radius:999px;
+
+}
+
+.calendar-sidebar::-webkit-scrollbar-thumb:hover{
+
+    background:#8abfff;
+
+}
+
+/* ==========================================================
+   DROBNE DETALE
+========================================================== */
+
+.calendar-grid,
+.calendar-header,
+.calendar-sidebar,
+.event-card,
+.calendar-day{
+
+    box-sizing:border-box;
+
+}
+
+.calendar-day,
+.calendar-icon{
+
+    user-select:none;
+
+}
+
+.calendar-day-number{
+
+    letter-spacing:-.02em;
+
+}
+
+.calendar-title h2{
+
+    text-wrap:balance;
+
+}
+
+.event-title{
+
+    text-wrap:pretty;
+
+}
+
+.event-description{
+
+    word-break:break-word;
+
+}
+
+.calendar-weekday{
+
+    user-select:none;
+
+}
+
+.calendar-events-count{
+
+    user-select:none;
+
+}
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:1200px){
 
     .calendar-wrapper{
 
@@ -697,53 +1366,63 @@
 
     .calendar-sidebar{
 
-        position:static;
+        position:relative;
+
+        top:auto;
 
     }
 
 }
 
-@media (max-width:768px){
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width:900px){
 
     .calendar-page{
 
-        padding:18px;
+        padding:22px;
 
     }
 
     .calendar-page-header{
 
-        margin-bottom:20px;
+        gap:18px;
 
-        gap:16px;
+        margin-bottom:24px;
 
     }
 
     .calendar-page-header h1{
 
-        font-size:30px;
+        font-size:34px;
 
     }
 
     .calendar-header{
 
-        padding:18px;
+        padding:22px;
 
     }
 
     .calendar-header-top{
 
-        gap:14px;
+        gap:18px;
 
     }
 
     .calendar-title{
 
-        gap:12px;
+        gap:16px;
 
     }
 
     .calendar-title-icon{
+
+        width:60px;
+
+        height:60px;
 
         font-size:34px;
 
@@ -751,7 +1430,7 @@
 
     .calendar-title h2{
 
-        font-size:26px;
+        font-size:30px;
 
     }
 
@@ -761,13 +1440,125 @@
 
     }
 
-    .calendar-nav-button{
+    .calendar-grid{
 
-        width:46px;
+        gap:8px;
 
-        height:46px;
+        padding:12px;
+
+    }
+
+    .calendar-weekdays{
+
+        gap:8px;
+
+    }
+
+    .calendar-weekday{
+
+        padding:12px;
+
+        font-size:13px;
+
+    }
+
+    .calendar-day{
+
+        min-height:105px;
+
+    }
+
+}
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width:768px){
+
+    .calendar-page{
+
+        padding:16px;
+
+    }
+
+    .calendar-page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .calendar-page-header h1{
+
+        font-size:30px;
+
+    }
+
+    .back-button{
+
+        width:100%;
+
+    }
+
+    .calendar-header{
+
+        padding:18px;
+
+        border-radius:22px;
+
+    }
+
+    .calendar-header-top{
+
+        display:grid;
+
+        grid-template-columns:52px 1fr 52px;
+
+        gap:10px;
+
+        align-items:center;
+
+    }
+
+    .calendar-title{
+
+        gap:10px;
+
+        flex-direction:column;
+
+    }
+
+    .calendar-title-icon{
+
+        width:52px;
+
+        height:52px;
+
+        font-size:28px;
+
+        border-radius:16px;
+
+    }
+
+    .calendar-title h2{
 
         font-size:22px;
+
+        text-align:center;
+
+    }
+
+    .calendar-title small{
+
+        display:none;
+
+    }
+
+    .calendar-actions{
+
+        margin-top:18px;
 
     }
 
@@ -777,67 +1568,145 @@
 
     }
 
-    .calendar-grid{
+    .calendar-weekdays{
 
-        gap:6px;
-
-        padding:10px;
+        gap:4px;
 
     }
 
-    .calendar-weekdays{
+    .calendar-weekday{
 
-        gap:6px;
+        padding:8px;
+
+        font-size:11px;
+
+        border-radius:12px;
+
+    }
+
+    .calendar-grid{
+
+        gap:5px;
+
+        padding:8px;
+
+        border-radius:20px;
 
     }
 
     .calendar-day{
 
-        min-height:90px;
+        min-height:82px;
 
-        padding:7px;
+        padding:6px;
+
+        border-radius:14px;
+
+    }
+
+    .calendar-day-header{
+
+        margin-bottom:6px;
 
     }
 
     .calendar-day-number{
 
-        font-size:16px;
+        font-size:15px;
 
     }
 
     .calendar-events-count{
 
-        width:20px;
+        min-width:18px;
 
-        height:20px;
+        width:18px;
 
-        min-width:20px;
+        height:18px;
 
-        font-size:10px;
+        font-size:9px;
+
+    }
+
+    .calendar-icons{
+
+        gap:4px;
 
     }
 
     .calendar-icon{
 
-        width:22px;
+        width:18px;
 
-        height:22px;
+        height:18px;
 
-        font-size:14px;
+        border-radius:6px;
+
+        font-size:11px;
 
     }
 
     .calendar-more-events{
 
-        height:22px;
+        height:18px;
 
-        font-size:10px;
+        padding:0 5px;
+
+        font-size:8px;
+
+    }
+
+    .calendar-sidebar{
+
+        padding:18px;
+
+        border-radius:20px;
+
+    }
+
+    .selected-day{
+
+        font-size:20px;
+
+    }
+
+    .event-card{
+
+        padding:16px;
+
+    }
+
+    .event-header{
+
+        gap:12px;
+
+    }
+
+    .event-emoji{
+
+        width:42px;
+
+        height:42px;
+
+        font-size:22px;
+
+        border-radius:14px;
+
+    }
+
+    .event-title{
+
+        font-size:16px;
 
     }
 
 }
 
-@media (max-width:560px){
+/* ==========================================================
+   MAŁE TELEFONY
+========================================================== */
+
+@media (max-width:480px){
 
     .calendar-page{
 
@@ -853,75 +1722,7 @@
 
     .calendar-header{
 
-        padding:16px;
-
-    }
-
-    .calendar-header-top{
-
-    display:grid;
-
-    grid-template-columns:50px 1fr 50px;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-.calendar-title{
-
-    justify-content:center;
-
-    text-align:center;
-
-    gap:10px;
-
-}
-
-.calendar-title h2{
-
-    font-size:20px;
-
-}
-
-.calendar-title small{
-
-    display:block;
-
-    font-size:12px;
-
-}
-
-    .calendar-title{
-
-        gap:8px;
-
-    }
-
-    .calendar-title-icon{
-
-        font-size:28px;
-
-    }
-
-    .calendar-title h2{
-
-        font-size:22px;
-
-    }
-
-    .calendar-title small{
-
-        display:none;
-
-    }
-
-    .calendar-weekday{
-
-        padding:6px;
-
-        font-size:11px;
+        padding:14px;
 
     }
 
@@ -937,15 +1738,7 @@
 
         min-height:64px;
 
-        padding:5px;
-
-        border-radius:12px;
-
-    }
-
-    .calendar-day-header{
-
-        margin-bottom:6px;
+        padding:4px;
 
     }
 
@@ -959,17 +1752,11 @@
 
         width:16px;
 
-        height:16px;
-
         min-width:16px;
 
+        height:16px;
+
         font-size:8px;
-
-    }
-
-    .calendar-icons{
-
-        gap:3px;
 
     }
 
@@ -979,7 +1766,7 @@
 
         height:16px;
 
-        font-size:10px;
+        font-size:9px;
 
     }
 
@@ -987,15 +1774,13 @@
 
         height:16px;
 
-        padding:0 4px;
-
-        font-size:8px;
+        font-size:7px;
 
     }
 
     .calendar-sidebar{
 
-        padding:16px;
+        padding:14px;
 
     }
 
@@ -1005,68 +1790,12 @@
 
     }
 
-    .event-card{
-
-        padding:14px;
-
-    }
-
-    .event-emoji{
-
-        width:40px;
-
-        height:40px;
-
-        font-size:22px;
-
-    }
-
-    .event-title{
-
-        font-size:15px;
-
-    }
-
     .event-description{
+
+        font-size:13px;
 
         padding:12px;
 
-        font-size:14px;
-
     }
-
-}
-
-/* ================================================= */
-/* DROBNE DETALE */
-/* ================================================= */
-
-.calendar-nav-button,
-.today-button,
-.calendar-day,
-.calendar-icon,
-.event-card{
-
-    transition:all .25s ease;
-
-}
-
-.calendar-nav-button:focus,
-.today-button:focus,
-.calendar-day:focus{
-
-    outline:3px solid rgba(11,99,184,.25);
-
-    outline-offset:3px;
-
-}
-
-.calendar-day,
-.calendar-grid,
-.calendar-sidebar,
-.calendar-header,
-.event-card{
-
-    box-sizing:border-box;
 
 }
