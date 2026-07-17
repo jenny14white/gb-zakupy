@@ -19,8 +19,6 @@ export default function PublicShoppingPage({
         Panel admina
       </button>
 
-      {/* ===== CHMURKA ===== */}
-
       <button
         className="calendar-bubble"
         onClick={goToCalendar}
@@ -29,24 +27,18 @@ export default function PublicShoppingPage({
           📅
         </span>
 
-        <strong>
-          Hej!
-        </strong>
+        <div className="bubble-content">
+          <strong>Kalendarz firmowy</strong>
 
-        <span>
-          Sprawdź
-          <br />
-          kalendarz
-          <br />
-          firmowy!
-        </span>
+          <span>
+            Sprawdź wydarzenia,
+            <br />
+            urlopy i urodziny.
+          </span>
 
-        <small>
-          Kliknij →
-        </small>
+          <small>Otwórz →</small>
+        </div>
       </button>
-
-      {/* =================== */}
 
       <section className="paper">
 
