@@ -1799,3 +1799,18 @@
     }
 
 }
+.calendar-day-dot{
+
+    width:8px;
+
+    height:8px;
+
+    margin-bottom:10px;
+
+    border-radius:50%;
+
+    background:#1565c0;
+
+    box-shadow:0 0 10px rgba(21,101,192,.35);
+
+}
