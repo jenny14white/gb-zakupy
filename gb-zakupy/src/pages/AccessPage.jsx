@@ -1,16 +1,15 @@
 import { useState } from "react";
 
-import { checkAccessCode } from "../services/accessService";
-
 
 export default function AccessPage({
-  onSuccess
+  onSuccess,
 }) {
 
 
-  const [code,setCode] = useState("");
+  const [code, setCode] = useState("");
 
-  const [error,setError] = useState("");
+  const [error, setError] = useState("");
+
 
 
 
@@ -19,13 +18,16 @@ export default function AccessPage({
     e.preventDefault();
 
 
-    if(checkAccessCode(code)){
+    const validCodes = [
+      "gb520",
+      "GB520",
+      "Gb520",
+      "gB520",
+    ];
 
 
-      sessionStorage.setItem(
-        "gb_access",
-        "true"
-      );
+
+    if(validCodes.includes(code.trim())){
 
 
       onSuccess();
@@ -41,6 +43,7 @@ export default function AccessPage({
 
     }
 
+
   }
 
 
@@ -55,25 +58,51 @@ export default function AccessPage({
       <section className="access-card">
 
 
+
         <div className="access-logo">
-          📦
+
+          GB
+
         </div>
 
 
+
+
+
         <h1>
-          GB Zakupy
+
+          GB Sp. z o.o.
+
         </h1>
 
 
-        <p>
-          Dostęp firmowy
+
+        <p className="access-subtitle">
+
+          Portal firmowy
+
         </p>
+
+
+
 
 
 
         <form
           onSubmit={handleSubmit}
+          className="access-form"
         >
+
+
+
+          <label>
+
+            Kod dostępu
+
+
+          </label>
+
+
 
 
           <input
@@ -86,9 +115,11 @@ export default function AccessPage({
               setCode(e.target.value)
             }
 
-            placeholder="Kod dostępu"
+            placeholder="Wpisz kod"
 
           />
+
+
 
 
 
@@ -100,20 +131,24 @@ export default function AccessPage({
 
 
 
+
         </form>
+
 
 
 
 
         {error && (
 
-          <div className="access-error">
+          <p className="access-error">
 
             {error}
 
-          </div>
+          </p>
 
         )}
+
+
 
 
 
