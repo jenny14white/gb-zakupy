@@ -321,13 +321,10 @@
 }
 
 .shopping-form label{
-
     display:grid;
-
-    gap:8px;
-
+    gap:6px;
     font-weight:700;
-
+    font-size:15px;
 }
 
 .shopping-form input,
@@ -336,15 +333,15 @@
 
     width:100%;
 
-    padding:15px;
+    padding:12px;
 
-    border-radius:14px;
+    border-radius:12px;
 
     border:1px solid #d4d9e2;
 
     background:white;
 
-    font-size:16px;
+    font-size:15px;
 
 }
 
@@ -352,7 +349,7 @@
 
     resize:vertical;
 
-    min-height:110px;
+    min-height:80px;
 
 }
 
