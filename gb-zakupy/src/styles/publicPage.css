@@ -920,7 +920,33 @@
     letter-spacing:.2px;
 
 }
+/* ===============================
+   ROZWIJANY OPIS NA TELEFONACH
+================================ */
 
-/* =======================================================
-   KONIEC PLIKU
-======================================================= */
+.intro-mobile summary{
+    cursor:pointer;
+    font-weight:700;
+    color:#0b4f99;
+    list-style:none;
+    font-size:17px;
+    outline:none;
+}
+
+.intro-mobile summary::-webkit-details-marker{
+    display:none;
+}
+
+.intro-mobile summary::after{
+    content:"▼";
+    float:right;
+    transition:.2s;
+}
+
+.intro-mobile[open] summary::after{
+    content:"▲";
+}
+
+.intro-mobile p:first-of-type{
+    margin-top:18px;
+}
