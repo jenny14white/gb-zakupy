@@ -668,3 +668,81 @@
 }
 
 }
+/* ============================= */
+/* POPRAWKI UKŁADU */
+/* ============================= */
+
+.calendar-wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-areas:
+        "header header"
+        "weekdays sidebar"
+        "grid sidebar";
+    gap: 20px;
+    align-items: start;
+}
+
+.calendar-header {
+    grid-area: header;
+}
+
+.calendar-weekdays {
+    grid-area: weekdays;
+}
+
+.calendar-grid {
+    grid-area: grid;
+}
+
+.calendar-sidebar {
+    grid-area: sidebar;
+    align-self: start;
+}
+
+.calendar-page-header h1 {
+    margin: 0;
+    font-size: 34px;
+    color: #0b63b8;
+}
+
+.calendar-page-header p {
+    margin: 6px 0 0;
+}
+
+.calendar-grid,
+.calendar-weekdays {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.calendar-day {
+    box-sizing: border-box;
+}
+
+.calendar-nav-button,
+.today-button {
+    cursor: pointer;
+}
+
+.calendar-nav-button:focus,
+.today-button:focus,
+.calendar-day:focus {
+    outline: 3px solid rgba(11, 99, 184, 0.3);
+    outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+    .calendar-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "weekdays"
+            "grid"
+            "sidebar";
+    }
+
+    .calendar-sidebar {
+        position: static;
+    }
+}
