@@ -532,3 +532,21 @@
   }
 
 }
+.bubble-content{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  flex:1;
+}
+
+.bubble-content strong{
+  margin-bottom:4px;
+}
+
+.bubble-content span{
+  text-align:left;
+}
+
+.bubble-content small{
+  margin-top:8px;
+}
