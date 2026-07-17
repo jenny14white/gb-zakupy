@@ -6,14 +6,27 @@ export default function CalendarDay({
   events,
   onClick,
 }) {
+  const className = [
+    'calendar-day',
+    !isCurrentMonth && 'other-month',
+    isToday && 'today',
+    isSelected && 'selected',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div
-      className={`calendar-day
-        ${isCurrentMonth ? '' : 'other-month'}
-        ${isToday ? 'today' : ''}
-        ${isSelected ? 'selected' : ''}
-      `}
+      className={className}
+      role="button"
+      tabIndex={0}
       onClick={() => onClick(day)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(day);
+        }
+      }}
     >
       <div className="calendar-day-header">
         <span className="calendar-day-number">
@@ -28,20 +41,20 @@ export default function CalendarDay({
       </div>
 
       <div className="calendar-icons">
-        {events.slice(0, 3).map((event, index) => (
+        {events.slice(0, 4).map((event, index) => (
           <span
             key={event.id ?? `${event.title}-${index}`}
-            title={event.title}
             className="calendar-icon"
+            title={event.title}
           >
-            {event.emoji}
+            {event.emoji || '📅'}
           </span>
         ))}
 
-        {events.length > 3 && (
-          <small className="calendar-more-events">
-            +{events.length - 3}
-          </small>
+        {events.length > 4 && (
+          <span className="calendar-more-events">
+            +{events.length - 4}
+          </span>
         )}
       </div>
     </div>
