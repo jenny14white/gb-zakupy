@@ -9,8 +9,13 @@ import AdminNotifications from '../components/admin/AdminNotifications';
 import AdminCompletedList from '../components/admin/AdminCompletedList';
 import AdminEventLog from '../components/admin/AdminEventLog';
 
-export default function AdminDashboardPage({ goBack, logout }) {
+export default function AdminDashboardPage({
+  goBack,
+  logout,
+  goToEvents,
+}) {
   const [activeTab, setActiveTab] = useState('lista');
+
   const { orders, loading } = useAdminOrders();
   const logs = useLogs();
 
@@ -25,7 +30,9 @@ export default function AdminDashboardPage({ goBack, logout }) {
   );
 
   const unreadNotifications = useMemo(() => {
-    return pendingOrders.filter((order) => !order.notificationRead);
+    return pendingOrders.filter(
+      (order) => !order.notificationRead
+    );
   }, [pendingOrders]);
 
   return (
@@ -35,13 +42,19 @@ export default function AdminDashboardPage({ goBack, logout }) {
         setActiveTab={setActiveTab}
         pendingCount={pendingOrders.length}
         orderedCount={orderedOrders.length}
-        unreadNotificationsCount={unreadNotifications.length}
+        unreadNotificationsCount={
+          unreadNotifications.length
+        }
         goBack={goBack}
         logout={logout}
+        goToEvents={goToEvents}
       />
 
       <section className="dashboard">
-        <p className="dashboard-eyebrow">GB Zakupy</p>
+        <p className="dashboard-eyebrow">
+          GB Zakupy
+        </p>
+
         <h1>Dashboard</h1>
 
         <AdminStats
@@ -57,20 +70,29 @@ export default function AdminDashboardPage({ goBack, logout }) {
         )}
 
         {!loading && activeTab === 'lista' && (
-          <AdminShoppingList orders={pendingOrders} />
+          <AdminShoppingList
+            orders={pendingOrders}
+          />
         )}
 
-        {!loading && activeTab === 'powiadomienia' && (
-          <AdminNotifications orders={pendingOrders} />
-        )}
+        {!loading &&
+          activeTab === 'powiadomienia' && (
+            <AdminNotifications
+              orders={pendingOrders}
+            />
+          )}
 
-        {!loading && activeTab === 'zrealizowane' && (
-          <AdminCompletedList orders={orderedOrders} />
-        )}
+        {!loading &&
+          activeTab === 'zrealizowane' && (
+            <AdminCompletedList
+              orders={orderedOrders}
+            />
+          )}
 
-        {!loading && activeTab === 'dziennik' && (
-          <AdminEventLog logs={logs} />
-        )}
+        {!loading &&
+          activeTab === 'dziennik' && (
+            <AdminEventLog logs={logs} />
+          )}
       </section>
     </main>
   );
