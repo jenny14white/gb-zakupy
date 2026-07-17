@@ -1,88 +1,42 @@
 /* =====================================================
-   GB KALENDARZ - WSPÓLNE STYLE PREMIUM INDUSTRIAL
+   DNI SPOZA AKTUALNEGO MIESIĄCA
 ===================================================== */
 
 
-/* ===============================
-   PALETA
-================================ */
+.calendar-day.outside{
 
-:root{
+    opacity:.35;
 
-    --yale-blue:#16425B;
+    background:#F8FAFC;
 
-    --baltic-blue:#2F6690;
-
-    --steel-blue:#3A7CA5;
-
-    --sky-blue:#81C3D7;
-
-    --dust-grey:#D9DCD6;
-
-
-    --surface:#ffffff;
-
-    --background:#F8FBFF;
-
-
-    --text:#16425B;
-
-    --muted:#64748B;
-
-    --border:#81C3D7;
-
-
-    --radius-sm:12px;
-    --radius-md:18px;
-    --radius-lg:26px;
-    --radius-xl:34px;
-
-
-    --shadow-soft:
-        0 15px 35px rgba(22,66,91,.12);
-
-
-    --shadow-hover:
-        0 22px 45px rgba(22,66,91,.18);
+    border-color:#E2E8F0;
 
 }
 
 
 
-/* ===============================
- RESET
-================================ */
+.calendar-day.outside .calendar-day-number{
 
-
-.calendar-page *,
-.calendar-wrapper *,
-.calendar-page *::before,
-.calendar-page *::after{
-
-    box-sizing:border-box;
+    color:#94A3B8;
 
 }
 
 
 
-button{
+.calendar-day.outside .calendar-day-event,
+.calendar-day.outside .calendar-day-events{
 
-    font-family:inherit;
+    opacity:.45;
 
 }
 
 
 
-/* ===============================
- WRAPPER
-================================ */
+.calendar-day.outside:hover{
 
+    transform:none;
 
-.calendar-wrapper{
-
-    width:100%;
-
-    color:var(--text);
+    background:#F8FAFC;
 
 }
 
@@ -90,611 +44,151 @@ button{
 
 
 
-/* ===============================
- TYPOGRAFIA
-================================ */
+/* =====================================================
+   WEEKENDY - DELIKATNY CZERWONY
+===================================================== */
 
 
-.calendar-page h1,
-.event-title{
+.calendar-day.weekend{
 
+    background:#FFF5F5;
 
-    letter-spacing:-.03em;
-
-}
-
-
-
-.calendar-description{
-
-    color:var(--muted);
-
-    line-height:1.7;
+    border-color:#FECACA;
 
 }
 
 
 
+.calendar-day.weekend .calendar-day-number{
 
-/* ===============================
- NOWY HEADER TYPO
-================================ */
-
-
-.calendar-year{
-
-
-    font-family:
-
-        "Playfair Display",
-        serif;
-
-
-    font-size:30px;
-
-
-    letter-spacing:8px;
-
-
-    color:#D9DCD6;
-
+    color:#DC2626;
 
 }
 
 
 
 
-.calendar-month{
+/* dzisiejszy dzień ma priorytet */
 
-
-    margin:0;
-
-
-    font-family:
-
-        "Bebas Neue",
-        sans-serif;
-
-
-    font-size:72px;
-
-
-    letter-spacing:5px;
-
-
-    line-height:1;
-
-
-    color:white;
-
-
-}
-
-
-
-.calendar-divider{
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    gap:15px;
-
-
-    margin-top:24px;
-
-
-    width:260px;
-
-
-}
-
-
-
-.calendar-divider span{
-
-
-    height:2px;
-
-
-    flex:1;
-
+.calendar-day.today{
 
     background:#81C3D7;
 
+    border-color:#2F6690;
 
 }
 
 
 
-.calendar-divider-icon{
-
-
-    width:42px;
-
-
-    height:42px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    border-radius:50%;
-
-
-    background:white;
-
+.calendar-day.today .calendar-day-number{
 
     color:#16425B;
 
+}
 
-    font-size:20px;
 
+
+/* zaznaczony dzień ma najwyższy priorytet */
+
+.calendar-day.selected{
+
+    background:#16425B;
+
+    color:white;
+
+}
+
+
+
+.calendar-day.selected .calendar-day-number{
+
+    color:white;
+
+}
+
+
+
+
+/* =====================================================
+   EVENTY W DNIACH - PREMIUM BUBBLE DESKTOP
+===================================================== */
+
+
+.calendar-day-event{
+
+    margin-top:12px;
+
+    padding:7px 10px;
+
+    background:white;
+
+    border-radius:12px;
+
+    border-left:4px solid var(--steel-blue);
+
+    color:var(--yale-blue);
+
+    font-size:12px;
+
+    font-weight:900;
 
     box-shadow:
 
-        0 8px 20px rgba(0,0,0,.15);
-
-}
-
-
-
-
-.calendar-navigation{
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    gap:12px;
-
-
-}
-
-
-
-
-/* ===============================
- PRZYCISKI
-================================ */
-
-
-.calendar-nav-button,
-.today-button,
-.back-button{
-
-
-    cursor:pointer;
-
-
-    transition:
-
-        transform .25s ease,
-
-        box-shadow .25s ease,
-
-        background .25s ease;
-
-
-}
-
-
-
-.calendar-nav-button:hover,
-.today-button:hover,
-.back-button:hover{
-
-    transform:translateY(-2px);
-
-}
-
-
-
-.calendar-nav-button:active,
-.today-button:active,
-.back-button:active{
-
-    transform:scale(.96);
-
-}
-
-
-
-
-
-/* ===============================
- EVENTY
-================================ */
-
-
-.event-card{
-
-
-    transition:
-
-        transform .25s ease,
-
-        box-shadow .25s ease;
-
-
-}
-
-
-
-.event-card:hover{
-
-
-    transform:translateY(-3px);
-
-
-    box-shadow:
-
-        0 16px 35px rgba(22,66,91,.15);
-
-
-}
-
-
-
-.event-date{
-
-
-    color:var(--muted);
-
-    font-size:14px;
-
-    margin-top:8px;
-
-
-}
-
-
-
-.event-description{
-
-
-    line-height:1.65;
-
-}
-
-
-
-
-.event-badge{
+        0 5px 15px rgba(22,66,91,.08);
 
 
     white-space:nowrap;
 
-    font-weight:800;
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
 }
 
 
 
 
+.calendar-day.outside .calendar-day-event{
 
-/* ===============================
- EMPTY STATE
-================================ */
-
-
-.calendar-empty{
-
-
-    text-align:center;
-
-
-    padding:28px 16px;
-
+    opacity:.4;
 
 }
 
 
 
-.calendar-empty-icon{
+/* kolory eventów */
 
 
-    width:70px;
+.calendar-day-event.company{
 
-    height:70px;
-
-
-    margin:0 auto 15px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    border-radius:50%;
-
-
-    background:#EAF7FB;
-
-
-    font-size:38px;
-
+    border-color:#3A7CA5;
 
 }
 
 
+.calendar-day-event.holiday{
 
-.calendar-empty h4{
-
-
-    margin:0 0 10px;
-
-
-    color:var(--yale-blue);
-
-
-    font-weight:900;
-
+    border-color:#4CAF50;
 
 }
 
 
+.calendar-day-event.birthday{
 
-.calendar-empty p{
-
-
-    color:var(--muted);
-
-
-    line-height:1.6;
-
+    border-color:#D85A8A;
 
 }
 
 
+.calendar-day-event.meeting{
 
-
-
-/* ===============================
- KROPKI EVENTÓW
-================================ */
-
-
-.calendar-event-dot{
-
-    display:block;
-
-    flex-shrink:0;
+    border-color:#7157B8;
 
 }
 
 
+.calendar-day-event.vacation{
 
-.calendar-event-dot.company{
-
-    background:var(--steel-blue);
-
-}
-
-
-
-.calendar-event-dot.holiday{
-
-    background:#4CAF50;
-
-}
-
-
-
-.calendar-event-dot.birthday{
-
-    background:#D85A8A;
-
-}
-
-
-
-.calendar-event-dot.meeting{
-
-    background:#7157B8;
-
-}
-
-
-
-.calendar-event-dot.vacation{
-
-    background:#D99A32;
-
-}
-
-
-
-
-
-
-/* ===============================
- ANIMACJE
-================================ */
-
-
-.calendar-header,
-.calendar-grid,
-.calendar-sidebar,
-.calendar-day,
-.event-card{
-
-
-    animation:
-
-        calendarFade .4s ease;
-
-
-}
-
-
-
-@keyframes calendarFade{
-
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(8px);
-
-    }
-
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-
-
-
-
-
-/* ===============================
- FOCUS
-================================ */
-
-
-.calendar-day:focus-visible,
-button:focus-visible{
-
-
-    outline:
-
-        3px solid rgba(129,195,215,.7);
-
-
-    outline-offset:3px;
-
-
-}
-
-
-
-
-
-
-/* ===============================
- SCROLLBAR
-================================ */
-
-
-.calendar-sidebar::-webkit-scrollbar{
-
-    width:8px;
-
-}
-
-
-
-.calendar-sidebar::-webkit-scrollbar-thumb{
-
-
-    background:var(--sky-blue);
-
-
-    border-radius:20px;
-
-
-}
-
-
-
-.calendar-sidebar::-webkit-scrollbar-track{
-
-
-    background:var(--dust-grey);
-
-
-}
-
-
-
-
-
-/* ===============================
- TECHNICZNE TŁO
-================================ */
-
-
-.calendar-page{
-
-
-    position:relative;
-
-
-}
-
-
-
-
-.calendar-page::before{
-
-
-    content:"";
-
-
-    position:fixed;
-
-
-    right:30px;
-
-    bottom:40px;
-
-
-    width:140px;
-
-    height:140px;
-
-
-    opacity:.07;
-
-
-    background:
-
-        radial-gradient(
-
-            circle,
-
-            var(--steel-blue) 2px,
-
-            transparent 3px
-
-        );
-
-
-    background-size:18px 18px;
-
-
-    pointer-events:none;
-
+    border-color:#D99A32;
 
 }
