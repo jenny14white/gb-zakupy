@@ -8,6 +8,7 @@ export default function AdminSidebar({
   unreadNotificationsCount,
   goBack,
   logout,
+  goToEvents,
 }) {
   return (
     <aside className="sidebar">
@@ -21,7 +22,7 @@ export default function AdminSidebar({
           className={activeTab === 'lista' ? 'active' : ''}
           onClick={() => setActiveTab('lista')}
         >
-          Lista zakupowa
+          🛒 Lista zakupowa
           {pendingCount > 0 && <span>{pendingCount}</span>}
         </button>
 
@@ -29,7 +30,7 @@ export default function AdminSidebar({
           className={activeTab === 'powiadomienia' ? 'active' : ''}
           onClick={() => setActiveTab('powiadomienia')}
         >
-          Powiadomienia
+          🔔 Powiadomienia
           {unreadNotificationsCount > 0 && (
             <span>{unreadNotificationsCount}</span>
           )}
@@ -39,7 +40,7 @@ export default function AdminSidebar({
           className={activeTab === 'zrealizowane' ? 'active' : ''}
           onClick={() => setActiveTab('zrealizowane')}
         >
-          Zrealizowane
+          ✅ Zrealizowane
           {orderedCount > 0 && <span>{orderedCount}</span>}
         </button>
 
@@ -47,15 +48,27 @@ export default function AdminSidebar({
           className={activeTab === 'dziennik' ? 'active' : ''}
           onClick={() => setActiveTab('dziennik')}
         >
-          Dziennik zdarzeń
+          📜 Dziennik zdarzeń
+        </button>
+
+        <button
+          onClick={goToEvents}
+        >
+          📅 Kalendarz firmowy
         </button>
       </nav>
 
-      <button className="return-button" onClick={goBack}>
-        Wróć do aplikacji
+      <button
+        className="return-button"
+        onClick={goBack}
+      >
+        ← Wróć do aplikacji
       </button>
 
-      <button className="logout-button" onClick={logout}>
+      <button
+        className="logout-button"
+        onClick={logout}
+      >
         Wyloguj
       </button>
     </aside>
