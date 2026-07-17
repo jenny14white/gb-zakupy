@@ -40,7 +40,9 @@ const emptyForm = {
   recurring: false,
 };
 
-export default function AdminEventsPage() {
+export default function AdminEventsPage({
+  goBack,
+}) {
   const [events, setEvents] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(emptyForm);
@@ -51,11 +53,15 @@ export default function AdminEventsPage() {
   }, []);
 
   function handleChange(e) {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } =
+      e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]:
+        type === 'checkbox'
+          ? checked
+          : value,
     }));
   }
 
@@ -79,7 +85,10 @@ export default function AdminEventsPage() {
 
     try {
       if (editingId) {
-        await updateEvent(editingId, payload);
+        await updateEvent(
+          editingId,
+          payload
+        );
       } else {
         await createEvent(payload);
       }
@@ -88,25 +97,36 @@ export default function AdminEventsPage() {
       setForm(emptyForm);
     } catch (err) {
       console.error(err);
-      alert('Nie udało się zapisać wydarzenia.');
+      alert(
+        'Nie udało się zapisać wydarzenia.'
+      );
     }
   }
 
   function editEvent(event) {
     const date =
-      event.date?.toDate?.() ?? new Date(event.date);
+      event.date?.toDate?.() ??
+      new Date(event.date);
 
     setEditingId(event.id);
 
     setForm({
       title: event.title || '',
-      description: event.description || '',
-      location: event.location || '',
+      description:
+        event.description || '',
+      location:
+        event.location || '',
       time: event.time || '',
-      type: event.type || 'spotkanie',
-      emoji: event.emoji || '📅',
-      recurring: event.recurring || false,
-      date: date.toISOString().split('T')[0],
+      type:
+        event.type || 'spotkanie',
+      emoji:
+        event.emoji || '📅',
+      recurring:
+        event.recurring || false,
+      date:
+        date
+          .toISOString()
+          .split('T')[0],
     });
 
     window.scrollTo({
@@ -116,176 +136,319 @@ export default function AdminEventsPage() {
   }
 
   async function removeEvent(id) {
-    if (!window.confirm('Usunąć wydarzenie?')) return;
+    if (
+      !window.confirm(
+        'Usunąć wydarzenie?'
+      )
+    )
+      return;
 
     try {
       await deleteEvent(id);
     } catch (err) {
       console.error(err);
-      alert('Nie udało się usunąć wydarzenia.');
+      alert(
+        'Nie udało się usunąć wydarzenia.'
+      );
     }
   }
 
   return (
-    <div className="admin-events-page">
+    <main className="admin-events-page">
 
-      <h1>Kalendarz firmowy</h1>
+      <header className="admin-events-header">
 
-      <form
-        className="event-form"
-        onSubmit={handleSubmit}
-      >
+        <div>
 
-        <input
-          name="title"
-          placeholder="Tytuł"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
+          <p className="admin-events-eyebrow">
+            GB Zakupy
+          </p>
 
-        <textarea
-          name="description"
-          placeholder="Opis"
-          value={form.description}
-          onChange={handleChange}
-        />
+          <h1>
+            📅 Zarządzanie wydarzeniami
+          </h1>
 
-        <input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={handleChange}
-          required
-        />
+          <p className="admin-events-description">
+            Dodawaj i edytuj wydarzenia,
+            które będą widoczne
+            w kalendarzu firmowym.
+          </p>
 
-        <input
-          type="time"
-          name="time"
-          value={form.time}
-          onChange={handleChange}
-        />
+        </div>
 
-        <input
-          name="location"
-          placeholder="Miejsce"
-          value={form.location}
-          onChange={handleChange}
-        />
-
-        <select
-          name="type"
-          value={form.type}
-          onChange={handleChange}
-        >
-          {TYPES.map((type) => (
-            <option
-              key={type}
-              value={type}
-            >
-              {type}
-            </option>
-          ))}
-        </select>
-
-        <select
-          name="emoji"
-          value={form.emoji}
-          onChange={handleChange}
-        >
-          {EMOJIS.map((emoji) => (
-            <option
-              key={emoji}
-              value={emoji}
-            >
-              {emoji}
-            </option>
-          ))}
-        </select>
-
-        <label>
-          <input
-            type="checkbox"
-            name="recurring"
-            checked={form.recurring}
-            onChange={handleChange}
-          />
-
-          Wydarzenie cykliczne
-        </label>
-
-        <button type="submit">
-          {editingId
-            ? 'Zapisz zmiany'
-            : 'Dodaj wydarzenie'}
-        </button>
-
-      </form>
-
-      <hr />
-
-      <h2>Lista wydarzeń</h2>
-
-      {events.length === 0 && (
-        <p>Brak wydarzeń.</p>
-      )}
-
-      {events.map((event) => {
-        const date =
-          event.date?.toDate?.() ??
-          new Date(event.date);
-
-        return (
-          <div
-            key={event.id}
-            className="admin-event-card"
+        {goBack && (
+          <button
+            className="back-button"
+            onClick={goBack}
           >
+            ← Powrót
+          </button>
+        )}
+
+      </header>
+
+      <section className="admin-events-card">
+
+        <h2>
+          {editingId
+            ? '✏️ Edycja wydarzenia'
+            : '➕ Nowe wydarzenie'}
+        </h2>
+
+        <form
+          className="event-form"
+          onSubmit={handleSubmit}
+        >
+
+          <div className="event-form-grid">
+
+            <input
+              name="title"
+              placeholder="Tytuł wydarzenia"
+              value={form.title}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="location"
+              placeholder="Miejsce"
+              value={form.location}
+              onChange={handleChange}
+            />
+
+            <textarea
+              name="description"
+              placeholder="Opis wydarzenia"
+              value={form.description}
+              onChange={handleChange}
+            />
+
+            <input
+              type="date"
+              name="date"
+              value={form.date}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="time"
+              name="time"
+              value={form.time}
+              onChange={handleChange}
+            />
+
+            <select
+              name="type"
+              value={form.type}
+              onChange={handleChange}
+            >
+              {TYPES.map((type) => (
+                <option
+                  key={type}
+                  value={type}
+                >
+                  {type}
+                </option>
+              ))}
+            </select>
+
+            <select
+              name="emoji"
+              value={form.emoji}
+              onChange={handleChange}
+            >
+              {EMOJIS.map((emoji) => (
+                <option
+                  key={emoji}
+                  value={emoji}
+                >
+                  {emoji}
+                </option>
+              ))}
+            </select>
+                        <label className="checkbox-row">
+
+              <input
+                type="checkbox"
+                name="recurring"
+                checked={form.recurring}
+                onChange={handleChange}
+              />
+
+              <span>
+                Wydarzenie cykliczne
+              </span>
+
+            </label>
+
+          </div>
+
+          <button
+            type="submit"
+            className="save-event-button"
+          >
+            {editingId
+              ? '💾 Zapisz zmiany'
+              : '➕ Dodaj wydarzenie'}
+          </button>
+
+        </form>
+
+      </section>
+
+      <section className="admin-events-list">
+
+        <div className="section-title">
+
+          <h2>
+            📋 Lista wydarzeń
+          </h2>
+
+          <span className="events-count">
+            {events.length} wydarzeń
+          </span>
+
+        </div>
+
+        {events.length === 0 && (
+
+          <div className="empty-events">
+
+            <div className="empty-events-icon">
+              📅
+            </div>
+
             <h3>
-              {event.emoji} {event.title}
+              Brak wydarzeń
             </h3>
 
             <p>
-              📅 {date.toLocaleDateString('pl-PL')}
+              Dodaj pierwsze wydarzenie,
+              aby pojawiło się
+              w kalendarzu firmowym.
             </p>
 
-            {event.time && (
-              <p>🕒 {event.time}</p>
-            )}
-
-            {event.location && (
-              <p>📍 {event.location}</p>
-            )}
-
-            <p>
-              Typ: {event.type}
-            </p>
-
-            {event.description && (
-              <p>{event.description}</p>
-            )}
-
-            <div className="admin-event-actions">
-
-              <button
-                onClick={() =>
-                  editEvent(event)
-                }
-              >
-                Edytuj
-              </button>
-
-              <button
-                onClick={() =>
-                  removeEvent(event.id)
-                }
-              >
-                Usuń
-              </button>
-
-            </div>
           </div>
-        );
-      })}
-    </div>
+
+        )}
+
+        {events.map((event) => {
+
+          const date =
+            event.date?.toDate?.() ??
+            new Date(event.date);
+
+          return (
+
+            <article
+              key={event.id}
+              className="admin-event-card"
+            >
+
+              <div className="admin-event-top">
+
+                <div className="admin-event-icon">
+
+                  {event.emoji || '📅'}
+
+                </div>
+
+                <div className="admin-event-info">
+
+                  <h3>
+
+                    {event.title}
+
+                  </h3>
+
+                  <span className="admin-event-type">
+
+                    {event.type}
+
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div className="admin-event-details">
+
+                <p>
+
+                  📅{' '}
+
+                  {date.toLocaleDateString(
+                    'pl-PL'
+                  )}
+
+                </p>
+
+                {event.time && (
+
+                  <p>
+
+                    🕒 {event.time}
+
+                  </p>
+
+                )}
+
+                {event.location && (
+
+                  <p>
+
+                    📍 {event.location}
+
+                  </p>
+
+                )}
+
+              </div>
+
+              {event.description && (
+
+                <div className="admin-event-description">
+
+                  {event.description}
+
+                </div>
+
+              )}
+
+              <div className="admin-event-actions">
+                                <button
+                  type="button"
+                  className="edit-event-button"
+                  onClick={() =>
+                    editEvent(event)
+                  }
+                >
+                  ✏️ Edytuj
+                </button>
+
+                <button
+                  type="button"
+                  className="delete-event-button"
+                  onClick={() =>
+                    removeEvent(event.id)
+                  }
+                >
+                  🗑 Usuń
+                </button>
+
+              </div>
+
+            </article>
+
+          );
+
+        })}
+
+      </section>
+
+    </main>
+
   );
 }
