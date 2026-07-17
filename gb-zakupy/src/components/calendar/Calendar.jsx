@@ -39,18 +39,29 @@ export default function Calendar() {
 
   function previousMonth() {
     setCurrentDate(
-      (date) => new Date(date.getFullYear(), date.getMonth() - 1, 1)
+      (date) =>
+        new Date(
+          date.getFullYear(),
+          date.getMonth() - 1,
+          1
+        )
     );
   }
 
   function nextMonth() {
     setCurrentDate(
-      (date) => new Date(date.getFullYear(), date.getMonth() + 1, 1)
+      (date) =>
+        new Date(
+          date.getFullYear(),
+          date.getMonth() + 1,
+          1
+        )
     );
   }
 
   function today() {
     const now = new Date();
+
     setCurrentDate(now);
     setSelectedDate(now);
   }
@@ -59,7 +70,10 @@ export default function Calendar() {
     setSelectedDate(day);
   }
 
-  const selectedEvents = getEventsForDate(selectedDate, events);
+  const selectedEvents = getEventsForDate(
+    selectedDate,
+    events
+  );
 
   const calendarDays = useMemo(() => {
     const year = currentDate.getFullYear();
@@ -67,76 +81,123 @@ export default function Calendar() {
 
     const firstDay = new Date(year, month, 1);
 
-    // poniedziałek = pierwszy dzień tygodnia
-    const startOffset = (firstDay.getDay() + 6) % 7;
+    const startOffset =
+      (firstDay.getDay() + 6) % 7;
 
-    const startDate = new Date(year, month, 1 - startOffset);
+    const startDate = new Date(
+      year,
+      month,
+      1 - startOffset
+    );
 
-    return Array.from({ length: 42 }, (_, index) => {
-      const day = new Date(startDate);
-      day.setDate(startDate.getDate() + index);
+    return Array.from(
+      { length: 42 },
+      (_, index) => {
+        const day = new Date(startDate);
 
-      return {
-        date: day,
-        events: getEventsForDate(day, events),
-        isCurrentMonth: day.getMonth() === month,
-        isToday: day.toDateString() === new Date().toDateString(),
-        isSelected:
-          day.toDateString() === selectedDate.toDateString(),
-      };
-    });
+        day.setDate(
+          startDate.getDate() + index
+        );
+
+        return {
+          date: day,
+          events: getEventsForDate(
+            day,
+            events
+          ),
+          isCurrentMonth:
+            day.getMonth() === month,
+          isToday:
+            day.toDateString() ===
+            new Date().toDateString(),
+          isSelected:
+            day.toDateString() ===
+            selectedDate.toDateString(),
+        };
+      }
+    );
   }, [currentDate, selectedDate, events]);
 
   return (
-    <div className="calendar-wrapper">
-      <CalendarHeader
-        currentDate={currentDate}
-        onPrev={previousMonth}
-        onNext={nextMonth}
-        onToday={today}
-      />
+    <div className="calendar-page">
 
-      <div className="calendar-weekdays">
-        {WEEK_DAYS.map((day) => (
-          <div
-            key={day}
-            className="calendar-weekday"
-          >
-            {day}
-          </div>
-        ))}
+      <div className="calendar-page-header">
+
+        <div>
+
+          <p className="calendar-eyebrow">
+            GB Zakupy
+          </p>
+
+          <h1>
+            📅 Kalendarz firmowy
+          </h1>
+
+          <p className="calendar-description">
+            Tutaj znajdziesz święta państwowe,
+            nietypowe święta, wydarzenia
+            firmowe oraz spotkania.
+          </p>
+
+        </div>
+
       </div>
 
-      <div className="calendar-grid">
-        {calendarDays.map(
-          ({
-            date,
-            events,
-            isToday,
-            isCurrentMonth,
-            isSelected,
-          }) => (
-            <CalendarDay
-              key={date.toISOString()}
-              day={date}
-              events={events}
-              isToday={isToday}
-              isCurrentMonth={isCurrentMonth}
-              isSelected={isSelected}
-              onClick={handleDayClick}
-            />
-          )
-        )}
-      </div>
+      <div className="calendar-wrapper">
 
-      {selectedDate && (
-        <div className="calendar-sidebar">
+        <CalendarHeader
+          currentDate={currentDate}
+          onPrev={previousMonth}
+          onNext={nextMonth}
+          onToday={today}
+        />
+
+        <div className="calendar-weekdays">
+          {WEEK_DAYS.map((day) => (
+            <div
+              key={day}
+              className="calendar-weekday"
+            >
+              {day}
+            </div>
+          ))}
+        </div>
+
+        <div className="calendar-grid">
+          {calendarDays.map(
+            ({
+              date,
+              events,
+              isToday,
+              isCurrentMonth,
+              isSelected,
+            }) => (
+              <CalendarDay
+                key={date.toISOString()}
+                day={date}
+                events={events}
+                isToday={isToday}
+                isCurrentMonth={isCurrentMonth}
+                isSelected={isSelected}
+                onClick={handleDayClick}
+              />
+            )
+          )}
+        </div>
+
+        <aside className="calendar-sidebar">
+
           <h3 className="selected-day">
             📅{' '}
-            {selectedDate.toLocaleDateString('pl-PL', {
-              day: 'numeric',
-              month: 'long',
-            })}
+            {selectedDate.toLocaleDateString(
+              'pl-PL',
+              {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              }
+            )}
           </h3>
 
           {selectedEvents.length === 0 ? (
@@ -144,13 +205,19 @@ export default function Calendar() {
           ) : (
             selectedEvents.map((event) => (
               <EventCard
-                key={event.id ?? `${event.date}-${event.title}`}
+                key={
+                  event.id ??
+                  `${event.title}-${event.date}`
+                }
                 event={event}
               />
             ))
           )}
-        </div>
-      )}
+
+        </aside>
+
+      </div>
+
     </div>
   );
 }
