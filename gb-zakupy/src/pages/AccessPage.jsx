@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import logoGB from "../assets/logo-gb.png";
+
+
 
 export default function AccessPage({
   onSuccess,
@@ -9,6 +12,7 @@ export default function AccessPage({
   const [code, setCode] = useState("");
 
   const [error, setError] = useState("");
+
 
 
 
@@ -29,6 +33,8 @@ export default function AccessPage({
 
     if(validCodes.includes(code.trim())){
 
+
+      setError("");
 
       onSuccess();
 
@@ -55,15 +61,29 @@ export default function AccessPage({
     <main className="access-page">
 
 
+
       <section className="access-card">
+
+
+
 
 
 
         <div className="access-logo">
 
-          GB
+
+          <img
+
+            src={logoGB}
+
+            alt="GB Sp. z o.o."
+
+          />
+
 
         </div>
+
+
 
 
 
@@ -74,6 +94,8 @@ export default function AccessPage({
           GB Sp. z o.o.
 
         </h1>
+
+
 
 
 
@@ -88,10 +110,16 @@ export default function AccessPage({
 
 
 
+
         <form
+
           onSubmit={handleSubmit}
+
           className="access-form"
+
         >
+
+
 
 
 
@@ -99,25 +127,35 @@ export default function AccessPage({
 
             Kod dostępu
 
-
           </label>
+
+
+
 
 
 
 
           <input
 
+
             type="password"
 
+
             value={code}
+
 
             onChange={(e)=>
               setCode(e.target.value)
             }
 
+
             placeholder="Wpisz kod"
 
+
           />
+
+
+
 
 
 
@@ -132,7 +170,11 @@ export default function AccessPage({
 
 
 
+
         </form>
+
+
+
 
 
 
@@ -152,7 +194,12 @@ export default function AccessPage({
 
 
 
+
+
       </section>
+
+
+
 
 
     </main>
