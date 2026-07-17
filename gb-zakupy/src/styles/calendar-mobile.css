@@ -1,1 +1,547 @@
+/* =====================================================
+   GB KALENDARZ - MOBILE PREMIUM BLUE
+   ===================================================== */
 
+@media (max-width:767px){
+
+
+/* ===============================
+   STRONA
+================================ */
+
+.calendar-page{
+
+    padding:12px;
+
+    min-height:100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #E5F0FF,
+            #F8FBFF
+        );
+
+}
+
+
+
+/* ===============================
+   NAGŁÓWEK
+================================ */
+
+.calendar-page-header{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    border:1px solid #CCE0FF;
+
+    box-shadow:
+        0 10px 25px rgba(0,61,153,.10);
+
+}
+
+
+.calendar-page-header h1{
+
+    font-size:28px;
+
+    color:#003D99;
+
+}
+
+
+
+.calendar-description{
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    color:#475569;
+
+}
+
+
+.calendar-eyebrow{
+
+    font-size:11px;
+
+}
+
+
+
+/* ===============================
+   POWRÓT
+================================ */
+
+
+.back-button{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#0052CC;
+
+    color:white;
+
+    font-weight:900;
+
+}
+
+
+
+/* ===============================
+   WRAPPER
+================================ */
+
+
+.calendar-wrapper{
+
+    gap:16px;
+
+}
+
+
+
+/* ===============================
+   HEADER KALENDARZA
+================================ */
+
+
+.calendar-header{
+
+    border-radius:24px;
+
+    padding:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #003D99,
+            #0066FF
+        );
+
+}
+
+
+
+.calendar-header-top{
+
+    display:grid;
+
+    grid-template-columns:
+        45px
+        1fr
+        45px;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+
+.calendar-title{
+
+    text-align:center;
+
+}
+
+
+
+.calendar-title-icon{
+
+    display:none;
+
+}
+
+
+
+.calendar-title h2{
+
+    color:white;
+
+    font-size:22px;
+
+    margin:0;
+
+}
+
+
+
+.calendar-title small{
+
+    display:none;
+
+}
+
+
+
+.calendar-nav-button{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:14px;
+
+    font-size:20px;
+
+}
+
+
+
+.calendar-actions{
+
+    margin-top:14px;
+
+}
+
+
+
+.today-button{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:14px;
+
+    background:#E5F0FF;
+
+    color:#003D99;
+
+    font-weight:900;
+
+}
+
+
+
+/* ===============================
+   UKŁAD
+================================ */
+
+
+.calendar-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+
+.calendar-main{
+
+    width:100%;
+
+}
+
+
+
+/* ===============================
+   DNI TYGODNIA
+================================ */
+
+
+.calendar-weekdays{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:4px;
+
+}
+
+
+
+.calendar-weekday{
+
+    padding:8px 2px;
+
+    font-size:11px;
+
+    background:#003D99;
+
+    color:white;
+
+    border-radius:10px;
+
+}
+
+
+
+/* ===============================
+   SIATKA
+================================ */
+
+
+.calendar-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:5px;
+
+    padding:8px;
+
+    border-radius:22px;
+
+    background:white;
+
+    border:1px solid #CCE0FF;
+
+}
+
+
+
+/* ===============================
+   DNI
+================================ */
+
+
+.calendar-day{
+
+    min-height:62px;
+
+    padding:5px;
+
+    border-radius:12px;
+
+    background:#F8FBFF;
+
+    border:1px solid #CCE0FF;
+
+}
+
+
+
+.calendar-day:hover{
+
+    transform:none;
+
+}
+
+
+
+.calendar-day.today{
+
+    background:#99C2FF;
+
+}
+
+
+
+.calendar-day.selected{
+
+    background:#0066FF;
+
+}
+
+
+
+.calendar-day-number{
+
+    font-size:14px;
+
+    font-weight:900;
+
+}
+
+
+
+.calendar-day.selected .calendar-day-number{
+
+    color:white;
+
+}
+
+
+
+/* ===============================
+   EVENTY W KAFELKU
+================================ */
+
+
+.calendar-day-event{
+
+    display:none;
+
+}
+
+
+.calendar-events{
+
+    display:flex;
+
+    gap:3px;
+
+    flex-wrap:wrap;
+
+    margin-top:10px;
+
+}
+
+
+
+.calendar-event-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:#0066FF;
+
+}
+
+
+
+/* ===============================
+   SIDEBAR
+================================ */
+
+
+.calendar-sidebar{
+
+    position:static;
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:white;
+
+    border:1px solid #CCE0FF;
+
+    box-shadow:
+        0 10px 25px rgba(0,61,153,.10);
+
+}
+
+
+
+.selected-day{
+
+    font-size:18px;
+
+    color:#003D99;
+
+}
+
+
+
+/* ===============================
+   EVENT CARD
+================================ */
+
+
+.event-card{
+
+    padding:15px;
+
+    border-radius:16px;
+
+    margin-top:14px;
+
+    background:#F8FBFF;
+
+    border-left:4px solid #0066FF;
+
+}
+
+
+
+.event-title{
+
+    font-size:16px;
+
+}
+
+
+
+.event-description{
+
+    font-size:14px;
+
+    padding:10px;
+
+}
+
+
+
+.event-badge{
+
+    font-size:12px;
+
+    padding:5px 12px;
+
+}
+
+
+
+/* ===============================
+   LEGENDA
+================================ */
+
+
+.calendar-legend{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:8px;
+
+    padding:10px;
+
+}
+
+
+
+.legend-item{
+
+    text-align:center;
+
+    font-size:12px;
+
+    padding:9px;
+
+    border-radius:14px;
+
+    background:white;
+
+    color:#003D99;
+
+    border:1px solid #CCE0FF;
+
+}
+
+
+
+}
