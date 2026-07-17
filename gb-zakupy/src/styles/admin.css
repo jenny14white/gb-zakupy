@@ -608,3 +608,486 @@
 }
 
 }
+/* ================================================= */
+/* PANEL WYDARZEŃ ADMINA */
+/* ================================================= */
+
+.admin-events-page{
+    min-height:100vh;
+    background:#f4f7fb;
+    padding:40px;
+}
+
+.admin-events-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.admin-events-eyebrow{
+    margin:0 0 8px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:#64748b;
+    font-size:12px;
+    font-weight:900;
+}
+
+.admin-events-header h1{
+    margin:0;
+    color:#0b63b8;
+    font-size:38px;
+}
+
+.admin-events-description{
+    margin-top:10px;
+    max-width:650px;
+    color:#64748b;
+    line-height:1.6;
+}
+
+.admin-events-card{
+    background:white;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+    margin-bottom:28px;
+}
+
+.admin-events-card h2{
+    margin-top:0;
+    margin-bottom:24px;
+    color:#0f172a;
+}
+
+.event-form{
+    display:grid;
+    gap:22px;
+}
+
+.event-form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+}
+
+.event-form-grid textarea{
+    grid-column:1/-1;
+    min-height:130px;
+    resize:vertical;
+}
+
+.event-form-grid input,
+.event-form-grid select,
+.event-form-grid textarea{
+
+    width:100%;
+    border:1px solid #cbd5e1;
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:15px;
+    transition:.2s;
+    background:white;
+}
+
+.event-form-grid input:focus,
+.event-form-grid select:focus,
+.event-form-grid textarea:focus{
+
+    outline:none;
+    border-color:#0b63b8;
+    box-shadow:0 0 0 4px rgba(11,99,184,.12);
+
+}
+
+.checkbox-row{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    color:#334155;
+
+}
+
+.checkbox-row input{
+
+    width:18px;
+    height:18px;
+
+}
+
+.save-event-button{
+
+    border:none;
+    background:#0b63b8;
+    color:white;
+    padding:16px 24px;
+    border-radius:16px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.25s;
+    width:fit-content;
+
+}
+
+.save-event-button:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 14px 24px rgba(11,99,184,.22);
+
+}
+/* ================================================= */
+/* LISTA WYDARZEŃ */
+/* ================================================= */
+
+.admin-events-list{
+
+    display:grid;
+    gap:20px;
+
+}
+
+.section-title{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:6px;
+    gap:16px;
+    flex-wrap:wrap;
+
+}
+
+.section-title h2{
+
+    margin:0;
+
+}
+
+.events-count{
+
+    background:#e0f2fe;
+    color:#075985;
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:14px;
+
+}
+
+.empty-events{
+
+    background:white;
+    border-radius:24px;
+    padding:60px 30px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+
+}
+
+.empty-events-icon{
+
+    font-size:64px;
+    margin-bottom:18px;
+
+}
+
+.empty-events h3{
+
+    margin:0 0 12px;
+
+}
+
+.empty-events p{
+
+    margin:0;
+    color:#64748b;
+    line-height:1.7;
+
+}
+
+.admin-event-card{
+
+    background:white;
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 10px 24px rgba(15,23,42,.08);
+    transition:.25s;
+    display:grid;
+    gap:18px;
+
+}
+
+.admin-event-card:hover{
+
+    transform:translateY(-3px);
+    box-shadow:0 18px 36px rgba(15,23,42,.12);
+
+}
+
+.admin-event-top{
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+}
+
+.admin-event-icon{
+
+    width:64px;
+    height:64px;
+    border-radius:18px;
+    background:#eff6ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    flex-shrink:0;
+
+}
+
+.admin-event-info{
+
+    flex:1;
+
+}
+
+.admin-event-info h3{
+
+    margin:0;
+    font-size:22px;
+    color:#0f172a;
+
+}
+
+.admin-event-type{
+
+    display:inline-block;
+    margin-top:8px;
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:800;
+
+}
+
+.admin-event-details{
+
+    display:grid;
+    gap:8px;
+
+}
+
+.admin-event-details p{
+
+    margin:0;
+    color:#475569;
+    font-weight:600;
+
+}
+
+.admin-event-description{
+
+    background:#f8fafc;
+    border-radius:16px;
+    padding:16px;
+    line-height:1.7;
+    color:#334155;
+    border-left:4px solid #0b63b8;
+
+}
+
+.admin-event-actions{
+
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+
+}
+/* ================================================= */
+/* PRZYCISKI */
+/* ================================================= */
+
+.edit-event-button,
+.delete-event-button{
+
+    border:none;
+    border-radius:14px;
+    padding:12px 18px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.25s;
+    font-size:15px;
+
+}
+
+.edit-event-button{
+
+    background:#0b63b8;
+    color:white;
+
+}
+
+.edit-event-button:hover{
+
+    background:#09529a;
+    transform:translateY(-2px);
+
+}
+
+.delete-event-button{
+
+    background:#ef4444;
+    color:white;
+
+}
+
+.delete-event-button:hover{
+
+    background:#dc2626;
+    transform:translateY(-2px);
+
+}
+
+.edit-event-button:active,
+.delete-event-button:active,
+.save-event-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* ================================================= */
+/* RESPONSYWNOŚĆ */
+/* ================================================= */
+
+@media (max-width:900px){
+
+    .admin-events-page{
+
+        padding:24px;
+
+    }
+
+    .event-form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .admin-events-header{
+
+        flex-direction:column;
+        align-items:flex-start;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .admin-events-page{
+
+        padding:16px;
+
+    }
+
+    .admin-events-card{
+
+        padding:20px;
+
+    }
+
+    .admin-events-header h1{
+
+        font-size:30px;
+
+    }
+
+    .admin-event-top{
+
+        align-items:flex-start;
+
+    }
+
+    .admin-event-icon{
+
+        width:54px;
+        height:54px;
+        font-size:24px;
+        border-radius:16px;
+
+    }
+
+    .admin-event-info h3{
+
+        font-size:20px;
+
+    }
+
+    .admin-event-actions{
+
+        flex-direction:column;
+
+    }
+
+    .edit-event-button,
+    .delete-event-button,
+    .save-event-button,
+    .back-button{
+
+        width:100%;
+
+    }
+
+    .section-title{
+
+        display:grid;
+        gap:12px;
+
+    }
+
+    .events-count{
+
+        width:fit-content;
+
+    }
+
+}
+
+@media (max-width:500px){
+
+    .admin-events-header h1{
+
+        font-size:26px;
+
+    }
+
+    .admin-events-card{
+
+        border-radius:20px;
+
+    }
+
+    .admin-event-card{
+
+        padding:18px;
+        border-radius:18px;
+
+    }
+
+    .admin-event-description{
+
+        padding:14px;
+
+    }
+
+}
