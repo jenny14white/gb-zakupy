@@ -25,6 +25,11 @@ export default function App() {
     setPage('public');
   }
 
+  function handleLogin() {
+    setIsAdmin(true);
+    sessionStorage.setItem('admin', 'true');
+  }
+
   // =======================
   // PANEL ADMINA
   // =======================
@@ -39,7 +44,7 @@ export default function App() {
     ) : (
       <AdminLoginPage
         goBack={() => setPage('public')}
-        onLogin={() => setIsAdmin(true)}
+        onLogin={handleLogin}
       />
     );
   }
@@ -49,18 +54,17 @@ export default function App() {
   // =======================
 
   if (page === 'admin-events') {
-    if (!isAdmin) {
-      return (
-        <AdminLoginPage
-          goBack={() => setPage('public')}
-          onLogin={() => setIsAdmin(true)}
-        />
-      );
-    }
-
-    return (
+    return isAdmin ? (
       <AdminEventsPage
         goBack={() => setPage('admin')}
+      />
+    ) : (
+      <AdminLoginPage
+        goBack={() => setPage('public')}
+        onLogin={() => {
+          handleLogin();
+          setPage('admin-events');
+        }}
       />
     );
   }
