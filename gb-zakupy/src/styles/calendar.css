@@ -641,6 +641,26 @@
         gap:14px;
         padding:16px;
     }
+    .calendar-header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.calendar-title{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+}
+
+.calendar-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:18px;
+}
 
     .calendar-title{
         gap:10px;
