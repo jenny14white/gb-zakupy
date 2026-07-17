@@ -8,8 +8,15 @@ export function checkAccessCode(code) {
   }
 
 
+  const normalizedCode =
+    code
+      .trim()
+      .toUpperCase();
+
+
+
   return (
-    code.trim().toUpperCase() ===
+    normalizedCode ===
     COMPANY_ACCESS_CODE.toUpperCase()
   );
 
