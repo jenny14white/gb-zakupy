@@ -1,54 +1,80 @@
 /* =====================================================
-   GB KALENDARZ - WSPÓLNE STYLE
-   ===================================================== */
+   GB KALENDARZ - WSPÓLNE STYLE PREMIUM INDUSTRIAL
+===================================================== */
 
 
 /* ===============================
-   PALETA DIGITAL BLUE
+   PALETA
 ================================ */
+
 
 :root{
 
-    --blue-50:#E5F0FF;
-    --blue-100:#CCE0FF;
-    --blue-200:#99C2FF;
-    --blue-300:#66A3FF;
-    --blue-400:#3385FF;
-    --blue-500:#0066FF;
-    --blue-600:#0052CC;
-    --blue-700:#003D99;
-    --blue-800:#002966;
-    --blue-900:#001433;
+
+    --yale-blue:#16425B;
+
+    --baltic-blue:#2F6690;
+
+    --steel-blue:#3A7CA5;
+
+    --sky-blue:#81C3D7;
+
+    --dust-grey:#D9DCD6;
+
 
 
     --surface:#ffffff;
 
+
     --background:#F8FBFF;
 
-    --text:#002966;
 
-    --muted:#64748b;
+    --text:#16425B;
+
+
+    --muted:#64748B;
+
+
+
+    --border:#81C3D7;
+
 
 
     --radius-sm:12px;
+
     --radius-md:18px;
-    --radius-lg:24px;
-    --radius-xl:30px;
+
+    --radius-lg:26px;
+
+    --radius-xl:34px;
+
 
 
     --shadow-soft:
-        0 12px 30px rgba(0,61,153,.10);
+
+        0 15px 35px rgba(22,66,91,.12);
+
 
 
     --shadow-hover:
-        0 18px 40px rgba(0,61,153,.16);
+
+        0 22px 45px rgba(22,66,91,.18);
+
+
+
+    --shadow-blue:
+
+        0 12px 30px rgba(58,124,165,.22);
+
 
 }
 
 
 
+
+
 /* ===============================
-   RESET ELEMENTÓW KALENDARZA
+ RESET
 ================================ */
 
 
@@ -57,61 +83,93 @@
 .calendar-page *::before,
 .calendar-page *::after{
 
+
     box-sizing:border-box;
 
-}
 
+}
 
 
 
 button{
 
+
     font-family:inherit;
+
 
 }
 
 
 
+
+
 /* ===============================
-   GŁÓWNY WRAPPER
+ GLOBALNY WRAPPER
 ================================ */
 
 
 .calendar-wrapper{
 
+
     width:100%;
+
 
     color:var(--text);
 
+
 }
+
 
 
 
 /* ===============================
-   TYPOGRAFIA
+ TYPOGRAFIA
 ================================ */
 
 
-.calendar-title h2,
 .calendar-page h1,
+.calendar-title h2,
 .event-title{
 
-    letter-spacing:-.02em;
+
+    letter-spacing:-.03em;
+
 
 }
+
+
+
+.calendar-title h2{
+
+
+    font-family:
+
+        "Playfair Display",
+        serif;
+
+
+}
+
 
 
 
 .calendar-description{
 
+
     color:var(--muted);
+
+    line-height:1.7;
+
 
 }
 
 
 
+
+
+
 /* ===============================
-   WSPÓLNE PRZYCISKI
+ PRZYCISKI
 ================================ */
 
 
@@ -119,12 +177,30 @@ button{
 .today-button,
 .back-button{
 
+
     cursor:pointer;
 
+
     transition:
+
         transform .25s ease,
+
         box-shadow .25s ease,
+
         background .25s ease;
+
+
+}
+
+
+
+.calendar-nav-button:hover,
+.today-button:hover,
+.back-button:hover{
+
+
+    transform:translateY(-2px);
+
 
 }
 
@@ -134,23 +210,32 @@ button{
 .today-button:active,
 .back-button:active{
 
+
     transform:scale(.96);
+
 
 }
 
 
 
+
+
+
+
 /* ===============================
-   WYDARZENIA
+ EVENTY
 ================================ */
 
 
 .event-card{
 
+
     transition:
 
         transform .25s ease,
+
         box-shadow .25s ease;
+
 
 }
 
@@ -158,10 +243,14 @@ button{
 
 .event-card:hover{
 
+
     transform:translateY(-3px);
 
+
     box-shadow:
-        0 14px 30px rgba(0,61,153,.12);
+
+        0 16px 35px rgba(22,66,91,.15);
+
 
 }
 
@@ -170,11 +259,15 @@ button{
 
 .event-date{
 
+
     color:var(--muted);
+
 
     font-size:14px;
 
+
     margin-top:8px;
+
 
 }
 
@@ -183,35 +276,49 @@ button{
 
 .event-description{
 
-    line-height:1.6;
+
+    line-height:1.65;
+
 
 }
 
 
 
+
+
 /* ===============================
-   BADGE
+ BADGE
 ================================ */
 
 
 .event-badge{
 
+
     white-space:nowrap;
+
+
+    font-weight:800;
+
 
 }
 
 
 
+
+
 /* ===============================
-   PUSTY STAN
+ PUSTY STAN
 ================================ */
 
 
 .calendar-empty{
 
+
     text-align:center;
 
-    padding:25px 15px;
+
+    padding:28px 16px;
+
 
 }
 
@@ -219,9 +326,32 @@ button{
 
 .calendar-empty-icon{
 
-    font-size:48px;
 
-    margin-bottom:12px;
+    width:70px;
+
+    height:70px;
+
+
+    margin:0 auto 15px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:50%;
+
+
+    background:
+
+        #EAF7FB;
+
+
+    font-size:38px;
+
 
 }
 
@@ -229,9 +359,15 @@ button{
 
 .calendar-empty h4{
 
-    margin:0 0 8px;
 
-    color:var(--blue-700);
+    margin:0 0 10px;
+
+
+    color:var(--yale-blue);
+
+
+    font-weight:900;
+
 
 }
 
@@ -239,72 +375,99 @@ button{
 
 .calendar-empty p{
 
+
     color:var(--muted);
 
-    line-height:1.5;
+
+    line-height:1.6;
+
 
 }
 
 
 
+
+
+
 /* ===============================
-   KROPKI WYDARZEŃ
+ KROPKI WYDARZEŃ
 ================================ */
 
 
 .calendar-event-dot{
 
+
     display:block;
 
+
     flex-shrink:0;
+
 
 }
 
 
 
-/* ===============================
-   RÓŻNE TYPY WYDARZEŃ
-================================ */
+
 
 
 .calendar-event-dot.company{
 
-    background:#0066FF;
+
+    background:
+
+        var(--steel-blue);
+
 
 }
+
 
 
 .calendar-event-dot.holiday{
 
-    background:#16a34a;
+
+    background:#4CAF50;
+
 
 }
+
 
 
 .calendar-event-dot.birthday{
 
-    background:#ec4899;
+
+    background:#D85A8A;
+
 
 }
+
 
 
 .calendar-event-dot.meeting{
 
-    background:#7c3aed;
+
+    background:#7157B8;
+
 
 }
+
 
 
 .calendar-event-dot.vacation{
 
-    background:#f59e0b;
+
+    background:#D99A32;
+
 
 }
 
 
 
+
+
+
+
 /* ===============================
-   ANIMACJE
+ ANIMACJE
 ================================ */
 
 
@@ -314,8 +477,11 @@ button{
 .calendar-day,
 .event-card{
 
+
     animation:
-        calendarFade .35s ease;
+
+        calendarFade .4s ease;
+
 
 }
 
@@ -323,53 +489,70 @@ button{
 
 @keyframes calendarFade{
 
+
     from{
+
 
         opacity:0;
 
-        transform:translateY(10px);
+        transform:
+
+            translateY(8px);
+
 
     }
 
 
     to{
 
+
         opacity:1;
 
         transform:none;
 
+
     }
+
 
 }
 
 
 
+
+
 /* ===============================
-   FOCUS DLA KLAWIATURY
+ FOCUS
 ================================ */
 
 
 .calendar-day:focus-visible,
 button:focus-visible{
 
+
     outline:
 
-        3px solid rgba(0,102,255,.35);
+        3px solid rgba(129,195,215,.7);
+
 
     outline-offset:3px;
+
 
 }
 
 
 
+
+
 /* ===============================
-   LEPSZY SCROLLBAR
+ SCROLLBAR
 ================================ */
 
 
 .calendar-sidebar::-webkit-scrollbar{
 
+
     width:8px;
+
 
 }
 
@@ -377,8 +560,88 @@ button:focus-visible{
 
 .calendar-sidebar::-webkit-scrollbar-thumb{
 
-    background:var(--blue-200);
+
+    background:
+
+        var(--sky-blue);
+
 
     border-radius:20px;
+
+
+}
+
+
+
+.calendar-sidebar::-webkit-scrollbar-track{
+
+
+    background:
+
+        var(--dust-grey);
+
+
+}
+
+
+
+
+
+
+/* ===============================
+ DELIKATNE TECHNICZNE TŁO
+================================ */
+
+
+.calendar-page{
+
+
+    position:relative;
+
+
+}
+
+
+
+.calendar-page::before{
+
+
+    content:"";
+
+
+    position:fixed;
+
+
+    right:30px;
+
+    bottom:40px;
+
+
+    width:120px;
+
+    height:120px;
+
+
+    opacity:.08;
+
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            var(--steel-blue) 2px,
+
+            transparent 3px
+
+        );
+
+
+    background-size:18px 18px;
+
+
+    pointer-events:none;
+
 
 }
