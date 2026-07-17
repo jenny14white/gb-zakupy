@@ -12,6 +12,7 @@ import AdminEventsPage from "./pages/AdminEventsPage";
 import { logoutAdmin } from "./firebase/auth";
 
 
+
 export default function App() {
 
 
@@ -37,7 +38,7 @@ export default function App() {
 
       await logoutAdmin();
 
-    } catch(error){
+    } catch(error) {
 
       console.error(error);
 
@@ -51,6 +52,7 @@ export default function App() {
     setPage("home");
 
   }
+
 
 
 
@@ -112,18 +114,20 @@ export default function App() {
 
 
 
+
+
     case "home":
 
       return (
 
         <HomePage
 
-          goToShopping={()=>
+          goToShopping={() =>
             setPage("shopping")
           }
 
 
-          goToCalendar={()=>
+          goToCalendar={() =>
             setPage("calendar")
           }
 
@@ -144,18 +148,28 @@ export default function App() {
 
         <PublicShoppingPage
 
-          goToAdmin={()=>
+
+          goToAdmin={() =>
             setPage("admin")
           }
 
 
-          goToCalendar={()=>
+
+          goToCalendar={() =>
             setPage("calendar")
           }
+
+
+
+          goBack={() =>
+            setPage("home")
+          }
+
 
         />
 
       );
+
 
 
 
@@ -170,7 +184,7 @@ export default function App() {
 
         <CalendarPage
 
-          goBack={()=>
+          goBack={() =>
             setPage("home")
           }
 
@@ -185,21 +199,24 @@ export default function App() {
 
 
 
+
     case "admin":
 
       return isAdmin ? (
 
         <AdminDashboardPage
 
-          goBack={()=>
+          goBack={() =>
             setPage("home")
           }
+
 
 
           logout={handleLogout}
 
 
-          goToEvents={()=>
+
+          goToEvents={() =>
             setPage("admin-events")
           }
 
@@ -209,9 +226,10 @@ export default function App() {
 
         <AdminLoginPage
 
-          goBack={()=>
+          goBack={() =>
             setPage("home")
           }
+
 
 
           onLogin={handleLogin}
@@ -227,13 +245,14 @@ export default function App() {
 
 
 
+
     case "admin-events":
 
       return isAdmin ? (
 
         <AdminEventsPage
 
-          goBack={()=>
+          goBack={() =>
             setPage("admin")
           }
 
@@ -243,19 +262,24 @@ export default function App() {
 
         <AdminLoginPage
 
-          goBack={()=>
+          goBack={() =>
             setPage("home")
           }
 
 
-          onLogin={()=>{
+
+          onLogin={() => {
+
             handleLogin();
+
             setPage("admin-events");
+
           }}
 
         />
 
       );
+
 
 
 
@@ -270,12 +294,13 @@ export default function App() {
 
         <HomePage
 
-          goToShopping={()=>
+          goToShopping={() =>
             setPage("shopping")
           }
 
 
-          goToCalendar={()=>
+
+          goToCalendar={() =>
             setPage("calendar")
           }
 
