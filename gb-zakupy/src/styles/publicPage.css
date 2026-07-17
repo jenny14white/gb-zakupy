@@ -1,552 +1,926 @@
-.public-page {
-  min-height: 100vh;
-  padding: 20px;
-  background: radial-gradient(
-      circle at top left,
-      rgba(255, 221, 143, 0.45),
-      transparent 30%
-    ),
-    linear-gradient(135deg, #f9e6bf, #f5f7fb);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.admin-link {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  border: none;
-  background: linear-gradient(135deg, #0b63b8, #084b91);
-  color: white;
-  padding: 11px 18px;
-  border-radius: 999px;
-  font-weight: 800;
-  z-index: 50;
-  box-shadow: 0 10px 24px rgba(11, 85, 159, .28);
-}
-
-.paper {
-  width: min(720px, 100%);
-  margin-top: 38px;
-  background: repeating-linear-gradient(
-    to bottom,
-    #fffaf0 0,
-    #fffaf0 34px,
-    #dbeafe 35px
-  );
-  border-radius: 22px;
-  padding: 34px 24px 28px 46px;
-  box-shadow: 0 22px 60px rgba(15,23,42,.18);
-  position: relative;
-  overflow: hidden;
-}
-
-.paper::before {
-  content: "";
-  position: absolute;
-  left: 38px;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(239,68,68,.22);
-}
-
-.holes {
-  position: absolute;
-  left: 12px;
-  top: 28px;
-  display: grid;
-  gap: 22px;
-}
-
-.holes span {
-  width: 15px;
-  height: 15px;
-  background: #f1f5f9;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,.14);
-}
-
-.logo {
-  display: block;
-  width: 120px;
-  max-height: 82px;
-  object-fit: contain;
-  margin: 0 auto 8px;
-}
-
-.paper h1 {
-  text-align: center;
-  color: #0b4f99;
-  font-size: clamp(34px, 7vw, 50px);
-  margin: 0 0 18px;
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  letter-spacing: .4px;
-}
-
-.intro-box {
-  background: linear-gradient(135deg,#fff4c9,#fff9e9);
-  border:1px solid rgba(255,214,102,.45);
-  border-radius:18px;
-  padding:22px;
-  margin-bottom:22px;
-  line-height:1.75;
-  font-size:16px;
-  color:#374151;
-}
-
-.intro-box p{
-  margin:0 0 14px;
-}
-
-.intro-box p:last-child{
-  margin-bottom:0;
-}
-
-.intro-box strong{
-  color:#0b4f99;
-}
-
-.intro-footer{
-  margin-top:18px;
-  text-align:center;
-  color:#0b63b8;
-  font-weight:700;
-  font-size:17px;
-}
-
-.shopping-form,
-.current-list-wrapper {
-  background: rgba(255,255,255,.96);
-  padding: 22px;
-  border-radius: 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 12px 32px rgba(15,23,42,.10);
-}
-
-.shopping-form {
-  display: grid;
-  gap: 16px;
-}
-
-.shopping-form label {
-  display: grid;
-  gap: 8px;
-  font-weight: 700;
-}
-
-.shopping-form input,
-.shopping-form textarea,
-.shopping-form select {
-  width: 100%;
-  border: 1px solid #d4d9e2;
-  border-radius: 14px;
-  padding: 15px;
-  font-size: 16px;
-  background: white;
-}
-
-.shopping-form textarea {
-  resize: vertical;
-  min-height: 110px;
-}
-.shopping-form input:focus,
-.shopping-form textarea:focus,
-.shopping-form select:focus{
-  outline:none;
-  border-color:#0b63b8;
-  box-shadow:0 0 0 4px rgba(11,99,184,.12);
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.submit-button {
-  border:none;
-  background:linear-gradient(135deg,#0b63b8,#084b91);
-  color:white;
-  border-radius:14px;
-  min-height:54px;
-  font-size:17px;
-  font-weight:800;
-  transition:.25s;
-}
-
-.submit-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px rgba(11,99,184,.22);
-}
-
-.submit-button:active{
-  transform:scale(.98);
-}
-.success-message{
-  background:#dcfce7;
-  color:#166534;
-  padding:12px;
-  border-radius:12px;
-  font-weight:700;
-}
-
-.error-message{
-  background:#fee2e2;
-  color:#991b1b;
-  padding:12px;
-  border-radius:12px;
-  font-weight:700;
-}
-
-.current-list-wrapper h2{
-  margin-top:0;
-}
-
-.current-list{
-  display:grid;
-  gap:12px;
-}
-
-.shopping-item{
-  background:#ffffff;
-  border:1px solid #dbe7f5;
-  border-left:5px solid #0b63b8;
-  border-radius:16px;
-  padding:16px 18px;
-  display:grid;
-  gap:12px;
-  transition:.2s;
-}
-
-.shopping-item:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 22px rgba(15,23,42,.08);
-}
-
-.shopping-item-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.shopping-item-header h3{
-  margin:0;
-  color:#0f3d75;
-  font-size:20px;
-  font-weight:800;
-}
-
-.shopping-badge{
-  background:#e7f1ff;
-  color:#0b63b8;
-  padding:6px 12px;
-  border-radius:999px;
-  font-weight:800;
-  white-space:nowrap;
-}
-
-.shopping-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  color:#64748b;
-  font-size:14px;
-}
-
-@media (max-width:600px){
-
-.shopping-item{
-    padding:14px;
-}
-
-.shopping-item-header{
-    flex-direction:column;
-    align-items:flex-start;
-}
-
-.shopping-item-header h3{
-    font-size:18px;
-}
-
-.shopping-meta{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:6px;
-    font-size:13px;
-}
-
-.shopping-badge{
-    font-size:14px;
-}
-
-}
-
-.thanks{
-  text-align:center;
-  color:#0b63b8;
-  font-size:24px;
-  font-family:"Playfair Display",serif;
-  font-weight:700;
-  margin-top:10px;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width:600px){
+/* =======================================================
+   STRONA PUBLICZNA
+======================================================= */
 
 .public-page{
-    padding:8px;
+    min-height:100vh;
+    padding:28px 20px 40px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    background:
+        radial-gradient(circle at top left,
+        rgba(255,221,143,.45),
+        transparent 30%),
+        linear-gradient(135deg,#f9e6bf,#f5f7fb);
 }
 
-.admin-link{
-    top:10px;
-    right:10px;
-    font-size:13px;
-    padding:10px 16px;
+/* =======================================================
+   GÓRNE PRZYCISKI
+======================================================= */
+
+.top-actions{
+
+    width:min(720px,100%);
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+    margin-bottom:22px;
+
 }
+
+.calendar-button,
+.admin-button-top{
+
+    border:none;
+    border-radius:22px;
+
+    padding:18px;
+
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    cursor:pointer;
+
+    color:white;
+
+    transition:.25s;
+
+    box-shadow:0 12px 28px rgba(15,23,42,.12);
+
+}
+
+.calendar-button{
+
+    background:linear-gradient(135deg,#ec4899,#db2777);
+
+}
+
+.admin-button-top{
+
+    background:linear-gradient(135deg,#0b63b8,#084b91);
+
+}
+
+.calendar-button:hover,
+.admin-button-top:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 18px 36px rgba(15,23,42,.18);
+
+}
+
+.calendar-button:active,
+.admin-button-top:active{
+
+    transform:scale(.98);
+
+}
+
+.action-icon{
+
+    width:56px;
+    height:56px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.18);
+
+    font-size:30px;
+
+    flex-shrink:0;
+
+}
+
+.action-content{
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    text-align:left;
+
+    flex:1;
+
+}
+
+.action-content strong{
+
+    font-size:18px;
+    font-weight:800;
+
+    margin-bottom:5px;
+
+    color:white;
+
+}
+
+.action-content span{
+
+    font-size:14px;
+    line-height:1.45;
+
+    color:rgba(255,255,255,.92);
+
+}
+
+/* =======================================================
+   NOTATNIK
+======================================================= */
 
 .paper{
-    width:100%;
-    margin-top:8px;
-    border-radius:18px;
-    padding:38px 16px 20px 34px;
+
+    width:min(720px,100%);
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            #fffaf0 0,
+            #fffaf0 34px,
+            #dbeafe 35px
+        );
+
+    border-radius:22px;
+
+    padding:34px 24px 28px 46px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:0 22px 60px rgba(15,23,42,.18);
+
 }
 
 .paper::before{
-    left:28px;
+
+    content:"";
+
+    position:absolute;
+
+    left:38px;
+    top:0;
+
+    width:2px;
+    height:100%;
+
+    background:rgba(239,68,68,.22);
+
 }
 
 .holes{
-    left:8px;
-    top:42px;
-    gap:20px;
+
+    position:absolute;
+
+    left:12px;
+    top:28px;
+
+    display:grid;
+
+    gap:22px;
+
 }
 
 .holes span{
-    width:12px;
-    height:12px;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,.14);
+
 }
 
+/* =======================================================
+   NAGŁÓWEK
+======================================================= */
+
 .logo{
-    width:88px;
-    max-height:60px;
+
+    display:block;
+
+    width:120px;
+    max-height:82px;
+
+    object-fit:contain;
+
+    margin:0 auto 10px;
+
 }
 
 .paper h1{
-    font-size:30px;
-    margin-bottom:14px;
+
+    margin:0 0 20px;
+
+    text-align:center;
+
+    color:#0b4f99;
+
+    font-size:clamp(34px,7vw,50px);
+
+    font-family:"Playfair Display",serif;
+
+    font-weight:700;
+
 }
 
+/* =======================================================
+   OPIS
+======================================================= */
+
 .intro-box{
-    font-size:15px;
-    line-height:1.55;
-    padding:15px;
-    margin-bottom:16px;
+
+    background:
+        linear-gradient(135deg,#fff4c9,#fff9e9);
+
+    border:1px solid rgba(255,214,102,.45);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    margin-bottom:22px;
+
+    line-height:1.7;
+
+    color:#374151;
+
 }
+
+.intro-box p{
+
+    margin:0 0 14px;
+
+}
+
+.intro-box p:last-child{
+
+    margin-bottom:0;
+
+}
+
+.intro-box strong{
+
+    color:#0b4f99;
+
+}
+
+.intro-footer{
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:#0b63b8;
+
+    font-weight:700;
+
+}
+
+/* =======================================================
+   FORMULARZ
+======================================================= */
 
 .shopping-form,
 .current-list-wrapper{
-    padding:16px;
+
+    background:rgba(255,255,255,.96);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 12px 32px rgba(15,23,42,.10);
+
+}
+
+.shopping-form{
+
+    display:grid;
+
+    gap:16px;
+
 }
 
 .shopping-form label{
-    font-size:15px;
+
+    display:grid;
+
+    gap:8px;
+
+    font-weight:700;
+
 }
 
 .shopping-form input,
 .shopping-form textarea,
 .shopping-form select{
-    padding:13px;
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    border:1px solid #d4d9e2;
+
+    background:white;
+
     font-size:16px;
+
 }
 
 .shopping-form textarea{
-    min-height:90px;
+
+    resize:vertical;
+
+    min-height:110px;
+
+}
+
+.shopping-form input:focus,
+.shopping-form textarea:focus,
+.shopping-form select:focus{
+
+    outline:none;
+
+    border-color:#0b63b8;
+
+    box-shadow:0 0 0 4px rgba(11,99,184,.12);
+
 }
 
 .form-row{
-    grid-template-columns:1fr;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
 }
 
 .submit-button{
-    min-height:50px;
+
+    border:none;
+
+    min-height:54px;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(135deg,#0b63b8,#084b91);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:800;
+
+    transition:.25s;
+
 }
 
-.current-list-wrapper h2{
-    font-size:22px;
+.submit-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 24px rgba(11,99,184,.22);
+
 }
 
-.shopping-item{
+.submit-button:active{
+
+    transform:scale(.98);
+
+}
+
+.success-message{
+
+    background:#dcfce7;
+
+    color:#166534;
+
     padding:12px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
 }
+
+.error-message{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+}
+
+/* =======================================================
+   PODZIĘKOWANIE
+======================================================= */
 
 .thanks{
+
+    margin-top:12px;
+
+    text-align:center;
+
+    color:#0b63b8;
+
     font-size:24px;
-}
+
+    font-family:"Playfair Display",serif;
+
+    font-weight:700;
 
 }
+/* =======================================================
+   LISTA ZAKUPÓW
+======================================================= */
 
-/* małe telefony */
-
-@media (max-width:380px){
-
-.paper{
-    padding-left:30px;
-}
-
-.paper h1{
-    font-size:26px;
-}
-
-.intro-box{
-    font-size:14px;
-}
-
-.logo{
-    width:78px;
-}
-
-}
-
-/* ========================================= */
-/* KALENDARZ - STYL ADMIN */
-/* ========================================= */
-
-.calendar-bubble {
-  position: fixed;
-  left: 18px;
-  top: 20px;
-  z-index: 50;
-
-  width: 280px;
-
-  display: flex;
-  align-items: center;
-  gap: 18px;
-
-  padding: 20px;
-
-  background: linear-gradient(135deg, #ec4899, #db2777);
-  color: #fff;
-
-  border-radius: 20px;
-  border: none;
-
-  box-shadow: 0 12px 30px rgba(15,23,42,.12);
-
-  cursor: pointer;
-  transition: .25s;
-}
-
-.calendar-bubble:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgba(15,23,42,.18);
-}
-
-.calendar-bubble:active{
-  transform: scale(.98);
-}
-
-.calendar-bubble::after{
-  display:none;
-}
-
-.bubble-icon{
-
-  width:56px;
-  height:56px;
-
-  flex-shrink:0;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:16px;
-
-  background:rgba(255,255,255,.18);
-
-  font-size:30px;
-}
-
-.calendar-bubble strong{
-
-  display:block;
-
-  margin:0 0 4px;
-
-  font-size:18px;
-  font-weight:800;
-
-  color:white;
-}
-
-.calendar-bubble span{
-
-  display:block;
-
-  margin:0;
-
-  font-size:14px;
-
-  line-height:1.45;
-
-  color:rgba(255,255,255,.92);
-}
-
-.calendar-bubble small{
-
-  display:block;
-
-  margin-top:8px;
-
-  font-size:13px;
-
-  font-weight:700;
-
-  color:#fde68a;
-}
-/* ========================================= */
-/* KALENDARZ - WERSJA MOBILNA */
-/* ========================================= */
-
-@media (max-width:900px){
-
-  .calendar-bubble{
-
-    position:relative;
-
-    left:auto;
-    top:auto;
-
-    width:100%;
-    max-width:720px;
+.current-list-wrapper h2{
 
     margin:0 0 18px;
 
-    border-radius:20px;
-  }
+    color:#0f3d75;
 
 }
-.bubble-content{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  flex:1;
+
+.current-list{
+
+    display:grid;
+
+    gap:14px;
+
 }
 
-.bubble-content strong{
-  margin-bottom:4px;
+.shopping-item{
+
+    display:grid;
+
+    gap:12px;
+
+    padding:18px;
+
+    background:#fff;
+
+    border:1px solid #dbe7f5;
+
+    border-left:5px solid #0b63b8;
+
+    border-radius:18px;
+
+    transition:.25s;
+
 }
 
-.bubble-content span{
-  text-align:left;
+.shopping-item:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 24px rgba(15,23,42,.08);
+
 }
 
-.bubble-content small{
-  margin-top:8px;
+.shopping-item-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:14px;
+
 }
+
+.shopping-item-header h3{
+
+    margin:0;
+
+    color:#0f3d75;
+
+    font-size:20px;
+
+    font-weight:800;
+
+}
+
+.shopping-badge{
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:#e7f1ff;
+
+    color:#0b63b8;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+.shopping-meta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+.empty-list{
+
+    padding:30px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    border-radius:16px;
+
+    background:#f8fafc;
+
+}
+
+/* =======================================================
+   STATUS ZAKUPÓW
+======================================================= */
+
+.shopping-status{
+
+    width:fit-content;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+.shopping-status.pending{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.shopping-status.accepted{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+/* =======================================================
+   KOMENTARZ ADMINA
+======================================================= */
+
+.shopping-comment{
+
+    margin-top:8px;
+
+    padding:12px 14px;
+
+    background:#f8fafc;
+
+    border-left:4px solid #0b63b8;
+
+    border-radius:12px;
+
+    color:#475569;
+
+    line-height:1.5;
+
+    font-size:14px;
+
+}
+
+/* =======================================================
+   RESPONSYWNOŚĆ
+======================================================= */
+
+@media (max-width:700px){
+
+    .top-actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .calendar-button,
+    .admin-button-top{
+
+        width:100%;
+
+    }
+
+    .paper{
+
+        width:100%;
+
+        padding:34px 18px 24px 36px;
+
+        border-radius:18px;
+
+    }
+
+    .paper::before{
+
+        left:28px;
+
+    }
+
+    .holes{
+
+        left:8px;
+
+        gap:20px;
+
+    }
+
+    .holes span{
+
+        width:12px;
+
+        height:12px;
+
+    }
+
+    .logo{
+
+        width:90px;
+
+    }
+
+    .paper h1{
+
+        font-size:30px;
+
+    }
+
+    .intro-box{
+
+        padding:16px;
+
+        font-size:15px;
+
+    }
+
+    .shopping-form,
+    .current-list-wrapper{
+
+        padding:16px;
+
+    }
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .shopping-item{
+
+        padding:14px;
+
+    }
+
+    .shopping-item-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .shopping-meta{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:6px;
+
+    }
+
+}
+
+@media (max-width:380px){
+
+    .paper{
+
+        padding-left:30px;
+
+    }
+
+    .paper h1{
+
+        font-size:26px;
+
+    }
+
+    .intro-box{
+
+        font-size:14px;
+
+    }
+
+    .logo{
+
+        width:78px;
+
+    }
+
+}
+/* =======================================================
+   DROBNE ANIMACJE
+======================================================= */
+
+.paper,
+.calendar-button,
+.admin-button-top,
+.shopping-item,
+.shopping-form,
+.current-list-wrapper{
+
+    animation:fadeUp .45s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(14px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:none;
+
+    }
+
+}
+
+/* =======================================================
+   LEPSZE HOVERY
+======================================================= */
+
+.shopping-form input:hover,
+.shopping-form textarea:hover,
+.shopping-form select:hover{
+
+    border-color:#bfd5f2;
+
+}
+
+.shopping-form input::placeholder,
+.shopping-form textarea::placeholder{
+
+    color:#94a3b8;
+
+}
+
+.shopping-item{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.shopping-item::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+
+    transform:translateX(-100%);
+
+    transition:.6s;
+
+    pointer-events:none;
+
+}
+
+.shopping-item:hover::after{
+
+    transform:translateX(100%);
+
+}
+
+/* =======================================================
+   LEPSZY WYGLĄD PRZYCISKÓW
+======================================================= */
+
+.calendar-button strong,
+.admin-button-top strong{
+
+    letter-spacing:.2px;
+
+}
+
+.calendar-button span,
+.admin-button-top span{
+
+    opacity:.95;
+
+}
+
+.calendar-button:focus-visible,
+.admin-button-top:focus-visible,
+.submit-button:focus-visible{
+
+    outline:3px solid rgba(255,255,255,.6);
+
+    outline-offset:3px;
+
+}
+
+/* =======================================================
+   DELIKATNE ZAOKRĄGLENIA
+======================================================= */
+
+.shopping-form input,
+.shopping-form textarea,
+.shopping-form select{
+
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .15s;
+
+}
+
+.shopping-form input:focus,
+.shopping-form textarea:focus,
+.shopping-form select:focus{
+
+    transform:translateY(-1px);
+
+}
+
+.submit-button{
+
+    letter-spacing:.2px;
+
+}
+
+/* =======================================================
+   KONIEC PLIKU
+======================================================= */
