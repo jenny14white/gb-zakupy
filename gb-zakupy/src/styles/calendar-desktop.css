@@ -21,7 +21,7 @@
 
         radial-gradient(
             circle at top left,
-            rgba(129,195,215,.45),
+            rgba(129,195,215,.35),
             transparent 35%
         ),
 
@@ -35,6 +35,7 @@
 
 
 
+
 /* =====================================================
    HEADER STRONY
 ===================================================== */
@@ -42,7 +43,7 @@
 
 .calendar-page-header{
 
-    background:#ffffff;
+    background:white;
 
     border-radius:30px;
 
@@ -53,6 +54,7 @@
     border:1px solid #81C3D7;
 
     box-shadow:
+
         0 20px 50px rgba(22,66,91,.12);
 
 }
@@ -69,8 +71,6 @@
 
     font-weight:900;
 
-    letter-spacing:-1px;
-
 }
 
 
@@ -81,7 +81,7 @@
 
     font-weight:900;
 
-    letter-spacing:.22em;
+    letter-spacing:.25em;
 
 }
 
@@ -91,9 +91,9 @@
 
     color:#3A7CA5;
 
-    line-height:1.7;
-
 }
+
+
 
 
 
@@ -104,8 +104,6 @@
 
 .back-button{
 
-    border:none;
-
     background:#16425B;
 
     color:white;
@@ -114,11 +112,9 @@
 
     border-radius:18px;
 
-    font-weight:800;
+    font-weight:900;
 
-    cursor:pointer;
-
-    transition:.25s;
+    border:none;
 
 }
 
@@ -128,9 +124,9 @@
 
     background:#2F6690;
 
-    transform:translateY(-2px);
-
 }
+
+
 
 
 
@@ -145,6 +141,7 @@
 
     overflow:hidden;
 
+
     background:
 
         linear-gradient(
@@ -153,43 +150,60 @@
             #3A7CA5
         );
 
+
     border-radius:34px;
 
-    padding:55px 40px 85px;
 
-    color:white;
+    padding:
+
+        45px
+
+        40px
+
+        65px;
+
 
     box-shadow:
 
         0 25px 60px rgba(22,66,91,.28);
 
+
 }
+
 
 
 
 /* półokrąg */
 
+
 .calendar-header::after{
 
     content:"";
 
+
     position:absolute;
 
-    left:-5%;
 
-    right:-5%;
+    left:-8%;
 
-    bottom:-150px;
+    right:-8%;
 
-    height:250px;
+
+    bottom:-90px;
+
+
+    height:160px;
+
 
     background:#F8FBFF;
 
-    border-radius:
 
-        50% 50% 0 0;
+    border-radius:50% 50% 0 0;
+
 
 }
+
+
 
 
 
@@ -204,85 +218,205 @@
 
 
 
+
 .calendar-header-top{
 
     display:flex;
 
+    flex-direction:column;
+
     align-items:center;
 
-    justify-content:space-between;
+    text-align:center;
 
 }
 
 
 
 
-.calendar-title{
 
-    color:white;
-
-}
+/* ROK */
 
 
+.calendar-year{
 
-.calendar-title-icon{
-
-    font-size:48px;
-
-}
-
-
-
-.calendar-title h2{
-
-    margin:0;
-
-    color:white;
-
-    font-size:46px;
-
-    font-weight:900;
 
     font-family:
+
         "Playfair Display",
         serif;
 
-}
+
+    font-size:30px;
 
 
+    letter-spacing:10px;
 
-.calendar-title small{
 
     color:#D9DCD6;
 
-    letter-spacing:.08em;
 
 }
+
+
+
+
+
+/* MIESIĄC */
+
+
+.calendar-month{
+
+
+    margin:8px 0 0;
+
+
+    font-family:
+
+        "Bebas Neue",
+        sans-serif;
+
+
+    font-size:78px;
+
+
+    letter-spacing:6px;
+
+
+    color:white;
+
+
+    line-height:1;
+
+
+}
+
+
+
+
+
+/* separator */
+
+
+.calendar-divider{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:16px;
+
+
+    width:280px;
+
+
+    margin-top:24px;
+
+
+}
+
+
+
+.calendar-divider span{
+
+
+    height:2px;
+
+
+    flex:1;
+
+
+    background:#81C3D7;
+
+
+}
+
+
+
+
+.calendar-divider-icon{
+
+
+    width:42px;
+
+    height:42px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:white;
+
+
+    border-radius:50%;
+
+
+    color:#16425B;
+
+
+}
+
+
 
 
 
 /* =====================================================
-   PRZYCISKI
+   NAWIGACJA
 ===================================================== */
 
 
+.calendar-navigation{
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:14px;
+
+
+    margin-top:30px;
+
+
+}
+
+
+
 .calendar-nav-button{
+
 
     width:54px;
 
     height:54px;
 
+
     border:none;
+
 
     border-radius:18px;
 
+
     background:#D9DCD6;
+
 
     color:#16425B;
 
+
     font-size:24px;
 
+
     font-weight:900;
+
 
 }
 
@@ -292,25 +426,32 @@
 
     background:#81C3D7;
 
-    transform:scale(1.08);
-
 }
+
+
 
 
 
 .today-button{
 
-    border:none;
 
-    background:white;
+    padding:15px 30px;
 
-    color:#16425B;
-
-    padding:15px 28px;
 
     border-radius:18px;
 
+
+    border:none;
+
+
+    background:white;
+
+
+    color:#16425B;
+
+
     font-weight:900;
+
 
 }
 
@@ -325,18 +466,24 @@
 
 .calendar-content{
 
+
     display:grid;
+
 
     grid-template-columns:
 
-        minmax(700px,1fr)
+        minmax(650px,1fr)
 
-        360px;
+        340px;
 
 
-    gap:28px;
+    gap:26px;
+
 
 }
+
+
+
 
 
 
@@ -347,11 +494,17 @@
 
 .calendar-weekdays{
 
+
     display:grid;
 
-    grid-template-columns:repeat(7,1fr);
 
-    gap:12px;
+    grid-template-columns:
+
+        repeat(7,1fr);
+
+
+    gap:10px;
+
 
 }
 
@@ -359,19 +512,28 @@
 
 .calendar-weekday{
 
+
     background:#16425B;
+
 
     color:white;
 
-    padding:14px;
 
-    border-radius:16px;
+    padding:13px;
+
+
+    border-radius:15px;
+
 
     text-align:center;
 
+
     font-weight:900;
 
+
 }
+
+
 
 
 
@@ -382,25 +544,38 @@
 
 .calendar-grid{
 
+
     display:grid;
 
-    grid-template-columns:repeat(7,1fr);
 
-    gap:12px;
+    grid-template-columns:
+
+        repeat(7,1fr);
+
+
+    gap:10px;
+
+
+    padding:18px;
+
 
     background:white;
 
-    padding:20px;
 
     border-radius:30px;
 
+
     border:1px solid #81C3D7;
+
 
     box-shadow:
 
         0 20px 45px rgba(22,66,91,.12);
 
+
 }
+
+
 
 
 
@@ -411,20 +586,23 @@
 
 .calendar-day{
 
-    min-height:130px;
+
+    min-height:120px;
+
 
     background:#F8FBFF;
 
+
     border:
 
-        2px solid #D9DCD6;
+        1px solid #D9DCD6;
 
 
-    border-radius:20px;
+    border-radius:18px;
 
-    padding:14px;
 
-    transition:.25s;
+    padding:12px;
+
 
 }
 
@@ -432,11 +610,12 @@
 
 .calendar-day:hover{
 
+
     background:#EAF7FB;
+
 
     border-color:#3A7CA5;
 
-    transform:translateY(-4px);
 
 }
 
@@ -444,9 +623,9 @@
 
 .calendar-day.today{
 
+
     background:#81C3D7;
 
-    border-color:#2F6690;
 
 }
 
@@ -454,21 +633,30 @@
 
 .calendar-day.selected{
 
+
     background:#16425B;
 
+
     color:white;
+
 
 }
 
 
 
+
+
 .calendar-day-number{
 
-    font-size:22px;
+
+    font-size:21px;
+
 
     font-weight:900;
 
+
     color:#16425B;
+
 
 }
 
@@ -482,29 +670,6 @@
 
 
 
-/* =====================================================
-   EVENT W DNIU
-===================================================== */
-
-
-.calendar-day-event{
-
-    margin-top:14px;
-
-    background:white;
-
-    color:#16425B;
-
-    border-radius:12px;
-
-    padding:7px;
-
-    font-size:12px;
-
-    font-weight:900;
-
-}
-
 
 
 /* =====================================================
@@ -514,15 +679,17 @@
 
 .calendar-sidebar{
 
+
     background:white;
+
 
     border-radius:30px;
 
-    padding:28px;
 
-    border:
+    padding:26px;
 
-        1px solid #81C3D7;
+
+    border:1px solid #81C3D7;
 
 
     box-shadow:
@@ -530,29 +697,31 @@
         0 20px 50px rgba(22,66,91,.12);
 
 
-    position:sticky;
-
-    top:25px;
-
 }
+
+
 
 
 
 .selected-day{
 
+
     color:#16425B;
 
-    font-size:24px;
 
-    font-weight:900;
+    font-size:23px;
 
-    border-bottom:
 
-        2px solid #D9DCD6;
+    border-bottom:2px solid #D9DCD6;
 
-    padding-bottom:18px;
+
+    padding-bottom:16px;
+
 
 }
+
+
+
 
 
 
@@ -563,69 +732,81 @@
 
 .event-card{
 
+
     background:#F8FBFF;
+
 
     border-left:
 
         5px solid #3A7CA5;
 
 
-    border-radius:20px;
+    border-radius:18px;
 
-    padding:20px;
+
+    padding:18px;
+
 
 }
+
+
 
 
 
 .event-title{
 
+
     color:#16425B;
 
-    font-size:19px;
-
-    font-weight:900;
 
 }
+
+
 
 
 
 .event-description{
 
+
     background:white;
 
-    border-radius:14px;
 
-    padding:14px;
+    border-radius:12px;
+
+
+    padding:12px;
+
 
     color:#3A7CA5;
+
 
 }
 
 
 
-/* =====================================================
-   BADGE
-===================================================== */
 
 
 .event-badge{
 
-    margin-top:14px;
 
-    display:inline-flex;
+    margin-top:12px;
+
 
     background:#81C3D7;
 
+
     color:#16425B;
+
 
     padding:7px 16px;
 
+
     border-radius:999px;
 
-    font-weight:900;
 
 }
+
+
 
 
 
@@ -636,36 +817,49 @@
 
 .calendar-legend{
 
+
     display:flex;
+
 
     justify-content:center;
 
-    gap:16px;
 
     flex-wrap:wrap;
 
-    padding:20px;
+
+    gap:14px;
+
+
+    padding:18px;
+
 
 }
+
 
 
 
 .legend-item{
 
+
     background:white;
+
 
     border:1px solid #81C3D7;
 
+
     padding:10px 18px;
+
 
     border-radius:999px;
 
+
     color:#16425B;
+
 
     font-weight:800;
 
-}
 
+}
 
 
 }
