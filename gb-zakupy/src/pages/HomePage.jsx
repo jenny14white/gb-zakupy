@@ -24,7 +24,7 @@ export default function HomePage({
 
 
           <h1>
-            GB Zakupy
+            GB sP. z o.o.
           </h1>
 
 
