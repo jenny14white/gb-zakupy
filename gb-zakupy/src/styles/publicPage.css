@@ -411,3 +411,28 @@
 }
 
 }
+/* ===== Poprawka mobilna ===== */
+
+@media (max-width: 900px) {
+
+  .public-page{
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+  }
+
+  .paper{
+    width: 100%;
+    max-width: 720px;
+    margin-top: 16px;
+  }
+
+  .calendar-bubble{
+    position: static;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 0 16px;
+    box-sizing: border-box;
+  }
+
+}
