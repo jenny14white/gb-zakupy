@@ -5,9 +5,8 @@ import CurrentShoppingList from "../components/public/CurrentShoppingList";
 import { usePublicOrders } from "../hooks/usePublicOrders";
 
 
+
 export default function PublicShoppingPage({
-  goToAdmin,
-  goToCalendar,
   goBack,
 }) {
 
@@ -20,92 +19,10 @@ export default function PublicShoppingPage({
 
 
 
+
   return (
 
     <main className="public-page">
-
-
-
-      <div className="top-actions">
-
-
-        <button
-
-          className="calendar-button"
-
-          onClick={goToCalendar}
-
-        >
-
-          <span className="action-icon">
-            📅
-          </span>
-
-
-          <div className="action-content">
-
-            <strong>
-              Kalendarz firmowy
-            </strong>
-
-
-            <span>
-              Sprawdź wydarzenia,
-              urlopy i urodziny
-            </span>
-
-
-          </div>
-
-
-        </button>
-
-
-
-
-
-
-        <button
-
-          className="admin-button-top"
-
-          onClick={goToAdmin}
-
-        >
-
-
-          <span className="action-icon">
-            👤
-          </span>
-
-
-
-          <div className="action-content">
-
-
-            <strong>
-              Panel admina
-            </strong>
-
-
-            <span>
-              Zarządzaj zamówieniami
-            </span>
-
-
-          </div>
-
-
-        </button>
-
-
-
-      </div>
-
-
-
-
-
 
 
 
@@ -127,7 +44,6 @@ export default function PublicShoppingPage({
 
 
 
-
       <section className="paper">
 
 
@@ -135,8 +51,8 @@ export default function PublicShoppingPage({
         <div className="holes">
 
           {Array.from(
-            { length:12 }
-          ).map((_,index)=>(
+            { length: 12 }
+          ).map((_, index) => (
 
             <span
               key={index}
@@ -144,8 +60,9 @@ export default function PublicShoppingPage({
 
           ))}
 
-
         </div>
+
+
 
 
 
@@ -166,6 +83,8 @@ export default function PublicShoppingPage({
           loading={loading}
 
         />
+
+
 
 
 
