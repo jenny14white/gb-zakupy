@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import logoGB from "../assets/logo-gb.png";
+import logoGB from "../assets/logo.png";
 
 
 
