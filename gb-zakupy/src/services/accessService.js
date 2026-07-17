@@ -1,15 +1,15 @@
-import { COMPANY_ACCESS_CODE } from "../config/accessConfig";
+import { COMPANY_ACCESS_CODE } from "../utils/accessCode";
 
 
-export function checkAccessCode(inputCode) {
+export function checkAccessCode(code) {
 
-  if (!inputCode) {
+  if (!code) {
     return false;
   }
 
 
   return (
-    inputCode.trim().toUpperCase() ===
+    code.trim().toUpperCase() ===
     COMPANY_ACCESS_CODE.toUpperCase()
   );
 
