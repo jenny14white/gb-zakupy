@@ -1,17 +1,30 @@
 export default function EventCard({ event }) {
-  const {
-    title,
-    type,
-    emoji,
-    time,
-    location,
-    description,
-    date,
-  } = event;
+  function safeText(value) {
+    if (value == null) return "";
+
+    if (typeof value === "string") return value;
+    if (typeof value === "number") return String(value);
+
+    if (value instanceof Date) {
+      return value.toLocaleDateString("pl-PL");
+    }
+
+    if (typeof value?.toDate === "function") {
+      return value.toDate().toLocaleDateString("pl-PL");
+    }
+
+    return "";
+  }
+
+  const title = safeText(event.title);
+  const type = safeText(event.type);
+  const emoji = safeText(event.emoji);
+  const time = safeText(event.time);
+  const location = safeText(event.location);
+  const description = safeText(event.description);
+  const formattedDate = safeText(event.date);
 
   function getBadgeText() {
-    if (!type) return "Wydarzenie";
-
     switch (type.toLowerCase()) {
       case "company":
       case "firma":
@@ -34,45 +47,14 @@ export default function EventCard({ event }) {
         return "🌴 Urlop";
 
       default:
-        return type;
+        return type || "Wydarzenie";
     }
   }
-
-  function formatDate(value) {
-    if (!value) return "";
-
-    // Firestore Timestamp
-    if (typeof value?.toDate === "function") {
-      return value.toDate().toLocaleDateString("pl-PL", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-    }
-
-    // JS Date
-    if (value instanceof Date) {
-      return value.toLocaleDateString("pl-PL", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-    }
-
-    // String
-    if (typeof value === "string") {
-      return value;
-    }
-
-    return "";
-  }
-
-  const formattedDate = formatDate(date);
 
   return (
     <article className="event-card">
       <h3 className="event-title">
-        {emoji ? `${emoji} ` : ""}
+        {emoji && `${emoji} `}
         {title}
       </h3>
 
