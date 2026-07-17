@@ -55,6 +55,7 @@ export default function Calendar() {
 
 
 
+
   const events = useMemo(() => {
 
     return [
@@ -151,21 +152,17 @@ export default function Calendar() {
 
   const calendarDays = useMemo(() => {
 
-    const year =
-      currentDate.getFullYear();
+    const year = currentDate.getFullYear();
 
-
-    const month =
-      currentDate.getMonth();
+    const month = currentDate.getMonth();
 
 
 
-    const firstDay =
-      new Date(
-        year,
-        month,
-        1
-      );
+    const firstDay = new Date(
+      year,
+      month,
+      1
+    );
 
 
 
@@ -174,14 +171,11 @@ export default function Calendar() {
 
 
 
-
-    const startDate =
-      new Date(
-        year,
-        month,
-        1 - startOffset
-      );
-
+    const startDate = new Date(
+      year,
+      month,
+      1 - startOffset
+    );
 
 
 
@@ -190,9 +184,8 @@ export default function Calendar() {
       { length: 42 },
       (_, index) => {
 
-        const day =
-          new Date(startDate);
 
+        const day = new Date(startDate);
 
 
         day.setDate(
@@ -201,9 +194,7 @@ export default function Calendar() {
 
 
 
-        const jsDay =
-          day.getDay();
-
+        const jsDay = day.getDay();
 
 
 
@@ -220,8 +211,10 @@ export default function Calendar() {
 
 
 
+          // ważne dla poprzedniego/następnego miesiąca
           isCurrentMonth:
-            day.getMonth() === month,
+            day.getMonth() === month &&
+            day.getFullYear() === year,
 
 
 
@@ -261,10 +254,10 @@ export default function Calendar() {
 
 
 
+
   return (
 
     <div className="calendar-wrapper">
-
 
 
       <CalendarHeader
@@ -286,31 +279,24 @@ export default function Calendar() {
       <main className="calendar-content">
 
 
-
         <section className="calendar-main">
 
 
 
           <div className="calendar-weekdays">
 
-            {WEEK_DAYS.map((day) => (
+            {WEEK_DAYS.map((day)=>(
 
               <div
-
                 key={day}
-
                 className="calendar-weekday"
-
               >
-
                 {day}
-
               </div>
 
             ))}
 
           </div>
-
 
 
 
@@ -357,10 +343,7 @@ export default function Calendar() {
             )}
 
 
-
           </div>
-
-
 
 
         </section>
@@ -371,8 +354,8 @@ export default function Calendar() {
 
 
 
-        <aside className="calendar-sidebar">
 
+        <aside className="calendar-sidebar">
 
 
           <h3 className="selected-day">
@@ -380,10 +363,10 @@ export default function Calendar() {
             {selectedDate.toLocaleDateString(
               "pl-PL",
               {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric",
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric",
               }
             )}
 
@@ -393,55 +376,41 @@ export default function Calendar() {
 
 
 
-
           {selectedEvents.length === 0 ? (
-
 
             <div className="calendar-empty">
 
-
               <div className="calendar-empty-icon">
-
                 📅
-
               </div>
 
 
-
               <h4>
-
                 Brak wydarzeń
-
               </h4>
 
 
-
               <p>
-
                 W wybranym dniu nie ma
                 zaplanowanych wydarzeń.
-
               </p>
 
 
             </div>
 
 
-
           ) : (
 
 
-
-            selectedEvents.map((event) => (
+            selectedEvents.map((event,index)=>(
 
 
               <EventCard
 
                 key={
                   event.id ??
-                  `${event.title}-${event.date}`
+                  `${event.title}-${index}`
                 }
-
 
                 event={event}
 
@@ -452,7 +421,6 @@ export default function Calendar() {
             ))
 
 
-
           )}
 
 
@@ -461,8 +429,8 @@ export default function Calendar() {
 
 
 
-
       </main>
+
 
 
     </div>
