@@ -6,10 +6,9 @@ export default function CalendarPage({ goBack }) {
 
   return (
     <main className="calendar-page">
-
       <header className="calendar-page-header">
-
         <button
+          type="button"
           className="back-button"
           onClick={goBack}
         >
@@ -17,26 +16,20 @@ export default function CalendarPage({ goBack }) {
         </button>
 
         <div>
-
           <p className="calendar-eyebrow">
             GB Zakupy
           </p>
 
-          <h1>
-            📅 Kalendarz firmowy
-          </h1>
+          <h1>📅 Kalendarz firmowy</h1>
 
           <p className="calendar-description">
             Tutaj znajdziesz święta państwowe, nietypowe święta,
             wydarzenia firmowe oraz spotkania.
           </p>
-
         </div>
-
       </header>
 
       <Calendar year={year} />
-
     </main>
   );
 }
