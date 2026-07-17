@@ -3,17 +3,19 @@ export default function CalendarDay({
   isCurrentMonth,
   isToday,
   isSelected,
+  isWeekend,
   events,
   onClick,
 }) {
   const className = [
-    'calendar-day',
-    !isCurrentMonth && 'other-month',
-    isToday && 'today',
-    isSelected && 'selected',
+    "calendar-day",
+    !isCurrentMonth && "other-month",
+    isToday && "today",
+    isSelected && "selected",
+    isWeekend && "weekend",
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <div
@@ -22,7 +24,7 @@ export default function CalendarDay({
       tabIndex={0}
       onClick={() => onClick(day)}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           onClick(day);
         }
@@ -40,14 +42,22 @@ export default function CalendarDay({
         )}
       </div>
 
+      {events.length > 0 && (
+        <div className="calendar-day-dot" />
+      )}
+
       <div className="calendar-icons">
         {events.slice(0, 4).map((event, index) => (
           <span
             key={event.id ?? `${event.title}-${index}`}
-            className="calendar-icon"
+            className={`calendar-icon ${
+              event.type
+                ? event.type.toLowerCase()
+                : ""
+            }`}
             title={event.title}
           >
-            {event.emoji || '📅'}
+            {event.emoji || "📅"}
           </span>
         ))}
 
