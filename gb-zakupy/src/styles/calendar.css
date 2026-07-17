@@ -7,9 +7,7 @@
    PALETA
 ================================ */
 
-
 :root{
-
 
     --yale-blue:#16425B;
 
@@ -22,54 +20,32 @@
     --dust-grey:#D9DCD6;
 
 
-
     --surface:#ffffff;
-
 
     --background:#F8FBFF;
 
 
     --text:#16425B;
 
-
     --muted:#64748B;
-
-
 
     --border:#81C3D7;
 
 
-
     --radius-sm:12px;
-
     --radius-md:18px;
-
     --radius-lg:26px;
-
     --radius-xl:34px;
 
 
-
     --shadow-soft:
-
         0 15px 35px rgba(22,66,91,.12);
 
 
-
     --shadow-hover:
-
         0 22px 45px rgba(22,66,91,.18);
 
-
-
-    --shadow-blue:
-
-        0 12px 30px rgba(58,124,165,.22);
-
-
 }
-
-
 
 
 
@@ -83,9 +59,7 @@
 .calendar-page *::before,
 .calendar-page *::after{
 
-
     box-sizing:border-box;
-
 
 }
 
@@ -93,31 +67,25 @@
 
 button{
 
-
     font-family:inherit;
-
 
 }
 
 
 
-
-
 /* ===============================
- GLOBALNY WRAPPER
+ WRAPPER
 ================================ */
 
 
 .calendar-wrapper{
 
-
     width:100%;
-
 
     color:var(--text);
 
-
 }
+
 
 
 
@@ -128,18 +96,32 @@ button{
 
 
 .calendar-page h1,
-.calendar-title h2,
 .event-title{
 
 
     letter-spacing:-.03em;
 
+}
+
+
+
+.calendar-description{
+
+    color:var(--muted);
+
+    line-height:1.7;
 
 }
 
 
 
-.calendar-title h2{
+
+/* ===============================
+ NOWY HEADER TYPO
+================================ */
+
+
+.calendar-year{
 
 
     font-family:
@@ -148,22 +130,144 @@ button{
         serif;
 
 
-}
+    font-size:30px;
 
 
+    letter-spacing:8px;
 
 
-.calendar-description{
-
-
-    color:var(--muted);
-
-    line-height:1.7;
+    color:#D9DCD6;
 
 
 }
 
 
+
+
+.calendar-month{
+
+
+    margin:0;
+
+
+    font-family:
+
+        "Bebas Neue",
+        sans-serif;
+
+
+    font-size:72px;
+
+
+    letter-spacing:5px;
+
+
+    line-height:1;
+
+
+    color:white;
+
+
+}
+
+
+
+.calendar-divider{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:15px;
+
+
+    margin-top:24px;
+
+
+    width:260px;
+
+
+}
+
+
+
+.calendar-divider span{
+
+
+    height:2px;
+
+
+    flex:1;
+
+
+    background:#81C3D7;
+
+
+}
+
+
+
+.calendar-divider-icon{
+
+
+    width:42px;
+
+
+    height:42px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    border-radius:50%;
+
+
+    background:white;
+
+
+    color:#16425B;
+
+
+    font-size:20px;
+
+
+    box-shadow:
+
+        0 8px 20px rgba(0,0,0,.15);
+
+}
+
+
+
+
+.calendar-navigation{
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    gap:12px;
+
+
+}
 
 
 
@@ -198,9 +302,7 @@ button{
 .today-button:hover,
 .back-button:hover{
 
-
     transform:translateY(-2px);
-
 
 }
 
@@ -210,13 +312,9 @@ button{
 .today-button:active,
 .back-button:active{
 
-
     transform:scale(.96);
 
-
 }
-
-
 
 
 
@@ -256,15 +354,12 @@ button{
 
 
 
-
 .event-date{
 
 
     color:var(--muted);
 
-
     font-size:14px;
-
 
     margin-top:8px;
 
@@ -273,22 +368,14 @@ button{
 
 
 
-
 .event-description{
 
 
     line-height:1.65;
 
-
 }
 
 
-
-
-
-/* ===============================
- BADGE
-================================ */
 
 
 .event-badge{
@@ -296,9 +383,7 @@ button{
 
     white-space:nowrap;
 
-
     font-weight:800;
-
 
 }
 
@@ -307,7 +392,7 @@ button{
 
 
 /* ===============================
- PUSTY STAN
+ EMPTY STATE
 ================================ */
 
 
@@ -337,7 +422,9 @@ button{
 
     display:flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
@@ -345,9 +432,7 @@ button{
     border-radius:50%;
 
 
-    background:
-
-        #EAF7FB;
+    background:#EAF7FB;
 
 
     font-size:38px;
@@ -388,35 +473,24 @@ button{
 
 
 
-
 /* ===============================
- KROPKI WYDARZEŃ
+ KROPKI EVENTÓW
 ================================ */
 
 
 .calendar-event-dot{
 
-
     display:block;
 
-
     flex-shrink:0;
-
 
 }
 
 
 
-
-
-
 .calendar-event-dot.company{
 
-
-    background:
-
-        var(--steel-blue);
-
+    background:var(--steel-blue);
 
 }
 
@@ -424,9 +498,7 @@ button{
 
 .calendar-event-dot.holiday{
 
-
     background:#4CAF50;
-
 
 }
 
@@ -434,9 +506,7 @@ button{
 
 .calendar-event-dot.birthday{
 
-
     background:#D85A8A;
-
 
 }
 
@@ -444,9 +514,7 @@ button{
 
 .calendar-event-dot.meeting{
 
-
     background:#7157B8;
-
 
 }
 
@@ -454,12 +522,9 @@ button{
 
 .calendar-event-dot.vacation{
 
-
     background:#D99A32;
 
-
 }
-
 
 
 
@@ -492,27 +557,20 @@ button{
 
     from{
 
-
         opacity:0;
 
-        transform:
-
-            translateY(8px);
-
+        transform:translateY(8px);
 
     }
 
 
     to{
 
-
         opacity:1;
 
         transform:none;
 
-
     }
-
 
 }
 
@@ -543,6 +601,7 @@ button:focus-visible{
 
 
 
+
 /* ===============================
  SCROLLBAR
 ================================ */
@@ -550,9 +609,7 @@ button:focus-visible{
 
 .calendar-sidebar::-webkit-scrollbar{
 
-
     width:8px;
-
 
 }
 
@@ -561,9 +618,7 @@ button:focus-visible{
 .calendar-sidebar::-webkit-scrollbar-thumb{
 
 
-    background:
-
-        var(--sky-blue);
+    background:var(--sky-blue);
 
 
     border-radius:20px;
@@ -576,9 +631,7 @@ button:focus-visible{
 .calendar-sidebar::-webkit-scrollbar-track{
 
 
-    background:
-
-        var(--dust-grey);
+    background:var(--dust-grey);
 
 
 }
@@ -587,9 +640,8 @@ button:focus-visible{
 
 
 
-
 /* ===============================
- DELIKATNE TECHNICZNE TŁO
+ TECHNICZNE TŁO
 ================================ */
 
 
@@ -600,6 +652,7 @@ button:focus-visible{
 
 
 }
+
 
 
 
@@ -617,12 +670,12 @@ button:focus-visible{
     bottom:40px;
 
 
-    width:120px;
+    width:140px;
 
-    height:120px;
+    height:140px;
 
 
-    opacity:.08;
+    opacity:.07;
 
 
     background:
