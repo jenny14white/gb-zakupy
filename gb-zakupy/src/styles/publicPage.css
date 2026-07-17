@@ -411,28 +411,6 @@
 }
 
 }
-/* ========================================= */
-/* CHMURKA KALENDARZA - TELEFON */
-/* ========================================= */
-
-@media (max-width:900px){
-
-  .calendar-bubble{
-
-    position: relative;
-
-    top: auto;
-    left: auto;
-
-    width: 100%;
-    max-width: 720px;
-
-    margin: 0 0 18px;
-
-    border-radius: 20px;
-  }
-
-}
 
 /* ========================================= */
 /* KALENDARZ - STYL ADMIN */
@@ -511,4 +489,26 @@
 
 .calendar-bubble small {
   display: none;
+}
+/* ========================================= */
+/* KALENDARZ - WERSJA MOBILNA */
+/* ========================================= */
+
+@media (max-width:900px){
+
+  .calendar-bubble{
+
+    position:relative;
+
+    left:auto;
+    top:auto;
+
+    width:100%;
+    max-width:720px;
+
+    margin:0 0 18px;
+
+    border-radius:20px;
+  }
+
 }
