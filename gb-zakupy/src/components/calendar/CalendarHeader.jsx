@@ -13,40 +13,55 @@ const MONTHS = [
   "GRUDZIEŃ",
 ];
 
+
 export default function CalendarHeader({
   currentDate,
   onPrev,
   onNext,
   onToday,
 }) {
+
   return (
     <header className="calendar-header">
 
       <div className="calendar-header-top">
 
+
         <div className="calendar-year">
+
           {currentDate.getFullYear()}
+
         </div>
 
+
+
         <h1 className="calendar-month">
+
           {MONTHS[currentDate.getMonth()]}
+
         </h1>
 
-        <p className="calendar-subtitle">
-          Kalendarz wydarzeń GB Zakupy
-        </p>
+
 
         <div className="calendar-divider">
+
           <span></span>
+
           <div className="calendar-divider-icon">
             ⚙
           </div>
+
           <span></span>
+
         </div>
+
 
       </div>
 
+
+
       <div className="calendar-navigation">
+
 
         <button
           type="button"
@@ -54,16 +69,24 @@ export default function CalendarHeader({
           onClick={onPrev}
           aria-label="Poprzedni miesiąc"
         >
+
           ←
+
         </button>
+
+
 
         <button
           type="button"
           className="today-button"
           onClick={onToday}
         >
+
           Dzisiaj
+
         </button>
+
+
 
         <button
           type="button"
@@ -71,10 +94,14 @@ export default function CalendarHeader({
           onClick={onNext}
           aria-label="Następny miesiąc"
         >
+
           →
+
         </button>
 
+
       </div>
+
 
     </header>
   );
