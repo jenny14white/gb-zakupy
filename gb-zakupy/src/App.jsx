@@ -75,6 +75,7 @@ export default function App() {
 
 
 
+
   function handleAccessSuccess(){
 
     sessionStorage.setItem(
@@ -86,6 +87,7 @@ export default function App() {
     setPage("home");
 
   }
+
 
 
 
@@ -131,9 +133,15 @@ export default function App() {
             setPage("calendar")
           }
 
+
+          goToAdmin={() =>
+            setPage("admin")
+          }
+
         />
 
       );
+
 
 
 
@@ -148,23 +156,9 @@ export default function App() {
 
         <PublicShoppingPage
 
-
-          goToAdmin={() =>
-            setPage("admin")
-          }
-
-
-
-          goToCalendar={() =>
-            setPage("calendar")
-          }
-
-
-
           goBack={() =>
             setPage("home")
           }
-
 
         />
 
@@ -206,6 +200,7 @@ export default function App() {
 
         <AdminDashboardPage
 
+
           goBack={() =>
             setPage("home")
           }
@@ -220,11 +215,13 @@ export default function App() {
             setPage("admin-events")
           }
 
+
         />
 
       ) : (
 
         <AdminLoginPage
+
 
           goBack={() =>
             setPage("home")
@@ -233,6 +230,7 @@ export default function App() {
 
 
           onLogin={handleLogin}
+
 
         />
 
@@ -262,6 +260,7 @@ export default function App() {
 
         <AdminLoginPage
 
+
           goBack={() =>
             setPage("home")
           }
@@ -275,6 +274,7 @@ export default function App() {
             setPage("admin-events");
 
           }}
+
 
         />
 
@@ -299,9 +299,13 @@ export default function App() {
           }
 
 
-
           goToCalendar={() =>
             setPage("calendar")
+          }
+
+
+          goToAdmin={() =>
+            setPage("admin")
           }
 
         />
