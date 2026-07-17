@@ -1,6 +1,7 @@
 export default function HomePage({
   goToShopping,
   goToCalendar,
+  goToAdmin,
 }) {
 
 
@@ -12,6 +13,7 @@ export default function HomePage({
       <section className="home-container">
 
 
+
         <div className="home-header">
 
 
@@ -20,9 +22,11 @@ export default function HomePage({
           </div>
 
 
+
           <h1>
             GB Zakupy
           </h1>
+
 
 
           <p>
@@ -36,7 +40,12 @@ export default function HomePage({
 
 
 
+
+
+
         <div className="home-options">
+
+
 
 
 
@@ -55,6 +64,7 @@ export default function HomePage({
             </div>
 
 
+
             <div>
 
               <h2>
@@ -62,14 +72,18 @@ export default function HomePage({
               </h2>
 
 
+
               <p>
                 Sprawdź aktualne potrzeby zakupowe firmy
               </p>
+
 
             </div>
 
 
           </button>
+
+
 
 
 
@@ -92,6 +106,7 @@ export default function HomePage({
             </div>
 
 
+
             <div>
 
               <h2>
@@ -99,9 +114,11 @@ export default function HomePage({
               </h2>
 
 
+
               <p>
                 Święta, wydarzenia i spotkania firmowe
               </p>
+
 
             </div>
 
@@ -112,7 +129,53 @@ export default function HomePage({
 
 
 
+
+
+
+
+          <button
+
+            type="button"
+
+            className="home-card home-card-admin"
+
+            onClick={goToAdmin}
+
+          >
+
+            <div className="home-card-icon">
+              👤
+            </div>
+
+
+
+            <div>
+
+              <h2>
+                Panel admina
+              </h2>
+
+
+
+              <p>
+                Zarządzanie zamówieniami i wydarzeniami
+              </p>
+
+
+            </div>
+
+
+          </button>
+
+
+
+
+
+
+
         </div>
+
+
 
 
 
