@@ -18,7 +18,7 @@
 
 
     min-height:100vh;
-
+    background:#F8FBFF;
 
     display:flex;
 
@@ -951,32 +951,91 @@
 
 
 }
+/* =====================================
+   FERROFLUID BACKGROUND
+===================================== */
+
+
 .access-background{
 
     position:absolute;
 
-    inset:0;
+    top:0;
+
+    left:0;
+
+
+    width:100%;
+
+    height:100%;
+
 
     z-index:0;
 
+
+    pointer-events:none;
+
+
+    overflow:hidden;
+
 }
+
+
+
+
+
+.access-background .ferrofluid-container{
+
+
+    position:absolute;
+
+
+    top:0;
+
+    left:0;
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+}
+
+
 
 
 
 .access-background canvas{
 
+
+    display:block;
+
+
     width:100% !important;
 
+
     height:100% !important;
+
 
 }
 
 
 
+
+
+
+/* karta nad animacją */
+
+
 .access-card{
+
 
     position:relative;
 
+
     z-index:5;
+
 
 }
