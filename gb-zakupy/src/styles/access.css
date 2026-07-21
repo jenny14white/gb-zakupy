@@ -755,3 +755,250 @@
 
 
 }
+/* =====================================
+   EXTRA BACKGROUND MOTION
+===================================== */
+
+
+.access-page{
+
+    isolation:isolate;
+
+}
+
+
+
+/* dodatkowa kula 1 */
+
+
+.access-page::before{
+
+
+    animation:
+
+        orbMoveOne 10s infinite alternate ease-in-out;
+
+
+}
+
+
+
+
+
+/* dodatkowa animacja */
+
+
+.access-page::after{
+
+
+    animation:
+
+        orbMoveTwo 14s infinite alternate ease-in-out;
+
+
+}
+
+
+
+
+
+@keyframes orbMoveOne{
+
+
+    0%{
+
+
+        transform:
+
+            translate(0,0)
+
+            scale(1);
+
+
+    }
+
+
+    50%{
+
+
+        transform:
+
+            translate(120px,80px)
+
+            scale(1.35);
+
+
+    }
+
+
+    100%{
+
+
+        transform:
+
+            translate(40px,150px)
+
+            scale(1.1);
+
+
+    }
+
+
+}
+
+
+
+
+
+@keyframes orbMoveTwo{
+
+
+    0%{
+
+
+        transform:
+
+            translate(0,0)
+
+            scale(1);
+
+
+    }
+
+
+
+    50%{
+
+
+        transform:
+
+            translate(-120px,-80px)
+
+            scale(1.3);
+
+
+    }
+
+
+
+    100%{
+
+
+        transform:
+
+            translate(-40px,-150px)
+
+            scale(1.15);
+
+
+    }
+
+
+}
+
+
+
+
+
+/* delikatne unoszenie karty */
+
+
+.access-card{
+
+
+    animation:
+
+
+        cardEnter .8s ease,
+
+
+        cardFloat 6s infinite ease-in-out;
+
+
+}
+
+
+
+
+@keyframes cardFloat{
+
+
+    0%,100%{
+
+
+        transform:
+
+            translateY(0);
+
+
+    }
+
+
+    50%{
+
+
+        transform:
+
+            translateY(-8px);
+
+
+    }
+
+
+}
+
+
+
+
+
+/* pulsowanie logo */
+
+
+.access-logo{
+
+
+    animation:
+
+
+        logoPulse 4s infinite ease-in-out;
+
+
+}
+
+
+
+@keyframes logoPulse{
+
+
+    0%,100%{
+
+
+        box-shadow:
+
+
+        0 20px 45px rgba(22,66,91,.25),
+
+
+        0 0 0 8px rgba(129,195,215,.15);
+
+
+    }
+
+
+
+    50%{
+
+
+        box-shadow:
+
+
+        0 25px 55px rgba(22,66,91,.35),
+
+
+        0 0 0 18px rgba(129,195,215,.08);
+
+
+    }
+
+
+}
