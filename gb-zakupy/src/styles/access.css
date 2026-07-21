@@ -1,10 +1,10 @@
 /* =====================================
-   GB ACCESS PAGE PREMIUM
+   GB ACCESS PAGE PREMIUM CLEAN
 ===================================== */
 
 
 /* =====================================
-   BACKGROUND + ANIMACJA
+   BACKGROUND
 ===================================== */
 
 
@@ -13,7 +13,6 @@
     position:relative;
 
     overflow:hidden;
-
 
     min-height:100vh;
 
@@ -46,6 +45,7 @@
         );
 
 
+
     background-size:
 
         35px 35px,
@@ -53,11 +53,14 @@
         cover;
 
 
+
     animation:
 
         backgroundMove 25s linear infinite;
 
 }
+
+
 
 
 
@@ -73,6 +76,7 @@
             center;
 
     }
+
 
 
     to{
@@ -92,11 +96,8 @@
 
 
 
-
-
-
 /* =====================================
-   KARTA
+   CARD
 ===================================== */
 
 
@@ -111,17 +112,19 @@
 
     width:100%;
 
+
     max-width:430px;
 
 
 
     background:
 
-        rgba(255,255,255,.82);
+        rgba(255,255,255,.88);
 
 
 
     border-radius:34px;
+
 
 
     padding:42px 38px;
@@ -145,14 +148,15 @@
 
 
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:
+
+        blur(20px);
 
 
 
     animation:
 
         cardEnter .8s ease;
-
 
 }
 
@@ -191,8 +195,9 @@
 
     }
 
-
 }
+
+
 
 
 
@@ -208,6 +213,7 @@
 
     width:130px;
 
+
     height:130px;
 
 
@@ -221,11 +227,12 @@
 
     align-items:center;
 
+
     justify-content:center;
 
 
 
-    background:rgba(255,255,255,.88);
+    background:white;
 
 
 
@@ -247,14 +254,9 @@
 
 
 
-    box-shadow:
+    animation:
 
-
-        0 20px 45px rgba(22,66,91,.25),
-
-
-        0 0 0 8px rgba(129,195,215,.15);
-
+        logoPulse 4s infinite ease-in-out;
 
 }
 
@@ -280,8 +282,49 @@
 
 
 
+@keyframes logoPulse{
+
+
+    0%,100%{
+
+
+        box-shadow:
+
+
+        0 20px 45px rgba(22,66,91,.25),
+
+
+        0 0 0 8px rgba(129,195,215,.15);
+
+
+    }
+
+
+
+    50%{
+
+
+        box-shadow:
+
+
+        0 25px 60px rgba(22,66,91,.35),
+
+
+        0 0 0 14px rgba(129,195,215,.08);
+
+
+    }
+
+}
+
+
+
+
+
+
+
 /* =====================================
-   TYTUŁ
+   TITLE
 ===================================== */
 
 
@@ -294,6 +337,7 @@
     color:#16425B;
 
 
+
     font-size:36px;
 
 
@@ -304,6 +348,7 @@
 
 
 }
+
 
 
 
@@ -326,8 +371,10 @@
 
 
 
+
+
 /* =====================================
-   FORMULARZ
+   FORM
 ===================================== */
 
 
@@ -337,6 +384,7 @@
     margin-top:32px;
 
 
+
     display:flex;
 
 
@@ -344,7 +392,6 @@
 
 
     gap:13px;
-
 
 }
 
@@ -373,16 +420,21 @@
 
 
 
+
+
 .access-form input{
 
 
     width:100%;
 
 
+
     padding:16px;
 
 
+
     border-radius:18px;
+
 
 
     border:
@@ -391,10 +443,12 @@
 
 
 
-    background:rgba(255,255,255,.88);
+    background:white;
+
 
 
     color:#16425B;
+
 
 
     font-size:18px;
@@ -403,7 +457,9 @@
     font-weight:700;
 
 
+
     text-align:center;
+
 
 
     letter-spacing:5px;
@@ -413,8 +469,8 @@
     outline:none;
 
 
-    transition:.25s;
 
+    transition:.25s;
 
 }
 
@@ -429,7 +485,6 @@
 
 
     letter-spacing:3px;
-
 
 }
 
@@ -456,6 +511,8 @@
 
 
 
+
+
 /* =====================================
    BUTTON
 ===================================== */
@@ -470,7 +527,9 @@
     padding:16px;
 
 
+
     border:none;
+
 
 
     border-radius:18px;
@@ -481,9 +540,13 @@
 
 
         linear-gradient(
+
             135deg,
+
             #16425B,
+
             #3A7CA5
+
         );
 
 
@@ -512,8 +575,8 @@
 
         0 12px 25px rgba(22,66,91,.20);
 
-
 }
+
 
 
 
@@ -530,7 +593,6 @@
 
         0 18px 35px rgba(22,66,91,.30);
 
-
 }
 
 
@@ -542,8 +604,9 @@
 
     transform:scale(.97);
 
-
 }
+
+
 
 
 
@@ -565,8 +628,9 @@
 
     font-weight:800;
 
-
 }
+
+
 
 
 
@@ -596,9 +660,7 @@
 
         border-radius:28px;
 
-
     }
-
 
 
 
@@ -613,9 +675,7 @@
 
         padding:10px;
 
-
     }
-
 
 
 
@@ -624,9 +684,7 @@
 
         font-size:28px;
 
-
     }
-
 
 
 
@@ -635,9 +693,7 @@
 
         font-size:14px;
 
-
     }
-
 
 
 
@@ -649,218 +705,7 @@
 
         padding:14px;
 
-
     }
 
-
-}
-
-
-
-
-
-
-
-
-
-
-/* karta nad wszystkim */
-
-
-.access-card{
-
-
-    position:relative;
-
-    z-index:5;
-
-
-    animation:
-
-
-        cardEnter .8s ease,
-
-
-}
-
-
-
-
-
-/* logo pulsuje */
-
-
-.access-logo{
-
-
-    animation:
-
-        logoPulse 4s infinite ease-in-out;
-
-
-}
-
-
-
-
-@keyframes logoPulse{
-
-
-    0%,100%{
-
-
-        box-shadow:
-
-
-        0 20px 45px rgba(22,66,91,.25),
-
-
-        0 0 0 8px rgba(129,195,215,.15);
-
-
-    }
-
-
-
-
-    50%{
-
-
-        box-shadow:
-
-
-        0 25px 60px rgba(22,66,91,.35),
-
-
-        0 0 0 18px rgba(129,195,215,.05);
-
-
-    }
-
-
-}
-.access-background{
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:0;
-
-}
-
-
-.access-card{
-
-    position:relative;
-
-    z-index:2;
-
-}
-/* =====================================
-   LIQUID WAVES
-===================================== */
-
-.access-page::before{
-    content:"";
-
-    position:absolute;
-
-    left:-20%;
-    bottom:-35%;
-
-    width:140%;
-    height:70%;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            rgba(129,195,215,.75),
-            rgba(58,124,165,.45) 45%,
-            transparent 70%
-        );
-
-    border-radius:50% 50% 0 0;
-
-    animation:
-        waveOne 12s infinite ease-in-out;
-
-    z-index:0;
-}
-
-
-
-.access-page::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:-30%;
-
-    bottom:-45%;
-
-    width:160%;
-    height:60%;
-
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            rgba(22,66,91,.45),
-            transparent 70%
-        );
-
-
-    border-radius:50% 50% 0 0;
-
-
-    animation:
-        waveTwo 18s infinite ease-in-out;
-
-
-    z-index:0;
-
-}
-
-
-
-@keyframes waveOne{
-
-    0%,100%{
-        transform:
-            translateX(-8%)
-            translateY(0)
-            scaleX(1);
-    }
-
-
-    50%{
-        transform:
-            translateX(8%)
-            translateY(-45px)
-            scaleX(1.15);
-    }
-
-}
-
-
-
-@keyframes waveTwo{
-
-    0%,100%{
-        transform:
-            translateX(10%)
-            translateY(20px)
-            scaleX(1.1);
-    }
-
-
-    50%{
-        transform:
-            translateX(-10%)
-            translateY(-30px)
-            scaleX(.95);
-    }
 
 }
