@@ -1002,3 +1002,264 @@
 
 
 }
+/* =====================================
+   GB LIQUID WAVES BACKGROUND
+===================================== */
+
+
+.access-page{
+
+    position:relative;
+
+    overflow:hidden;
+
+    isolation:isolate;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #F8FBFF,
+            #D9DCD6
+        );
+
+}
+
+
+
+/* fala dolna */
+
+
+.access-page::before{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    left:-20%;
+
+    bottom:-25%;
+
+
+    width:140%;
+
+
+    height:55%;
+
+
+    background:
+
+
+        radial-gradient(
+            ellipse at center,
+            rgba(129,195,215,.65),
+            rgba(58,124,165,.45) 45%,
+            transparent 70%
+        );
+
+
+    border-radius:
+
+        50% 50% 0 0;
+
+
+    animation:
+
+        waveMove 12s infinite ease-in-out;
+
+
+    z-index:0;
+
+
+}
+
+
+
+
+
+
+/* druga fala */
+
+
+.access-page::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    left:-25%;
+
+
+    bottom:-35%;
+
+
+    width:150%;
+
+
+    height:45%;
+
+
+    background:
+
+
+        radial-gradient(
+            ellipse at center,
+            rgba(22,66,91,.35),
+            transparent 70%
+        );
+
+
+    border-radius:
+
+        50% 50% 0 0;
+
+
+    animation:
+
+        waveMoveReverse 16s infinite ease-in-out;
+
+
+    z-index:0;
+
+
+}
+
+
+
+
+
+
+@keyframes waveMove{
+
+
+    0%,100%{
+
+
+        transform:
+
+            translateX(-5%)
+
+            translateY(0)
+
+            scaleX(1);
+
+
+    }
+
+
+
+    50%{
+
+
+        transform:
+
+            translateX(8%)
+
+            translateY(-25px)
+
+            scaleX(1.08);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+@keyframes waveMoveReverse{
+
+
+    0%,100%{
+
+
+        transform:
+
+            translateX(8%)
+
+            translateY(20px)
+
+            scaleX(1.1);
+
+
+    }
+
+
+
+    50%{
+
+
+        transform:
+
+            translateX(-8%)
+
+            translateY(-10px)
+
+            scaleX(1);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* karta nad falami */
+
+
+.access-card{
+
+
+    position:relative;
+
+
+    z-index:5;
+
+
+    animation:
+
+
+        cardFloat 6s infinite ease-in-out;
+
+
+}
+
+
+
+
+
+@keyframes cardFloat{
+
+
+    0%,100%{
+
+
+        transform:translateY(0);
+
+
+    }
+
+
+    50%{
+
+
+        transform:translateY(-8px);
+
+
+    }
+
+
+}
