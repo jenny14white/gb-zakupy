@@ -2,21 +2,34 @@ import {
   signInWithEmailAndPassword,
   signInAnonymously,
   signOut,
-} from 'firebase/auth';
+} from "firebase/auth";
 
-import { auth } from './firebase';
+import { auth } from "./firebase";
 
 
 
-export async function loginAdmin(email, password) {
 
-  const credential = await signInWithEmailAndPassword(
-    auth,
-    email.trim(),
-    password
-  );
+
+// ==========================
+// ADMIN LOGIN
+// ==========================
+
+export async function loginAdmin(
+  email,
+  password
+) {
+
+
+  const credential =
+    await signInWithEmailAndPassword(
+      auth,
+      email.trim(),
+      password
+    );
+
 
   return credential.user;
+
 
 }
 
@@ -24,11 +37,19 @@ export async function loginAdmin(email, password) {
 
 
 
-export async function loginPortal() {
 
-  const credential = await signInAnonymously(auth);
+// ==========================
+// PORTAL ACCESS LOGIN
+// ==========================
+
+export async function loginPortal(){
+
+  const credential =
+    await signInAnonymously(auth);
+
 
   return credential.user;
+
 
 }
 
@@ -36,7 +57,12 @@ export async function loginPortal() {
 
 
 
-export async function logoutAdmin() {
+
+// ==========================
+// ADMIN LOGOUT
+// ==========================
+
+export async function logoutAdmin(){
 
   await signOut(auth);
 
@@ -46,7 +72,12 @@ export async function logoutAdmin() {
 
 
 
-export async function logoutPortal() {
+
+// ==========================
+// PORTAL LOGOUT
+// ==========================
+
+export async function logoutPortal(){
 
   await signOut(auth);
 
