@@ -4,264 +4,46 @@ import { Renderer, Program, Mesh, Triangle } from "ogl";
 import "./Ferrofluid.css";
 
 
-const MAX_COLORS = 8;
-
-
-
-function hexToRGB(hex){
-
-    const c = hex
-        .replace("#","")
-        .padEnd(6,"0");
-
-
-    return [
-        parseInt(c.slice(0,2),16)/255,
-        parseInt(c.slice(2,4),16)/255,
-        parseInt(c.slice(4,6),16)/255
-    ];
-
-}
-
-
-
-function prepareColors(colors){
-
-
-    const list = (
-        colors?.length
-        ?
-        colors
-        :
-        [
-            "#16425B",
-            "#3A7CA5",
-            "#81C3D7"
-        ]
-    )
-    .slice(0,MAX_COLORS);
-
-
-
-    const arr = [];
-
-
-    for(let i=0;i<MAX_COLORS;i++){
-
-        arr.push(
-            hexToRGB(
-                list[
-                    Math.min(
-                        i,
-                        list.length-1
-                    )
-                ]
-            )
-        );
-
-    }
-
-
-
-    return {
-
-        arr,
-
-        count:list.length
-
-    };
-
-
-}
-
-
-
-
-
-const vertex = `
-
-attribute vec2 position;
-
-attribute vec2 uv;
-
-varying vec2 vUv;
-
-
-void main(){
-
-    vUv = uv;
-
-    gl_Position =
-        vec4(position,0.0,1.0);
-
-}
-
-`;
-
-
-
-
-
-
-const fragment = `
-
-precision highp float;
-
-
-uniform vec3 iResolution;
-
-uniform float iTime;
-
-
-uniform vec3 uColor0;
-
-uniform vec3 uColor1;
-
-uniform vec3 uColor2;
-
-
-uniform float uSpeed;
-
-uniform float uGlow;
-
-
-varying vec2 vUv;
-
-
-
-float noise(vec2 p){
-
-    return sin(
-        p.x*3.0+
-        sin(p.y*4.0+
-        iTime)
-    );
-
-}
-
-
-
-void main(){
-
-
-    vec2 uv =
-        vUv;
-
-
-    float wave = noise(
-        uv*3.0 +
-        iTime*uSpeed
-    );
-
-
-
-    float light =
-        smoothstep(
-            -1.0,
-            1.0,
-            wave
-        );
-
-
-
-    vec3 color =
-        mix(
-            uColor0,
-            uColor1,
-            light
-        );
-
-
-
-    color =
-        mix(
-            color,
-            uColor2,
-            uv.y
-        );
-
-
-
-    color *= uGlow;
-
-
-
-    float alpha =
-        smoothstep(
-            0.0,
-            1.0,
-            uv.y
-        );
-
-
-
-    gl_FragColor =
-        vec4(
-            color,
-            alpha
-        );
-
-
-}
-
-`;
-
-
-
-
-
-
-
-
-
 export default function Ferrofluid({
 
     colors = [
-        "#16425B",
-        "#3A7CA5",
-        "#81C3D7"
+        "#012A4A",
+        "#014F86",
+        "#2C7DA0"
     ],
-
 
     speed = 0.35,
 
-
-    glow = 1.5,
-
+    glow = 2.5
 
 }){
 
 
-    const containerRef =
-        useRef(null);
+    const containerRef = useRef(null);
 
 
 
     useEffect(()=>{
 
 
-        const container =
-            containerRef.current;
+        const container = containerRef.current;
 
 
-        if(!container)
-            return;
-
-
-
-        const renderer =
-            new Renderer({
-
-                alpha:true,
-
-                antialias:true,
-
-            });
+        if(!container) return;
 
 
 
-        const gl =
-            renderer.gl;
+        const renderer = new Renderer({
+
+            alpha:true,
+
+            antialias:true
+
+        });
+
+
+
+        const gl = renderer.gl;
 
 
 
@@ -274,15 +56,200 @@ export default function Ferrofluid({
 
 
 
-        container.appendChild(
-            gl.canvas
-        );
+        const canvas = gl.canvas;
 
 
 
-        const {
-            arr
-        } = prepareColors(colors);
+        canvas.style.width="100%";
+
+        canvas.style.height="100%";
+
+        canvas.style.display="block";
+
+
+
+        container.appendChild(canvas);
+
+
+
+
+
+        function hexToRGB(hex){
+
+
+            const value =
+                hex.replace("#","");
+
+
+
+            return [
+
+                parseInt(value.substring(0,2),16)/255,
+
+                parseInt(value.substring(2,4),16)/255,
+
+                parseInt(value.substring(4,6),16)/255
+
+            ];
+
+
+        }
+
+
+
+
+
+        const c1 =
+            hexToRGB(colors[0]);
+
+        const c2 =
+            hexToRGB(colors[1]);
+
+        const c3 =
+            hexToRGB(colors[2]);
+
+
+
+
+
+
+
+        const vertex = `
+
+        attribute vec2 position;
+
+        attribute vec2 uv;
+
+
+        varying vec2 vUv;
+
+
+        void main(){
+
+            vUv = uv;
+
+            gl_Position =
+                vec4(position,0.0,1.0);
+
+        }
+
+        `;
+
+
+
+
+
+
+
+        const fragment = `
+
+        precision highp float;
+
+
+        uniform float iTime;
+
+        uniform float uSpeed;
+
+        uniform float uGlow;
+
+
+        uniform vec3 color1;
+
+        uniform vec3 color2;
+
+        uniform vec3 color3;
+
+
+        varying vec2 vUv;
+
+
+
+
+        float wave(vec2 p){
+
+
+            float x =
+                sin(
+                    p.x*4.0+iTime*uSpeed
+                );
+
+
+            float y =
+                cos(
+                    p.y*5.0-iTime*uSpeed
+                );
+
+
+            return x*y;
+
+        }
+
+
+
+
+        void main(){
+
+
+            vec2 uv=vUv;
+
+
+
+            float w =
+                wave(
+                    uv*3.0
+                );
+
+
+
+            float mix1 =
+                smoothstep(
+                    -1.0,
+                    1.0,
+                    w
+                );
+
+
+
+            vec3 col =
+                mix(
+                    color1,
+                    color2,
+                    mix1
+                );
+
+
+
+            col =
+                mix(
+                    col,
+                    color3,
+                    uv.y
+                );
+
+
+
+            col *= uGlow;
+
+
+
+            float alpha =
+                0.75;
+
+
+
+            gl_FragColor =
+                vec4(
+                    col,
+                    alpha
+                );
+
+
+        }
+
+        `;
+
+
+
 
 
 
@@ -300,32 +267,8 @@ export default function Ferrofluid({
                     uniforms:{
 
 
-                        iResolution:{
-                            value:[
-                                gl.canvas.width,
-                                gl.canvas.height,
-                                1
-                            ]
-                        },
-
-
                         iTime:{
                             value:0
-                        },
-
-
-                        uColor0:{
-                            value:arr[0]
-                        },
-
-
-                        uColor1:{
-                            value:arr[1]
-                        },
-
-
-                        uColor2:{
-                            value:arr[2]
                         },
 
 
@@ -336,14 +279,31 @@ export default function Ferrofluid({
 
                         uGlow:{
                             value:glow
+                        },
+
+
+                        color1:{
+                            value:c1
+                        },
+
+
+                        color2:{
+                            value:c2
+                        },
+
+
+                        color3:{
+                            value:c3
                         }
 
 
                     }
 
-                }
 
+                }
             );
+
+
 
 
 
@@ -357,12 +317,12 @@ export default function Ferrofluid({
                     geometry:
                         new Triangle(gl),
 
-
                     program
 
                 }
-
             );
+
+
 
 
 
@@ -372,19 +332,18 @@ export default function Ferrofluid({
         function resize(){
 
 
-            const {
-                width,
-                height
-            } =
-            container.getBoundingClientRect();
+            const rect =
+                container.getBoundingClientRect();
 
 
 
             renderer.setSize(
-                width,
-                height
-            );
 
+                rect.width,
+
+                rect.height
+
+            );
 
 
         }
@@ -405,6 +364,7 @@ export default function Ferrofluid({
 
 
 
+
         let frame;
 
 
@@ -418,7 +378,9 @@ export default function Ferrofluid({
 
 
             renderer.render({
+
                 scene:mesh
+
             });
 
 
@@ -433,6 +395,7 @@ export default function Ferrofluid({
 
 
 
+
         frame =
             requestAnimationFrame(
                 animate
@@ -443,12 +406,13 @@ export default function Ferrofluid({
 
 
 
+
+
         return ()=>{
 
 
-            cancelAnimationFrame(
-                frame
-            );
+            cancelAnimationFrame(frame);
+
 
 
             window.removeEventListener(
@@ -457,9 +421,12 @@ export default function Ferrofluid({
             );
 
 
-            container.removeChild(
-                gl.canvas
-            );
+
+            if(canvas.parentNode){
+
+                canvas.parentNode.removeChild(canvas);
+
+            }
 
 
         };
@@ -471,6 +438,8 @@ export default function Ferrofluid({
         speed,
         glow
     ]);
+
+
 
 
 
