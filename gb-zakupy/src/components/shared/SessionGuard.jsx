@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import { logoutPortal } from "../../firebase/auth";
+
+
 
 export default function SessionGuard({
     onLogout
@@ -12,11 +15,45 @@ export default function SessionGuard({
         const TIME = 10 * 60 * 1000;
 
 
-        let timer;
+        let timer = null;
+
+
+
+
+        function logout(){
+
+
+            sessionStorage.removeItem(
+                "gbAccess"
+            );
+
+
+            sessionStorage.removeItem(
+                "gbLastActivity"
+            );
+
+
+
+            logoutPortal()
+                .catch(error =>
+                    console.error(error)
+                );
+
+
+
+            onLogout();
+
+
+        }
+
+
+
+
 
 
 
         function refreshSession(){
+
 
 
             sessionStorage.setItem(
@@ -30,25 +67,15 @@ export default function SessionGuard({
 
 
 
-            timer=setTimeout(()=>{
+
+            timer = setTimeout(()=>{
 
 
-                sessionStorage.removeItem(
-                    "gbAccess"
-                );
+                logout();
 
 
-                sessionStorage.removeItem(
-                    "gbLastActivity"
-                );
+            }, TIME);
 
-
-
-                onLogout();
-
-
-
-            },TIME);
 
 
         }
@@ -57,15 +84,97 @@ export default function SessionGuard({
 
 
 
+
+
+
+        function checkExistingSession(){
+
+
+
+            const lastActivity =
+
+                Number(
+                    sessionStorage.getItem(
+                        "gbLastActivity"
+                    )
+                );
+
+
+
+
+            if(!lastActivity){
+
+
+                refreshSession();
+
+                return;
+
+
+            }
+
+
+
+
+
+
+            const inactiveTime =
+
+                Date.now() - lastActivity;
+
+
+
+
+
+
+            if(inactiveTime >= TIME){
+
+
+                logout();
+
+
+            }else{
+
+
+                timer=setTimeout(()=>{
+
+
+                    logout();
+
+
+                }, TIME - inactiveTime);
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
         const events=[
 
+
             "mousemove",
+
             "mousedown",
+
             "keydown",
+
             "scroll",
+
             "touchstart"
 
+
         ];
+
+
+
 
 
 
@@ -75,7 +184,10 @@ export default function SessionGuard({
 
             window.addEventListener(
                 event,
-                refreshSession
+                refreshSession,
+                {
+                    passive:true
+                }
             );
 
 
@@ -84,7 +196,14 @@ export default function SessionGuard({
 
 
 
-        refreshSession();
+
+
+
+
+        checkExistingSession();
+
+
+
 
 
 
@@ -117,6 +236,9 @@ export default function SessionGuard({
 
 
 
+
+
     return null;
+
 
 }
