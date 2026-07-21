@@ -227,7 +227,7 @@ export default function HomePage({
 
               <p>
 
-                Kalendarz GB — Święta, wydarzenia i spotkania firmowe
+                Święta, wydarzenia i spotkania firmowe
 
               </p>
 
