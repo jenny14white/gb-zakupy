@@ -191,35 +191,14 @@ alt="GB Sp. z o.o."
 
 </div>
 
-
-
-
-
-
-
-<h1>
-
-GB Sp. z o.o.
-
+<h1 className="company-title">
+    GB Sp. z o.o.
 </h1>
 
 
-
-
-
-
-
-<p className="access-subtitle">
-
-Portal firmowy
-
+<p className="access-subtitle shader-text">
+    Portal firmowy
 </p>
-
-
-
-
-
-
 
 
 
