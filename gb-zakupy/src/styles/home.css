@@ -1,5 +1,5 @@
 /* =====================================================
-   GB HOME PAGE PREMIUM GLASS + FERROFLUID
+   GB HOME PAGE - PREMIUM LIQUID GLASS
 ===================================================== */
 
 
@@ -27,20 +27,27 @@
     display:flex;
 
 
-    justify-content:center;
-
-
     align-items:center;
+
+    justify-content:center;
 
 
 
     background:
 
+
         linear-gradient(
+
             135deg,
-            #F8FBFF,
-            #EAF7FF
+
+            #001233,
+
+            #001845,
+
+            #023e7d
+
         );
+
 
 }
 
@@ -48,8 +55,9 @@
 
 
 
+
 /* ===============================
-   FERROFLUID
+   ANIMOWANE TŁO
 ================================ */
 
 
@@ -57,6 +65,7 @@
 
 
     position:absolute;
+
 
     inset:0;
 
@@ -79,6 +88,7 @@
 
     position:absolute;
 
+
     inset:0;
 
 
@@ -95,7 +105,6 @@
 
 
     width:100% !important;
-
 
     height:100% !important;
 
@@ -120,6 +129,7 @@
 
 
     z-index:2;
+
 
 
     width:100%;
@@ -147,37 +157,39 @@
     text-align:center;
 
 
-    margin-bottom:45px;
+    margin-bottom:55px;
 
 
 }
 
 
 
+
+
 .home-logo{
 
 
-    width:100px;
+    width:130px;
 
 
-    height:100px;
+    height:130px;
 
 
-    margin:0 auto 20px;
+
+    margin:0 auto 25px;
+
+
+
+
+    background:white;
+
 
 
     border-radius:50%;
 
 
-    background:
 
-        rgba(255,255,255,.75);
-
-
-
-    backdrop-filter:
-
-        blur(20px);
+    padding:12px;
 
 
 
@@ -190,17 +202,75 @@
     justify-content:center;
 
 
-    font-size:50px;
-
 
 
     box-shadow:
 
 
-        0 20px 45px rgba(1,42,74,.2);
+        0 0 50px rgba(3,83,164,.6);
+
+
+
+    border:
+
+        3px solid rgba(255,255,255,.5);
+
+
+
+    animation:
+
+        logoFloat 4s ease-in-out infinite;
+
 
 
 }
+
+
+
+
+
+.home-logo img{
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    object-fit:contain;
+
+
+}
+
+
+
+
+
+@keyframes logoFloat{
+
+
+    0%,100%{
+
+
+        transform:translateY(0);
+
+
+    }
+
+
+    50%{
+
+
+        transform:translateY(-8px);
+
+
+    }
+
+
+}
+
+
 
 
 
@@ -212,19 +282,82 @@
     margin:0;
 
 
-    font-size:70px;
+    font-size:clamp(42px,7vw,70px);
 
 
-    letter-spacing:4px;
+    letter-spacing:3px;
 
 
     font-weight:900;
 
 
-    color:#012A4A;
+
+    background:
+
+
+        linear-gradient(
+
+            120deg,
+
+            #ffffff,
+
+            #8ec5ff,
+
+            #ffffff
+
+        );
+
+
+
+    background-size:250% auto;
+
+
+
+    -webkit-background-clip:text;
+
+
+    background-clip:text;
+
+
+
+    color:transparent;
+
+
+
+    animation:
+
+        metalShine 5s linear infinite;
+
 
 
 }
+
+
+
+
+
+
+
+@keyframes metalShine{
+
+
+    from{
+
+        background-position:200% center;
+
+    }
+
+
+    to{
+
+        background-position:-200% center;
+
+    }
+
+
+}
+
+
 
 
 
@@ -233,14 +366,20 @@
 .home-header p{
 
 
-    color:#2A6F97;
+    margin-top:12px;
+
+
+    color:
+
+
+        rgba(220,235,255,.9);
+
 
 
     font-size:18px;
 
 
 }
-
 
 
 
@@ -265,7 +404,9 @@
         repeat(3,1fr);
 
 
-    gap:28px;
+
+    gap:30px;
+
 
 
 }
@@ -277,513 +418,32 @@
 
 
 /* ===============================
-   PREMIUM CARDS
+   STARE ELEMENTY USUNIĘTE
 ================================ */
 
 
-.home-card{
-
-
-    position:relative;
-
-
-    overflow:hidden;
-
-
-    border:none;
-
-
-    min-height:320px;
-
-
-    padding:35px;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:flex-start;
-
-
-    align-items:flex-start;
-
-
-
-    text-align:left;
-
-
-    cursor:pointer;
-
-
-
-    background:
-
-
-        rgba(255,255,255,.72);
-
-
-
-    backdrop-filter:
-
-        blur(25px);
-
-
-
-    border-radius:32px;
-
-
-
-    border:
-
-        1px solid rgba(255,255,255,.8);
-
-
-
-    box-shadow:
-
-
-        0 25px 60px rgba(1,42,74,.18);
-
-
-
-    transition:.35s ease;
-
-
-
-    animation:
-
-        homeFade .5s ease;
-
-
-}
-
-
-
-
-
-
-
-/* kolorowy róg */
-
-
-.home-card::before{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    top:-40px;
-
-
-    left:-40px;
-
-
-    width:110px;
-
-
-    height:110px;
-
-
-
-    border-radius:50%;
-
-
-
-    background:#59A5D8;
-
-
-
-    opacity:.9;
-
-
-}
-
-
-
-
-
-.home-card:nth-child(2)::before{
-
-
-    background:#8B7BFF;
-
-
-}
-
-
-
-
-
-.home-card:nth-child(3)::before{
-
-
-    background:#22B8A7;
-
-
-}
-
-
-
-
-
-
-
-
-/* fala na dole */
-
-
-.home-card::after{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    bottom:-90px;
-
-
-    left:-20%;
-
-
-    width:140%;
-
-
-    height:160px;
-
-
-    background:
-
-
-        radial-gradient(
-
-            ellipse,
-
-            rgba(132,210,246,.45),
-
-            transparent 70%
-
-        );
-
-
-    border-radius:50%;
-
-
-}
-
-
-
-
-
-
-
-
-.home-card:hover{
-
-
-    transform:
-
-
-        translateY(-12px);
-
-
-
-    box-shadow:
-
-
-        0 40px 80px rgba(1,42,74,.28);
-
-
-}
-
-
-
-
+/*
+.home-card
+.home-card-icon
+*/
 
 
 
 
 /* ===============================
-   ICON
-================================ */
-
-
-.home-card-icon{
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-    width:95px;
-
-
-    height:95px;
-
-
-    border-radius:50%;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    font-size:55px;
-
-
-
-    background:
-
-
-        rgba(132,210,246,.25);
-
-
-
-    margin-bottom:28px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
-   TEXT
-================================ */
-
-
-.home-card h2{
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-
-    margin:0 0 12px;
-
-
-
-    color:#012A4A;
-
-
-    font-size:28px;
-
-
-    font-weight:900;
-
-
-}
-
-
-
-
-
-
-
-.home-card p{
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-
-    margin:0;
-
-
-    color:#386FA4;
-
-
-    font-size:16px;
-
-
-    line-height:1.5;
-
-
-    max-width:240px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
-   ARROW BUTTON
-================================ */
-
-
-.home-card .arrow{
-
-
-    position:absolute;
-
-
-    right:28px;
-
-
-    bottom:28px;
-
-
-}
-
-
-
-
-
-.home-card::marker{
-
-
-    display:none;
-
-}
-
-
-
-
-
-
-
-.home-card:hover .home-card-icon{
-
-
-    transform:
-
-
-        scale(1.08);
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
-   ADMIN
-================================ */
-
-
-.home-card-admin{
-
-
-    border-color:
-
-        rgba(1,42,74,.35);
-
-
-}
-
-
-
-
-
-
-.home-card-admin .home-card-icon{
-
-
-    background:
-
-
-        rgba(1,42,74,.15);
-
-
-}
-
-
-
-
-
-
-
-
-/* ===============================
-   ANIMATION
-================================ */
-
-
-@keyframes homeFade{
-
-
-    from{
-
-
-        opacity:0;
-
-
-        transform:
-
-            translateY(20px);
-
-
-    }
-
-
-    to{
-
-
-        opacity:1;
-
-
-        transform:none;
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-
-/* ===============================
-   MOBILE
+   RESPONSIVE
 ================================ */
 
 
 @media(max-width:900px){
 
 
+
     .home-page{
 
-        padding:15px;
+
+        padding:18px;
+
 
     }
 
@@ -794,25 +454,21 @@
 
         grid-template-columns:1fr;
 
+
     }
+
 
 
 
     .home-header h1{
 
 
-        font-size:48px;
+        font-size:44px;
+
 
     }
 
 
-
-    .home-card{
-
-
-        min-height:240px;
-
-    }
 
 
 }
