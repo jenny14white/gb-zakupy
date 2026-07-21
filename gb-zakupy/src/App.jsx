@@ -30,19 +30,30 @@ import {
 
 
 
+
 export default function App(){
 
 
+  const [page,setPage] = useState(
 
-  const [page,setPage] = useState("access");
+    sessionStorage.getItem("gbAccess") === "true"
+      ? "home"
+      : "access"
+
+  );
 
 
 
-  const [hasAccess,setHasAccess] = useState(false);
+  const [hasAccess,setHasAccess] = useState(
+
+    sessionStorage.getItem("gbAccess") === "true"
+
+  );
 
 
 
   const [firebaseReady,setFirebaseReady] = useState(false);
+
 
 
 
@@ -66,40 +77,28 @@ export default function App(){
 
     const unsubscribe = onAuthStateChanged(
       auth,
-      (user)=>{
+      ()=>{
+
+
+        const access =
+
+          sessionStorage.getItem("gbAccess")
+          ===
+          "true";
 
 
 
-        if(user){
+        setHasAccess(access);
 
 
-          setHasAccess(true);
 
+        if(access){
 
           setPage("home");
 
-
-
         }else{
 
-
-          setHasAccess(false);
-
-
-
-          sessionStorage.removeItem(
-            "gbAccess"
-          );
-
-
-          sessionStorage.removeItem(
-            "gbLastActivity"
-          );
-
-
-
           setPage("access");
-
 
         }
 
@@ -116,11 +115,7 @@ export default function App(){
     return ()=>unsubscribe();
 
 
-
   },[]);
-
-
-
 
 
 
@@ -143,6 +138,7 @@ export default function App(){
     );
 
 
+
     setHasAccess(false);
 
 
@@ -150,7 +146,6 @@ export default function App(){
 
 
   }
-
 
 
 
@@ -181,7 +176,6 @@ export default function App(){
 
 
 
-
     sessionStorage.removeItem(
       "admin"
     );
@@ -194,7 +188,6 @@ export default function App(){
 
 
   }
-
 
 
 
@@ -230,7 +223,6 @@ export default function App(){
 
 
 
-
   function handleAccessSuccess(){
 
 
@@ -240,10 +232,18 @@ export default function App(){
     );
 
 
+
     sessionStorage.setItem(
       "gbLastActivity",
       Date.now()
     );
+
+
+
+    setHasAccess(true);
+
+
+    setPage("home");
 
 
   }
@@ -258,12 +258,9 @@ export default function App(){
 
 
 
-
   if(!firebaseReady){
 
-
     return null;
-
 
   }
 
@@ -280,246 +277,228 @@ export default function App(){
     <>
 
 
-    {
-      hasAccess && (
+      {
+        hasAccess && (
 
-        <SessionGuard
+          <SessionGuard
 
-          onLogout={handleAccessLogout}
+            onLogout={handleAccessLogout}
 
-        />
+          />
 
-      )
-    }
+        )
+      }
 
 
 
 
 
 
+      {
 
-    {
+        (()=>{
 
-      (()=>{
 
+          switch(page){
 
-        switch(page){
 
 
+            case "access":
 
-          case "access":
 
+              return (
 
-            return (
+                <AccessPage
 
-              <AccessPage
+                  onSuccess={handleAccessSuccess}
 
-                onSuccess={handleAccessSuccess}
+                />
 
-              />
+              );
 
-            );
 
 
 
 
 
 
+            case "home":
 
 
+              return (
 
-          case "home":
+                <HomePage
 
+                  goToShopping={()=>setPage("shopping")}
 
-            return (
+                  goToCalendar={()=>setPage("calendar")}
 
-              <HomePage
+                  goToAdmin={()=>setPage("admin")}
 
+                />
 
-                goToShopping={()=>setPage("shopping")}
+              );
 
 
-                goToCalendar={()=>setPage("calendar")}
 
 
-                goToAdmin={()=>setPage("admin")}
 
 
-              />
 
-            );
+            case "shopping":
 
 
+              return (
 
+                <PublicShoppingPage
 
+                  goBack={()=>setPage("home")}
 
+                />
 
+              );
 
 
 
-          case "shopping":
 
 
-            return (
 
-              <PublicShoppingPage
 
-                goBack={()=>setPage("home")}
+            case "calendar":
 
-              />
 
-            );
+              return (
 
+                <CalendarPage
 
+                  goBack={()=>setPage("home")}
 
+                />
 
+              );
 
 
 
 
 
-          case "calendar":
 
 
-            return (
+            case "admin":
 
-              <CalendarPage
 
-                goBack={()=>setPage("home")}
+              return isAdmin ? (
 
-              />
 
-            );
+                <AdminDashboardPage
 
 
+                  goBack={()=>setPage("home")}
 
 
+                  logout={handleLogout}
 
 
+                  goToEvents={()=>setPage("admin-events")}
 
 
+                />
 
-          case "admin":
 
+              ) : (
 
-            return isAdmin ? (
 
+                <AdminLoginPage
 
-              <AdminDashboardPage
 
+                  goBack={()=>setPage("home")}
 
-                goBack={()=>setPage("home")}
 
+                  onLogin={handleLogin}
 
-                logout={handleLogout}
 
+                />
 
-                goToEvents={()=>setPage("admin-events")}
 
+              );
 
-              />
 
 
-            ) : (
 
 
-              <AdminLoginPage
 
 
-                goBack={()=>setPage("home")}
+            case "admin-events":
 
 
-                onLogin={handleLogin}
+              return isAdmin ? (
 
 
-              />
+                <AdminEventsPage
 
 
-            );
+                  goBack={()=>setPage("admin")}
 
 
+                />
 
 
+              ) : (
 
 
+                <AdminLoginPage
 
 
+                  goBack={()=>setPage("home")}
 
-          case "admin-events":
 
+                  onLogin={()=>{
 
-            return isAdmin ? (
 
+                    handleLogin();
 
-              <AdminEventsPage
 
+                    setPage("admin-events");
 
-                goBack={()=>setPage("admin")}
 
+                  }}
 
-              />
 
+                />
 
-            ) : (
 
+              );
 
-              <AdminLoginPage
 
 
-                goBack={()=>setPage("home")}
 
 
-                onLogin={()=>{
 
 
-                  handleLogin();
+            default:
 
 
-                  setPage("admin-events");
+              return (
 
+                <AccessPage
 
-                }}
+                  onSuccess={handleAccessSuccess}
 
+                />
 
-              />
+              );
 
 
-            );
+          }
 
 
 
+        })()
 
-
-
-
-
-
-          default:
-
-
-            return (
-
-              <AccessPage
-
-                onSuccess={handleAccessSuccess}
-
-              />
-
-            );
-
-
-        }
-
-
-      })()
-
-
-    }
+      }
 
 
 
     </>
-
 
   );
 
