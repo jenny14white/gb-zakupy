@@ -160,43 +160,65 @@ return (
 
 <Ferrofluid
 
-
 colors={[
 
-"#133C55",
+  "#012A4A", // Deep Space Blue
 
-"#386FA4",
+  "#013A63", // Yale Blue
 
-"#59A5D8",
+  "#01497C", // Yale Blue
 
-"#84D2F6"
+  "#014F86", // Dusk Blue
+
+  "#2A6F97", // Rich Cerulean
+
+  "#2C7DA0", // Cerulean
+
+  "#468FAF"  // Blue Green
 
 ]}
 
 
-speed={0.25}
+speed={0.22}
 
 
-scale={1.8}
+scale={1.7}
 
 
-turbulence={0.8}
+turbulence={0.9}
 
 
-fluidity={0.15}
+fluidity={0.12}
 
 
-glow={2}
+rimWidth={0.25}
+
+
+sharpness={2.2}
+
+
+shimmer={1.8}
+
+
+glow={2.5}
+
+
+flowDirection="down"
+
+
+opacity={0.85}
 
 
 mouseInteraction={true}
 
 
+mouseStrength={1}
+
+
+mouseRadius={0.35}
+
+
 />
-
-
-</div>
-
 
 
 
