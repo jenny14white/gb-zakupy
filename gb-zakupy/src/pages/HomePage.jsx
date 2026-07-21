@@ -1,5 +1,7 @@
 import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
+import GooeyCard from "../components/shared/effects/GooeyCard";
+
 
 export default function HomePage({
   goToShopping,
@@ -8,318 +10,211 @@ export default function HomePage({
 }) {
 
 
-  return (
+return (
 
+<main className="home-page">
 
-    <main className="home-page">
 
 
+{/* TŁO */}
 
-      {/* ANIMOWANE TŁO */}
+<div className="home-background">
 
-      <div className="home-background">
 
+<Ferrofluid
 
-        <Ferrofluid
+colors={[
+"#0353a4",
+"#023e7d",
+"#002855",
+"#001845",
+"#33415c"
+]}
 
-          colors={[
-            "#012A4A",
-            "#013A63",
-            "#01497C",
-            "#014F86",
-            "#2A6F97",
-            "#2C7DA0",
-            "#468FAF"
-          ]}
 
+speed={0.18}
 
-          speed={0.22}
 
+scale={1.5}
 
-          scale={1.7}
 
+turbulence={0.8}
 
-          turbulence={0.9}
 
+fluidity={0.12}
 
-          fluidity={0.12}
 
+rimWidth={0.25}
 
-          rimWidth={0.25}
 
+sharpness={2}
 
-          sharpness={2.2}
 
+shimmer={1.5}
 
-          shimmer={1.8}
 
+glow={2.2}
 
-          glow={2.5}
 
+flowDirection="down"
 
-          flowDirection="down"
 
+opacity={0.8}
 
-          opacity={0.75}
 
+mouseInteraction={true}
 
-          mouseInteraction={true}
 
+mouseStrength={0.8}
 
-          mouseStrength={1}
 
+mouseRadius={0.3}
 
-          mouseRadius={0.35}
 
+/>
 
-        />
 
+</div>
 
-      </div>
 
 
 
 
 
 
+<section className="home-container">
 
-      <section className="home-container">
 
 
 
 
+<div className="home-header">
 
-        <div className="home-header">
 
 
 
-          <div className="home-logo">
 
-            📦
+<div className="home-logo">
 
-          </div>
 
+<img
+src="/src/assets/logo.png"
+alt="GB"
+/>
 
 
+</div>
 
 
-          <h1>
 
-            GB Sp. z o.o.
 
-          </h1>
 
 
+<h1>
 
+GB Sp. z o.o.
 
+</h1>
 
-          <p>
 
-            Wybierz, z którego modułu chcesz skorzystać
 
-          </p>
 
 
+<p>
 
-        </div>
+Wybierz moduł aplikacji
 
+</p>
 
 
 
 
 
+</div>
 
 
-        <div className="home-options">
 
 
 
 
 
-          <button
 
-            type="button"
 
-            className="home-card"
+<div className="home-options">
 
-            onClick={goToShopping}
 
-          >
 
 
 
-            <div className="home-card-icon">
+<GooeyCard
 
-              📋
+icon="📋"
 
-            </div>
+title="Lista zakupowa"
 
+description="Obsługa zamówień na artykuły biurowe i wyposażenie"
 
+onClick={goToShopping}
 
+/>
 
 
-            <div>
 
 
-              <h2>
 
-                Lista zakupowa
 
-              </h2>
 
+<GooeyCard
 
+icon="📅"
 
-              <p>
+title="Kalendarz GB"
 
-                Obsługa zamówień na artykuły biurowe i wyposażenie
+description="Święta, wydarzenia i spotkania firmowe"
 
-              </p>
+onClick={goToCalendar}
 
+/>
 
 
-            </div>
 
 
 
-          </button>
 
 
 
+<GooeyCard
 
+icon="👤"
 
+title="Panel admina"
 
+description="Zarządzanie zamówieniami i wydarzeniami"
 
+onClick={goToAdmin}
 
+/>
 
-          <button
 
-            type="button"
 
-            className="home-card"
 
-            onClick={goToCalendar}
 
-          >
+</div>
 
 
 
-            <div className="home-card-icon">
 
-              📅
 
-            </div>
+</section>
 
 
 
 
 
-            <div>
+</main>
 
 
-              <h2>
+);
 
-                Kalendarz GB
-
-              </h2>
-
-
-
-
-              <p>
-
-                Święta, wydarzenia i spotkania firmowe
-
-              </p>
-
-
-
-            </div>
-
-
-
-          </button>
-
-
-
-
-
-
-
-
-
-          <button
-
-            type="button"
-
-            className="home-card home-card-admin"
-
-            onClick={goToAdmin}
-
-          >
-
-
-
-            <div className="home-card-icon">
-
-              👤
-
-            </div>
-
-
-
-
-
-            <div>
-
-
-              <h2>
-
-                Panel admina
-
-              </h2>
-
-
-
-
-              <p>
-
-                Zarządzanie zamówieniami i wydarzeniami
-
-              </p>
-
-
-
-            </div>
-
-
-
-          </button>
-
-
-
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-      </section>
-
-
-
-
-
-
-
-    </main>
-
-
-  );
 
 }
