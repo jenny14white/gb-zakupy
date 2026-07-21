@@ -90,107 +90,6 @@
 
 
 
-/* =====================================
-   RUCHOME ŚWIATŁA
-===================================== */
-
-
-.access-page::before,
-.access-page::after{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    width:420px;
-
-    height:420px;
-
-
-    border-radius:50%;
-
-
-    filter:blur(80px);
-
-
-    opacity:.35;
-
-
-    animation:
-
-        floatingGlow 12s infinite alternate ease-in-out;
-
-
-}
-
-
-
-.access-page::before{
-
-
-    background:#81C3D7;
-
-
-    top:-140px;
-
-    left:-140px;
-
-
-}
-
-
-
-.access-page::after{
-
-
-    background:#3A7CA5;
-
-
-    bottom:-150px;
-
-    right:-120px;
-
-
-    animation-delay:4s;
-
-
-}
-
-
-
-@keyframes floatingGlow{
-
-
-    from{
-
-
-        transform:
-
-            translate(0,0)
-
-            scale(1);
-
-
-    }
-
-
-    to{
-
-
-        transform:
-
-            translate(90px,60px)
-
-            scale(1.25);
-
-
-    }
-
-
-}
 
 
 
@@ -1112,5 +1011,112 @@
     position:relative;
 
     z-index:2;
+
+}
+/* =====================================
+   LIQUID WAVES
+===================================== */
+
+.access-page::before{
+    content:"";
+
+    position:absolute;
+
+    left:-20%;
+    bottom:-35%;
+
+    width:140%;
+    height:70%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(129,195,215,.75),
+            rgba(58,124,165,.45) 45%,
+            transparent 70%
+        );
+
+    border-radius:50% 50% 0 0;
+
+    animation:
+        waveOne 12s infinite ease-in-out;
+
+    z-index:0;
+}
+
+
+
+.access-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:-30%;
+
+    bottom:-45%;
+
+    width:160%;
+    height:60%;
+
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(22,66,91,.45),
+            transparent 70%
+        );
+
+
+    border-radius:50% 50% 0 0;
+
+
+    animation:
+        waveTwo 18s infinite ease-in-out;
+
+
+    z-index:0;
+
+}
+
+
+
+@keyframes waveOne{
+
+    0%,100%{
+        transform:
+            translateX(-8%)
+            translateY(0)
+            scaleX(1);
+    }
+
+
+    50%{
+        transform:
+            translateX(8%)
+            translateY(-45px)
+            scaleX(1.15);
+    }
+
+}
+
+
+
+@keyframes waveTwo{
+
+    0%,100%{
+        transform:
+            translateX(10%)
+            translateY(20px)
+            scaleX(1.1);
+    }
+
+
+    50%{
+        transform:
+            translateX(-10%)
+            translateY(-30px)
+            scaleX(.95);
+    }
 
 }
