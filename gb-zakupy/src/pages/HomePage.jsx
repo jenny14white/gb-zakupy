@@ -1,22 +1,30 @@
+import logoGB from "../assets/logo.png";
+
 import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
 import GooeyCard from "../components/shared/effects/GooeyCard";
 
 
+
 export default function HomePage({
+
   goToShopping,
+
   goToCalendar,
+
   goToAdmin,
+
 }) {
 
 
 return (
 
+
 <main className="home-page">
 
 
 
-{/* TŁO */}
+
 
 <div className="home-background">
 
@@ -24,49 +32,44 @@ return (
 <Ferrofluid
 
 colors={[
+
 "#0353a4",
+
 "#023e7d",
+
 "#002855",
+
 "#001845",
+
 "#33415c"
+
 ]}
+
 
 
 speed={0.18}
 
-
 scale={1.5}
-
 
 turbulence={0.8}
 
-
 fluidity={0.12}
-
 
 rimWidth={0.25}
 
-
 sharpness={2}
-
 
 shimmer={1.5}
 
-
 glow={2.2}
-
 
 flowDirection="down"
 
-
-opacity={0.8}
-
+opacity={0.75}
 
 mouseInteraction={true}
 
-
 mouseStrength={0.8}
-
 
 mouseRadius={0.3}
 
@@ -82,13 +85,15 @@ mouseRadius={0.3}
 
 
 
+
 <section className="home-container">
 
 
 
 
 
-<div className="home-header">
+
+<header className="home-header">
 
 
 
@@ -98,8 +103,11 @@ mouseRadius={0.3}
 
 
 <img
-src="/src/assets/logo.png"
-alt="GB"
+
+src={logoGB}
+
+alt="GB Sp. z o.o."
+
 />
 
 
@@ -110,9 +118,12 @@ alt="GB"
 
 
 
-<h1>
+
+<h1 className="company-title">
+
 
 GB Sp. z o.o.
+
 
 </h1>
 
@@ -120,9 +131,11 @@ GB Sp. z o.o.
 
 
 
+
+
 <p>
 
-Wybierz moduł aplikacji
+Portal wewnętrzny firmy
 
 </p>
 
@@ -130,7 +143,7 @@ Wybierz moduł aplikacji
 
 
 
-</div>
+</header>
 
 
 
@@ -148,7 +161,7 @@ Wybierz moduł aplikacji
 
 <GooeyCard
 
-icon="📋"
+icon=""
 
 title="Lista zakupowa"
 
@@ -164,9 +177,10 @@ onClick={goToShopping}
 
 
 
+
 <GooeyCard
 
-icon="📅"
+icon=""
 
 title="Kalendarz GB"
 
@@ -185,7 +199,7 @@ onClick={goToCalendar}
 
 <GooeyCard
 
-icon="👤"
+icon=""
 
 title="Panel admina"
 
@@ -199,13 +213,17 @@ onClick={goToAdmin}
 
 
 
+
 </div>
 
 
 
 
 
+
 </section>
+
+
 
 
 
