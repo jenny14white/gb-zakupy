@@ -34,6 +34,8 @@ export default function AccessPage({
 
 
 
+
+
   function handleChange(value,index){
 
 
@@ -42,6 +44,10 @@ export default function AccessPage({
       return;
 
     }
+
+
+    setError("");
+
 
 
     const newCode=[...code];
@@ -151,6 +157,7 @@ export default function AccessPage({
 
 
 
+
     try{
 
 
@@ -179,6 +186,7 @@ export default function AccessPage({
         "gbLastActivity",
         Date.now()
       );
+
 
 
 
@@ -226,7 +234,7 @@ export default function AccessPage({
 
 
 
-return (
+  return (
 
 
 <main className="access-page">
@@ -239,58 +247,73 @@ return (
 
         <LiquidEther
 
-    colors={[
 
-    "#2676e1",
-    "#2c3bd3",
-    "#2970e2"
+            colors={[
 
-]}
+                "#0353a4",
 
+                "#023e7d",
 
-    mouseForce={20}
+                "#002855"
 
-
-    cursorSize={60}
+            ]}
 
 
-    isViscous
+
+            mouseForce={20}
 
 
-    viscous={18}
+            cursorSize={60}
 
 
-    iterationsViscous={16}
+
+            isViscous
 
 
-    iterationsPoisson={16}
+            viscous={18}
 
 
-    resolution={0.35}
+
+            iterationsViscous={16}
 
 
-    isBounce={false}
+            iterationsPoisson={16}
 
 
-    autoDemo
+
+            resolution={0.35}
 
 
-    autoSpeed={0.35}
+
+            isBounce={false}
 
 
-    autoIntensity={1.4}
+
+            autoDemo
 
 
-    takeoverDuration={0.25}
+
+            autoSpeed={0.35}
 
 
-    autoResumeDelay={3000}
+
+            autoIntensity={1.4}
 
 
-    autoRampDuration={0.6}
+
+            takeoverDuration={0.25}
 
 
-/>
+
+            autoResumeDelay={3000}
+
+
+
+            autoRampDuration={0.6}
+
+
+
+        />
 
 
     </div>
@@ -338,6 +361,7 @@ alt="GB Sp. z o.o."
 GB Sp. z o.o.
 
 </h1>
+
 
 
 
@@ -442,6 +466,7 @@ index
 
 
 
+
 onKeyDown={(e)=>
 
 handleKeyDown(
@@ -504,6 +529,8 @@ loading
 
 
 
+
+
 </form>
 
 
@@ -547,7 +574,7 @@ error &&
 </main>
 
 
-);
+  );
 
 
 }
