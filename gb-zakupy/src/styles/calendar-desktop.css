@@ -1,20 +1,15 @@
 /* =====================================================
    GB KALENDARZ - DESKTOP PREMIUM INDUSTRIAL BLUE
-   FULL SCREEN DASHBOARD
+   FIXED DASHBOARD + SAFE SCROLL
 ===================================================== */
 
 
 @media (min-width:768px){
 
 
-
 .calendar-page{
 
-    height:100vh;
-
-    min-height:0;
-
-    overflow:hidden;
+    min-height:100vh;
 
     padding:20px;
 
@@ -34,7 +29,6 @@
         );
 
 }
-
 
 
 
@@ -75,7 +69,6 @@
 }
 
 
-
 .calendar-eyebrow{
 
     color:#2F6690;
@@ -87,13 +80,11 @@
 }
 
 
-
 .calendar-description{
 
     color:#3A7CA5;
 
 }
-
 
 
 
@@ -116,8 +107,9 @@
 
 
 
+
 /* =====================================================
- HEADER KALENDARZA
+ HEADER MIESIĄCA
 ===================================================== */
 
 
@@ -140,9 +132,7 @@
     border-radius:30px;
 
 
-    padding:
-
-        22px 35px 45px;
+    padding:22px 35px 45px;
 
 
     box-shadow:
@@ -150,8 +140,6 @@
         0 20px 50px rgba(22,66,91,.28);
 
 }
-
-
 
 
 
@@ -187,7 +175,6 @@
 
 
 
-
 .calendar-header-top{
 
     display:flex;
@@ -197,7 +184,6 @@
     align-items:center;
 
 }
-
 
 
 
@@ -219,9 +205,7 @@
 
 
 
-
 .calendar-month{
-
 
     margin:5px 0 0;
 
@@ -250,23 +234,25 @@
 
 .calendar-divider{
 
-
     width:220px;
 
-
     margin-top:15px;
-
 
 }
 
 
 
 
+
+
+/* ===============================
+ NAWIGACJA
+================================ */
+
+
 .calendar-navigation{
 
-
     margin-top:18px;
-
 
     display:flex;
 
@@ -278,55 +264,42 @@
 
 
 
-
-
 .calendar-nav-button{
-
 
     width:45px;
 
     height:45px;
 
-
     border:none;
 
     border-radius:15px;
-
 
     background:#D9DCD6;
 
     color:#16425B;
 
-
     font-weight:900;
 
 }
-
-
 
 
 
 .today-button{
 
-
     padding:12px 25px;
-
 
     border-radius:15px;
 
-
     border:none;
-
 
     background:white;
 
-
     color:#16425B;
-
 
     font-weight:900;
 
 }
+
 
 
 
@@ -353,9 +326,7 @@
     gap:18px;
 
 
-    height:
-
-        calc(100vh - 360px);
+    margin-top:18px;
 
 
 }
@@ -365,14 +336,14 @@
 
 
 
-/* DNI TYGODNIA */
+/* ===============================
+ DNI TYGODNIA
+================================ */
 
 
 .calendar-weekdays{
 
-
     display:grid;
-
 
     grid-template-columns:
 
@@ -381,28 +352,21 @@
 
     gap:8px;
 
-
 }
-
 
 
 
 .calendar-weekday{
 
-
     background:#16425B;
 
     color:white;
 
-
     padding:10px;
-
 
     border-radius:14px;
 
-
     text-align:center;
-
 
     font-weight:900;
 
@@ -412,7 +376,11 @@
 
 
 
-/* GRID */
+
+
+/* ===============================
+ KALENDARZ
+================================ */
 
 
 .calendar-grid{
@@ -432,9 +400,6 @@
     padding:12px;
 
 
-    height:100%;
-
-
     background:white;
 
 
@@ -442,6 +407,11 @@
 
 
     border:1px solid #81C3D7;
+
+
+    box-shadow:
+
+        0 20px 45px rgba(22,66,91,.12);
 
 
 }
@@ -453,7 +423,7 @@
 .calendar-day{
 
 
-    min-height:0;
+    min-height:105px;
 
 
     padding:8px;
@@ -465,17 +435,22 @@
     background:#F8FBFF;
 
 
+    border:1px solid #D9DCD6;
+
+
+    position:relative;
+
 }
-
-
 
 
 
 .calendar-day-number{
 
-
     font-size:17px;
 
+    font-weight:900;
+
+    color:#16425B;
 
 }
 
@@ -483,10 +458,16 @@
 
 
 
+/* EVENTY */
+
+
 .calendar-day-events{
 
-
     margin-top:8px;
+
+    display:flex;
+
+    flex-direction:column;
 
     gap:4px;
 
@@ -499,10 +480,27 @@
 .calendar-event-bubble{
 
 
+    position:relative;
+
+
+    z-index:2;
+
+
+    background:white;
+
+
     padding:5px 7px;
 
 
     font-size:10px;
+
+
+    border-radius:10px;
+
+
+    box-shadow:
+
+        0 4px 12px rgba(22,66,91,.12);
 
 
 }
@@ -513,13 +511,12 @@
 
 
 
-/* SIDEBAR */
+/* ===============================
+ SIDEBAR
+================================ */
 
 
 .calendar-sidebar{
-
-
-    height:100%;
 
 
     background:white;
@@ -534,13 +531,16 @@
     border:1px solid #81C3D7;
 
 
+    box-shadow:
+
+        0 20px 45px rgba(22,66,91,.12);
+
+
 }
 
 
 
-
 .selected-day{
-
 
     font-size:20px;
 
@@ -551,11 +551,7 @@
 
 
 
-
-
-
 .event-card{
-
 
     padding:15px;
 
@@ -569,10 +565,10 @@
 
 .event-badge{
 
-
     padding:6px 14px;
 
 }
+
 
 
 
@@ -618,17 +614,9 @@
 
 
 
-.calendar-content{
-
-    height:
-
-        calc(100vh - 320px);
-
-}
-
-
-
 .calendar-day{
+
+    min-height:85px;
 
     padding:7px;
 
