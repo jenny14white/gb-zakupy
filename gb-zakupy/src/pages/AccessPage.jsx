@@ -218,7 +218,7 @@ className="access-form"
 
 <label>
 
-Kod dostępu
+Wpisz kod dostępu
 
 </label>
 
