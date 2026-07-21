@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import logoGB from "../assets/logo.png";
 
 import Ferrofluid from "../components/shared/effects/Ferrofluid";
+
 
 
 export default function AccessPage({
@@ -10,46 +11,74 @@ export default function AccessPage({
 }) {
 
 
-  const [code, setCode] = useState("");
-
-  const [error, setError] = useState("");
-
-
-
-
-
-  function handleSubmit(e){
-
-    e.preventDefault();
+  const [code,setCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]);
 
 
+  const [error,setError] = useState("");
 
-    const validCodes = [
-      "gb520",
-      "GB520",
-      "Gb520",
-      "gB520",
-    ];
+
+  const inputs = useRef([]);
 
 
 
-    if(validCodes.includes(code.trim())){
 
 
-      setError("");
-
-      onSuccess();
+  function handleChange(value,index){
 
 
-    } else {
+    if(!/^[a-zA-Z0-9]?$/.test(value)){
 
-
-      setError(
-        "Nieprawidłowy kod dostępu"
-      );
-
+      return;
 
     }
+
+
+
+    const newCode=[...code];
+
+
+    newCode[index]=value;
+
+
+    setCode(newCode);
+
+
+
+
+
+    if(value && index < 4){
+
+      inputs.current[index+1]?.focus();
+
+    }
+
+
+  }
+
+
+
+
+
+
+  function handleKeyDown(e,index){
+
+
+    if(
+      e.key === "Backspace" &&
+      !code[index] &&
+      index > 0
+    ){
+
+      inputs.current[index-1]?.focus();
+
+    }
+
 
   }
 
@@ -59,142 +88,144 @@ export default function AccessPage({
 
 
 
-  return (
+  function handleSubmit(e){
 
 
-    <main className="access-page">
+    e.preventDefault();
 
 
 
-      {/* ANIMOWANE TŁO */}
+    const finalCode =
+      code.join("");
 
-      <div className="access-background">
 
-        <Ferrofluid
 
-          colors={[
-            "#16425B",
-            "#3A7CA5",
-            "#81C3D7"
-          ]}
 
-          speed={0.35}
+    const validCodes = [
 
-          glow={2}
+      "gb520",
 
-        />
+      "GB520",
 
-      </div>
+      "Gb520",
 
+      "gB520",
 
+    ];
 
 
 
 
 
-      <section className="access-card">
+    if(validCodes.includes(finalCode)){
 
 
+      setError("");
 
+      onSuccess();
 
 
+    }else{
 
 
-        <div className="access-logo">
+      setError(
+        "Nieprawidłowy kod dostępu"
+      );
 
 
-          <img
+    }
 
-            src={logoGB}
 
-            alt="GB Sp. z o.o."
+  }
 
-          />
 
 
-        </div>
 
 
 
 
 
 
+return (
 
 
+<main className="access-page">
 
-        <h1>
 
-          GB Sp. z o.o.
 
-        </h1>
 
 
+<div className="access-background">
 
 
+<Ferrofluid
 
 
-        <p className="access-subtitle">
+colors={[
 
-          Portal firmowy
+"#133C55",
 
-        </p>
+"#386FA4",
 
+"#59A5D8",
 
+"#84D2F6"
 
+]}
 
 
+speed={0.25}
 
 
+scale={1.8}
 
 
-        <form
+turbulence={0.8}
 
-          onSubmit={handleSubmit}
 
-          className="access-form"
+fluidity={0.15}
 
-        >
 
+glow={2}
 
 
+mouseInteraction={true}
 
 
+/>
 
 
+</div>
 
-          <label>
 
-            Kod dostępu
 
-          </label>
 
 
 
 
 
 
+<section className="access-card">
 
 
 
-          <input
 
 
-            type="password"
 
 
-            value={code}
+<div className="access-logo">
 
 
-            onChange={(e)=>
-              setCode(e.target.value)
-            }
+<img
 
+src={logoGB}
 
-            placeholder="Wpisz kod"
+alt="GB Sp. z o.o."
 
+/>
 
-          />
 
+</div>
 
 
 
@@ -203,56 +234,193 @@ export default function AccessPage({
 
 
 
-          <button type="submit">
 
-            Wejdź
+<h1>
 
-          </button>
+GB Sp. z o.o.
 
+</h1>
 
 
 
 
 
 
-        </form>
 
+<p className="access-subtitle">
 
+Portal firmowy
 
+</p>
 
 
 
 
 
 
-        {error && (
 
 
-          <p className="access-error">
 
-            {error}
+<form
 
-          </p>
 
+onSubmit={handleSubmit}
 
-        )}
 
+className="access-form"
 
 
+>
 
 
 
 
 
-      </section>
 
 
 
+<label>
 
+Kod dostępu
 
-    </main>
+</label>
 
 
-  );
+
+
+
+
+
+
+<div className="code-boxes">
+
+
+{
+
+code.map((item,index)=>(
+
+
+<input
+
+
+key={index}
+
+
+ref={(el)=>
+inputs.current[index]=el
+}
+
+
+type="password"
+
+
+maxLength="1"
+
+
+value={item}
+
+
+
+onChange={(e)=>
+
+handleChange(
+e.target.value,
+index
+)
+
+}
+
+
+
+onKeyDown={(e)=>
+
+handleKeyDown(
+e,
+index
+)
+
+}
+
+
+
+/>
+
+
+
+))
+
+}
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<button type="submit">
+
+
+Wejdź
+
+
+</button>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+{
+
+error &&
+
+
+<p className="access-error">
+
+
+{error}
+
+
+</p>
+
+
+}
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+</main>
+
+
+);
+
 
 }
