@@ -197,7 +197,7 @@ alt="GB Sp. z o.o."
 
 
 <p className="access-subtitle shader-text">
-    Portal firmowy
+    Sekretariat
 </p>
 
 
