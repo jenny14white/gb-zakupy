@@ -1,11 +1,7 @@
-import EmptyState from '../shared/EmptyState';
-import ShoppingListItem from './ShoppingListItem';
+import { useState, useEffect, useRef } from "react";
 
-import ScrollStack, {
-  ScrollStackItem
-} from '../shared/effects/ScrollStack';
-
-
+import EmptyState from "../shared/EmptyState";
+import ShoppingListItem from "./ShoppingListItem";
 
 
 
@@ -15,15 +11,154 @@ export default function CurrentShoppingList({
 }) {
 
 
+  const [expanded,setExpanded] = useState(false);
+
+  const listRef = useRef(null);
+
+
+
+  useEffect(()=>{
+
+
+    const element =
+      listRef.current;
+
+
+    if(!element) return;
+
+
+
+    function handleScroll(){
+
+
+      const cards =
+        element.querySelectorAll(
+          ".shopping-wave-item"
+        );
+
+
+
+      cards.forEach((card,index)=>{
+
+
+        const rect =
+          card.getBoundingClientRect();
+
+
+        const center =
+          window.innerHeight / 2;
+
+
+        const distance =
+          rect.top - center;
+
+
+
+        const wave =
+          Math.max(
+            -8,
+            Math.min(
+              8,
+              distance / 80
+            )
+          );
+
+
+
+        card.style.transform =
+          `
+          translateY(
+            ${wave}px
+          )
+          `;
+
+
+      });
+
+
+    }
+
+
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive:true
+      }
+    );
+
+
+    handleScroll();
+
+
+
+    return ()=>{
+
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+    };
+
+
+  },[items,expanded]);
+
+
+
+
+
+
+
+
+
   return (
 
 
     <section className="current-list-wrapper">
 
 
-      <h2>
-        Aktualna lista zakupowa
-      </h2>
+      <div className="current-list-header">
+
+
+        <h2>
+          Aktualna lista zakupowa
+        </h2>
+
+
+        {
+          items.length > 3 && (
+
+            <button
+
+              className="expand-list-button"
+
+              onClick={()=>
+                setExpanded(!expanded)
+              }
+
+            >
+
+              {
+                expanded
+                ?
+                "Zwiń listę ↑"
+                :
+                "Rozwiń listę ↓"
+              }
+
+
+            </button>
+
+          )
+        }
+
+
+      </div>
+
+
+
 
 
 
@@ -43,7 +178,7 @@ export default function CurrentShoppingList({
 
 
 
-      {!loading && items.length === 0 && (
+      {!loading && items.length===0 && (
 
         <EmptyState>
           Aktualna lista zakupowa jest pusta.
@@ -57,43 +192,41 @@ export default function CurrentShoppingList({
 
 
 
-      {!loading && items.length > 0 && (
+
+      {!loading && items.length>0 && (
 
 
-        <ScrollStack
+        <div
 
-  itemDistance={120}
+          ref={listRef}
 
-  itemStackDistance={45}
+          className={
+            expanded
+            ?
+            "shopping-list expanded"
+            :
+            "shopping-list"
+          }
 
-  stackPosition="25%"
-
-  scaleEndPosition="10%"
-
-  baseScale={0.88}
-
-  itemScale={0.04}
-
-  rotationAmount={0}
-
-  blurAmount={0}
-
-  useWindowScroll={true}
-
->
-
+        >
 
 
           {
-            items.map((item)=>(
+            items.map((item,index)=>(
 
 
-              <ScrollStackItem
+              <div
 
                 key={item.id}
 
-              >
+                className="shopping-wave-item"
 
+                style={{
+                  transitionDelay:
+                  `${index*30}ms`
+                }}
+
+              >
 
 
                 <ShoppingListItem
@@ -103,9 +236,7 @@ export default function CurrentShoppingList({
                 />
 
 
-
-              </ScrollStackItem>
-
+              </div>
 
 
             ))
@@ -113,8 +244,7 @@ export default function CurrentShoppingList({
 
 
 
-
-        </ScrollStack>
+        </div>
 
 
       )}
