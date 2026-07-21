@@ -4,6 +4,8 @@ import logoGB from "../assets/logo.png";
 
 import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
+import { loginPortal } from "../firebase/auth";
+
 
 
 export default function AccessPage({
@@ -64,7 +66,6 @@ export default function AccessPage({
 
 
 
-
   function handleKeyDown(e,index){
 
 
@@ -89,7 +90,7 @@ export default function AccessPage({
 
 
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
 
 
     e.preventDefault();
@@ -97,6 +98,7 @@ export default function AccessPage({
 
     const finalCode =
       code.join("");
+
 
 
 
@@ -114,30 +116,62 @@ export default function AccessPage({
 
 
 
+
     if(validCodes.includes(finalCode)){
 
 
-
-      setError("");
-
+      try{
 
 
-      // zapis sesji dostępu
-
-      sessionStorage.setItem(
-        "gbAccess",
-        "true"
-      );
-
-
-      sessionStorage.setItem(
-        "gbLastActivity",
-        Date.now()
-      );
+        setError("");
 
 
 
-      onSuccess();
+        // logowanie anonimowe Firebase
+
+        await loginPortal();
+
+
+
+
+        // sesja aplikacji
+
+        sessionStorage.setItem(
+          "gbAccess",
+          "true"
+        );
+
+
+
+        sessionStorage.setItem(
+          "gbLastActivity",
+          Date.now()
+        );
+
+
+
+
+        onSuccess();
+
+
+
+
+
+      }catch(error){
+
+
+        console.error(error);
+
+
+
+        setError(
+          "Nie udało się połączyć z serwerem."
+        );
+
+
+      }
+
+
 
 
 
@@ -170,10 +204,12 @@ return (
 <main className="access-page">
 
 
+
     <div className="access-background">
 
 
         <Ferrofluid
+
 
             colors={[
 
@@ -188,13 +224,21 @@ return (
             ]}
 
 
+
             speed={0.22}
+
+
 
             scale={1.7}
 
+
+
             turbulence={0.9}
 
+
+
             glow={2.5}
+
 
         />
 
@@ -210,8 +254,6 @@ return (
 
 
 <section className="access-card">
-
-
 
 
 
@@ -238,11 +280,14 @@ alt="GB Sp. z o.o."
 
 
 
+
 <h1 className="company-title">
 
     GB Sp. z o.o.
 
 </h1>
+
+
 
 
 
@@ -269,6 +314,7 @@ onSubmit={handleSubmit}
 className="access-form"
 
 >
+
 
 
 
@@ -404,6 +450,7 @@ error &&
 
 
 }
+
 
 
 
