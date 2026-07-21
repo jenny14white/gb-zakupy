@@ -1,4 +1,4 @@
-import FerroBackground from "../components/shared/backgrounds/FerroBackground";
+import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
 
 export default function HomePage({
@@ -10,14 +10,82 @@ export default function HomePage({
 
   return (
 
+
     <main className="home-page">
 
 
-      <FerroBackground />
+
+      {/* ANIMOWANE TŁO */}
+
+      <div className="home-background">
+
+
+        <Ferrofluid
+
+          colors={[
+            "#012A4A",
+            "#013A63",
+            "#01497C",
+            "#014F86",
+            "#2A6F97",
+            "#2C7DA0",
+            "#468FAF"
+          ]}
+
+
+          speed={0.22}
+
+
+          scale={1.7}
+
+
+          turbulence={0.9}
+
+
+          fluidity={0.12}
+
+
+          rimWidth={0.25}
+
+
+          sharpness={2.2}
+
+
+          shimmer={1.8}
+
+
+          glow={2.5}
+
+
+          flowDirection="down"
+
+
+          opacity={0.75}
+
+
+          mouseInteraction={true}
+
+
+          mouseStrength={1}
+
+
+          mouseRadius={0.35}
+
+
+        />
+
+
+      </div>
+
+
+
+
 
 
 
       <section className="home-container">
+
+
 
 
 
@@ -26,8 +94,11 @@ export default function HomePage({
 
 
           <div className="home-logo">
+
             📦
+
           </div>
+
 
 
 
@@ -37,6 +108,7 @@ export default function HomePage({
             GB Sp. z o.o.
 
           </h1>
+
 
 
 
@@ -64,8 +136,6 @@ export default function HomePage({
 
 
 
-
-
           <button
 
             type="button"
@@ -77,11 +147,13 @@ export default function HomePage({
           >
 
 
+
             <div className="home-card-icon">
 
               📋
 
             </div>
+
 
 
 
@@ -102,6 +174,7 @@ export default function HomePage({
                 Sprawdź aktualne potrzeby zakupowe firmy
 
               </p>
+
 
 
             </div>
@@ -129,11 +202,13 @@ export default function HomePage({
           >
 
 
+
             <div className="home-card-icon">
 
               📅
 
             </div>
+
 
 
 
@@ -155,6 +230,7 @@ export default function HomePage({
                 Święta, wydarzenia i spotkania firmowe
 
               </p>
+
 
 
             </div>
@@ -180,6 +256,7 @@ export default function HomePage({
             onClick={goToAdmin}
 
           >
+
 
 
             <div className="home-card-icon">
@@ -211,12 +288,12 @@ export default function HomePage({
               </p>
 
 
+
             </div>
 
 
 
           </button>
-
 
 
 
@@ -238,7 +315,10 @@ export default function HomePage({
 
 
 
+
+
     </main>
+
 
   );
 
