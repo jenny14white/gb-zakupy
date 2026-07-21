@@ -240,10 +240,12 @@ return (
         <LiquidEther
 
     colors={[
-        "#10002b",
-        "#240046",
-        "#5a189a"
-    ]}
+
+    "#2676e1",
+    "#2c3bd3",
+    "#2970e2"
+
+]}
 
 
     mouseForce={20}
