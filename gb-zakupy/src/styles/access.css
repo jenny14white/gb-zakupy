@@ -4,7 +4,7 @@
 
 
 /* =====================================
-   BACKGROUND
+   PAGE
 ===================================== */
 
 
@@ -18,7 +18,7 @@
 
 
     min-height:100vh;
-    background:#F8FBFF;
+
 
     display:flex;
 
@@ -30,16 +30,7 @@
     padding:20px;
 
 
-
-    background-image:
-
-
-        radial-gradient(
-            circle,
-            rgba(19,60,85,.08) 1px,
-            transparent 1px
-        ),
-
+    background:
 
         linear-gradient(
             135deg,
@@ -47,191 +38,67 @@
             #EAF7FF
         );
 
-
-
-    background-size:
-
-        35px 35px,
-
-        cover;
-
-
-
-    animation:
-
-        backgroundMove 25s linear infinite;
-
 }
-
-
-
-
-
-@keyframes backgroundMove{
-
-
-    from{
-
-        background-position:
-
-            0 0,
-
-            center;
-
-    }
-
-
-
-    to{
-
-        background-position:
-
-            200px 200px,
-
-            center;
-
-    }
-
-}
-
-
 
 
 
 /* =====================================
-   DELIKATNE ŚWIATŁA
+   FERROFLUID BACKGROUND
 ===================================== */
 
 
-.access-page::before{
-
-
-    content:"";
-
+.access-background{
 
     position:absolute;
 
-
-    width:500px;
-
-
-    height:500px;
+    inset:0;
 
 
-    top:-220px;
+    width:100%;
 
-
-    left:-160px;
-
-
-
-    background:
-
-
-        radial-gradient(
-            circle,
-            rgba(132,210,246,.45),
-            transparent 70%
-        );
-
-
-
-    filter:blur(35px);
-
+    height:100%;
 
 
     z-index:0;
 
 
+    pointer-events:none;
 
-    animation:
 
-        glowMove 12s infinite alternate ease-in-out;
+    overflow:hidden;
 
 }
 
 
 
-
-.access-page::after{
-
-
-    content:"";
+.access-background .ferrofluid-container{
 
 
     position:absolute;
 
-
-    width:450px;
-
-
-    height:450px;
+    inset:0;
 
 
-    bottom:-180px;
+    width:100%;
 
+    height:100%;
 
-    right:-140px;
-
-
-
-    background:
-
-
-        radial-gradient(
-            circle,
-            rgba(56,111,164,.35),
-            transparent 70%
-        );
-
-
-
-    filter:blur(40px);
-
-
-
-    z-index:0;
-
-
-
-    animation:
-
-        glowMove 15s infinite alternate-reverse ease-in-out;
 
 }
 
 
 
-
-@keyframes glowMove{
-
-
-    from{
-
-        transform:
-
-            translate(0,0)
-
-            scale(1);
-
-    }
+.access-background canvas{
 
 
-    to{
+    width:100% !important;
 
-        transform:
+    height:100% !important;
 
-            translate(70px,50px)
 
-            scale(1.2);
-
-    }
+    display:block;
 
 }
-
-
-
-
 
 
 
@@ -246,7 +113,8 @@
 
     position:relative;
 
-    z-index:2;
+
+    z-index:5;
 
 
 
@@ -254,16 +122,6 @@
 
 
     max-width:430px;
-
-
-
-    background:
-
-        rgba(255,255,255,.82);
-
-
-
-    border-radius:34px;
 
 
 
@@ -275,28 +133,41 @@
 
 
 
+    background:
+
+
+        rgba(255,255,255,.72);
+
+
+
     border:
 
-        1px solid #59A5D8;
+
+        1px solid rgba(89,165,216,.5);
+
+
+
+    border-radius:34px;
+
+
+
+    backdrop-filter:
+
+        blur(22px);
 
 
 
     box-shadow:
 
 
-        0 30px 70px rgba(19,60,85,.18);
-
-
-
-    backdrop-filter:
-
-        blur(20px);
+        0 30px 70px rgba(1,42,74,.25);
 
 
 
     animation:
 
         cardEnter .8s ease;
+
 
 }
 
@@ -323,7 +194,6 @@
     }
 
 
-
     to{
 
 
@@ -342,8 +212,6 @@
 
 
 
-
-
 /* =====================================
    LOGO
 ===================================== */
@@ -354,13 +222,10 @@
 
     width:130px;
 
-
     height:130px;
 
 
-
     margin:0 auto 25px;
-
 
 
     display:flex;
@@ -372,17 +237,13 @@
     justify-content:center;
 
 
-
     background:white;
-
 
 
     border-radius:50%;
 
 
-
     padding:12px;
-
 
 
     overflow:hidden;
@@ -390,6 +251,7 @@
 
 
     border:
+
 
         3px solid #59A5D8;
 
@@ -399,8 +261,8 @@
 
         logoPulse 4s infinite ease-in-out;
 
-}
 
+}
 
 
 
@@ -410,11 +272,11 @@
 
     width:100%;
 
-
     height:100%;
 
 
     object-fit:contain;
+
 
 }
 
@@ -431,10 +293,11 @@
         box-shadow:
 
 
-            0 20px 45px rgba(19,60,85,.25),
+            0 20px 45px rgba(1,42,74,.25),
 
 
-            0 0 0 8px rgba(89,165,216,.18);
+            0 0 0 8px rgba(89,165,216,.15);
+
 
     }
 
@@ -446,10 +309,11 @@
         box-shadow:
 
 
-            0 25px 60px rgba(56,111,164,.35),
+            0 25px 60px rgba(42,111,151,.35),
 
 
             0 0 0 15px rgba(132,210,246,.12);
+
 
     }
 
@@ -460,10 +324,8 @@
 
 
 
-
-
 /* =====================================
-   TITLE
+   TEXT
 ===================================== */
 
 
@@ -473,8 +335,7 @@
     margin:0;
 
 
-    color:#133C55;
-
+    color:#012A4A;
 
 
     font-size:36px;
@@ -497,13 +358,13 @@
     margin-top:10px;
 
 
-    color:#386FA4;
+    color:#2A6F97;
 
 
     font-size:16px;
 
-}
 
+}
 
 
 
@@ -522,7 +383,6 @@
     margin-top:32px;
 
 
-
     display:flex;
 
 
@@ -530,6 +390,7 @@
 
 
     gap:13px;
+
 
 }
 
@@ -543,13 +404,14 @@
     text-align:left;
 
 
-    color:#133C55;
+    color:#012A4A;
 
 
     font-size:14px;
 
 
     font-weight:900;
+
 
 }
 
@@ -558,48 +420,72 @@
 
 
 
-
-.access-form input{
-
-
-    width:100%;
+/* =====================================
+   5 DIGIT CODE
+===================================== */
 
 
-
-    padding:16px;
-
+.code-boxes{
 
 
-    border-radius:18px;
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    margin-top:10px;
+
+
+}
+
+
+
+
+.code-boxes input{
+
+
+    width:52px;
+
+
+    height:58px;
+
+
+
+    border-radius:16px;
 
 
 
     border:
 
-        2px solid #D9DCD6;
+
+        2px solid #91E5F6;
 
 
 
-    background:white;
+    background:
+
+
+        rgba(255,255,255,.9);
 
 
 
-    color:#133C55;
+    color:#012A4A;
 
 
 
-    font-size:18px;
+    font-size:24px;
 
 
-    font-weight:700;
+
+    font-weight:900;
 
 
 
     text-align:center;
-
-
-
-    letter-spacing:5px;
 
 
 
@@ -609,19 +495,6 @@
 
     transition:.25s;
 
-}
-
-
-
-
-
-.access-form input::placeholder{
-
-
-    color:#94A3B8;
-
-
-    letter-spacing:3px;
 
 }
 
@@ -629,22 +502,29 @@
 
 
 
-.access-form input:focus{
+.code-boxes input:focus{
 
 
-    border-color:#386FA4;
+    border-color:#2C7DA0;
+
+
+
+    transform:
+
+        translateY(-4px);
 
 
 
     box-shadow:
 
 
-        0 0 0 5px rgba(132,210,246,.35);
+        0 10px 25px rgba(44,125,160,.25),
+
+
+        0 0 0 5px rgba(132,210,246,.25);
+
 
 }
-
-
-
 
 
 
@@ -658,15 +538,13 @@
 .access-form button{
 
 
-    margin-top:12px;
+    margin-top:15px;
 
 
     padding:16px;
 
 
-
     border:none;
-
 
 
     border-radius:18px;
@@ -680,9 +558,9 @@
 
             135deg,
 
-            #133C55,
+            #012A4A,
 
-            #386FA4
+            #2A6F97
 
         );
 
@@ -710,7 +588,8 @@
     box-shadow:
 
 
-        0 12px 25px rgba(19,60,85,.25);
+        0 15px 30px rgba(1,42,74,.25);
+
 
 }
 
@@ -721,14 +600,17 @@
 .access-form button:hover{
 
 
-    transform:translateY(-3px);
+    transform:
+
+        translateY(-3px);
 
 
 
     box-shadow:
 
 
-        0 18px 35px rgba(19,60,85,.35);
+        0 20px 40px rgba(1,42,74,.35);
+
 
 }
 
@@ -741,9 +623,8 @@
 
     transform:scale(.97);
 
+
 }
-
-
 
 
 
@@ -766,9 +647,8 @@
 
     font-weight:800;
 
+
 }
-
-
 
 
 
@@ -799,6 +679,7 @@
 
         border-radius:28px;
 
+
     }
 
 
@@ -808,11 +689,8 @@
 
         width:100px;
 
-
         height:100px;
 
-
-        padding:10px;
 
     }
 
@@ -823,219 +701,33 @@
 
         font-size:28px;
 
-    }
-
-
-
-    .access-subtitle{
-
-
-        font-size:14px;
 
     }
 
 
 
-    .access-form input{
+    .code-boxes{
 
 
-        font-size:16px;
+        gap:7px;
 
-
-        padding:14px;
 
     }
 
 
-}
-/* =====================================
-   PIN BOXES
-===================================== */
 
+    .code-boxes input{
 
-.code-boxes{
 
-    display:flex;
+        width:45px;
 
-    justify-content:center;
+        height:52px;
 
-    gap:10px;
 
-    margin-top:10px;
+        font-size:20px;
 
-}
 
-
-
-.code-boxes input{
-
-
-    width:52px;
-
-    height:58px;
-
-
-    border-radius:14px;
-
-
-    border:
-
-        2px solid #D9DCD6;
-
-
-    background:white;
-
-
-    color:#133C55;
-
-
-    font-size:24px;
-
-
-    font-weight:900;
-
-
-    text-align:center;
-
-
-    outline:none;
-
-
-    transition:.25s;
-
-
-}
-
-
-
-.code-boxes input:focus{
-
-
-    border-color:#386FA4;
-
-
-    box-shadow:
-
-        0 0 0 5px rgba(132,210,246,.35);
-
-
-    transform:translateY(-3px);
-
-
-}
-
-
-
-@media(max-width:480px){
-
-
-.code-boxes{
-
-    gap:7px;
-
-}
-
-
-
-.code-boxes input{
-
-
-    width:45px;
-
-    height:52px;
-
-    font-size:20px;
-
-
-}
-
-
-}
-/* =====================================
-   FERROFLUID BACKGROUND
-===================================== */
-
-
-.access-background{
-
-    position:absolute;
-
-    top:0;
-
-    left:0;
-
-
-    width:100%;
-
-    height:100%;
-
-
-    z-index:0;
-
-
-    pointer-events:none;
-
-
-    overflow:hidden;
-
-}
-
-
-
-
-
-.access-background .ferrofluid-container{
-
-
-    position:absolute;
-
-
-    top:0;
-
-    left:0;
-
-
-    width:100%;
-
-
-    height:100%;
-
-
-}
-
-
-
-
-
-.access-background canvas{
-
-
-    display:block;
-
-
-    width:100% !important;
-
-
-    height:100% !important;
-
-
-}
-
-
-
-
-
-
-/* karta nad animacją */
-
-
-.access-card{
-
-
-    position:relative;
-
-
-    z-index:5;
+    }
 
 
 }
