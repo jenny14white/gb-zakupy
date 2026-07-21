@@ -4,7 +4,6 @@ export default function GooeyCard({
     onClick
 }) {
 
-
 return (
 
 <button
