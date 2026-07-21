@@ -24,8 +24,12 @@ export default function AccessPage({
 
   const [error,setError] = useState("");
 
+  const [loading,setLoading] = useState(false);
+
 
   const inputs = useRef([]);
+
+
 
 
 
@@ -66,6 +70,7 @@ export default function AccessPage({
 
 
 
+
   function handleKeyDown(e,index){
 
 
@@ -96,14 +101,22 @@ export default function AccessPage({
     e.preventDefault();
 
 
+
+    if(loading){
+
+      return;
+
+    }
+
+
+
     const finalCode =
       code.join("");
 
 
 
 
-
-    const validCodes=[
+    const validCodes = [
 
       "gb520",
       "GB520",
@@ -117,66 +130,8 @@ export default function AccessPage({
 
 
 
-    if(validCodes.includes(finalCode)){
 
-
-      try{
-
-
-        setError("");
-
-
-
-        // logowanie anonimowe Firebase
-
-        await loginPortal();
-
-
-
-
-        // sesja aplikacji
-
-        sessionStorage.setItem(
-          "gbAccess",
-          "true"
-        );
-
-
-
-        sessionStorage.setItem(
-          "gbLastActivity",
-          Date.now()
-        );
-
-
-
-
-        onSuccess();
-
-
-
-
-
-      }catch(error){
-
-
-        console.error(error);
-
-
-
-        setError(
-          "Nie udało się połączyć z serwerem."
-        );
-
-
-      }
-
-
-
-
-
-    }else{
-
+    if(!validCodes.includes(finalCode)){
 
 
       setError(
@@ -184,8 +139,85 @@ export default function AccessPage({
       );
 
 
+      return;
+
 
     }
+
+
+
+
+
+
+    try{
+
+
+      setLoading(true);
+
+      setError("");
+
+
+
+
+
+      // Firebase anonymous login
+
+      await loginPortal();
+
+
+
+
+
+
+
+      // zapis dostępu aplikacji
+
+      sessionStorage.setItem(
+        "gbAccess",
+        "true"
+      );
+
+
+
+      sessionStorage.setItem(
+        "gbLastActivity",
+        Date.now()
+      );
+
+
+
+
+
+
+
+      onSuccess();
+
+
+
+
+
+
+    }catch(error){
+
+
+      console.error(error);
+
+
+
+      setError(
+        "Nie udało się połączyć z serwerem."
+      );
+
+
+
+    }finally{
+
+
+      setLoading(false);
+
+
+    }
+
 
 
   }
@@ -204,12 +236,10 @@ return (
 <main className="access-page">
 
 
-
     <div className="access-background">
 
 
         <Ferrofluid
-
 
             colors={[
 
@@ -224,27 +254,18 @@ return (
             ]}
 
 
-
             speed={0.22}
-
-
 
             scale={1.7}
 
-
-
             turbulence={0.9}
 
-
-
             glow={2.5}
-
 
         />
 
 
     </div>
-
 
 
 
@@ -281,9 +302,11 @@ alt="GB Sp. z o.o."
 
 
 
+
+
 <h1 className="company-title">
 
-    GB Sp. z o.o.
+GB Sp. z o.o.
 
 </h1>
 
@@ -295,7 +318,7 @@ alt="GB Sp. z o.o."
 
 <p className="access-subtitle shader-text">
 
-    Sekretariat
+Sekretariat
 
 </p>
 
@@ -371,6 +394,8 @@ value={item}
 
 
 
+
+
 onChange={(e)=>
 
 handleChange(
@@ -394,8 +419,8 @@ index
 
 
 
-
 />
+
 
 
 ))
@@ -413,10 +438,25 @@ index
 
 
 
-<button type="submit">
+<button 
+
+type="submit"
+
+disabled={loading}
+
+>
 
 
-Wejdź
+{
+
+loading
+
+? "Łączenie..."
+
+: "Wejdź"
+
+}
+
 
 
 </button>
@@ -450,6 +490,7 @@ error &&
 
 
 }
+
 
 
 
