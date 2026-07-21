@@ -4,6 +4,7 @@ import logoGB from "../assets/logo.png";
 
 import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
+
 export default function AccessPage({
   onSuccess,
 }) {
@@ -20,6 +21,7 @@ export default function AccessPage({
   function handleSubmit(e){
 
     e.preventDefault();
+
 
 
     const validCodes = [
@@ -49,8 +51,9 @@ export default function AccessPage({
 
     }
 
-
   }
+
+
 
 
 
@@ -58,11 +61,39 @@ export default function AccessPage({
 
   return (
 
+
     <main className="access-page">
 
 
 
+      {/* ANIMOWANE TŁO */}
+
+      <div className="access-background">
+
+        <Ferrofluid
+
+          colors={[
+            "#16425B",
+            "#3A7CA5",
+            "#81C3D7"
+          ]}
+
+          speed={0.35}
+
+          glow={2}
+
+        />
+
+      </div>
+
+
+
+
+
+
+
       <section className="access-card">
+
 
 
 
@@ -89,6 +120,8 @@ export default function AccessPage({
 
 
 
+
+
         <h1>
 
           GB Sp. z o.o.
@@ -99,11 +132,14 @@ export default function AccessPage({
 
 
 
+
         <p className="access-subtitle">
 
           Portal firmowy
 
         </p>
+
+
 
 
 
@@ -123,11 +159,16 @@ export default function AccessPage({
 
 
 
+
+
+
           <label>
 
             Kod dostępu
 
           </label>
+
+
 
 
 
@@ -161,11 +202,14 @@ export default function AccessPage({
 
 
 
+
           <button type="submit">
 
             Wejdź
 
           </button>
+
+
 
 
 
@@ -180,7 +224,9 @@ export default function AccessPage({
 
 
 
+
         {error && (
+
 
           <p className="access-error">
 
@@ -188,7 +234,9 @@ export default function AccessPage({
 
           </p>
 
+
         )}
+
 
 
 
@@ -203,6 +251,7 @@ export default function AccessPage({
 
 
     </main>
+
 
   );
 
