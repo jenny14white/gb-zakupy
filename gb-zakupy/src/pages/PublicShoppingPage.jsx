@@ -2,13 +2,21 @@ import PublicHeader from "../components/public/PublicHeader";
 import ShoppingForm from "../components/public/ShoppingForm";
 import CurrentShoppingList from "../components/public/CurrentShoppingList";
 
+import ScrollStack, {
+  ScrollStackItem
+} from "../components/shared/effects/ScrollStack";
+
+
 import { usePublicOrders } from "../hooks/usePublicOrders";
+
+
 
 
 
 export default function PublicShoppingPage({
   goBack,
 }) {
+
 
 
   const {
@@ -20,9 +28,14 @@ export default function PublicShoppingPage({
 
 
 
+
+
   return (
 
+
     <main className="public-page">
+
+
 
 
 
@@ -44,23 +57,33 @@ export default function PublicShoppingPage({
 
 
 
+
+
+
+
       <section className="paper">
+
+
 
 
 
         <div className="holes">
 
-          {Array.from(
-            { length: 12 }
-          ).map((_, index) => (
+          {
+            Array.from(
+              {length:12}
+            ).map((_,index)=>(
 
-            <span
-              key={index}
-            />
+              <span
+                key={index}
+              />
 
-          ))}
+            ))
+          }
 
         </div>
+
+
 
 
 
@@ -72,17 +95,59 @@ export default function PublicShoppingPage({
 
 
 
+
+
+
+
         <ShoppingForm />
 
 
 
-        <CurrentShoppingList
 
-          items={orders}
 
-          loading={loading}
 
-        />
+
+
+
+        <ScrollStack
+
+          itemDistance={80}
+
+          itemStackDistance={35}
+
+          stackPosition="20%"
+
+          baseScale={0.92}
+
+          rotationAmount={0}
+
+          blurAmount={0}
+
+          useWindowScroll={true}
+
+        >
+
+
+
+          <ScrollStackItem>
+
+
+            <CurrentShoppingList
+
+              items={orders}
+
+              loading={loading}
+
+            />
+
+
+          </ScrollStackItem>
+
+
+
+        </ScrollStack>
+
+
 
 
 
@@ -100,11 +165,18 @@ export default function PublicShoppingPage({
 
 
 
+
+
       </section>
 
 
 
+
+
+
+
     </main>
+
 
   );
 
