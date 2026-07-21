@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import {
-  loginAdmin,
-  logoutAdmin
+  loginAdmin
 } from '../firebase/auth';
 
 import Logo from '../components/shared/Logo';
@@ -11,10 +10,22 @@ import Ferrofluid from '../components/shared/effects/Ferrofluid';
 
 
 
+
+
+const ADMIN_EMAIL =
+  "belacount4@gmail.com";
+
+
+
+
+
+
+
 export default function AdminLoginPage({
   goBack,
   onLogin
 }) {
+
 
 
   const [email,setEmail] = useState('');
@@ -60,22 +71,14 @@ export default function AdminLoginPage({
 
 
 
-      // ==========================
-      // SPRAWDZENIE ADMINA
-      // ==========================
-
 
       if(
-        user.email !== "belacount4@gmail.com"
+        user.email !== ADMIN_EMAIL
       ){
 
 
-        await logoutAdmin();
-
-
-
         throw new Error(
-          "Brak uprawnień administratora"
+          "Brak uprawnień"
         );
 
 
@@ -86,13 +89,14 @@ export default function AdminLoginPage({
 
 
 
-
-      // przekazujemy użytkownika Firebase
-
       onLogin(user);
 
 
 
+
+      setEmail("");
+
+      setPassword("");
 
 
 
@@ -106,7 +110,7 @@ export default function AdminLoginPage({
 
 
       setError(
-        "Brak dostępu do panelu administratora."
+        "Nieprawidłowe dane lub brak uprawnień administratora."
       );
 
 
@@ -130,200 +134,200 @@ export default function AdminLoginPage({
 
 
 
+  return (
 
 
+    <main className="admin-page login-view">
 
 
-return (
 
+      <div className="admin-background">
 
-<main className="admin-page login-view">
 
+        <Ferrofluid
 
+          colors={[
+            "#012A4A",
+            "#013A63",
+            "#01497C",
+            "#2A6F97",
+            "#468FAF"
+          ]}
 
-<div className="admin-background">
 
+          speed={0.22}
 
-<Ferrofluid
 
-colors={[
-"#012A4A",
-"#013A63",
-"#01497C",
-"#2A6F97",
-"#468FAF"
-]}
+          scale={1.7}
 
 
-speed={0.22}
+          turbulence={0.9}
 
 
-scale={1.7}
+          glow={2.5}
 
 
-turbulence={0.9}
+          flowDirection="down"
 
 
-glow={2.5}
+          opacity={1}
 
 
-flowDirection="down"
+        />
 
 
-opacity={1}
+      </div>
 
 
-/>
 
 
-</div>
 
 
 
 
 
+      <form
 
+        className="login-card"
 
+        onSubmit={handleLogin}
 
+      >
 
-<form
 
-className="login-card"
 
-onSubmit={handleLogin}
 
->
 
 
 
+        <button
 
+          type="button"
 
+          onClick={goBack}
 
+          className="back-button"
 
+        >
 
-<button
+          Wróć do listy
 
-type="button"
+        </button>
 
-onClick={goBack}
 
-className="back-button"
 
->
 
-Wróć do listy
 
-</button>
 
 
 
 
+        <Logo
 
+          className="admin-logo"
 
+        />
 
 
 
-<Logo
 
-className="admin-logo"
 
-/>
 
 
 
 
+        <h1>
 
+          Panel admina
 
+        </h1>
 
 
 
-<h1>
 
-Panel admina
 
-</h1>
 
 
 
 
+        <p>
 
+          Zaloguj się jako administrator.
 
+        </p>
 
 
-<p>
 
-Zaloguj się jako administrator.
 
-</p>
 
 
 
 
 
+        <input
 
 
+          type="email"
 
 
-<input
+          placeholder="Adres e-mail"
 
 
-type="email"
+          value={email}
 
 
-placeholder="Adres e-mail"
 
+          onChange={(event)=>
 
-value={email}
+            setEmail(
+              event.target.value
+            )
 
+          }
 
 
-onChange={(event)=>
+          autoFocus
 
-setEmail(
-event.target.value
-)
 
-}
+          required
 
 
-autoFocus
+        />
 
 
-required
 
 
-/>
 
 
 
-<input
 
 
-type="password"
+        <input
 
 
-placeholder="Hasło"
+          type="password"
 
 
-value={password}
+          placeholder="Hasło"
 
 
+          value={password}
 
-onChange={(event)=>
 
-setPassword(
-event.target.value
-)
 
-}
+          onChange={(event)=>
 
+            setPassword(
+              event.target.value
+            )
 
-required
+          }
 
 
-/>
+          required
 
 
+        />
 
 
 
@@ -331,21 +335,21 @@ required
 
 
 
-{
 
-error &&
 
+        {
 
-<div className="admin-error">
+          error &&
 
-{error}
 
-</div>
+          <div className="admin-error">
 
+            {error}
 
-}
+          </div>
 
 
+        }
 
 
 
@@ -353,37 +357,37 @@ error &&
 
 
 
-<button
 
 
-className="admin-button"
+        <button
 
 
-disabled={loading}
+          className="admin-button"
 
 
->
+          disabled={loading}
 
 
-{
+        >
 
-loading
 
-?
+          {
 
-"Logowanie..."
+            loading
 
-:
+            ?
 
-"Zaloguj"
+            "Logowanie..."
 
-}
+            :
 
+            "Zaloguj"
 
 
-</button>
+          }
 
 
+        </button>
 
 
 
@@ -391,17 +395,18 @@ loading
 
 
 
-</form>
 
+      </form>
 
 
 
 
 
-</main>
 
+    </main>
 
-);
+
+  );
 
 
 }
