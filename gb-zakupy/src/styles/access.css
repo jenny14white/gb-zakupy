@@ -350,22 +350,13 @@
 
 .access-card h1{
 
-
     margin:0;
-
-
-    color:#012A4A;
-
-
 
     font-size:36px;
 
-
     font-weight:900;
 
-
     letter-spacing:-1.5px;
-
 
 }
 
@@ -770,221 +761,40 @@
 
 
 }
+
+
+
 /* =====================================
-   TEXT ANIMATIONS
-===================================== */
-
-
-/* nazwa firmy - efekt pisania */
-
-.company-title{
-
-    overflow:hidden;
-
-    white-space:nowrap;
-
-    animation:
-
-        titleReveal 1.2s ease forwards;
-
-    opacity:0;
-
-    letter-spacing:-2px;
-
-}
-
-
-
-@keyframes titleReveal{
-
-
-    from{
-
-        opacity:0;
-
-        filter:blur(10px);
-
-        transform:
-
-            translateY(20px);
-
-
-        letter-spacing:8px;
-
-    }
-
-
-
-    to{
-
-        opacity:1;
-
-        filter:blur(0);
-
-        transform:none;
-
-
-        letter-spacing:-1.5px;
-
-    }
-
-}
-
-
-
-
-
-
-/* portal firmowy - shader gradient */
-
-
-.shader-text{
-
-
-    position:relative;
-
-    display:inline-block;
-
-
-    background:
-
-
-        linear-gradient(
-
-            90deg,
-
-            #386FA4,
-
-            #84D2F6,
-
-            #013A63,
-
-            #386FA4
-
-        );
-
-
-    background-size:300%;
-
-
-    -webkit-background-clip:text;
-
-    background-clip:text;
-
-
-    color:transparent;
-
-
-    animation:
-
-
-        shaderMove 4s infinite linear,
-
-
-        subtitleEnter 1.5s ease forwards;
-
-
-    animation-delay:.8s;
-
-
-    opacity:0;
-
-
-}
-
-
-
-
-
-
-@keyframes shaderMove{
-
-
-    0%{
-
-        background-position:
-
-            0%;
-
-    }
-
-
-    100%{
-
-        background-position:
-
-            300%;
-
-    }
-
-}
-
-
-
-
-
-
-@keyframes subtitleEnter{
-
-
-    from{
-
-
-        opacity:0;
-
-
-        transform:
-
-            translateY(15px);
-
-
-        filter:blur(8px);
-
-
-    }
-
-
-
-    to{
-
-
-        opacity:1;
-
-
-        transform:none;
-
-
-        filter:blur(0);
-
-
-    }
-
-}
-/* =====================================
-   LUSTRO NAZWY FIRMY
+   COMPANY METAL TEXT
 ===================================== */
 
 
 .company-title{
 
-    position:relative;
+    display:block;
 
-    display:inline-block;
+    margin:0;
 
 
-    color:#012A4A;
+    font-size:36px;
+
+    font-weight:900;
+
+
+    letter-spacing:-1.5px;
+
 
 
     background:
 
-        linear-gradient(
-            120deg,
-            #012A4A 20%,
-            #59A5D8 40%,
-            #ffffff 50%,
-            #59A5D8 60%,
-            #012A4A 80%
-        );
+linear-gradient(
+    120deg,
+    #012A4A 20%,
+    #2A6F97 35%,
+    #BFE9FF 50%,
+    #2A6F97 65%,
+    #012A4A 80%
+);
 
 
     background-size:250% auto;
@@ -1001,15 +811,11 @@
 
     animation:
 
-        metalShine 5s infinite linear,
+        metalShine 5s linear infinite,
 
-        titleAppear 1s ease forwards;
-
+        titleAppear .9s ease forwards;
 
 }
-
-
-
 
 
 @keyframes metalShine{
@@ -1077,5 +883,10 @@
             blur(0);
 
     }
+
+}
+.company-title + .access-subtitle{
+
+    margin-top:12px;
 
 }
