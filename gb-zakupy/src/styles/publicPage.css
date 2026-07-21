@@ -947,3 +947,223 @@
 .intro-mobile p:first-of-type{
     margin-top:18px;
 }
+/* =======================================================
+   ROZWIJANA LISTA ZAKUPOWA + FALA
+======================================================= */
+
+
+.current-list-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.expand-list-button{
+
+    border:none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b63b8,
+            #084b91
+        );
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 8px 18px rgba(11,99,184,.22);
+
+}
+
+
+
+.expand-list-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+
+.expand-list-button:active{
+
+    transform:scale(.96);
+
+}
+
+
+
+
+
+/* kontener listy */
+
+.shopping-list{
+
+    max-height:520px;
+
+    overflow:hidden;
+
+    transition:
+        max-height .8s ease;
+
+}
+
+
+
+.shopping-list.expanded{
+
+    max-height:4000px;
+
+}
+
+
+
+
+
+/* pojedynczy element */
+
+.shopping-wave-item{
+
+    margin-bottom:18px;
+
+    will-change:transform;
+
+    transition:
+        transform .35s ease;
+
+}
+
+
+
+
+
+/* wejście elementów po rozwinięciu */
+
+.shopping-list.expanded
+.shopping-wave-item{
+
+    animation:
+        listReveal .45s ease forwards;
+
+}
+
+
+
+
+
+@keyframes listReveal{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+/* delikatna fala na karcie */
+
+.shopping-wave-item .shopping-item{
+
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+
+}
+
+
+
+
+
+.shopping-wave-item:hover
+.shopping-item{
+
+
+    transform:
+        translateY(-4px)
+        rotate(.3deg);
+
+
+    box-shadow:
+        0 18px 35px rgba(15,23,42,.12);
+
+}
+
+
+
+
+
+/* małe wygładzenie */
+
+.shopping-list{
+
+    scroll-behavior:smooth;
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+    .current-list-header{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+
+    .expand-list-button{
+
+        width:100%;
+
+    }
+
+
+}
