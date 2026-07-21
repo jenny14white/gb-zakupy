@@ -63,6 +63,8 @@ export default function AccessPage({
 
 
 
+
+
   function handleKeyDown(e,index){
 
 
@@ -85,6 +87,8 @@ export default function AccessPage({
 
 
 
+
+
   function handleSubmit(e){
 
 
@@ -93,6 +97,7 @@ export default function AccessPage({
 
     const finalCode =
       code.join("");
+
 
 
 
@@ -107,20 +112,43 @@ export default function AccessPage({
 
 
 
+
+
     if(validCodes.includes(finalCode)){
+
 
 
       setError("");
 
+
+
+      // zapis sesji dostępu
+
+      sessionStorage.setItem(
+        "gbAccess",
+        "true"
+      );
+
+
+      sessionStorage.setItem(
+        "gbLastActivity",
+        Date.now()
+      );
+
+
+
       onSuccess();
+
 
 
     }else{
 
 
+
       setError(
         "Nieprawidłowy kod dostępu"
       );
+
 
 
     }
@@ -141,10 +169,14 @@ return (
 
 <main className="access-page">
 
+
     <div className="access-background">
 
+
         <Ferrofluid
+
             colors={[
+
                 "#012A4A",
                 "#013A63",
                 "#01497C",
@@ -152,12 +184,20 @@ return (
                 "#2A6F97",
                 "#2C7DA0",
                 "#468FAF"
+
             ]}
+
+
             speed={0.22}
+
             scale={1.7}
+
             turbulence={0.9}
+
             glow={2.5}
+
         />
+
 
     </div>
 
@@ -169,8 +209,10 @@ return (
 
 
 
-
 <section className="access-card">
+
+
+
 
 
 
@@ -191,14 +233,32 @@ alt="GB Sp. z o.o."
 
 </div>
 
+
+
+
+
+
 <h1 className="company-title">
+
     GB Sp. z o.o.
+
 </h1>
 
 
+
+
+
 <p className="access-subtitle shader-text">
+
     Sekretariat
+
 </p>
+
+
+
+
+
+
 
 
 
@@ -216,11 +276,13 @@ className="access-form"
 
 
 
+
 <label>
 
 Wpisz kod dostępu
 
 </label>
+
 
 
 
@@ -243,15 +305,20 @@ code.map((item,index)=>(
 key={index}
 
 
+
 ref={(el)=>
 inputs.current[index]=el
 }
 
 
+
+
 type="password"
 
 
+
 maxLength="1"
+
 
 
 value={item}
@@ -269,6 +336,7 @@ index
 
 
 
+
 onKeyDown={(e)=>
 
 handleKeyDown(
@@ -277,6 +345,7 @@ index
 )
 
 }
+
 
 
 
@@ -313,6 +382,7 @@ Wejdź
 
 
 </form>
+
 
 
 
