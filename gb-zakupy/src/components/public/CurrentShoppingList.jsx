@@ -17,94 +17,35 @@ export default function CurrentShoppingList({
 
 
 
+
+
   useEffect(()=>{
 
 
-    const element =
-      listRef.current;
+    if(!expanded) return;
 
 
-    if(!element) return;
-
-
-
-    function handleScroll(){
-
-
-      const cards =
-        element.querySelectorAll(
-          ".shopping-wave-item"
-        );
-
-
-
-      cards.forEach((card,index)=>{
-
-
-        const rect =
-          card.getBoundingClientRect();
-
-
-        const center =
-          window.innerHeight / 2;
-
-
-        const distance =
-          rect.top - center;
-
-
-
-        const wave =
-          Math.max(
-            -8,
-            Math.min(
-              8,
-              distance / 80
-            )
-          );
-
-
-
-        card.style.transform =
-          `
-          translateY(
-            ${wave}px
-          )
-          `;
-
-
-      });
-
-
-    }
-
-
-
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive:true
-      }
-    );
-
-
-    handleScroll();
-
-
-
-    return ()=>{
-
-      window.removeEventListener(
-        "scroll",
-        handleScroll
+    const cards =
+      listRef.current?.querySelectorAll(
+        ".shopping-wave-item"
       );
 
-    };
+
+    if(!cards) return;
 
 
-  },[items,expanded]);
 
+    cards.forEach((card,index)=>{
+
+
+      card.style.animationDelay =
+        `${index * 40}ms`;
+
+
+    });
+
+
+  },[expanded]);
 
 
 
@@ -119,12 +60,17 @@ export default function CurrentShoppingList({
     <section className="current-list-wrapper">
 
 
+
+
+
       <div className="current-list-header">
 
 
         <h2>
           Aktualna lista zakupowa
         </h2>
+
+
 
 
         {
@@ -134,9 +80,7 @@ export default function CurrentShoppingList({
 
               className="expand-list-button"
 
-              onClick={()=>
-                setExpanded(!expanded)
-              }
+              onClick={()=>setExpanded(!expanded)}
 
             >
 
@@ -145,13 +89,14 @@ export default function CurrentShoppingList({
                 ?
                 "Zwiń listę ↑"
                 :
-                "Rozwiń listę ↓"
+                "Rozwiń całą listę ↓"
               }
 
 
             </button>
 
           )
+
         }
 
 
@@ -178,6 +123,8 @@ export default function CurrentShoppingList({
 
 
 
+
+
       {!loading && items.length===0 && (
 
         <EmptyState>
@@ -185,6 +132,7 @@ export default function CurrentShoppingList({
         </EmptyState>
 
       )}
+
 
 
 
@@ -205,10 +153,12 @@ export default function CurrentShoppingList({
             ?
             "shopping-list expanded"
             :
-            "shopping-list"
+            "shopping-list collapsed"
           }
 
         >
+
+
 
 
           {
@@ -220,11 +170,6 @@ export default function CurrentShoppingList({
                 key={item.id}
 
                 className="shopping-wave-item"
-
-                style={{
-                  transitionDelay:
-                  `${index*30}ms`
-                }}
 
               >
 
@@ -244,10 +189,13 @@ export default function CurrentShoppingList({
 
 
 
+
+
         </div>
 
 
       )}
+
 
 
 
