@@ -812,19 +812,21 @@
 
 
 
-linear-gradient(
-    120deg,
-    #240046 20%,
-    #7b2cbf 35%,
-    #e0aaff 50%,
-    #7b2cbf 65%,
-    #240046 80%
-);
+    linear-gradient(
+        120deg,
+        #ffffff 15%,
+        #e0aaff 35%,
+        #ffffff 50%,
+        #c77dff 70%,
+        #ffffff 90%
+    );
+
 
 
 
 
     background-size:250% auto;
+
 
 
 
@@ -837,7 +839,17 @@ linear-gradient(
 
 
 
+
     color:transparent;
+
+
+
+
+
+    text-shadow:
+
+
+        0 4px 22px rgba(199,125,255,.45);
 
 
 
