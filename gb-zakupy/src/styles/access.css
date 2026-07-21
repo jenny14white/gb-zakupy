@@ -1,5 +1,5 @@
 /* =====================================
-   GB ACCESS PAGE - LIQUID ETHER AMETHYST
+   GB ACCESS PAGE - LIQUID ETHER BLUE
 ===================================== */
 
 
@@ -34,8 +34,8 @@
 
         linear-gradient(
             135deg,
-            #10002b,
-            #240046
+            #06152f,
+            #0b1f5e
         );
 
 }
@@ -96,6 +96,9 @@
 
     height:100% !important;
 
+
+    transform:translateZ(0);
+
 }
 
 
@@ -137,14 +140,14 @@
     background:
 
 
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.13);
 
 
 
     border:
 
 
-        1px solid rgba(157,78,221,.45);
+        1px solid rgba(38,118,225,.45);
 
 
 
@@ -155,14 +158,14 @@
     backdrop-filter:
 
 
-        blur(25px);
+        blur(12px);
 
 
 
     box-shadow:
 
 
-        0 30px 80px rgba(16,0,43,.65);
+        0 30px 80px rgba(38,118,225,.35);
 
 
 
@@ -263,7 +266,7 @@
     border:
 
 
-        3px solid #9d4edd;
+        3px solid #2676e1;
 
 
 
@@ -274,9 +277,6 @@
 
 
 }
-
-
-
 
 
 
@@ -309,10 +309,10 @@
         box-shadow:
 
 
-            0 20px 45px rgba(157,78,221,.25),
+            0 20px 45px rgba(38,118,225,.25),
 
 
-            0 0 0 8px rgba(157,78,221,.15);
+            0 0 0 8px rgba(38,118,225,.15);
 
 
     }
@@ -325,10 +325,10 @@
         box-shadow:
 
 
-            0 25px 60px rgba(123,44,191,.45),
+            0 25px 60px rgba(44,59,211,.45),
 
 
-            0 0 0 15px rgba(157,78,221,.12);
+            0 0 0 15px rgba(41,112,226,.18);
 
 
     }
@@ -369,7 +369,7 @@
     margin-top:10px;
 
 
-    color:#d9b8ff;
+    color:#dbeafe;
 
 
     font-size:16px;
@@ -418,7 +418,7 @@
     text-align:left;
 
 
-    color:#f1e7ff;
+    color:#eff6ff;
 
 
     font-size:14px;
@@ -470,7 +470,6 @@
 
     width:52px;
 
-
     height:58px;
 
 
@@ -482,18 +481,18 @@
     border:
 
 
-        2px solid #c77dff;
+        2px solid #60a5fa;
 
 
 
     background:
 
 
-        rgba(255,255,255,.9);
+        rgba(255,255,255,.92);
 
 
 
-    color:#240046;
+    color:#0b1f5e;
 
 
 
@@ -526,7 +525,7 @@
 .code-boxes input:focus{
 
 
-    border-color:#9d4edd;
+    border-color:#2676e1;
 
 
 
@@ -540,10 +539,10 @@
     box-shadow:
 
 
-        0 10px 25px rgba(157,78,221,.35),
+        0 10px 25px rgba(38,118,225,.35),
 
 
-        0 0 0 5px rgba(199,125,255,.2);
+        0 0 0 5px rgba(96,165,250,.25);
 
 
 }
@@ -584,9 +583,9 @@
 
             135deg,
 
-            #3c096c,
+            #2c3bd3,
 
-            #9d4edd
+            #2676e1
 
         );
 
@@ -614,13 +613,10 @@
     box-shadow:
 
 
-        0 15px 35px rgba(90,24,154,.45);
+        0 15px 35px rgba(38,118,225,.45);
 
 
 }
-
-
-
 
 
 
@@ -637,7 +633,7 @@
     box-shadow:
 
 
-        0 20px 45px rgba(157,78,221,.55);
+        0 20px 45px rgba(38,118,225,.6);
 
 
 }
@@ -673,7 +669,7 @@
     margin-top:18px;
 
 
-    color:#ff8fa3;
+    color:#ffb4b4;
 
 
     font-weight:800;
@@ -780,8 +776,9 @@
 
 
 
+
 /* =====================================
-   COMPANY METAL TEXT AMETHYST
+   COMPANY TITLE BLUE METAL
 ===================================== */
 
 
@@ -806,28 +803,21 @@
 
 
 
-
-
     background:
-
 
 
     linear-gradient(
         120deg,
         #ffffff 15%,
-        #e0aaff 35%,
+        #93c5fd 35%,
         #ffffff 50%,
-        #c77dff 70%,
+        #2676e1 70%,
         #ffffff 90%
     );
 
 
 
-
-
     background-size:250% auto;
-
-
 
 
 
@@ -838,20 +828,14 @@
 
 
 
-
-
     color:transparent;
-
-
 
 
 
     text-shadow:
 
 
-        0 4px 22px rgba(199,125,255,.45);
-
-
+        0 4px 22px rgba(38,118,225,.45);
 
 
 
