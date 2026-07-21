@@ -171,7 +171,7 @@ export default function HomePage({
 
               <p>
 
-                Sprawdź aktualne potrzeby zakupowe firmy
+                Obsługa zamówień na artykuły biurowe i wyposażenie
 
               </p>
 
