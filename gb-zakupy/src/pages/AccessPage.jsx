@@ -141,82 +141,26 @@ return (
 
 <main className="access-page">
 
+    <div className="access-background">
 
+        <Ferrofluid
+            colors={[
+                "#012A4A",
+                "#013A63",
+                "#01497C",
+                "#014F86",
+                "#2A6F97",
+                "#2C7DA0",
+                "#468FAF"
+            ]}
+            speed={0.22}
+            scale={1.7}
+            turbulence={0.9}
+            glow={2.5}
+        />
 
+    </div>
 
-
-
-<div className="access-background">
-
-
-
-<Ferrofluid
-
-
-colors={[
-
-"#012A4A",
-
-"#013A63",
-
-"#01497C",
-
-"#014F86",
-
-"#2A6F97",
-
-"#2C7DA0",
-
-"#468FAF"
-
-]}
-
-
-
-speed={0.22}
-
-
-scale={1.7}
-
-
-turbulence={0.9}
-
-
-fluidity={0.12}
-
-
-rimWidth={0.25}
-
-
-sharpness={2.2}
-
-
-shimmer={1.8}
-
-
-glow={2.5}
-
-
-flowDirection="down"
-
-
-opacity={0.85}
-
-
-mouseInteraction={true}
-
-
-mouseStrength={1}
-
-
-mouseRadius={0.35}
-
-
-/>
-
-
-
-</div>
 
 
 
