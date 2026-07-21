@@ -848,3 +848,106 @@
 
 
 }
+/* =====================================
+   PIN BOXES
+===================================== */
+
+
+.code-boxes{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:10px;
+
+}
+
+
+
+.code-boxes input{
+
+
+    width:52px;
+
+    height:58px;
+
+
+    border-radius:14px;
+
+
+    border:
+
+        2px solid #D9DCD6;
+
+
+    background:white;
+
+
+    color:#133C55;
+
+
+    font-size:24px;
+
+
+    font-weight:900;
+
+
+    text-align:center;
+
+
+    outline:none;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+.code-boxes input:focus{
+
+
+    border-color:#386FA4;
+
+
+    box-shadow:
+
+        0 0 0 5px rgba(132,210,246,.35);
+
+
+    transform:translateY(-3px);
+
+
+}
+
+
+
+@media(max-width:480px){
+
+
+.code-boxes{
+
+    gap:7px;
+
+}
+
+
+
+.code-boxes input{
+
+
+    width:45px;
+
+    height:52px;
+
+    font-size:20px;
+
+
+}
+
+
+}
