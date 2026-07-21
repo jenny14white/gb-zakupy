@@ -22,7 +22,6 @@ return (
 
 
 
-
     <div className="gooey-content">
 
 
