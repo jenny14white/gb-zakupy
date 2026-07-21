@@ -5,7 +5,6 @@ import Ferrofluid from "../components/shared/effects/Ferrofluid";
 import GooeyCard from "../components/shared/effects/GooeyCard";
 
 
-
 export default function HomePage({
 
   goToShopping,
