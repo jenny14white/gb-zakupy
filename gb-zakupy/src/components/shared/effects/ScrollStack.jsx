@@ -10,13 +10,10 @@ import "./ScrollStack.css";
 
 
 
-
-
 export function ScrollStackItem({
   children,
   itemClassName = ""
 }) {
-
 
   return (
 
@@ -38,25 +35,23 @@ export function ScrollStackItem({
 
 
 
-
-
 export default function ScrollStack({
 
   children,
 
   className = "",
 
-  itemDistance = 80,
+  itemDistance = 100,
 
-  itemStackDistance = 35,
+  itemScale = 0.03,
+
+  itemStackDistance = 30,
 
   stackPosition = "20%",
 
   scaleEndPosition = "10%",
 
-  baseScale = 0.9,
-
-  itemScale = 0.03,
+  baseScale = 0.85,
 
   rotationAmount = 0,
 
@@ -69,7 +64,6 @@ export default function ScrollStack({
 }) {
 
 
-
   const scrollerRef = useRef(null);
 
   const cardsRef = useRef([]);
@@ -80,6 +74,7 @@ export default function ScrollStack({
 
   const completedRef = useRef(false);
 
+  const lastTransforms = useRef(new Map());
 
 
 
@@ -87,8 +82,7 @@ export default function ScrollStack({
 
 
 
-
-  const parsePosition = useCallback(
+  const parsePercentage = useCallback(
     (value,height)=>{
 
       if(
@@ -115,15 +109,28 @@ export default function ScrollStack({
 
 
 
+  const getScroll = useCallback(()=>{
+
+    return useWindowScroll
+
+      ? window.scrollY
+
+      : scrollerRef.current.scrollTop;
+
+
+  },[useWindowScroll]);
+
+
+
+
+
 
 
   const updateCards = useCallback(()=>{
 
 
     const scrollTop =
-      useWindowScroll
-        ? window.scrollY
-        : scrollerRef.current.scrollTop;
+      getScroll();
 
 
 
@@ -133,10 +140,20 @@ export default function ScrollStack({
 
 
     const stackPx =
-      parsePosition(
+      parsePercentage(
         stackPosition,
         height
       );
+
+
+
+    const scaleEndPx =
+      parsePercentage(
+        scaleEndPosition,
+        height
+      );
+
+
 
 
 
@@ -145,6 +162,7 @@ export default function ScrollStack({
 
 
         if(!card) return;
+
 
 
 
@@ -159,53 +177,86 @@ export default function ScrollStack({
 
 
         const start =
-          cardTop - stackPx -
-          index * itemStackDistance;
+          cardTop -
+          stackPx -
+          index *
+          itemStackDistance;
 
 
 
-        const progress =
+        const end =
+          cardTop -
+          scaleEndPx;
+
+
+
+
+
+        let progress =
+          (scrollTop-start) /
+          (end-start);
+
+
+
+        progress =
           Math.min(
             1,
             Math.max(
               0,
-              (scrollTop - start) / 500
+              progress
             )
           );
+
+
+
+
+
+
+
+        const targetScale =
+          baseScale +
+          index *
+          itemScale;
+
+
 
 
 
         const scale =
           1 -
           progress *
-          (1 - (baseScale + index * itemScale));
-
-
-
-        const translate =
-          progress *
-          index *
-          itemStackDistance;
-
-
-
-        const rotate =
-          rotationAmount *
-          progress *
-          index;
+          (1-targetScale);
 
 
 
 
-        let blur = 0;
 
 
-        if(blurAmount && progress){
+        let translateY = 0;
 
-          blur =
+
+
+
+
+
+        const pinEnd =
+          cardTop +
+          window.innerHeight;
+
+
+
+
+
+
+        if(scrollTop >= start){
+
+          translateY =
+            scrollTop -
+            cardTop +
+            stackPx +
             index *
-            blurAmount *
-            progress;
+            itemStackDistance;
+
 
         }
 
@@ -213,26 +264,83 @@ export default function ScrollStack({
 
 
 
-        card.style.transform =
 
-          `
-          translate3d(
+
+        let blur = 0;
+
+
+        if(blurAmount){
+
+          blur =
+            Math.max(
+              0,
+              index *
+              blurAmount *
+              progress
+            );
+
+        }
+
+
+
+
+
+
+        const rotation =
+          rotationAmount *
+          progress *
+          index;
+
+
+
+
+
+
+
+        const transform =
+
+          `translate3d(
             0,
-            ${translate}px,
+            ${translateY}px,
             0
           )
-
           scale(${scale})
-
-          rotate(${rotate}deg)
-          `;
+          rotate(${rotation}deg)`;
 
 
 
-        card.style.filter =
-          blur
-            ? `blur(${blur}px)`
-            : "none";
+
+
+
+
+        const previous =
+          lastTransforms.current.get(index);
+
+
+
+
+        if(
+          previous !== transform
+        ){
+
+          card.style.transform =
+            transform;
+
+
+          card.style.filter =
+            blur
+              ? `blur(${blur}px)`
+              : "none";
+
+
+
+          lastTransforms.current.set(
+            index,
+            transform
+          );
+
+        }
+
 
 
 
@@ -240,10 +348,12 @@ export default function ScrollStack({
 
         if(
           index ===
-          cardsRef.current.length - 1
+          cardsRef.current.length-1
         ){
 
-          if(progress > .8){
+
+          if(progress > .9){
+
 
             if(!completedRef.current){
 
@@ -253,29 +363,36 @@ export default function ScrollStack({
 
             }
 
+
           }else{
+
 
             completedRef.current=false;
 
+
           }
+
 
         }
 
 
+
       }
+
 
     );
 
 
   },[
+    getScroll,
+    parsePercentage,
     stackPosition,
+    scaleEndPosition,
     itemStackDistance,
     itemScale,
     baseScale,
     rotationAmount,
     blurAmount,
-    useWindowScroll,
-    parsePosition,
     onStackComplete
   ]);
 
@@ -293,21 +410,12 @@ export default function ScrollStack({
     cardsRef.current =
       Array.from(
 
-        useWindowScroll
-
-        ?
-
         document.querySelectorAll(
           ".scroll-stack-card"
         )
 
-        :
-
-        scrollerRef.current.querySelectorAll(
-          ".scroll-stack-card"
-        )
-
       );
+
 
 
 
@@ -319,7 +427,7 @@ export default function ScrollStack({
 
         if(
           index <
-          cardsRef.current.length - 1
+          cardsRef.current.length-1
         ){
 
           card.style.marginBottom =
@@ -330,8 +438,7 @@ export default function ScrollStack({
 
 
         card.style.willChange =
-          "transform";
-
+          "transform, filter";
 
 
         card.style.transformOrigin =
@@ -352,17 +459,9 @@ export default function ScrollStack({
     const lenis =
       new Lenis({
 
-        smoothWheel:true,
-
         duration:1.2,
 
-        easing:
-          t =>
-          1 -
-          Math.pow(
-            2,
-            -10*t
-          )
+        smoothWheel:true,
 
       });
 
@@ -378,7 +477,10 @@ export default function ScrollStack({
 
 
 
-    lenisRef.current=lenis;
+    lenisRef.current =
+      lenis;
+
+
 
 
 
@@ -397,12 +499,11 @@ export default function ScrollStack({
 
 
 
+
     frameRef.current =
       requestAnimationFrame(
         raf
       );
-
-
 
 
 
@@ -417,26 +518,21 @@ export default function ScrollStack({
     return ()=>{
 
 
-      if(frameRef.current){
-
-        cancelAnimationFrame(
-          frameRef.current
-        );
-
-      }
-
+      cancelAnimationFrame(
+        frameRef.current
+      );
 
 
       lenis.destroy();
 
 
-
       cardsRef.current=[];
 
 
+      lastTransforms.current.clear();
+
 
     };
-
 
 
 
@@ -465,15 +561,11 @@ export default function ScrollStack({
 
     >
 
-
       <div className="scroll-stack-inner">
-
 
         {children}
 
-
         <div className="scroll-stack-end"/>
-
 
       </div>
 
@@ -481,6 +573,5 @@ export default function ScrollStack({
     </div>
 
   );
-
 
 }
