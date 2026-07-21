@@ -770,3 +770,193 @@
 
 
 }
+/* =====================================
+   TEXT ANIMATIONS
+===================================== */
+
+
+/* nazwa firmy - efekt pisania */
+
+.company-title{
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    animation:
+
+        titleReveal 1.2s ease forwards;
+
+    opacity:0;
+
+    letter-spacing:-2px;
+
+}
+
+
+
+@keyframes titleReveal{
+
+
+    from{
+
+        opacity:0;
+
+        filter:blur(10px);
+
+        transform:
+
+            translateY(20px);
+
+
+        letter-spacing:8px;
+
+    }
+
+
+
+    to{
+
+        opacity:1;
+
+        filter:blur(0);
+
+        transform:none;
+
+
+        letter-spacing:-1.5px;
+
+    }
+
+}
+
+
+
+
+
+
+/* portal firmowy - shader gradient */
+
+
+.shader-text{
+
+
+    position:relative;
+
+    display:inline-block;
+
+
+    background:
+
+
+        linear-gradient(
+
+            90deg,
+
+            #386FA4,
+
+            #84D2F6,
+
+            #013A63,
+
+            #386FA4
+
+        );
+
+
+    background-size:300%;
+
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+
+    color:transparent;
+
+
+    animation:
+
+
+        shaderMove 4s infinite linear,
+
+
+        subtitleEnter 1.5s ease forwards;
+
+
+    animation-delay:.8s;
+
+
+    opacity:0;
+
+
+}
+
+
+
+
+
+
+@keyframes shaderMove{
+
+
+    0%{
+
+        background-position:
+
+            0%;
+
+    }
+
+
+    100%{
+
+        background-position:
+
+            300%;
+
+    }
+
+}
+
+
+
+
+
+
+@keyframes subtitleEnter{
+
+
+    from{
+
+
+        opacity:0;
+
+
+        transform:
+
+            translateY(15px);
+
+
+        filter:blur(8px);
+
+
+    }
+
+
+
+    to{
+
+
+        opacity:1;
+
+
+        transform:none;
+
+
+        filter:blur(0);
+
+
+    }
+
+}
