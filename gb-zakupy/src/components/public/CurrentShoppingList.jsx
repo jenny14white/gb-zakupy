@@ -62,32 +62,25 @@ export default function CurrentShoppingList({
 
         <ScrollStack
 
+  itemDistance={120}
 
-          itemDistance={60}
+  itemStackDistance={45}
 
+  stackPosition="25%"
 
-          itemStackDistance={35}
+  scaleEndPosition="10%"
 
+  baseScale={0.88}
 
-          stackPosition="20%"
+  itemScale={0.04}
 
+  rotationAmount={0}
 
-          baseScale={0.92}
+  blurAmount={0}
 
+  useWindowScroll={true}
 
-          itemScale={0.02}
-
-
-          rotationAmount={0}
-
-
-          blurAmount={0}
-
-
-          useWindowScroll={true}
-
-
-        >
+>
 
 
 
