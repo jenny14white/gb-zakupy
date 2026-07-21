@@ -21,20 +21,20 @@ import AdminEventsPage from "./pages/AdminEventsPage";
 import SessionGuard from "./components/shared/SessionGuard";
 
 
-import { logoutAdmin } from "./firebase/auth";
+import {
+  logoutAdmin
+} from "./firebase/auth";
 
 
 
 
 
 
-export default function App() {
+export default function App(){
 
 
 
-  const [page,setPage] = useState(
-    "access"
-  );
+  const [page,setPage] = useState("access");
 
 
 
@@ -48,7 +48,9 @@ export default function App() {
 
 
   const [isAdmin,setIsAdmin] = useState(
+
     sessionStorage.getItem("admin") === "true"
+
   );
 
 
@@ -59,11 +61,6 @@ export default function App() {
 
 
 
-  // ==========================
-  // FIREBASE SESSION CHECK
-  // ==========================
-
-
   useEffect(()=>{
 
 
@@ -72,22 +69,14 @@ export default function App() {
       (user)=>{
 
 
+
         if(user){
 
 
           setHasAccess(true);
 
 
-
-          if(
-            sessionStorage.getItem("gbAccess")
-            ===
-            "true"
-          ){
-
-            setPage("home");
-
-          }
+          setPage("home");
 
 
 
@@ -95,6 +84,7 @@ export default function App() {
 
 
           setHasAccess(false);
+
 
 
           sessionStorage.removeItem(
@@ -105,6 +95,7 @@ export default function App() {
           sessionStorage.removeItem(
             "gbLastActivity"
           );
+
 
 
           setPage("access");
@@ -118,7 +109,6 @@ export default function App() {
 
 
       }
-
     );
 
 
@@ -126,7 +116,11 @@ export default function App() {
     return ()=>unsubscribe();
 
 
+
   },[]);
+
+
+
 
 
 
@@ -167,6 +161,7 @@ export default function App() {
 
 
 
+
   async function handleLogout(){
 
 
@@ -186,6 +181,7 @@ export default function App() {
 
 
 
+
     sessionStorage.removeItem(
       "admin"
     );
@@ -198,6 +194,9 @@ export default function App() {
 
 
   }
+
+
+
 
 
 
@@ -229,6 +228,9 @@ export default function App() {
 
 
 
+
+
+
   function handleAccessSuccess(){
 
 
@@ -238,21 +240,16 @@ export default function App() {
     );
 
 
-
     sessionStorage.setItem(
       "gbLastActivity",
       Date.now()
     );
 
 
-
-    setHasAccess(true);
-
-
-    setPage("home");
-
-
   }
+
+
+
 
 
 
@@ -280,7 +277,6 @@ export default function App() {
 
   return (
 
-
     <>
 
 
@@ -304,76 +300,76 @@ export default function App() {
 
     {
 
+      (()=>{
 
-    (()=>{
 
+        switch(page){
 
-      switch(page){
 
 
+          case "access":
 
 
+            return (
 
+              <AccessPage
 
+                onSuccess={handleAccessSuccess}
 
-        case "access":
+              />
 
+            );
 
-          return (
 
-            <AccessPage
 
-              onSuccess={handleAccessSuccess}
 
-            />
 
-          );
 
 
 
 
+          case "home":
 
 
+            return (
 
+              <HomePage
 
 
-        case "home":
+                goToShopping={()=>setPage("shopping")}
 
 
-          return (
+                goToCalendar={()=>setPage("calendar")}
 
-            <HomePage
 
+                goToAdmin={()=>setPage("admin")}
 
-              goToShopping={()=>
 
+              />
 
-                setPage("shopping")
+            );
 
-              }
 
 
 
-              goToCalendar={()=>
 
 
-                setPage("calendar")
 
-              }
 
 
+          case "shopping":
 
-              goToAdmin={()=>
 
+            return (
 
-                setPage("admin")
+              <PublicShoppingPage
 
-              }
+                goBack={()=>setPage("home")}
 
+              />
 
-            />
+            );
 
-          );
 
 
 
@@ -382,115 +378,113 @@ export default function App() {
 
 
 
+          case "calendar":
 
-        case "shopping":
 
+            return (
 
-          return (
+              <CalendarPage
 
-            <PublicShoppingPage
+                goBack={()=>setPage("home")}
 
-              goBack={()=>
+              />
 
+            );
 
-                setPage("home")
 
-              }
 
-            />
 
-          );
 
 
 
 
 
+          case "admin":
 
 
+            return isAdmin ? (
 
 
-        case "calendar":
+              <AdminDashboardPage
 
 
-          return (
+                goBack={()=>setPage("home")}
 
-            <CalendarPage
 
-              goBack={()=>
+                logout={handleLogout}
 
 
-                setPage("home")
+                goToEvents={()=>setPage("admin-events")}
 
-              }
 
-            />
+              />
 
-          );
 
+            ) : (
 
 
+              <AdminLoginPage
 
 
+                goBack={()=>setPage("home")}
 
 
+                onLogin={handleLogin}
 
 
-        case "admin":
+              />
 
 
-          return isAdmin ? (
+            );
 
 
-            <AdminDashboardPage
 
 
-              goBack={()=>
 
 
-                setPage("home")
 
-              }
 
 
+          case "admin-events":
 
-              logout={handleLogout}
 
+            return isAdmin ? (
 
 
-              goToEvents={()=>
+              <AdminEventsPage
 
 
-                setPage("admin-events")
+                goBack={()=>setPage("admin")}
 
-              }
 
+              />
 
-            />
 
+            ) : (
 
-          ) : (
 
+              <AdminLoginPage
 
-            <AdminLoginPage
 
+                goBack={()=>setPage("home")}
 
-              goBack={()=>
 
+                onLogin={()=>{
 
-                setPage("home")
 
-              }
+                  handleLogin();
 
 
+                  setPage("admin-events");
 
-              onLogin={handleLogin}
 
+                }}
 
-            />
 
+              />
 
-          );
 
+            );
 
 
 
@@ -499,111 +493,25 @@ export default function App() {
 
 
 
-        case "admin-events":
 
+          default:
 
-          return isAdmin ? (
 
+            return (
 
-            <AdminEventsPage
+              <AccessPage
 
+                onSuccess={handleAccessSuccess}
 
-              goBack={()=>
+              />
 
+            );
 
-                setPage("admin")
 
-              }
+        }
 
 
-            />
-
-
-          ) : (
-
-
-            <AdminLoginPage
-
-
-              goBack={()=>
-
-
-                setPage("home")
-
-              }
-
-
-
-              onLogin={()=>{
-
-
-                handleLogin();
-
-
-                setPage("admin-events");
-
-
-              }}
-
-
-            />
-
-
-          );
-
-
-
-
-
-
-
-
-
-        default:
-
-
-          return (
-
-            <HomePage
-
-
-              goToShopping={()=>
-
-
-                setPage("shopping")
-
-              }
-
-
-
-              goToCalendar={()=>
-
-
-                setPage("calendar")
-
-              }
-
-
-
-              goToAdmin={()=>
-
-
-                setPage("admin")
-
-              }
-
-
-            />
-
-          );
-
-
-
-      }
-
-
-
-    })()
+      })()
 
 
     }
