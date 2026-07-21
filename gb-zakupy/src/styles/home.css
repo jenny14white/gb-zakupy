@@ -1,5 +1,5 @@
 /* =====================================================
-   GB HOME PAGE PREMIUM INDUSTRIAL
+   GB HOME PAGE PREMIUM INDUSTRIAL + FERROFLUID
 ===================================================== */
 
 
@@ -9,6 +9,13 @@
 
 
 .home-page{
+
+
+    position:relative;
+
+    overflow:hidden;
+
+    isolation:isolate;
 
 
     min-height:100vh;
@@ -29,22 +36,80 @@
 
     background:
 
-
-        radial-gradient(
-            circle at top,
-            rgba(129,195,215,.35),
-            transparent 40%
-        ),
-
-
         linear-gradient(
             135deg,
             #F8FBFF,
-            #D9DCD6
+            #EAF7FF
         );
+
+}
+
+
+
+/* ===============================
+   FERROFLUID BACKGROUND
+================================ */
+
+
+.home-background{
+
+
+    position:absolute;
+
+    inset:0;
+
+
+    width:100%;
+
+    height:100%;
+
+
+    z-index:0;
+
+
+    pointer-events:none;
+
+
+    overflow:hidden;
+
+}
+
+
+
+
+
+.home-background .ferrofluid-container{
+
+
+    position:absolute;
+
+    inset:0;
+
+
+    width:100%;
+
+    height:100%;
 
 
 }
+
+
+
+
+
+.home-background canvas{
+
+
+    width:100% !important;
+
+
+    height:100% !important;
+
+
+    display:block;
+
+}
+
 
 
 
@@ -56,6 +121,11 @@
 
 
 .home-container{
+
+
+    position:relative;
+
+    z-index:2;
 
 
     width:100%;
@@ -105,7 +175,7 @@
     border-radius:50%;
 
 
-    background:#EAF7FB;
+    background:rgba(255,255,255,.85);
 
 
     display:flex;
@@ -120,12 +190,16 @@
     font-size:50px;
 
 
+    backdrop-filter:blur(15px);
+
+
     box-shadow:
 
-        0 15px 35px rgba(22,66,91,.15);
+        0 15px 35px rgba(1,42,74,.18);
 
 
 }
+
 
 
 
@@ -148,7 +222,7 @@
     letter-spacing:6px;
 
 
-    color:#16425B;
+    color:#012A4A;
 
 
 }
@@ -156,10 +230,11 @@
 
 
 
+
 .home-header p{
 
 
-    color:#3A7CA5;
+    color:#2A6F97;
 
 
     font-size:18px;
@@ -202,14 +277,23 @@
 
 
 
-
 .home-card{
 
 
     border:none;
 
 
-    background:white;
+    background:
+
+
+        rgba(255,255,255,.75);
+
+
+
+    backdrop-filter:
+
+        blur(20px);
+
 
 
     border-radius:32px;
@@ -242,13 +326,17 @@
     cursor:pointer;
 
 
-    border:1px solid #81C3D7;
+
+    border:
+
+        1px solid rgba(89,165,216,.5);
+
 
 
     box-shadow:
 
 
-        0 20px 45px rgba(22,66,91,.12);
+        0 20px 45px rgba(1,42,74,.15);
 
 
 
@@ -266,19 +354,23 @@
 
 
 
+
 .home-card:hover{
 
 
-    transform:translateY(-8px);
+    transform:
+
+        translateY(-8px);
 
 
     box-shadow:
 
 
-        0 30px 60px rgba(22,66,91,.18);
+        0 30px 60px rgba(1,42,74,.25);
 
 
 }
+
 
 
 
@@ -306,7 +398,12 @@
     justify-content:center;
 
 
-    background:#EAF7FB;
+
+    background:
+
+
+        rgba(132,210,246,.25);
+
 
 
     font-size:55px;
@@ -319,13 +416,14 @@
 
 
 
+
 .home-card h2{
 
 
     margin:0;
 
 
-    color:#16425B;
+    color:#012A4A;
 
 
     font-size:28px;
@@ -341,19 +439,21 @@
 
 
 
+
 .home-card p{
 
 
     margin:0;
 
 
-    color:#3A7CA5;
+    color:#2A6F97;
 
 
     line-height:1.5;
 
 
 }
+
 
 
 
@@ -369,7 +469,8 @@
 .home-card-admin{
 
 
-    border-color:#16425B;
+    border-color:#012A4A;
+
 
 
     background:
@@ -379,9 +480,9 @@
 
             145deg,
 
-            #ffffff,
+            rgba(255,255,255,.85),
 
-            #EAF7FB
+            rgba(234,247,255,.75)
 
         );
 
@@ -395,7 +496,10 @@
 .home-card-admin .home-card-icon{
 
 
-    background:#16425B;
+    background:#012A4A;
+
+
+    color:white;
 
 
 }
@@ -408,10 +512,12 @@
 .home-card-admin h2{
 
 
-    color:#16425B;
+    color:#012A4A;
 
 
 }
+
+
 
 
 
@@ -436,6 +542,7 @@
 
 
 
+
 @keyframes homeFade{
 
 
@@ -445,10 +552,13 @@
         opacity:0;
 
 
-        transform:translateY(15px);
+        transform:
+
+            translateY(15px);
 
 
     }
+
 
 
     to{
@@ -464,7 +574,6 @@
 
 
 }
-
 
 
 
@@ -504,6 +613,7 @@
 
 
 
+
     .home-options{
 
 
@@ -514,6 +624,7 @@
 
 
     }
+
 
 
 
@@ -537,6 +648,7 @@
 
 
 
+
     .home-card-icon{
 
 
@@ -555,6 +667,7 @@
 
 
 
+
     .home-card h2{
 
 
@@ -566,6 +679,9 @@
 
 
 }
+
+
+
 
 
 
@@ -588,6 +704,7 @@
 
 
 
+
     .home-header p{
 
 
@@ -598,6 +715,7 @@
 
 
 
+
     .home-card{
 
 
@@ -605,7 +723,6 @@
 
 
     }
-
 
 
 }
