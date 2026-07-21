@@ -23,7 +23,6 @@ return (
 
 
 
-
 <div className="home-background">
 
 
