@@ -239,78 +239,56 @@ return (
 
         <LiquidEther
 
+    colors={[
+        "#10002b",
+        "#240046",
+        "#5a189a"
+    ]}
 
 
-            colors={[
-
-                "#10002b",
-
-                "#240046",
-
-                "#5a189a"
-
-            ]}
+    mouseForce={20}
 
 
-
-            mouseForce={34}
-
+    cursorSize={60}
 
 
-            cursorSize={80}
+    isViscous
 
 
-
-            isViscous
-
+    viscous={18}
 
 
-            viscous={30}
+    iterationsViscous={16}
 
 
-
-            iterationsViscous={32}
-
+    iterationsPoisson={16}
 
 
-            iterationsPoisson={32}
+    resolution={0.35}
 
 
-
-            resolution={0.5}
-
+    isBounce={false}
 
 
-            isBounce={false}
+    autoDemo
 
 
-
-            autoDemo
-
+    autoSpeed={0.35}
 
 
-            autoSpeed={0.6}
+    autoIntensity={1.4}
 
 
-
-            autoIntensity={2.2}
-
+    takeoverDuration={0.25}
 
 
-            takeoverDuration={0.25}
+    autoResumeDelay={3000}
 
 
-
-            autoResumeDelay={3000}
-
+    autoRampDuration={0.6}
 
 
-            autoRampDuration={0.6}
-
-
-
-        />
-
+/>
 
 
     </div>
