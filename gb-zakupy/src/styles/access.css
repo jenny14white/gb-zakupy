@@ -1,5 +1,5 @@
 /* =====================================
-   GB ACCESS PAGE PREMIUM BLUE
+   GB ACCESS PAGE - LIQUID ETHER AMETHYST
 ===================================== */
 
 
@@ -34,16 +34,18 @@
 
         linear-gradient(
             135deg,
-            #F8FBFF,
-            #EAF7FF
+            #10002b,
+            #240046
         );
 
 }
 
 
 
+
+
 /* =====================================
-   FERROFLUID BACKGROUND
+   LIQUID ETHER BACKGROUND
 ===================================== */
 
 
@@ -71,9 +73,7 @@
 
 
 
-
-.access-background .ferrofluid-container{
-
+.access-background .liquid-ether-container{
 
     position:absolute;
 
@@ -84,22 +84,17 @@
 
     height:100%;
 
-
 }
-
 
 
 
 .access-background canvas{
 
-
     display:block;
-
 
     width:100% !important;
 
     height:100% !important;
-
 
 }
 
@@ -141,14 +136,15 @@
 
     background:
 
-        rgba(255,255,255,.70);
+
+        rgba(255,255,255,.12);
 
 
 
     border:
 
 
-        1px solid rgba(89,165,216,.5);
+        1px solid rgba(157,78,221,.45);
 
 
 
@@ -158,24 +154,25 @@
 
     backdrop-filter:
 
-        blur(22px);
+
+        blur(25px);
 
 
 
     box-shadow:
 
 
-        0 30px 70px rgba(1,42,74,.25);
+        0 30px 80px rgba(16,0,43,.65);
 
 
 
     animation:
 
+
         cardEnter .8s ease;
 
 
 }
-
 
 
 
@@ -213,7 +210,6 @@
 
 
 }
-
 
 
 
@@ -266,16 +262,19 @@
 
     border:
 
-        3px solid #59A5D8;
+
+        3px solid #9d4edd;
 
 
 
     animation:
 
+
         logoPulse 4s infinite ease-in-out;
 
 
 }
+
 
 
 
@@ -300,6 +299,7 @@
 
 
 
+
 @keyframes logoPulse{
 
 
@@ -309,10 +309,10 @@
         box-shadow:
 
 
-            0 20px 45px rgba(1,42,74,.25),
+            0 20px 45px rgba(157,78,221,.25),
 
 
-            0 0 0 8px rgba(89,165,216,.15);
+            0 0 0 8px rgba(157,78,221,.15);
 
 
     }
@@ -325,10 +325,10 @@
         box-shadow:
 
 
-            0 25px 60px rgba(42,111,151,.35),
+            0 25px 60px rgba(123,44,191,.45),
 
 
-            0 0 0 15px rgba(132,210,246,.12);
+            0 0 0 15px rgba(157,78,221,.12);
 
 
     }
@@ -369,7 +369,7 @@
     margin-top:10px;
 
 
-    color:#2A6F97;
+    color:#d9b8ff;
 
 
     font-size:16px;
@@ -418,7 +418,7 @@
     text-align:left;
 
 
-    color:#012A4A;
+    color:#f1e7ff;
 
 
     font-size:14px;
@@ -428,6 +428,8 @@
 
 
 }
+
+
 
 
 
@@ -461,6 +463,8 @@
 
 
 
+
+
 .code-boxes input{
 
 
@@ -477,17 +481,19 @@
 
     border:
 
-        2px solid #91E5F6;
+
+        2px solid #c77dff;
 
 
 
     background:
 
+
         rgba(255,255,255,.9);
 
 
 
-    color:#012A4A;
+    color:#240046;
 
 
 
@@ -517,15 +523,15 @@
 
 
 
-
 .code-boxes input:focus{
 
 
-    border-color:#2C7DA0;
+    border-color:#9d4edd;
 
 
 
     transform:
+
 
         translateY(-4px);
 
@@ -534,10 +540,10 @@
     box-shadow:
 
 
-        0 10px 25px rgba(44,125,160,.25),
+        0 10px 25px rgba(157,78,221,.35),
 
 
-        0 0 0 5px rgba(132,210,246,.25);
+        0 0 0 5px rgba(199,125,255,.2);
 
 
 }
@@ -578,9 +584,9 @@
 
             135deg,
 
-            #012A4A,
+            #3c096c,
 
-            #2A6F97
+            #9d4edd
 
         );
 
@@ -608,7 +614,7 @@
     box-shadow:
 
 
-        0 15px 30px rgba(1,42,74,.25);
+        0 15px 35px rgba(90,24,154,.45);
 
 
 }
@@ -623,6 +629,7 @@
 
     transform:
 
+
         translateY(-3px);
 
 
@@ -630,7 +637,7 @@
     box-shadow:
 
 
-        0 20px 40px rgba(1,42,74,.35);
+        0 20px 45px rgba(157,78,221,.55);
 
 
 }
@@ -653,6 +660,8 @@
 
 
 
+
+
 /* =====================================
    ERROR
 ===================================== */
@@ -664,13 +673,15 @@
     margin-top:18px;
 
 
-    color:#dc2626;
+    color:#ff8fa3;
 
 
     font-weight:800;
 
 
 }
+
+
 
 
 
@@ -764,58 +775,88 @@
 
 
 
+
+
+
+
+
 /* =====================================
-   COMPANY METAL TEXT
+   COMPANY METAL TEXT AMETHYST
 ===================================== */
 
 
 .company-title{
 
+
     display:block;
+
 
     margin:0;
 
 
+
     font-size:36px;
 
+
     font-weight:900;
+
 
 
     letter-spacing:-1.5px;
 
 
 
+
+
     background:
+
+
 
 linear-gradient(
     120deg,
-    #012A4A 20%,
-    #2A6F97 35%,
-    #BFE9FF 50%,
-    #2A6F97 65%,
-    #012A4A 80%
+    #240046 20%,
+    #7b2cbf 35%,
+    #e0aaff 50%,
+    #7b2cbf 65%,
+    #240046 80%
 );
+
+
 
 
     background-size:250% auto;
 
 
+
+
     -webkit-background-clip:text;
 
+
     background-clip:text;
+
+
 
 
     color:transparent;
 
 
 
+
+
     animation:
+
 
         metalShine 5s linear infinite,
 
         titleAppear .9s ease forwards;
 
+
 }
+
+
+
+
+
 
 
 @keyframes metalShine{
@@ -823,22 +864,27 @@ linear-gradient(
 
     0%{
 
+
         background-position:
 
             200% center;
+
 
     }
 
 
     100%{
 
+
         background-position:
 
             -200% center;
 
+
     }
 
 }
+
 
 
 
@@ -856,14 +902,18 @@ linear-gradient(
 
         transform:
 
+
             translateY(20px)
 
             scale(.95);
 
 
+
         filter:
 
+
             blur(8px);
+
 
     }
 
@@ -880,13 +930,20 @@ linear-gradient(
 
         filter:
 
+
             blur(0);
+
 
     }
 
 }
+
+
+
 .company-title + .access-subtitle{
 
+
     margin-top:12px;
+
 
 }
