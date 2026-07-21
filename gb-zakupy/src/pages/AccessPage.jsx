@@ -39,7 +39,6 @@ export default function AccessPage({
     }
 
 
-
     const newCode=[...code];
 
 
@@ -50,16 +49,14 @@ export default function AccessPage({
 
 
 
-
-
     if(value && index < 4){
 
       inputs.current[index+1]?.focus();
 
     }
 
-
   }
+
 
 
 
@@ -94,26 +91,19 @@ export default function AccessPage({
     e.preventDefault();
 
 
-
     const finalCode =
       code.join("");
 
 
 
-
-    const validCodes = [
+    const validCodes=[
 
       "gb520",
-
       "GB520",
-
       "Gb520",
-
-      "gB520",
+      "gB520"
 
     ];
-
-
 
 
 
@@ -155,28 +145,32 @@ return (
 
 
 
+
 <div className="access-background">
+
 
 
 <Ferrofluid
 
+
 colors={[
 
-  "#012A4A", // Deep Space Blue
+"#012A4A",
 
-  "#013A63", // Yale Blue
+"#013A63",
 
-  "#01497C", // Yale Blue
+"#01497C",
 
-  "#014F86", // Dusk Blue
+"#014F86",
 
-  "#2A6F97", // Rich Cerulean
+"#2A6F97",
 
-  "#2C7DA0", // Cerulean
+"#2C7DA0",
 
-  "#468FAF"  // Blue Green
+"#468FAF"
 
 ]}
+
 
 
 speed={0.22}
@@ -222,13 +216,17 @@ mouseRadius={0.35}
 
 
 
+</div>
+
+
+
+
 
 
 
 
 
 <section className="access-card">
-
 
 
 
@@ -248,8 +246,6 @@ alt="GB Sp. z o.o."
 
 
 </div>
-
-
 
 
 
@@ -285,15 +281,11 @@ Portal firmowy
 
 <form
 
-
 onSubmit={handleSubmit}
-
 
 className="access-form"
 
-
 >
-
 
 
 
@@ -368,7 +360,6 @@ index
 />
 
 
-
 ))
 
 }
@@ -397,8 +388,8 @@ Wejdź
 
 
 
-</form>
 
+</form>
 
 
 
@@ -414,9 +405,7 @@ error &&
 
 <p className="access-error">
 
-
 {error}
-
 
 </p>
 
@@ -429,10 +418,7 @@ error &&
 
 
 
-
 </section>
-
-
 
 
 
