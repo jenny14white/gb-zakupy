@@ -534,3 +534,259 @@
 
 
 }
+/* =====================================
+   ACCESS BACKGROUND ANIMATION
+===================================== */
+
+
+.access-page{
+
+    position:relative;
+
+    overflow:hidden;
+
+
+    min-height:100vh;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    padding:20px;
+
+
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #F8FBFF,
+            #D9DCD6
+        );
+
+
+}
+
+
+
+
+
+/* ruchome światła */
+
+
+.access-page::before,
+.access-page::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    width:420px;
+
+    height:420px;
+
+
+    border-radius:50%;
+
+
+    filter:blur(70px);
+
+
+    opacity:.35;
+
+
+    animation:
+        floatingGlow 12s infinite alternate ease-in-out;
+
+
+    z-index:0;
+
+
+}
+
+
+
+
+
+.access-page::before{
+
+
+    background:#81C3D7;
+
+
+    top:-120px;
+
+    left:-120px;
+
+
+}
+
+
+
+
+
+.access-page::after{
+
+
+    background:#3A7CA5;
+
+
+    bottom:-150px;
+
+    right:-120px;
+
+
+    animation-delay:3s;
+
+
+}
+
+
+
+
+
+@keyframes floatingGlow{
+
+
+    from{
+
+
+        transform:
+
+            translate(0,0)
+
+            scale(1);
+
+
+    }
+
+
+    to{
+
+
+        transform:
+
+            translate(80px,60px)
+
+            scale(1.25);
+
+
+    }
+
+
+}
+
+
+
+
+
+/* karta nad animacją */
+
+
+.access-card{
+
+
+    position:relative;
+
+
+    z-index:2;
+
+
+}
+.access-page{
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(22,66,91,.08) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            135deg,
+            #F8FBFF,
+            #D9DCD6
+        );
+
+
+    background-size:
+
+        35px 35px,
+
+        cover;
+
+
+    animation:
+
+        backgroundMove 25s linear infinite;
+
+
+}
+
+
+
+@keyframes backgroundMove{
+
+
+    from{
+
+        background-position:
+            0 0,
+            center;
+
+    }
+
+
+    to{
+
+        background-position:
+            200px 200px,
+            center;
+
+    }
+
+
+}
+.access-card{
+
+    animation:
+
+        cardEnter .8s ease;
+
+
+}
+
+
+
+@keyframes cardEnter{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.95);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+
+}
