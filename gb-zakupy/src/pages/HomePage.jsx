@@ -1,3 +1,6 @@
+import FerroBackground from "../components/shared/backgrounds/FerroBackground";
+
+
 export default function HomePage({
   goToShopping,
   goToCalendar,
@@ -10,11 +13,16 @@ export default function HomePage({
     <main className="home-page">
 
 
+      <FerroBackground />
+
+
+
       <section className="home-container">
 
 
 
         <div className="home-header">
+
 
 
           <div className="home-logo">
@@ -23,15 +31,22 @@ export default function HomePage({
 
 
 
+
           <h1>
+
             GB Sp. z o.o.
+
           </h1>
 
 
 
+
           <p>
+
             Wybierz, z którego modułu chcesz skorzystać
+
           </p>
+
 
 
         </div>
@@ -49,6 +64,8 @@ export default function HomePage({
 
 
 
+
+
           <button
 
             type="button"
@@ -59,26 +76,36 @@ export default function HomePage({
 
           >
 
+
             <div className="home-card-icon">
+
               📋
+
             </div>
+
 
 
 
             <div>
 
+
               <h2>
+
                 Lista zakupowa
+
               </h2>
 
 
 
               <p>
+
                 Sprawdź aktualne potrzeby zakupowe firmy
+
               </p>
 
 
             </div>
+
 
 
           </button>
@@ -101,26 +128,37 @@ export default function HomePage({
 
           >
 
+
             <div className="home-card-icon">
+
               📅
+
             </div>
+
 
 
 
             <div>
 
+
               <h2>
+
                 Kalendarz GB
+
               </h2>
 
 
 
+
               <p>
+
                 Święta, wydarzenia i spotkania firmowe
+
               </p>
 
 
             </div>
+
 
 
           </button>
@@ -143,29 +181,42 @@ export default function HomePage({
 
           >
 
+
             <div className="home-card-icon">
+
               👤
+
             </div>
+
+
 
 
 
             <div>
 
+
               <h2>
+
                 Panel admina
+
               </h2>
 
 
 
+
               <p>
+
                 Zarządzanie zamówieniami i wydarzeniami
+
               </p>
 
 
             </div>
 
 
+
           </button>
+
 
 
 
@@ -179,7 +230,11 @@ export default function HomePage({
 
 
 
+
+
       </section>
+
+
 
 
 
