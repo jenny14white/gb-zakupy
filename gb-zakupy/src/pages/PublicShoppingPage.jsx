@@ -9,6 +9,8 @@ import { usePublicOrders } from "../hooks/usePublicOrders";
 
 
 
+
+
 export default function PublicShoppingPage({
   goBack,
 }) {
@@ -19,6 +21,7 @@ export default function PublicShoppingPage({
     orders,
     loading
   } = usePublicOrders();
+
 
 
 
@@ -95,6 +98,7 @@ export default function PublicShoppingPage({
 
 
 
+
         <ShoppingForm />
 
 
@@ -134,6 +138,7 @@ export default function PublicShoppingPage({
 
 
       </section>
+
 
 
 
