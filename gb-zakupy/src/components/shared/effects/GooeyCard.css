@@ -1,71 +1,102 @@
+/* =====================================
+   GB GOOEY CARD - PREMIUM GLASS
+===================================== */
+
+
 .gooey-card{
 
 
-position:relative;
+    position:relative;
 
-overflow:hidden;
-
-
-height:260px;
+    overflow:hidden;
 
 
-border:none;
-
-cursor:pointer;
+    min-height:240px;
 
 
-border-radius:35px;
+    border:none;
+
+    cursor:pointer;
 
 
-padding:35px;
+    border-radius:32px;
 
 
-text-align:left;
+    padding:35px;
 
 
-background:
-
-rgba(255,255,255,.12);
-
-
-backdrop-filter:
-
-blur(20px);
+    text-align:left;
 
 
 
-border:
+    background:
 
-1px solid rgba(255,255,255,.25);
-
-
-
-color:white;
+        rgba(255,255,255,.10);
 
 
 
-transition:.45s;
+    backdrop-filter:
+
+        blur(22px);
 
 
 
-isolation:isolate;
+    -webkit-backdrop-filter:
+
+        blur(22px);
+
+
+
+    border:
+
+        1px solid rgba(255,255,255,.22);
+
+
+
+    color:white;
+
+
+
+    transition:
+
+        transform .35s ease,
+
+        box-shadow .35s ease,
+
+        border-color .35s ease;
+
+
+
+    isolation:isolate;
+
 
 
 }
+
+
 
 
 
 .gooey-card:hover{
 
 
-transform:
+    transform:
 
-translateY(-12px);
+        translateY(-8px);
 
 
-box-shadow:
 
-0 30px 80px rgba(0,0,0,.35);
+    border-color:
+
+        rgba(142,197,255,.55);
+
+
+
+    box-shadow:
+
+
+        0 30px 80px rgba(0,0,0,.35);
+
 
 
 }
@@ -73,24 +104,38 @@ box-shadow:
 
 
 
+
+/* =====================================
+   PŁYNNE PLAMY
+===================================== */
+
+
 .gooey-blob{
 
 
-position:absolute;
+    position:absolute;
 
 
-border-radius:50%;
+    border-radius:50%;
 
 
-filter:
+    filter:
 
-blur(25px);
-
-
-z-index:-1;
+        blur(45px);
 
 
-transition:.6s;
+
+    opacity:.45;
+
+
+    z-index:-1;
+
+
+
+    transition:
+
+        transform .7s ease;
+
 
 
 }
@@ -102,44 +147,55 @@ transition:.6s;
 .blob-one{
 
 
-width:180px;
+    width:220px;
 
-height:180px;
-
-
-top:-70px;
-
-left:-60px;
+    height:220px;
 
 
-background:
 
-#0353a4;
+    top:-90px;
+
+    left:-80px;
+
+
+
+    background:
+
+        #0353a4;
+
 
 
 }
+
+
 
 
 
 .blob-two{
 
 
-width:150px;
+    width:180px;
 
-height:150px;
-
-
-bottom:-60px;
-
-right:-40px;
+    height:180px;
 
 
-background:
 
-#2c3bd3;
+    bottom:-80px;
+
+    right:-60px;
+
+
+
+    background:
+
+        #56a3a6;
+
 
 
 }
+
+
+
 
 
 
@@ -147,37 +203,52 @@ background:
 .gooey-card:hover .blob-one{
 
 
-transform:
+    transform:
 
-scale(1.4)
-translate(20px,20px);
+        scale(1.35)
+
+        translate(25px,25px);
+
 
 
 }
+
+
 
 
 
 .gooey-card:hover .blob-two{
 
 
-transform:
+    transform:
 
-scale(1.5)
-translate(-20px,-20px);
+        scale(1.45)
+
+        translate(-25px,-25px);
+
 
 
 }
 
 
+
+
+
+
+
+/* =====================================
+   CONTENT
+===================================== */
 
 
 .gooey-content{
 
 
-position:relative;
+    position:relative;
 
 
-z-index:3;
+    z-index:3;
+
 
 
 }
@@ -186,15 +257,35 @@ z-index:3;
 
 
 
-.gooey-icon{
+
+.gooey-line{
 
 
-font-size:45px;
+    width:45px;
 
-margin-bottom:25px;
+
+    height:3px;
+
+
+
+    border-radius:20px;
+
+
+
+    background:
+
+        #8ec5ff;
+
+
+
+    margin-bottom:28px;
+
 
 
 }
+
+
+
 
 
 
@@ -202,13 +293,24 @@ margin-bottom:25px;
 .gooey-card h3{
 
 
-font-size:26px;
+    margin:0 0 14px;
 
 
-margin:0 0 12px;
+
+    font-size:28px;
 
 
-font-weight:900;
+
+    font-weight:900;
+
+
+
+    letter-spacing:-.5px;
+
+
+
+    color:white;
+
 
 
 }
@@ -216,19 +318,121 @@ font-weight:900;
 
 
 
+
+
+
 .gooey-card p{
 
 
-margin:0;
+    margin:0;
 
 
-color:#d8ebff;
+
+    max-width:280px;
 
 
-font-size:16px;
+
+    color:
+
+        rgba(220,235,255,.9);
 
 
-line-height:1.5;
+
+    font-size:16px;
+
+
+
+    line-height:1.55;
+
+
+
+}
+
+
+
+
+
+
+
+.gooey-arrow{
+
+
+    display:block;
+
+
+
+    margin-top:28px;
+
+
+
+    font-size:32px;
+
+
+
+    color:white;
+
+
+
+    transition:.35s;
+
+
+
+}
+
+
+
+
+
+
+.gooey-card:hover .gooey-arrow{
+
+
+    transform:
+
+        translateX(12px);
+
+
+
+}
+
+
+
+
+
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+
+@media(max-width:700px){
+
+
+    .gooey-card{
+
+
+        min-height:210px;
+
+
+        padding:28px;
+
+
+        border-radius:26px;
+
+
+    }
+
+
+
+    .gooey-card h3{
+
+
+        font-size:24px;
+
+
+    }
+
 
 
 }
