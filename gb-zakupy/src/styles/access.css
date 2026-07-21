@@ -32,10 +32,17 @@
 
     background:
 
+        radial-gradient(
+            circle at top left,
+            rgba(3,83,164,.45),
+            transparent 35%
+        ),
+
         linear-gradient(
             135deg,
-            #06152f,
-            #0b1f5e
+            #001233,
+            #001845,
+            #023e7d
         );
 
 }
