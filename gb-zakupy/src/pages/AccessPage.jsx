@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 
 import logoGB from "../assets/logo.png";
 
-import Ferrofluid from "../components/shared/effects/Ferrofluid";
+import LiquidEther from "../components/shared/effects/LiquidEther";
 
 import { loginPortal } from "../firebase/auth";
 
@@ -28,7 +28,6 @@ export default function AccessPage({
 
 
   const inputs = useRef([]);
-
 
 
 
@@ -116,6 +115,7 @@ export default function AccessPage({
 
 
 
+
     const validCodes = [
 
       "gb520",
@@ -149,6 +149,8 @@ export default function AccessPage({
 
 
 
+
+
     try{
 
 
@@ -160,17 +162,11 @@ export default function AccessPage({
 
 
 
-      // Firebase anonymous login
-
       await loginPortal();
 
 
 
 
-
-
-
-      // zapis dostępu aplikacji
 
       sessionStorage.setItem(
         "gbAccess",
@@ -189,8 +185,8 @@ export default function AccessPage({
 
 
 
-
       onSuccess();
+
 
 
 
@@ -236,36 +232,89 @@ return (
 <main className="access-page">
 
 
+
     <div className="access-background">
 
 
-        <Ferrofluid
+
+        <LiquidEther
+
+
 
             colors={[
 
-                "#012A4A",
-                "#013A63",
-                "#01497C",
-                "#014F86",
-                "#2A6F97",
-                "#2C7DA0",
-                "#468FAF"
+                "#10002b",
+
+                "#240046",
+
+                "#5a189a"
 
             ]}
 
 
-            speed={0.22}
 
-            scale={1.7}
+            mouseForce={34}
 
-            turbulence={0.9}
 
-            glow={2.5}
+
+            cursorSize={80}
+
+
+
+            isViscous
+
+
+
+            viscous={30}
+
+
+
+            iterationsViscous={32}
+
+
+
+            iterationsPoisson={32}
+
+
+
+            resolution={0.5}
+
+
+
+            isBounce={false}
+
+
+
+            autoDemo
+
+
+
+            autoSpeed={0.6}
+
+
+
+            autoIntensity={2.2}
+
+
+
+            takeoverDuration={0.25}
+
+
+
+            autoResumeDelay={3000}
+
+
+
+            autoRampDuration={0.6}
+
+
 
         />
 
 
+
     </div>
+
 
 
 
@@ -309,6 +358,7 @@ alt="GB Sp. z o.o."
 GB Sp. z o.o.
 
 </h1>
+
 
 
 
@@ -363,6 +413,7 @@ Wpisz kod dostępu
 <div className="code-boxes">
 
 
+
 {
 
 code.map((item,index)=>(
@@ -382,11 +433,14 @@ inputs.current[index]=el
 
 
 
+
 type="password"
 
 
 
+
 maxLength="1"
+
 
 
 
@@ -419,6 +473,7 @@ index
 
 
 
+
 />
 
 
@@ -426,6 +481,7 @@ index
 ))
 
 }
+
 
 
 </div>
@@ -438,13 +494,14 @@ index
 
 
 
-<button 
+<button
 
 type="submit"
 
 disabled={loading}
 
 >
+
 
 
 {
@@ -500,6 +557,7 @@ error &&
 
 
 </section>
+
 
 
 
