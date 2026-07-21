@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import logoGB from "../assets/logo.png";
 
-
+import Ferrofluid from "../components/shared/effects/Ferrofluid";
 
 export default function AccessPage({
   onSuccess,
