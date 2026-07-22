@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   markOrderAsAccepted,
   markOrderAsOrdered,
+  markOrderAsCompleted,
   deleteOrder,
 } from '../../services/ordersService';
 import { ORDER_STATUS } from '../../utils/constants';
@@ -9,7 +10,7 @@ import { formatDate } from '../../utils/dateUtils';
 import AdminOrderEditForm from './AdminOrderEditForm';
 import ConfirmDialog from '../shared/ConfirmDialog';
 
-export default function AdminOrderCard({ order, canOrder }) {
+export default function AdminOrderCard({ order }) {
   const [isEditing, setIsEditing] = useState(false);
   const [adminComment, setAdminComment] = useState(order.adminComment || '');
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,20 @@ export default function AdminOrderCard({ order, canOrder }) {
     }
   }
 
+  async function handleMarkAsCompleted() {
+    if (loading) return;
+
+    try {
+      setLoading(true);
+      await markOrderAsCompleted(order, adminComment);
+    } catch (error) {
+      console.error(error);
+      alert('Nie udało się oznaczyć zamówienia jako zrealizowane.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function confirmDelete() {
     try {
       setLoading(true);
@@ -73,6 +88,7 @@ export default function AdminOrderCard({ order, canOrder }) {
   const isPending = order.status === ORDER_STATUS.PENDING;
   const isAccepted = order.status === ORDER_STATUS.ACCEPTED;
   const isOrdered = order.status === ORDER_STATUS.ORDERED;
+  const isCompleted = order.status === ORDER_STATUS.COMPLETED;
 
   return (
     <>
@@ -87,7 +103,11 @@ export default function AdminOrderCard({ order, canOrder }) {
         onCancel={() => setShowDeleteDialog(false)}
       />
 
-      <article className={`admin-order ${isOrdered ? 'done' : ''}`}>
+      <article
+        className={`admin-order ${
+          isOrdered || isCompleted ? 'done' : ''
+        }`}
+      >
         <div>
           <strong>{order.product}</strong>
 
@@ -103,31 +123,38 @@ export default function AdminOrderCard({ order, canOrder }) {
             <small>Zamówiono: {formatDate(order.orderedAt)}</small>
           )}
 
+          {order.completedAt && (
+            <small>Zrealizowano: {formatDate(order.completedAt)}</small>
+          )}
+
           {order.adminComment && (
             <small>Komentarz: {order.adminComment}</small>
           )}
         </div>
 
         <div
-  className={`status-badge ${
-    isPending
-      ? 'pending'
-      : isAccepted
-      ? 'accepted'
-      : 'ordered'
-  }`}
->
-  {isPending && '🟡 Oczekuje'}
-  {isAccepted && '🟢 Przyjęto do realizacji'}
-  {isOrdered && '🔵 Zamówione'}
-</div>
+          className={`status-badge ${
+            isPending
+              ? 'pending'
+              : isAccepted
+              ? 'accepted'
+              : isOrdered
+              ? 'ordered'
+              : 'completed'
+          }`}
+        >
+          {isPending && '🟡 Oczekujące'}
+          {isAccepted && '🟢 Przyjęte do realizacji'}
+          {isOrdered && '🔵 Zamówione'}
+          {isCompleted && '🟣 Zrealizowane'}
+        </div>
 
         <textarea
           rows="2"
           value={adminComment}
           onChange={(event) => setAdminComment(event.target.value)}
           placeholder="Komentarz..."
-          disabled={isOrdered || loading}
+          disabled={isCompleted || loading}
         />
 
         <div className="admin-actions">
@@ -149,7 +176,16 @@ export default function AdminOrderCard({ order, canOrder }) {
             </button>
           )}
 
-          {!isOrdered && (
+          {isOrdered && (
+            <button
+              onClick={handleMarkAsCompleted}
+              disabled={loading}
+            >
+              {loading ? 'Zapisywanie...' : 'Oznacz jako zrealizowane'}
+            </button>
+          )}
+
+          {!isCompleted && (
             <button
               className="gray-button"
               onClick={() => setIsEditing(true)}
