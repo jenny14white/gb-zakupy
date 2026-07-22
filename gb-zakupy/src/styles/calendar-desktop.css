@@ -1,32 +1,35 @@
 /* =====================================================
-   GB KALENDARZ - DESKTOP PREMIUM INDUSTRIAL BLUE
-   FIXED DASHBOARD + SAFE SCROLL
+   GB KALENDARZ - PREMIUM NAVY THEME
 ===================================================== */
 
 
-@media (min-width:768px){
+/* ===============================
+   STRONA
+================================ */
 
 
 .calendar-page{
 
     min-height:100vh;
 
-    padding:20px;
+    padding:24px;
 
 
     background:
 
-        radial-gradient(
-            circle at top left,
-            rgba(129,195,215,.35),
-            transparent 35%
-        ),
+    radial-gradient(
+        circle at top left,
+        rgba(3,83,164,.45),
+        transparent 35%
+    ),
 
-        linear-gradient(
-            135deg,
-            #D9DCD6,
-            #F8FBFF
-        );
+    linear-gradient(
+        135deg,
+        #001233,
+        #001845,
+        #023e7d
+    );
+
 
 }
 
@@ -34,73 +37,182 @@
 
 
 /* ===============================
- HEADER STRONY
+ HEADER
 ================================ */
 
 
 .calendar-page-header{
 
-    background:white;
 
-    border-radius:25px;
+    max-width:1200px;
 
-    padding:18px 30px;
+    margin:0 auto 20px;
 
-    margin-bottom:18px;
 
-    border:1px solid #81C3D7;
+    display:flex;
 
-    box-shadow:
+    align-items:center;
 
-        0 15px 40px rgba(22,66,91,.12);
+    gap:25px;
+
+
+
+    padding:16px 24px;
+
+
+
+    border-radius:24px;
+
+
+
+    background:
+
+    rgba(255,255,255,.12);
+
+
+
+    backdrop-filter:
+
+    blur(22px);
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.25);
+
+
 
 }
+
+
 
 
 
 .calendar-page-header h1{
 
-    color:#16425B;
 
-    font-size:34px;
+    margin:0;
+
+
+    color:white;
+
+
+    font-size:32px;
+
 
     font-weight:900;
 
+
 }
+
+
+
+
 
 
 .calendar-eyebrow{
 
-    color:#2F6690;
+
+    margin:0 0 5px;
+
+
+    color:#8ec5ff;
+
 
     font-weight:900;
 
-    letter-spacing:.25em;
+
+    letter-spacing:.2em;
+
+
+    font-size:13px;
+
 
 }
+
+
+
+
 
 
 .calendar-description{
 
-    color:#3A7CA5;
+
+    margin:8px 0 0;
+
+
+    color:
+
+    rgba(255,255,255,.8);
+
 
 }
+
+
+
+
 
 
 
 .back-button{
 
-    background:#16425B;
-
-    color:white;
-
-    padding:12px 22px;
-
-    border-radius:16px;
 
     border:none;
 
-    font-weight:900;
+
+    padding:12px 22px;
+
+
+    border-radius:16px;
+
+
+    cursor:pointer;
+
+
+
+    background:
+
+
+    rgba(255,255,255,.18);
+
+
+
+    color:white;
+
+
+
+    font-weight:800;
+
+
+
+    backdrop-filter:
+
+    blur(15px);
+
+
+
+    transition:.25s;
+
+
+
+}
+
+
+
+
+.back-button:hover{
+
+
+    background:
+
+    rgba(255,255,255,.28);
+
+
+    transform:
+
+    translateY(-2px);
+
 
 }
 
@@ -115,6 +227,7 @@
 
 .calendar-header{
 
+
     position:relative;
 
     overflow:hidden;
@@ -122,22 +235,28 @@
 
     background:
 
-        linear-gradient(
-            135deg,
-            #16425B,
-            #3A7CA5
-        );
+
+    linear-gradient(
+        135deg,
+        #023e7d,
+        #0353a4
+    );
 
 
     border-radius:30px;
 
 
-    padding:22px 35px 45px;
+    padding:
+
+    20px 30px 45px;
 
 
     box-shadow:
 
-        0 20px 50px rgba(22,66,91,.28);
+
+    0 25px 60px rgba(0,0,0,.25);
+
+
 
 }
 
@@ -145,21 +264,29 @@
 
 .calendar-header::after{
 
+
     content:"";
+
 
     position:absolute;
 
-    left:-8%;
 
-    right:-8%;
+    left:-10%;
+
+    right:-10%;
+
 
     bottom:-90px;
 
+
     height:150px;
 
-    background:#F8FBFF;
+
+    background:#f8fbff;
+
 
     border-radius:50% 50% 0 0;
+
 
 }
 
@@ -167,21 +294,27 @@
 
 .calendar-header > *{
 
+
     position:relative;
 
     z-index:2;
+
 
 }
 
 
 
+
+
 .calendar-header-top{
+
 
     display:flex;
 
     flex-direction:column;
 
     align-items:center;
+
 
 }
 
@@ -190,55 +323,42 @@
 
 .calendar-year{
 
-    font-family:
-        "Playfair Display",
-        serif;
 
-    font-size:22px;
+    color:#bcdcff;
+
+
+    font-size:20px;
 
     letter-spacing:8px;
 
-    color:#D9DCD6;
 
 }
+
+
 
 
 
 
 .calendar-month{
 
-    margin:5px 0 0;
 
-
-    font-family:
-        "Bebas Neue",
-        sans-serif;
-
-
-    font-size:55px;
-
-
-    letter-spacing:5px;
+    margin:5px 0;
 
 
     color:white;
 
 
-    line-height:1;
+    font-size:52px;
+
+
+    font-weight:900;
+
+
+    letter-spacing:4px;
+
 
 }
 
-
-
-
-
-.calendar-divider{
-
-    width:220px;
-
-    margin-top:15px;
-
-}
 
 
 
@@ -250,15 +370,53 @@
 ================================ */
 
 
+
 .calendar-navigation{
 
-    margin-top:18px;
+
+    margin-top:15px;
+
 
     display:flex;
 
+
     justify-content:center;
 
-    gap:12px;
+
+    gap:10px;
+
+
+}
+
+
+
+
+.calendar-nav-button,
+
+
+.today-button{
+
+
+    border:none;
+
+
+    border-radius:14px;
+
+
+    background:white;
+
+
+    color:#023e7d;
+
+
+    font-weight:900;
+
+
+    cursor:pointer;
+
+
+    transition:.2s;
+
 
 }
 
@@ -266,39 +424,42 @@
 
 .calendar-nav-button{
 
+
     width:45px;
 
     height:45px;
 
-    border:none;
-
-    border-radius:15px;
-
-    background:#D9DCD6;
-
-    color:#16425B;
-
-    font-weight:900;
 
 }
+
 
 
 
 .today-button{
 
+
     padding:12px 25px;
 
-    border-radius:15px;
-
-    border:none;
-
-    background:white;
-
-    color:#16425B;
-
-    font-weight:900;
 
 }
+
+
+
+
+
+.calendar-nav-button:hover,
+
+.today-button:hover{
+
+
+    transform:
+
+    translateY(-2px);
+
+
+}
+
+
 
 
 
@@ -310,7 +471,14 @@
 ===================================================== */
 
 
+
 .calendar-content{
+
+
+    max-width:1200px;
+
+
+    margin:18px auto 0;
 
 
     display:grid;
@@ -318,15 +486,12 @@
 
     grid-template-columns:
 
-        minmax(600px,1fr)
+    minmax(600px,1fr)
 
-        300px;
+    300px;
 
 
     gap:18px;
-
-
-    margin-top:18px;
 
 
 }
@@ -336,21 +501,25 @@
 
 
 
-/* ===============================
- DNI TYGODNIA
-================================ */
+
+/* =====================================================
+ DNI
+===================================================== */
 
 
 .calendar-weekdays{
 
+
     display:grid;
+
 
     grid-template-columns:
 
-        repeat(7,1fr);
+    repeat(7,1fr);
 
 
     gap:8px;
+
 
 }
 
@@ -358,17 +527,24 @@
 
 .calendar-weekday{
 
-    background:#16425B;
+
+    background:#023e7d;
+
 
     color:white;
 
+
     padding:10px;
+
 
     border-radius:14px;
 
+
     text-align:center;
 
+
     font-weight:900;
+
 
 }
 
@@ -377,10 +553,9 @@
 
 
 
-
-/* ===============================
+/* =====================================================
  KALENDARZ
-================================ */
+===================================================== */
 
 
 .calendar-grid{
@@ -391,7 +566,7 @@
 
     grid-template-columns:
 
-        repeat(7,1fr);
+    repeat(7,1fr);
 
 
     gap:8px;
@@ -403,19 +578,22 @@
     background:white;
 
 
-    border-radius:25px;
+    border-radius:26px;
 
 
-    border:1px solid #81C3D7;
+    border:
+
+    1px solid #c7dcff;
 
 
     box-shadow:
 
-        0 20px 45px rgba(22,66,91,.12);
+
+    0 25px 60px rgba(0,0,0,.12);
+
 
 
 }
-
 
 
 
@@ -429,28 +607,30 @@
     padding:8px;
 
 
-    border-radius:15px;
+    border-radius:16px;
 
 
-    background:#F8FBFF;
+    background:#f8fbff;
 
 
-    border:1px solid #D9DCD6;
+    border:1px solid #dbeafe;
 
-
-    position:relative;
 
 }
+
+
+
+
 
 
 
 .calendar-day-number{
 
-    font-size:17px;
 
     font-weight:900;
 
-    color:#16425B;
+    color:#023e7d;
+
 
 }
 
@@ -458,49 +638,19 @@
 
 
 
-/* ===============================
- EVENTY - KOLOROWE
-================================ */
 
-
-.calendar-day-events{
-
-    margin-top:8px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:4px;
-
-}
-
-
-
-
-
+/* =====================================================
+ EVENTY - ZOSTAWIAMY
+===================================================== */
 
 
 .calendar-event-bubble{
 
 
-    position:relative;
-
-
-    z-index:5;
-
-
-
-    display:flex;
-
-    align-items:center;
+    border-radius:10px;
 
 
     padding:5px 8px;
-
-
-    border-radius:10px;
-
 
 
     font-size:10px;
@@ -509,272 +659,79 @@
     font-weight:900;
 
 
-    overflow:hidden;
-
-
-
-    background:white;
-
-
-    color:#16425B;
-
-
-
-    box-shadow:
-
-        0 4px 12px rgba(22,66,91,.12);
-
-
 }
 
 
 
-
-
-
-.event-name{
-
-
-    overflow:hidden;
-
-
-    white-space:nowrap;
-
-
-    text-overflow:ellipsis;
-
-
-}
-
-
-
-
-
-
-/* ===============================
- URODZINY - RÓŻ
-================================ */
 
 
 .calendar-event-bubble.birthday{
-
 
     background:#FCE7F3;
 
-
     color:#9D174D;
-
-
-    border-left:4px solid #EC4899;
-
 
 }
 
 
 
-
-
-
-/* ===============================
- SPOTKANIE - FIOLET
-================================ */
-
-
 .calendar-event-bubble.meeting{
-
 
     background:#EDE9FE;
 
-
     color:#5B21B6;
-
-
-    border-left:4px solid #8B5CF6;
-
 
 }
 
 
 
-
-
-
-/* ===============================
- NIETYPOWE ŚWIĘTO - ZIELONE
-================================ */
-
-
 .calendar-event-bubble.company{
-
 
     background:#DCFCE7;
 
-
     color:#166534;
-
-
-    border-left:4px solid #22C55E;
-
 
 }
 
 
 
-
-
-
-/* ===============================
- WAŻNE ŚWIĘTA - CZERWONE
-================================ */
-
-
 .calendar-event-bubble.holiday{
-
 
     background:#FEE2E2;
 
-
     color:#991B1B;
-
-
-    border-left:4px solid #EF4444;
-
 
 }
 
 
 
-
-
-
-
-/* ===============================
- URLOP - ŻÓŁTY
-================================ */
-
-
 .calendar-event-bubble.vacation{
-
 
     background:#FEF3C7;
 
-
     color:#92400E;
-
-
-    border-left:4px solid #F59E0B;
-
 
 }
 
 
 
-
-
-
-/* ===============================
- INNE
-================================ */
-
-
 .calendar-event-bubble.other{
-
 
     background:#E2E8F0;
 
-
-    color:#334155;
-
-
-    border-left:4px solid #64748B;
-
-
-}
-
-
-
-
-
-
-
-/* ===============================
- FIX PO WYBRANIU DNIA
-================================ */
-
-
-/* numer dnia zostaje biały */
-
-
-.calendar-day.selected 
-.calendar-day-number{
-
-    color:white;
-
-}
-
-
-
-
-
-/* eventy zachowują swoje kolory */
-
-
-.calendar-day.selected 
-.calendar-event-bubble.birthday{
-
-    color:#9D174D;
-
-}
-
-
-
-.calendar-day.selected 
-.calendar-event-bubble.meeting{
-
-    color:#5B21B6;
-
-}
-
-
-
-.calendar-day.selected 
-.calendar-event-bubble.company{
-
-    color:#166534;
-
-}
-
-
-
-.calendar-day.selected 
-.calendar-event-bubble.holiday{
-
-    color:#991B1B;
-
-}
-
-
-
-.calendar-day.selected 
-.calendar-event-bubble.vacation{
-
-    color:#92400E;
-
-}
-
-
-
-.calendar-day.selected 
-.calendar-event-bubble.other{
-
     color:#334155;
 
 }
 
 
-/* ===============================
+
+
+
+
+
+/* =====================================================
  SIDEBAR
-================================ */
+===================================================== */
 
 
 .calendar-sidebar{
@@ -783,18 +740,19 @@
     background:white;
 
 
-    border-radius:25px;
+    border-radius:26px;
 
 
-    padding:20px;
+    padding:22px;
 
 
-    border:1px solid #81C3D7;
+    border:1px solid #c7dcff;
 
 
     box-shadow:
 
-        0 20px 45px rgba(22,66,91,.12);
+
+    0 25px 60px rgba(0,0,0,.12);
 
 
 }
@@ -803,36 +761,11 @@
 
 .selected-day{
 
+
+    color:#023e7d;
+
+
     font-size:20px;
-
-    color:#16425B;
-
-}
-
-
-
-
-.event-card{
-
-    padding:15px;
-
-    border-radius:16px;
-
-}
-
-
-
-
-
-.event-badge{
-
-    padding:6px 14px;
-
-}
-
-
-
-
 
 
 }
@@ -842,11 +775,11 @@
 
 
 /* =====================================================
- LAPTOP 1366x768
+ MOBILE
 ===================================================== */
 
 
-@media(max-height:850px) and (min-width:768px){
+@media(max-width:900px){
 
 
 .calendar-page{
@@ -857,11 +790,23 @@
 
 
 
-.calendar-header{
+.calendar-page-header{
 
-    padding:
 
-        18px 30px 35px;
+    flex-direction:column;
+
+    align-items:stretch;
+
+
+}
+
+
+
+.calendar-content{
+
+
+    grid-template-columns:1fr;
+
 
 }
 
@@ -869,7 +814,7 @@
 
 .calendar-month{
 
-    font-size:45px;
+    font-size:40px;
 
 }
 
@@ -877,17 +822,7 @@
 
 .calendar-day{
 
-    min-height:85px;
-
-    padding:7px;
-
-}
-
-
-
-.calendar-day-number{
-
-    font-size:15px;
+    min-height:80px;
 
 }
 
