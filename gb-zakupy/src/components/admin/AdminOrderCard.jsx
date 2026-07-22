@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react';
 import {
   markOrderAsAccepted,
-  markOrderAsOrdered,
   markOrderAsCompleted,
   deleteOrder,
 } from '../../services/ordersService';
+
 import { ORDER_STATUS } from '../../utils/constants';
 import { formatDate } from '../../utils/dateUtils';
+
 import AdminOrderEditForm from './AdminOrderEditForm';
 import ConfirmDialog from '../shared/ConfirmDialog';
 
 export default function AdminOrderCard({ order }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [adminComment, setAdminComment] = useState(order.adminComment || '');
+  const [expanded, setExpanded] = useState(false);
+
+  const [adminComment, setAdminComment] = useState(
+    order.adminComment || ''
+  );
+
   const [loading, setLoading] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const [showDeleteDialog, setShowDeleteDialog] =
+    useState(false);
 
   useEffect(() => {
     setAdminComment(order.adminComment || '');
@@ -25,7 +33,11 @@ export default function AdminOrderCard({ order }) {
 
     try {
       setLoading(true);
-      await markOrderAsAccepted(order, adminComment);
+
+      await markOrderAsAccepted(
+        order,
+        adminComment
+      );
     } catch (error) {
       console.error(error);
       alert('Nie udało się przyjąć zamówienia.');
@@ -34,29 +46,21 @@ export default function AdminOrderCard({ order }) {
     }
   }
 
-  async function handleMarkAsOrdered() {
+  async function handleCompleted() {
     if (loading) return;
 
     try {
       setLoading(true);
-      await markOrderAsOrdered(order, adminComment);
+
+      await markOrderAsCompleted(
+        order,
+        adminComment
+      );
     } catch (error) {
       console.error(error);
-      alert('Nie udało się oznaczyć zamówienia.');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleMarkAsCompleted() {
-    if (loading) return;
-
-    try {
-      setLoading(true);
-      await markOrderAsCompleted(order, adminComment);
-    } catch (error) {
-      console.error(error);
-      alert('Nie udało się oznaczyć zamówienia jako zrealizowane.');
+      alert(
+        'Nie udało się oznaczyć zamówienia jako zrealizowane.'
+      );
     } finally {
       setLoading(false);
     }
@@ -65,6 +69,7 @@ export default function AdminOrderCard({ order }) {
   async function confirmDelete() {
     try {
       setLoading(true);
+
       await deleteOrder(order);
     } catch (error) {
       console.error(error);
@@ -85,12 +90,15 @@ export default function AdminOrderCard({ order }) {
     );
   }
 
-  const isPending = order.status === ORDER_STATUS.PENDING;
-  const isAccepted = order.status === ORDER_STATUS.ACCEPTED;
-  const isOrdered = order.status === ORDER_STATUS.ORDERED;
-  const isCompleted = order.status === ORDER_STATUS.COMPLETED;
+  const isPending =
+    order.status === ORDER_STATUS.PENDING;
 
-  return (
+  const isAccepted =
+    order.status === ORDER_STATUS.ACCEPTED;
+
+  const isCompleted =
+    order.status === ORDER_STATUS.COMPLETED;
+    return (
     <>
       <ConfirmDialog
         open={showDeleteDialog}
@@ -105,104 +113,153 @@ export default function AdminOrderCard({ order }) {
 
       <article
         className={`admin-order ${
-          isOrdered || isCompleted ? 'done' : ''
+          isCompleted ? 'done' : ''
         }`}
       >
-        <div>
-          <strong>{order.product}</strong>
-
-          <span>
-            Ilość: {order.quantity} {order.unit}
-          </span>
-
-          <span>Dodane przez: {order.requestedBy}</span>
-
-          <small>Data dodania: {formatDate(order.createdAt)}</small>
-
-          {order.orderedAt && (
-            <small>Zamówiono: {formatDate(order.orderedAt)}</small>
-          )}
-
-          {order.completedAt && (
-            <small>Zrealizowano: {formatDate(order.completedAt)}</small>
-          )}
-
-          {order.adminComment && (
-            <small>Komentarz: {order.adminComment}</small>
-          )}
-        </div>
-
         <div
-          className={`status-badge ${
-            isPending
-              ? 'pending'
-              : isAccepted
-              ? 'accepted'
-              : isOrdered
-              ? 'ordered'
-              : 'completed'
-          }`}
+          className="admin-order-header"
+          onClick={() => setExpanded((prev) => !prev)}
         >
-          {isPending && '🟡 Oczekujące'}
-          {isAccepted && '🟢 Przyjęte do realizacji'}
-          {isOrdered && '🔵 Zamówione'}
-          {isCompleted && '🟣 Zrealizowane'}
-        </div>
+          <div>
+            <strong>{order.product}</strong>
 
-        <textarea
-          rows="2"
-          value={adminComment}
-          onChange={(event) => setAdminComment(event.target.value)}
-          placeholder="Komentarz..."
-          disabled={isCompleted || loading}
-        />
+            <span>
+              {order.quantity} {order.unit}
+            </span>
 
-        <div className="admin-actions">
-          {isPending && (
-            <button
-              onClick={handleAccept}
-              disabled={loading}
-            >
-              {loading ? 'Zapisywanie...' : 'Przyjmij do realizacji'}
-            </button>
-          )}
+            <small>
+              {order.requestedBy}
+            </small>
+          </div>
 
-          {isAccepted && (
-            <button
-              onClick={handleMarkAsOrdered}
-              disabled={loading}
-            >
-              {loading ? 'Zapisywanie...' : 'Oznacz jako zamówione'}
-            </button>
-          )}
-
-          {isOrdered && (
-            <button
-              onClick={handleMarkAsCompleted}
-              disabled={loading}
-            >
-              {loading ? 'Zapisywanie...' : 'Oznacz jako zrealizowane'}
-            </button>
-          )}
-
-          {!isCompleted && (
-            <button
-              className="gray-button"
-              onClick={() => setIsEditing(true)}
-              disabled={loading}
-            >
-              Edytuj
-            </button>
-          )}
+          <div
+            className={`status-badge ${
+              isPending
+                ? 'pending'
+                : isAccepted
+                ? 'accepted'
+                : 'completed'
+            }`}
+          >
+            {isPending && '🟡 Oczekujące'}
+            {isAccepted &&
+              '🟢 Przyjęte do realizacji'}
+            {isCompleted &&
+              '🟣 Zrealizowane'}
+          </div>
 
           <button
-            className="delete-button"
-            onClick={() => setShowDeleteDialog(true)}
-            disabled={loading}
+            type="button"
+            className="expand-button"
           >
-            {loading ? 'Usuwanie...' : 'Usuń'}
+            {expanded ? '▲' : '▼'}
           </button>
         </div>
+
+        {expanded && (
+          <>
+            <div className="order-history">
+
+              <small>
+                📝 Dodano:
+                {' '}
+                {formatDate(order.createdAt)}
+              </small>
+
+              <small>
+                ✅ Przyjęto:
+                {' '}
+                {order.acceptedAt
+                  ? formatDate(order.acceptedAt)
+                  : '—'}
+              </small>
+
+              <small>
+                📦 Zrealizowano:
+                {' '}
+                {order.completedAt
+                  ? formatDate(order.completedAt)
+                  : '—'}
+              </small>
+
+            </div>
+
+            <textarea
+              rows="2"
+              value={adminComment}
+              onChange={(e) =>
+                setAdminComment(
+                  e.target.value
+                )
+              }
+              placeholder="Komentarz administratora..."
+              disabled={
+                loading || isCompleted
+              }
+            />
+
+            <div className="admin-actions">
+
+              {isPending && (
+                <button
+                  onClick={handleAccept}
+                  disabled={loading}
+                >
+                  {loading
+                    ? 'Zapisywanie...'
+                    : '✔ Przyjmij do realizacji'}
+                </button>
+              )}
+
+              {isAccepted && (
+                <button
+                  onClick={handleCompleted}
+                  disabled={loading}
+                >
+                  {loading
+                    ? 'Zapisywanie...'
+                    : '✔ Oznacz jako zrealizowane'}
+                </button>
+              )}
+
+              {!isCompleted && (
+                <button
+                  className="gray-button"
+                  onClick={() =>
+                    setIsEditing(true)
+                  }
+                  disabled={loading}
+                >
+                  Edytuj
+                </button>
+              )}
+
+              <button
+                className="delete-button"
+                onClick={() =>
+                  setShowDeleteDialog(true)
+                }
+                disabled={loading}
+              >
+                {loading
+                  ? 'Usuwanie...'
+                  : 'Usuń'}
+              </button>
+
+            </div>
+
+            {order.adminComment && (
+              <div className="admin-comment">
+                <strong>
+                  Komentarz administratora
+                </strong>
+
+                <p>{order.adminComment}</p>
+              </div>
+            )}
+
+          </>
+        )}
       </article>
     </>
   );
