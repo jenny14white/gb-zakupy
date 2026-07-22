@@ -227,7 +227,29 @@
         inset 0 2px 5px rgba(0,0,0,.14);
 
 }
+/* =======================================================
+   SZERSZY NOTES NA DESKTOPIE
+======================================================= */
 
+@media (min-width:1400px){
+
+    .paper{
+
+        width:min(1100px,94%);
+
+    }
+
+}
+
+@media (min-width:1700px){
+
+    .paper{
+
+        width:min(1350px,94%);
+
+    }
+
+}
 /* =======================================================
    NAGŁÓWEK
 ======================================================= */
@@ -1245,5 +1267,42 @@
 
     }
 
+
+}
+/* =======================================================
+   UKŁAD DESKTOP - FORMULARZ + LISTA
+======================================================= */
+
+@media (min-width:1400px){
+
+    .shopping-layout{
+
+        display:grid;
+
+        grid-template-columns:380px 1fr;
+
+        gap:28px;
+
+        align-items:start;
+
+        margin-top:24px;
+
+    }
+
+    .shopping-form{
+
+        position:sticky;
+
+        top:20px;
+
+        margin-bottom:0;
+
+    }
+
+    .current-list-wrapper{
+
+        margin-bottom:0;
+
+    }
 
 }
