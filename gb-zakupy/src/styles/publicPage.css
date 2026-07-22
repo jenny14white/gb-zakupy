@@ -1,20 +1,41 @@
 /* =======================================================
-   STRONA PUBLICZNA
+   STRONA PUBLICZNA - GB NAVY GLASS
 ======================================================= */
 
 .public-page{
+
     min-height:100vh;
+
     padding:28px 20px 40px;
 
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
 
+
+
     background:
-        radial-gradient(circle at top left,
-        rgba(255,221,143,.45),
-        transparent 30%),
-        linear-gradient(135deg,#f9e6bf,#f5f7fb);
+
+
+
+        radial-gradient(
+            circle at top left,
+            rgba(3,83,164,.45),
+            transparent 35%
+        ),
+
+
+
+        linear-gradient(
+            135deg,
+            #001233,
+            #001845,
+            #023e7d
+        );
+
 }
 
 /* =======================================================
