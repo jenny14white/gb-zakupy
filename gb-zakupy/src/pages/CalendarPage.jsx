@@ -100,7 +100,7 @@ export default function CalendarPage({
 
 
 
-      <section className="calendar-content">
+      <section className="calendar-layout">
 
 
         <Calendar
