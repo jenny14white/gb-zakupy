@@ -42,18 +42,18 @@
 
 .calendar-page-header{
 
-    position:relative;
-    overflow:hidden;
-
     width:100%;
     max-width:1200px;
 
     margin:0 auto 20px;
 
-    padding:22px 32px 48px;
-
     display:flex;
-    flex-direction:column;
+
+    align-items:center;
+
+    gap:24px;
+
+    padding:22px 32px;
 
     border-radius:28px;
 
@@ -68,35 +68,57 @@
 
 }
 
-.calendar-page-header::after{
+.calendar-title-box{
 
-    content:"";
+    flex:1;
 
-    position:absolute;
-
-    left:-10%;
-    right:-10%;
-
-    bottom:-70px;
-
-    height:120px;
-
-    background:#f8fbff;
-
-    border-radius:50% 50% 0 0;
+    max-width:520px;
 
 }
 
-.calendar-page-header > *{
+.calendar-page-header h1{
 
-    position:relative;
-    z-index:2;
+    margin:0;
+
+    color:#fff;
+
+    font-size:30px;
+
+    font-weight:900;
+
+    line-height:1.15;
+
+}
+
+.calendar-eyebrow{
+
+    margin:0 0 6px;
+
+    color:#8ec5ff;
+
+    font-weight:900;
+
+    letter-spacing:.18em;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+}
+
+.calendar-description{
+
+    margin:8px 0 0;
+
+    color:rgba(255,255,255,.82);
+
+    font-size:16px;
+
+    line-height:1.4;
 
 }
 
 .back-button{
-
-    align-self:flex-start;
 
     border:none;
 
@@ -116,8 +138,6 @@
 
     transition:.25s;
 
-    margin-bottom:24px;
-
 }
 
 .back-button:hover{
@@ -128,38 +148,82 @@
 
 }
 
-.calendar-title-box{
+
+/* =====================================================
+   HEADER MIESIĄCA
+===================================================== */
+
+.calendar-header{
+
+    position:relative;
+
+    overflow:hidden;
 
     width:100%;
+    max-width:1200px;
+
+    margin:0 auto;
+
+    background:linear-gradient(
+        135deg,
+        #023e7d,
+        #0353a4
+    );
+
+    border-radius:28px;
+
+    padding:22px 32px 48px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.18);
+
+}
+
+.calendar-header::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:-10%;
+    right:-10%;
+
+    bottom:-70px;
+
+    height:120px;
+
+    background:#f8fbff;
+
+    border-radius:50% 50% 0 0;
+
+}
+
+.calendar-header > *{
+
+    position:relative;
+    z-index:2;
+
+}
+
+.calendar-header-top{
 
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    flex:1;
 
 }
 
-.calendar-eyebrow{
+.calendar-year{
 
-    margin:0;
-
-    color:#8ec5ff;
+    color:#bcdcff;
 
     font-size:20px;
 
-    font-weight:500;
-
     letter-spacing:8px;
-
-    text-transform:uppercase;
 
 }
 
-.calendar-page-header h1{
+.calendar-month{
 
     margin:5px 0;
 
@@ -169,26 +233,9 @@
 
     font-weight:900;
 
-    letter-spacing:2px;
-
-    line-height:1.05;
+    letter-spacing:5px;
 
 }
-
-.calendar-description{
-
-    margin:8px 0 0;
-
-    color:rgba(255,255,255,.85);
-
-    font-size:17px;
-
-    line-height:1.5;
-
-    max-width:700px;
-
-}
-
 
 /* ===============================
    NAWIGACJA
