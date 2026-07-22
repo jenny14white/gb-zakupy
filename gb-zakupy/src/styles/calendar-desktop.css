@@ -36,7 +36,6 @@
 
 
 
-
 /* ===============================
    HEADER
 ================================ */
@@ -46,7 +45,7 @@
     width:100%;
     max-width:1200px;
 
-    margin:0 auto 12px;
+    margin:0 auto 20px;
 
     display:flex;
 
@@ -54,9 +53,9 @@
 
     gap:24px;
 
-    padding:18px 28px;
+    padding:22px 32px;
 
-    border-radius:24px;
+    border-radius:28px;
 
     background:rgba(255,255,255,.12);
 
@@ -65,7 +64,7 @@
     border:1px solid rgba(255,255,255,.25);
 
     box-shadow:
-        0 12px 35px rgba(0,0,0,.15);
+        0 18px 45px rgba(0,0,0,.18);
 
 }
 
@@ -171,12 +170,12 @@
         #0353a4
     );
 
-    border-radius:32px;
+    border-radius:28px;
 
-    padding:20px 35px 45px;
+    padding:22px 32px 48px;
 
     box-shadow:
-        0 25px 60px rgba(0,0,0,.25);
+        0 18px 45px rgba(0,0,0,.18);
 
 }
 
@@ -239,114 +238,60 @@
 }
 
 
-
 /* ===============================
- NAWIGACJA
+   NAWIGACJA
 ================================ */
-
-
 
 .calendar-navigation{
 
-
     margin-top:15px;
-
 
     display:flex;
 
-
     justify-content:center;
-
 
     gap:10px;
 
-
 }
 
-
-
-
 .calendar-nav-button,
-
-
 .today-button{
-
 
     border:none;
 
-
     border-radius:14px;
-
 
     background:white;
 
-
     color:#023e7d;
-
 
     font-weight:900;
 
-
     cursor:pointer;
-
 
     transition:.2s;
 
-
 }
-
-
 
 .calendar-nav-button{
 
-
     width:45px;
-
     height:45px;
 
-
 }
-
-
-
 
 .today-button{
 
-
     padding:12px 25px;
 
-
 }
-
-
-
-
-
 
 .calendar-nav-button:hover,
-
 .today-button:hover{
 
-
-    transform:
-
-    translateY(-2px);
-
+    transform:translateY(-2px);
 
 }
-
-
-
-
-
-
-
-
-
-
-/* =====================================================
- UKŁAD DESKTOP SZERSZY
-===================================================== */
 
 /* =====================================================
  UKŁAD DESKTOP SZERSZY
