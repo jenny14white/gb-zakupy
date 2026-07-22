@@ -2,26 +2,21 @@
    DNI SPOZA AKTUALNEGO MIESIĄCA
 ===================================================== */
 
-
 .calendar-day.outside{
 
-    opacity:.35;
+    opacity:.45;
 
     background:#F8FAFC;
 
-    border-color:#E2E8F0;
+    border:1px solid #E2E8F0;
 
 }
-
-
 
 .calendar-day.outside .calendar-day-number{
 
     color:#94A3B8;
 
 }
-
-
 
 .calendar-day.outside .calendar-day-event,
 .calendar-day.outside .calendar-day-events{
@@ -30,34 +25,29 @@
 
 }
 
-
-
 .calendar-day.outside:hover{
 
     transform:none;
 
     background:#F8FAFC;
 
+    box-shadow:none;
+
 }
-
-
 
 
 
 /* =====================================================
-   WEEKENDY - DELIKATNY CZERWONY
+   WEEKENDY
 ===================================================== */
-
 
 .calendar-day.weekend{
 
-    background:#FFF5F5;
+    background:#FFF7F7;
 
-    border-color:#FECACA;
+    border:1px solid #FECACA;
 
 }
-
-
 
 .calendar-day.weekend .calendar-day-number{
 
@@ -67,18 +57,24 @@
 
 
 
-
-/* dzisiejszy dzień ma priorytet */
+/* =====================================================
+   DZISIAJ
+===================================================== */
 
 .calendar-day.today{
 
-    background:#81C3D7;
+    background:linear-gradient(
+        135deg,
+        #BFE7F3,
+        #81C3D7
+    );
 
-    border-color:#2F6690;
+    border:2px solid #2F6690;
+
+    box-shadow:
+        0 8px 20px rgba(47,102,144,.18);
 
 }
-
-
 
 .calendar-day.today .calendar-day-number{
 
@@ -88,17 +84,26 @@
 
 
 
-/* zaznaczony dzień ma najwyższy priorytet */
+/* =====================================================
+   WYBRANY DZIEŃ
+===================================================== */
 
 .calendar-day.selected{
 
-    background:#16425B;
+    background:linear-gradient(
+        135deg,
+        #16425B,
+        #2F6690
+    );
+
+    border:2px solid #2F6690;
 
     color:white;
 
+    box-shadow:
+        0 12px 25px rgba(22,66,91,.25);
+
 }
-
-
 
 .calendar-day.selected .calendar-day-number{
 
@@ -108,34 +113,30 @@
 
 
 
-
 /* =====================================================
-   EVENTY W DNIACH - PREMIUM BUBBLE DESKTOP
+   EVENTY W DNIACH
 ===================================================== */
-
 
 .calendar-day-event{
 
-    margin-top:12px;
+    margin-top:10px;
 
     padding:7px 10px;
 
-    background:white;
-
     border-radius:12px;
 
-    border-left:4px solid var(--steel-blue);
+    background:white;
 
-    color:var(--yale-blue);
+    border-left:4px solid #3A7CA5;
 
-    font-size:12px;
+    color:#16425B;
 
-    font-weight:900;
+    font-size:11px;
+
+    font-weight:800;
 
     box-shadow:
-
-        0 5px 15px rgba(22,66,91,.08);
-
+        0 6px 14px rgba(0,0,0,.08);
 
     white-space:nowrap;
 
@@ -143,52 +144,60 @@
 
     text-overflow:ellipsis;
 
+    transition:.2s;
+
 }
 
+.calendar-day-event:hover{
 
+    transform:translateY(-1px);
 
+}
 
 .calendar-day.outside .calendar-day-event{
 
-    opacity:.4;
+    opacity:.45;
 
 }
 
 
 
-/* kolory eventów */
-
+/* =====================================================
+   KOLORY EVENTÓW
+===================================================== */
 
 .calendar-day-event.company{
 
-    border-color:#3A7CA5;
+    border-left-color:#0353A4;
 
 }
-
 
 .calendar-day-event.holiday{
 
-    border-color:#4CAF50;
+    border-left-color:#22C55E;
 
 }
-
 
 .calendar-day-event.birthday{
 
-    border-color:#D85A8A;
+    border-left-color:#EC4899;
 
 }
-
 
 .calendar-day-event.meeting{
 
-    border-color:#7157B8;
+    border-left-color:#8B5CF6;
 
 }
 
-
 .calendar-day-event.vacation{
 
-    border-color:#D99A32;
+    border-left-color:#F59E0B;
+
+}
+
+.calendar-day-event.other{
+
+    border-left-color:#64748B;
 
 }
