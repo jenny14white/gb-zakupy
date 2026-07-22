@@ -1,6 +1,7 @@
 /* =====================================
-   GB GOOEY CARD - PREMIUM GLASS
+   GB GOOEY CARD - PREMIUM GLASS BLUE
 ===================================== */
+
 
 .gooey-card{
 
@@ -17,7 +18,7 @@
     cursor:pointer;
 
 
-    border-radius:32px;
+    border-radius:34px;
 
 
     padding:35px;
@@ -29,25 +30,28 @@
 
     background:
 
-        rgba(255,255,255,.10);
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.08)
+        );
 
 
 
     backdrop-filter:
 
-        blur(22px);
-
+        blur(24px);
 
 
     -webkit-backdrop-filter:
 
-        blur(22px);
+        blur(24px);
 
 
 
     border:
 
-        1px solid rgba(255,255,255,.22);
+        1px solid rgba(255,255,255,.25);
 
 
 
@@ -61,6 +65,8 @@
 
         box-shadow .35s ease,
 
+        background .35s ease,
+
         border-color .35s ease;
 
 
@@ -73,25 +79,77 @@
 
 
 
+
+
+
+.gooey-card::before{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    background:
+
+
+        radial-gradient(
+            circle at top right,
+            rgba(86,163,166,.35),
+            transparent 45%
+        );
+
+
+
+    opacity:.7;
+
+
+    z-index:-1;
+
+
+    transition:.5s;
+
+
+
+}
+
+
+
+
+
+
 .gooey-card:hover{
 
 
     transform:
 
-        translateY(-8px);
+
+        translateY(-10px);
 
 
 
     border-color:
 
-        rgba(142,197,255,.55);
+
+        rgba(142,197,255,.6);
+
+
+
+    background:
+
+
+        rgba(255,255,255,.18);
 
 
 
     box-shadow:
 
 
-        0 30px 80px rgba(0,0,0,.35);
+        0 35px 90px rgba(0,0,0,.4);
 
 
 
@@ -101,127 +159,14 @@
 
 
 
-/* =====================================
-   PŁYNNE PLAMY
-===================================== */
 
 
-.gooey-blob{
-
-
-    position:absolute;
-
-
-    border-radius:50%;
-
-
-    filter:
-
-        blur(45px);
-
-
-
-    opacity:.45;
-
-
-    z-index:-1;
-
-
-
-    transition:
-
-        transform .7s ease;
-
-
-
-}
-
-
-
-
-
-.blob-one{
-
-
-    width:220px;
-
-    height:220px;
-
-
-
-    top:-90px;
-
-    left:-80px;
-
-
-
-    background:
-
-        #0353a4;
-
-
-
-}
-
-
-
-
-
-.blob-two{
-
-
-    width:180px;
-
-    height:180px;
-
-
-
-    bottom:-80px;
-
-    right:-60px;
-
-
-
-    background:
-
-        #56a3a6;
-
-
-
-}
-
-
-
-
-
-
-
-.gooey-card:hover .blob-one{
+.gooey-card:hover::before{
 
 
     transform:
 
-        scale(1.35)
-
-        translate(25px,25px);
-
-
-
-}
-
-
-
-
-
-.gooey-card:hover .blob-two{
-
-
-    transform:
-
-        scale(1.45)
-
-        translate(-25px,-25px);
-
+        scale(1.25);
 
 
 }
@@ -243,7 +188,7 @@
     position:relative;
 
 
-    z-index:3;
+    z-index:2;
 
 
 
@@ -257,10 +202,10 @@
 .gooey-line{
 
 
-    width:45px;
+    width:50px;
 
 
-    height:3px;
+    height:4px;
 
 
 
@@ -270,16 +215,20 @@
 
     background:
 
-        #8ec5ff;
+
+        linear-gradient(
+            90deg,
+            #56a3a6,
+            #8ec5ff
+        );
 
 
 
-    margin-bottom:28px;
+    margin-bottom:30px;
 
 
 
 }
-
 
 
 
@@ -301,16 +250,15 @@
 
 
 
-    letter-spacing:-.5px;
+    letter-spacing:-.6px;
 
 
 
-    color:white;
+    color:#ffffff;
 
 
 
 }
-
 
 
 
@@ -330,7 +278,8 @@
 
     color:
 
-        rgba(220,235,255,.9);
+
+        rgba(230,240,255,.85);
 
 
 
@@ -349,7 +298,6 @@
 
 
 
-
 .gooey-arrow{
 
 
@@ -357,15 +305,15 @@
 
 
 
-    margin-top:28px;
+    margin-top:30px;
 
 
 
-    font-size:32px;
+    font-size:34px;
 
 
 
-    color:white;
+    color:#8ec5ff;
 
 
 
@@ -380,17 +328,44 @@
 
 
 
+
 .gooey-card:hover .gooey-arrow{
 
 
     transform:
 
+
         translateX(12px);
+
+
+
+    color:white;
 
 
 
 }
 
+
+
+
+
+
+/* =====================================
+   ACTIVE CLICK
+===================================== */
+
+
+.gooey-card:active{
+
+
+    transform:
+
+
+        scale(.97);
+
+
+
+}
 
 
 
@@ -414,7 +389,8 @@
         padding:28px;
 
 
-        border-radius:26px;
+        border-radius:28px;
+
 
 
     }
@@ -425,6 +401,7 @@
 
 
         font-size:24px;
+
 
 
     }
