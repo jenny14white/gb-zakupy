@@ -17,13 +17,13 @@ import { ORDER_STATUS } from '../utils/constants';
 import { sortByDateDesc } from '../utils/dateUtils';
 import { addLog } from './logsService';
 
-const ADMIN_EMAIL = "belacount4@gmail.com";
+const ADMIN_EMAIL = 'belacount4@gmail.com';
 
 function checkAdmin() {
   const user = auth.currentUser;
 
   if (!user || user.email !== ADMIN_EMAIL) {
-    throw new Error("Brak uprawnień administratora");
+    throw new Error('Brak uprawnień administratora');
   }
 }
 
@@ -44,8 +44,11 @@ export async function createOrder(data) {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
 
-    orderedAt: null,
+    acceptedAt: null,
     completedAt: null,
+
+    // zostawiamy dla zgodności ze starszymi rekordami
+    orderedAt: null,
   };
 
   await addDoc(collection(db, 'orders'), order);
@@ -80,17 +83,14 @@ export async function updateOrder(orderId, data) {
       updatedAt: serverTimestamp(),
     };
 
-    await updateDoc(
-      doc(db, 'orders', orderId),
-      updatedOrder
-    );
+    await updateDoc(doc(db, 'orders', orderId), updatedOrder);
 
     await addLog(
       `Admin edytował zamówienie: ${updatedOrder.product}`,
       'edited'
     );
   } catch (error) {
-    console.error('Błąd podczas edycji:', error);
+    console.error(error);
     alert(error.message);
   }
 }
@@ -101,14 +101,11 @@ export async function markNotificationAsRead(order) {
   try {
     checkAdmin();
 
-    await updateDoc(
-      doc(db, 'orders', order.id),
-      {
-        notificationRead: true,
-        notificationReadAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      }
-    );
+    await updateDoc(doc(db, 'orders', order.id), {
+      notificationRead: true,
+      notificationReadAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
 
     await addLog(
       `Admin oznaczył powiadomienie jako przeczytane: ${order.product}`,
@@ -129,49 +126,22 @@ export async function markOrderAsAccepted(
   try {
     checkAdmin();
 
-    await updateDoc(
-      doc(db, 'orders', order.id),
-      {
-        status: ORDER_STATUS.ACCEPTED,
-        adminComment: adminComment.trim(),
-        updatedAt: serverTimestamp(),
-      }
-    );
+    await updateDoc(doc(db, 'orders', order.id), {
+      status: ORDER_STATUS.ACCEPTED,
+
+      adminComment: adminComment.trim(),
+
+      acceptedAt: serverTimestamp(),
+
+      notificationRead: true,
+      notificationReadAt: serverTimestamp(),
+
+      updatedAt: serverTimestamp(),
+    });
 
     await addLog(
       `Admin przyjął do realizacji: ${order.product}`,
       'accepted'
-    );
-  } catch (error) {
-    console.error(error);
-    alert(error.message);
-  }
-}
-
-export async function markOrderAsOrdered(
-  order,
-  adminComment = ''
-) {
-  if (order.status === ORDER_STATUS.ORDERED) return;
-
-  try {
-    checkAdmin();
-
-    await updateDoc(
-      doc(db, 'orders', order.id),
-      {
-        status: ORDER_STATUS.ORDERED,
-        adminComment: adminComment.trim(),
-        notificationRead: true,
-        notificationReadAt: serverTimestamp(),
-        orderedAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      }
-    );
-
-    await addLog(
-      `Admin oznaczył jako zamówione: ${order.product}`,
-      'ordered'
     );
   } catch (error) {
     console.error(error);
@@ -188,15 +158,15 @@ export async function markOrderAsCompleted(
   try {
     checkAdmin();
 
-    await updateDoc(
-      doc(db, 'orders', order.id),
-      {
-        status: ORDER_STATUS.COMPLETED,
-        adminComment: adminComment.trim(),
-        completedAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      }
-    );
+    await updateDoc(doc(db, 'orders', order.id), {
+      status: ORDER_STATUS.COMPLETED,
+
+      adminComment: adminComment.trim(),
+
+      completedAt: serverTimestamp(),
+
+      updatedAt: serverTimestamp(),
+    });
 
     await addLog(
       `Admin oznaczył jako zrealizowane: ${order.product}`,
@@ -212,9 +182,7 @@ export async function deleteOrder(order) {
   try {
     checkAdmin();
 
-    await deleteDoc(
-      doc(db, 'orders', order.id)
-    );
+    await deleteDoc(doc(db, 'orders', order.id));
 
     await addLog(
       `Admin usunął zamówienie: ${order.product}`,
