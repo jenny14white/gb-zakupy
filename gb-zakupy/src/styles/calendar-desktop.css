@@ -45,7 +45,7 @@
 
 .calendar-page-header{
 
-    max-width:1290px;
+    max-width:1340px;
 
     margin:0 auto 18px;
 
@@ -238,9 +238,9 @@
     left:-10%;
     right:-10%;
 
-    bottom:-90px;
+    bottom:-70px;
 
-    height:150px;
+    height:120px;
 
     background:#f8fbff;
 
@@ -435,8 +435,8 @@
     display:grid;
 
     grid-template-columns:
-        minmax(900px,1fr)
-        360px;
+    minmax(0,1fr)
+    320px;
 
     gap:24px;
 
