@@ -20,6 +20,8 @@ export function groupOrdersByCompletedMonth(orders) {
   const groups = {};
 
   orders.forEach((order) => {
+    if (!order.completedAt) return;
+
     const month = getMonthYear(order.completedAt);
 
     if (!groups[month]) {
@@ -29,8 +31,21 @@ export function groupOrdersByCompletedMonth(orders) {
     groups[month].push(order);
   });
 
-  return Object.entries(groups).map(([month, items]) => ({
-    month,
-    items: sortByDateDesc(items, 'completedAt'),
-  }));
+  return Object.entries(groups)
+    .map(([month, items]) => ({
+      month,
+      items: sortByDateDesc(items, 'completedAt'),
+    }))
+    .sort((a, b) => {
+      const dateA = a.items[0]?.completedAt || 0;
+      const dateB = b.items[0]?.completedAt || 0;
+
+      return new Date(dateB) - new Date(dateA);
+    });
 }
+
+/**
+ * Alias dla starszych komponentów.
+ * Dzięki temu nie trzeba od razu zmieniać wszystkich importów.
+ */
+export const groupOrdersByOrderedMonth = groupOrdersByCompletedMonth;
