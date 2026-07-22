@@ -11,7 +11,6 @@ import {
   getEventsForDate,
 } from "../../utils/calendarUtils";
 
-
 const WEEK_DAYS = [
   "Pon",
   "Wt",
@@ -22,141 +21,78 @@ const WEEK_DAYS = [
   "Ndz",
 ];
 
-
 export default function Calendar() {
 
   const [currentDate, setCurrentDate] = useState(new Date());
-
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [companyEvents, setCompanyEvents] = useState([]);
 
-
-
   useEffect(() => {
-
     const unsubscribe = listenToEvents(setCompanyEvents);
-
     return unsubscribe;
-
   }, []);
 
-
-
-
   const holidays = useMemo(() => {
-
     return getAllCalendarEvents(
       currentDate.getFullYear()
     );
-
   }, [currentDate]);
 
-
-
-
-
   const events = useMemo(() => {
-
     return [
       ...holidays,
-      ...companyEvents
+      ...companyEvents,
     ];
-
   }, [
     holidays,
-    companyEvents
+    companyEvents,
   ]);
 
-
-
-
-
   function previousMonth() {
-
     setCurrentDate((date) =>
-
       new Date(
         date.getFullYear(),
         date.getMonth() - 1,
         1
       )
-
     );
-
   }
 
-
-
-
-
   function nextMonth() {
-
     setCurrentDate((date) =>
-
       new Date(
         date.getFullYear(),
         date.getMonth() + 1,
         1
       )
-
     );
-
   }
 
-
-
-
-
   function today() {
-
     const now = new Date();
 
     setCurrentDate(now);
-
     setSelectedDate(now);
-
   }
-
-
-
-
 
   function handleDayClick(day) {
-
     setSelectedDate(day);
-
   }
 
-
-
-
-
   const selectedEvents = useMemo(() => {
-
     return getEventsForDate(
       selectedDate,
       events
     );
-
   }, [
     selectedDate,
-    events
+    events,
   ]);
-
-
-
-
-
-
 
   const calendarDays = useMemo(() => {
 
     const year = currentDate.getFullYear();
-
     const month = currentDate.getMonth();
-
-
 
     const firstDay = new Date(
       year,
@@ -164,12 +100,8 @@ export default function Calendar() {
       1
     );
 
-
-
     const startOffset =
       (firstDay.getDay() + 6) % 7;
-
-
 
     const startDate = new Date(
       year,
@@ -177,115 +109,70 @@ export default function Calendar() {
       1 - startOffset
     );
 
-
-
-
     return Array.from(
       { length: 42 },
       (_, index) => {
 
-
         const day = new Date(startDate);
-
 
         day.setDate(
           startDate.getDate() + index
         );
 
-
-
         const jsDay = day.getDay();
 
-
-
         return {
-
           date: day,
 
+          events: getEventsForDate(
+            day,
+            events
+          ),
 
-          events:
-            getEventsForDate(
-              day,
-              events
-            ),
-
-
-
-          // ważne dla poprzedniego/następnego miesiąca
           isCurrentMonth:
             day.getMonth() === month &&
             day.getFullYear() === year,
-
-
 
           isToday:
             day.toDateString() ===
             new Date().toDateString(),
 
-
-
           isSelected:
             day.toDateString() ===
             selectedDate.toDateString(),
 
-
-
           isWeekend:
             jsDay === 0 ||
             jsDay === 6,
-
         };
 
-
       }
-
     );
-
 
   }, [
     currentDate,
     selectedDate,
-    events
+    events,
   ]);
-
-
-
-
-
-
-
 
   return (
 
     <div className="calendar-wrapper">
 
-
       <CalendarHeader
-
         currentDate={currentDate}
-
         onPrev={previousMonth}
-
         onNext={nextMonth}
-
         onToday={today}
-
       />
 
-
-
-
-
-      <main className="calendar-content">
-
+      <main className="calendar-layout">
 
         <section className="calendar-main">
 
-
-
           <div className="calendar-weekdays">
 
-            {WEEK_DAYS.map((day)=>(
+            {WEEK_DAYS.map((day) => (
 
               <div
                 key={day}
@@ -298,83 +185,49 @@ export default function Calendar() {
 
           </div>
 
-
-
-
-
-
           <div className="calendar-grid">
 
+            {calendarDays.map(({
+              date,
+              events,
+              isToday,
+              isCurrentMonth,
+              isSelected,
+              isWeekend,
+            }) => (
 
-            {calendarDays.map(
-              ({
-                date,
-                events,
-                isToday,
-                isCurrentMonth,
-                isSelected,
-                isWeekend,
-              }) => (
+              <CalendarDay
+                key={date.toISOString()}
+                day={date}
+                events={events}
+                isToday={isToday}
+                isCurrentMonth={isCurrentMonth}
+                isSelected={isSelected}
+                isWeekend={isWeekend}
+                onClick={handleDayClick}
+              />
 
-
-                <CalendarDay
-
-                  key={date.toISOString()}
-
-                  day={date}
-
-                  events={events}
-
-                  isToday={isToday}
-
-                  isCurrentMonth={isCurrentMonth}
-
-                  isSelected={isSelected}
-
-                  isWeekend={isWeekend}
-
-                  onClick={handleDayClick}
-
-                />
-
-
-              )
-
-            )}
-
+            ))}
 
           </div>
 
-
         </section>
 
-
-
-
-
-
-
-
         <aside className="calendar-sidebar">
-
 
           <h3 className="selected-day">
 
             {selectedDate.toLocaleDateString(
               "pl-PL",
               {
-                weekday:"long",
-                day:"numeric",
-                month:"long",
-                year:"numeric",
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
               }
             )}
 
           </h3>
-
-
-
-
 
           {selectedEvents.length === 0 ? (
 
@@ -384,54 +237,36 @@ export default function Calendar() {
                 📅
               </div>
 
-
               <h4>
                 Brak wydarzeń
               </h4>
-
 
               <p>
                 W wybranym dniu nie ma
                 zaplanowanych wydarzeń.
               </p>
 
-
             </div>
-
 
           ) : (
 
-
-            selectedEvents.map((event,index)=>(
-
+            selectedEvents.map((event, index) => (
 
               <EventCard
-
                 key={
                   event.id ??
                   `${event.title}-${index}`
                 }
-
                 event={event}
-
-
               />
-
 
             ))
 
-
           )}
-
-
 
         </aside>
 
-
-
       </main>
-
-
 
     </div>
 
