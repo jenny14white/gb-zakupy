@@ -2,6 +2,12 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './LiquidEther.css';
 
+const LIQUID_COLORS = [
+    "#0353a4",
+    "#023e7d",
+    "#002855"
+];
+
 export default function LiquidEther({
   mouseForce = 20,
   cursorSize = 100,
