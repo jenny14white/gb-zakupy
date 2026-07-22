@@ -604,3 +604,140 @@
     }
 
 }
+
+/* ======================================================
+   CALENDAR HEADER
+====================================================== */
+
+.calendar-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:18px 24px;
+
+}
+
+.calendar-header h2{
+
+    flex:1;
+
+    margin:0;
+
+    text-align:center;
+
+    font-size:2rem;
+
+}
+
+.calendar-nav{
+
+    width:54px;
+
+    height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-size:1.4rem;
+
+    background:linear-gradient(
+        135deg,
+        #0353a4,
+        #023e7d
+    );
+
+    transition:.25s;
+
+}
+
+.calendar-nav:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ======================================================
+   EVENT ACTION BUTTONS
+====================================================== */
+
+.edit-event-button,
+.delete-event-button{
+
+    flex:1;
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    color:#fff;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+/* Edit */
+
+.edit-event-button{
+
+    background:linear-gradient(
+        135deg,
+        #0353a4,
+        #0466c8
+    );
+
+}
+
+.edit-event-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(3,83,164,.35);
+
+}
+
+/* Delete */
+
+.delete-event-button{
+
+    background:linear-gradient(
+        135deg,
+        #c1121f,
+        #780000
+    );
+
+}
+
+.delete-event-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(193,18,31,.35);
+
+}
