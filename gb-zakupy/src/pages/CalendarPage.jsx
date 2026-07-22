@@ -27,7 +27,7 @@ export default function CalendarPage({
         <div className="calendar-header-top">
 
           <p className="calendar-eyebrow">
-            GB Portal
+            GB Sekretariat
           </p>
 
           <h1>
