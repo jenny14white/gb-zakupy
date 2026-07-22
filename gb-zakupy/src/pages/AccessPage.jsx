@@ -7,7 +7,6 @@ import LiquidEther from "../components/shared/effects/LiquidEther";
 import { loginPortal } from "../firebase/auth";
 
 
-
 export default function AccessPage({
   onSuccess,
 }) {
