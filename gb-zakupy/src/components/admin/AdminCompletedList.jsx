@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import EmptyState from '../shared/EmptyState';
 import { groupOrdersByOrderedMonth } from '../../utils/orderUtils';
 import { formatDate } from '../../utils/dateUtils';
+import { ORDER_STATUS } from '../../utils/constants';
 import AdminMonthGroup from './AdminMonthGroup';
 
 function normalize(text = '') {
@@ -16,8 +17,13 @@ function normalize(text = '') {
 export default function AdminCompletedList({ orders }) {
   const [search, setSearch] = useState('');
 
+  const completedOrders = useMemo(
+    () => orders.filter((order) => order.status === ORDER_STATUS.COMPLETED),
+    [orders]
+  );
+
   const groups = useMemo(() => {
-    const grouped = groupOrdersByOrderedMonth(orders);
+    const grouped = groupOrdersByOrderedMonth(completedOrders);
 
     if (!search.trim()) {
       return grouped;
@@ -37,7 +43,7 @@ export default function AdminCompletedList({ orders }) {
         }),
       }))
       .filter((group) => group.items.length > 0);
-  }, [orders, search]);
+  }, [completedOrders, search]);
 
   function exportToExcel() {
     const rows = groups.flatMap((group) =>
@@ -47,9 +53,10 @@ export default function AdminCompletedList({ orders }) {
         Ilość: order.quantity,
         Jednostka: order.unit,
         Zgłaszający: order.requestedBy,
-        Status: 'Zamówione',
+        Status: 'Zrealizowane',
         'Data dodania': formatDate(order.createdAt),
         'Data zamówienia': formatDate(order.orderedAt),
+        'Data realizacji': formatDate(order.completedAt),
         'Komentarz admina': order.adminComment || '',
       }))
     );
@@ -62,16 +69,23 @@ export default function AdminCompletedList({ orders }) {
     const worksheet = XLSX.utils.json_to_sheet(rows);
     const workbook = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Zrealizowane');
+    XLSX.utils.book_append_sheet(
+      workbook,
+      worksheet,
+      'Zrealizowane'
+    );
 
     const today = new Date().toISOString().split('T')[0];
 
-    XLSX.writeFile(workbook, `GB_Zakupy_${today}.xlsx`);
+    XLSX.writeFile(
+      workbook,
+      `GB_Zrealizowane_${today}.xlsx`
+    );
   }
 
   return (
     <>
-      <h2>Zrealizowane / zamówione</h2>
+      <h2>Zrealizowane</h2>
 
       <div
         style={{
@@ -101,8 +115,8 @@ export default function AdminCompletedList({ orders }) {
       {groups.length === 0 ? (
         <EmptyState>
           {search
-            ? 'Nie znaleziono żadnych zamówień.'
-            : 'Nie ma jeszcze zamówionych produktów.'}
+            ? 'Nie znaleziono żadnych zrealizowanych zamówień.'
+            : 'Nie ma jeszcze zrealizowanych zamówień.'}
         </EmptyState>
       ) : (
         <div className="completed-months">
