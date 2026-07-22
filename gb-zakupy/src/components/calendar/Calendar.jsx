@@ -159,16 +159,16 @@ export default function Calendar() {
 
     <div className="calendar-wrapper">
 
-      <CalendarHeader
-        currentDate={currentDate}
-        onPrev={previousMonth}
-        onNext={nextMonth}
-        onToday={today}
-      />
-
       <main className="calendar-layout">
 
         <section className="calendar-main">
+
+          <CalendarHeader
+            currentDate={currentDate}
+            onPrev={previousMonth}
+            onNext={nextMonth}
+            onToday={today}
+          />
 
           <div className="calendar-weekdays">
 
