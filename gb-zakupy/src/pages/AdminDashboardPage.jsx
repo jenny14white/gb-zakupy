@@ -28,10 +28,7 @@ export default function AdminDashboardPage({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (
-        user &&
-        user.email === 'belacount4@gmail.com'
-      ) {
+      if (user && user.email === 'belacount4@gmail.com') {
         setAuthorized(true);
       } else {
         setAuthorized(false);
@@ -51,8 +48,7 @@ export default function AdminDashboardPage({
       orders.filter(
         (o) =>
           o.status === ORDER_STATUS.PENDING ||
-          o.status === ORDER_STATUS.ACCEPTED ||
-          o.status === ORDER_STATUS.ORDERED
+          o.status === ORDER_STATUS.ACCEPTED
       ),
     [orders]
   );
@@ -77,14 +73,6 @@ export default function AdminDashboardPage({
     () =>
       orders.filter(
         (o) => o.status === ORDER_STATUS.ACCEPTED
-      ).length,
-    [orders]
-  );
-
-  const orderedCount = useMemo(
-    () =>
-      orders.filter(
-        (o) => o.status === ORDER_STATUS.ORDERED
       ).length,
     [orders]
   );
@@ -137,15 +125,16 @@ export default function AdminDashboardPage({
   return (
     <main className="admin-page">
       <AdminSidebar
-  activeTab={activeTab}
-  setActiveTab={setActiveTab}
-  pendingCount={pendingOrders.length}
-  completedCount={completedCount}
-  unreadNotificationsCount={unreadNotifications.length}
-  goBack={goBack}
-  logout={logout}
-  goToEvents={goToEvents}
-/>
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        pendingCount={pendingCount}
+        acceptedCount={acceptedCount}
+        completedCount={completedCount}
+        unreadNotificationsCount={unreadNotifications.length}
+        goBack={goBack}
+        logout={logout}
+        goToEvents={goToEvents}
+      />
 
       <section className="dashboard">
         <p className="dashboard-eyebrow">
@@ -158,7 +147,6 @@ export default function AdminDashboardPage({
           allCount={orders.length}
           pendingCount={pendingCount}
           acceptedCount={acceptedCount}
-          orderedCount={orderedCount}
           completedCount={completedCount}
         />
 
