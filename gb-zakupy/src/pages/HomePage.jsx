@@ -75,6 +75,7 @@ GB Sp. z o.o.
 <p>
 
 Portal wewnętrzny firmy
+  (nowe funkcje już niedługo!)
 
 </p>
 
