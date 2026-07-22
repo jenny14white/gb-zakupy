@@ -348,7 +348,25 @@
  UKŁAD DESKTOP SZERSZY
 ===================================================== */
 
+/* =====================================================
+ UKŁAD DESKTOP SZERSZY
+===================================================== */
 
+.calendar-wrapper{
+
+    width:100%;
+
+}
+
+.calendar-main{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
 
 .calendar-layout{
 
@@ -359,8 +377,8 @@
     display:grid;
 
     grid-template-columns:
-    minmax(0,1fr)
-    320px;
+        minmax(0,1fr)
+        320px;
 
     gap:24px;
 
