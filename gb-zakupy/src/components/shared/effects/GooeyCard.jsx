@@ -4,6 +4,7 @@ export default function GooeyCard({
     onClick
 }) {
 
+
 return (
 
 <button
@@ -15,9 +16,9 @@ return (
 >
 
 
-    <div className="gooey-blob blob-one"></div>
 
-    <div className="gooey-blob blob-two"></div>
+    <div className="gooey-glow"></div>
+
 
 
 
@@ -44,11 +45,13 @@ return (
 
 
 
+
         <p>
 
             {description}
 
         </p>
+
 
 
 
