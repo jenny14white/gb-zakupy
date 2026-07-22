@@ -14,7 +14,6 @@ import {
   getPendingOrders
 } from '../utils/orderUtils';
 
-
 import AdminSidebar from '../components/admin/AdminSidebar';
 import AdminStats from '../components/admin/AdminStats';
 import AdminShoppingList from '../components/admin/AdminShoppingList';
@@ -22,7 +21,7 @@ import AdminNotifications from '../components/admin/AdminNotifications';
 import AdminCompletedList from '../components/admin/AdminCompletedList';
 import AdminEventLog from '../components/admin/AdminEventLog';
 
-
+import "../styles/admin-dashboard.css";
 
 export default function AdminDashboardPage({
   goBack,
