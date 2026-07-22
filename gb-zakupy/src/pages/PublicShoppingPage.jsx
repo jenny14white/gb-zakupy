@@ -4,149 +4,54 @@ import CurrentShoppingList from "../components/public/CurrentShoppingList";
 
 import { usePublicOrders } from "../hooks/usePublicOrders";
 
-
-
-
-
-
-
-
 export default function PublicShoppingPage({
   goBack,
 }) {
 
-
-
   const {
     orders,
-    loading
+    loading,
   } = usePublicOrders();
-
-
-
-
-
-
-
-
 
   return (
 
-
     <main className="public-page">
 
-
-
-
-
       <button
-
         className="back-home-button"
-
         onClick={goBack}
-
       >
-
         ← Menu główne
-
       </button>
-
-
-
-
-
-
-
-
 
       <section className="paper">
 
-
-
-
-
         <div className="holes">
-
-          {
-            Array.from(
-              { length: 12 }
-            ).map((_, index)=>(
-
-              <span
-                key={index}
-              />
-
-            ))
-          }
-
+          {Array.from({ length: 12 }).map((_, index) => (
+            <span key={index} />
+          ))}
         </div>
-
-
-
-
-
-
-
-
 
         <PublicHeader />
 
+        <div className="shopping-layout">
 
+          <ShoppingForm />
 
+          <CurrentShoppingList
+            items={orders}
+            loading={loading}
+          />
 
-
-
-
-
-
-        <ShoppingForm />
-
-
-
-
-
-
-
-
-
-        <CurrentShoppingList
-
-          items={orders}
-
-          loading={loading}
-
-        />
-
-
-
-
-
-
-
-
+        </div>
 
         <p className="thanks">
-
           Dziękujemy! ♡
-
         </p>
-
-
-
-
-
-
 
       </section>
 
-
-
-
-
-
-
     </main>
-
 
   );
 
