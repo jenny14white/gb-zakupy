@@ -1,5 +1,5 @@
 /* =====================================================
-   GB HOME PAGE - PREMIUM LIQUID GLASS
+   GB HOME PAGE - PREMIUM NAVY GLASS
 ===================================================== */
 
 
@@ -18,38 +18,55 @@
     isolation:isolate;
 
 
+
     min-height:100vh;
+
 
 
     padding:30px;
 
 
+
     display:flex;
+
 
 
     align-items:center;
 
+
     justify-content:center;
+
+
 
 
 
     background:
 
 
-        linear-gradient(
 
-            135deg,
+    radial-gradient(
+        circle at top left,
+        rgba(3,83,164,.45),
+        transparent 35%
+    ),
 
-            #001233,
 
-            #001845,
 
-            #023e7d
+    linear-gradient(
 
-        );
+        135deg,
+
+        #001233,
+
+        #001845,
+
+        #023e7d
+
+    );
 
 
 }
+
 
 
 
@@ -57,59 +74,58 @@
 
 
 /* ===============================
-   ANIMOWANE TŁO
+   DELIKATNY GLOW
 ================================ */
 
 
-.home-background{
+
+.home-page::before{
+
+
+    content:"";
 
 
     position:absolute;
 
 
-    inset:0;
+    width:500px;
+
+
+    height:500px;
+
+
+    top:-200px;
+
+
+    right:-150px;
+
+
+
+    background:
+
+
+    radial-gradient(
+
+        circle,
+
+        rgba(86,163,166,.25),
+
+        transparent 70%
+
+    );
+
+
+
+    filter:blur(40px);
+
 
 
     z-index:0;
 
 
-    pointer-events:none;
-
-
-    overflow:hidden;
-
 
 }
 
-
-
-.home-background .ferrofluid-container{
-
-
-    position:absolute;
-
-
-    inset:0;
-
-
-    width:100%;
-
-    height:100%;
-
-
-}
-
-
-
-.home-background canvas{
-
-
-    width:100% !important;
-
-    height:100% !important;
-
-
-}
 
 
 
@@ -120,6 +136,7 @@
 /* ===============================
    CONTAINER
 ================================ */
+
 
 
 .home-container{
@@ -135,10 +152,13 @@
     width:100%;
 
 
+
     max-width:1100px;
 
 
+
 }
+
 
 
 
@@ -151,19 +171,29 @@
 ================================ */
 
 
+
 .home-header{
+
 
 
     text-align:center;
 
 
+
     margin-bottom:55px;
+
 
 
 }
 
 
 
+
+
+
+
+
+/* LOGO */
 
 
 .home-logo{
@@ -177,6 +207,7 @@
 
 
     margin:0 auto 25px;
+
 
 
 
@@ -196,7 +227,9 @@
     display:flex;
 
 
+
     align-items:center;
+
 
 
     justify-content:center;
@@ -204,26 +237,39 @@
 
 
 
-    box-shadow:
-
-
-        0 0 50px rgba(3,83,164,.6);
-
-
 
     border:
 
-        3px solid rgba(255,255,255,.5);
+
+    3px solid rgba(255,255,255,.5);
+
+
+
+
+
+    box-shadow:
+
+
+
+    0 25px 60px rgba(0,0,0,.35),
+
+
+
+    0 0 40px rgba(142,197,255,.35);
+
+
 
 
 
     animation:
 
-        logoFloat 4s ease-in-out infinite;
+
+    logoFloat 4s ease-in-out infinite;
 
 
 
 }
+
 
 
 
@@ -247,6 +293,9 @@
 
 
 
+
+
+
 @keyframes logoFloat{
 
 
@@ -257,6 +306,7 @@
 
 
     }
+
 
 
     50%{
@@ -276,40 +326,60 @@
 
 
 
+
+
+/* TYTUŁ */
+
+
+
 .home-header h1{
+
 
 
     margin:0;
 
 
-    font-size:clamp(42px,7vw,70px);
+
+    font-size:
 
 
-    letter-spacing:3px;
+        clamp(42px,7vw,68px);
+
+
+
+    letter-spacing:2px;
+
 
 
     font-weight:900;
 
 
 
+
+
     background:
 
 
-        linear-gradient(
 
-            120deg,
+    linear-gradient(
 
-            #ffffff,
+        120deg,
 
-            #8ec5ff,
+        #ffffff,
 
-            #ffffff
+        #8ec5ff,
 
-        );
+        #ffffff
+
+    );
+
+
 
 
 
     background-size:250% auto;
+
+
 
 
 
@@ -324,13 +394,17 @@
 
 
 
+
+
     animation:
 
-        metalShine 5s linear infinite;
+
+    metalShine 5s linear infinite;
 
 
 
 }
+
 
 
 
@@ -343,19 +417,28 @@
 
     from{
 
-        background-position:200% center;
+
+        background-position:
+
+        200% center;
+
 
     }
 
 
     to{
 
-        background-position:-200% center;
+
+        background-position:
+
+        -200% center;
+
 
     }
 
 
 }
+
 
 
 
@@ -369,14 +452,16 @@
     margin-top:12px;
 
 
+
     color:
 
 
-        rgba(220,235,255,.9);
+    rgba(230,240,255,.85);
 
 
 
     font-size:18px;
+
 
 
 }
@@ -388,9 +473,12 @@
 
 
 
+
+
 /* ===============================
-   GRID
+   KARTY
 ================================ */
+
 
 
 .home-options{
@@ -399,9 +487,11 @@
     display:grid;
 
 
+
     grid-template-columns:
 
-        repeat(3,1fr);
+
+    repeat(3,1fr);
 
 
 
@@ -417,22 +507,13 @@
 
 
 
-/* ===============================
-   STARE ELEMENTY USUNIĘTE
-================================ */
-
-
-/*
-.home-card
-.home-card-icon
-*/
-
 
 
 
 /* ===============================
    RESPONSIVE
 ================================ */
+
 
 
 @media(max-width:900px){
@@ -449,13 +530,16 @@
 
 
 
+
     .home-options{
 
 
         grid-template-columns:1fr;
 
 
+
     }
+
 
 
 
@@ -468,6 +552,18 @@
 
     }
 
+
+
+    .home-logo{
+
+
+        width:110px;
+
+
+        height:110px;
+
+
+    }
 
 
 
