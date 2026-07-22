@@ -137,17 +137,15 @@ export default function AdminDashboardPage({
   return (
     <main className="admin-page">
       <AdminSidebar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        pendingCount={pendingOrders.length}
-        orderedCount={completedOrders.length}
-        unreadNotificationsCount={
-          unreadNotifications.length
-        }
-        goBack={goBack}
-        logout={logout}
-        goToEvents={goToEvents}
-      />
+  activeTab={activeTab}
+  setActiveTab={setActiveTab}
+  pendingCount={pendingOrders.length}
+  completedCount={completedCount}
+  unreadNotificationsCount={unreadNotifications.length}
+  goBack={goBack}
+  logout={logout}
+  goToEvents={goToEvents}
+/>
 
       <section className="dashboard">
         <p className="dashboard-eyebrow">
