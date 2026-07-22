@@ -1,5 +1,5 @@
 /* =====================================================
-   GB KALENDARZ - PREMIUM NAVY THEME
+   GB KALENDARZ - PREMIUM NAVY THEME WIDE DESKTOP
 ===================================================== */
 
 
@@ -12,7 +12,7 @@
 
     min-height:100vh;
 
-    padding:24px;
+    padding:24px 40px;
 
 
     background:
@@ -36,6 +36,8 @@
 
 
 
+
+
 /* ===============================
  HEADER
 ================================ */
@@ -44,9 +46,9 @@
 .calendar-page-header{
 
 
-    max-width:1200px;
+    max-width:1500px;
 
-    margin:0 auto 20px;
+    margin:0 auto 18px;
 
 
     display:flex;
@@ -57,11 +59,11 @@
 
 
 
-    padding:16px 24px;
+    padding:14px 24px;
 
 
 
-    border-radius:24px;
+    border-radius:22px;
 
 
 
@@ -98,7 +100,7 @@
     color:white;
 
 
-    font-size:32px;
+    font-size:30px;
 
 
     font-weight:900;
@@ -114,7 +116,7 @@
 .calendar-eyebrow{
 
 
-    margin:0 0 5px;
+    margin:0 0 4px;
 
 
     color:#8ec5ff;
@@ -126,7 +128,7 @@
     letter-spacing:.2em;
 
 
-    font-size:13px;
+    font-size:12px;
 
 
 }
@@ -139,7 +141,7 @@
 .calendar-description{
 
 
-    margin:8px 0 0;
+    margin:6px 0 0;
 
 
     color:
@@ -161,10 +163,10 @@
     border:none;
 
 
-    padding:12px 22px;
+    padding:11px 20px;
 
 
-    border-radius:16px;
+    border-radius:15px;
 
 
     cursor:pointer;
@@ -201,6 +203,7 @@
 
 
 
+
 .back-button:hover{
 
 
@@ -215,6 +218,10 @@
 
 
 }
+
+
+
+
 
 
 
@@ -243,12 +250,12 @@
     );
 
 
-    border-radius:30px;
+    border-radius:32px;
 
 
     padding:
 
-    20px 30px 45px;
+    20px 35px 45px;
 
 
     box-shadow:
@@ -257,8 +264,14 @@
     0 25px 60px rgba(0,0,0,.25);
 
 
+    max-width:1500px;
+
+    margin:auto;
+
 
 }
+
+
 
 
 
@@ -306,6 +319,8 @@
 
 
 
+
+
 .calendar-header-top{
 
 
@@ -317,6 +332,8 @@
 
 
 }
+
+
 
 
 
@@ -348,16 +365,18 @@
     color:white;
 
 
-    font-size:52px;
+    font-size:56px;
 
 
     font-weight:900;
 
 
-    letter-spacing:4px;
+    letter-spacing:5px;
 
 
 }
+
+
 
 
 
@@ -447,6 +466,7 @@
 
 
 
+
 .calendar-nav-button:hover,
 
 .today-button:hover{
@@ -466,8 +486,10 @@
 
 
 
+
+
 /* =====================================================
- UKŁAD
+ UKŁAD DESKTOP SZERSZY
 ===================================================== */
 
 
@@ -475,10 +497,10 @@
 .calendar-content{
 
 
-    max-width:1200px;
+    max-width:1500px;
 
 
-    margin:18px auto 0;
+    margin:20px auto 0;
 
 
     display:grid;
@@ -486,15 +508,19 @@
 
     grid-template-columns:
 
-    minmax(600px,1fr)
 
-    300px;
+        minmax(900px,1fr)
+
+        360px;
 
 
-    gap:18px;
+
+    gap:24px;
 
 
 }
+
+
 
 
 
@@ -518,7 +544,7 @@
     repeat(7,1fr);
 
 
-    gap:8px;
+    gap:10px;
 
 
 }
@@ -534,10 +560,10 @@
     color:white;
 
 
-    padding:10px;
+    padding:12px;
 
 
-    border-radius:14px;
+    border-radius:15px;
 
 
     text-align:center;
@@ -547,6 +573,11 @@
 
 
 }
+
+
+
+
+
 
 
 
@@ -569,16 +600,16 @@
     repeat(7,1fr);
 
 
-    gap:8px;
+    gap:10px;
 
 
-    padding:12px;
+    padding:14px;
 
 
     background:white;
 
 
-    border-radius:26px;
+    border-radius:28px;
 
 
     border:
@@ -601,13 +632,13 @@
 .calendar-day{
 
 
-    min-height:105px;
+    min-height:120px;
 
 
-    padding:8px;
+    padding:10px;
 
 
-    border-radius:16px;
+    border-radius:18px;
 
 
     background:#f8fbff;
@@ -639,8 +670,11 @@
 
 
 
+
+
+
 /* =====================================================
- EVENTY - ZOSTAWIAMY
+ EVENTY
 ===================================================== */
 
 
@@ -729,6 +763,10 @@
 
 
 
+
+
+
+
 /* =====================================================
  SIDEBAR
 ===================================================== */
@@ -740,10 +778,10 @@
     background:white;
 
 
-    border-radius:26px;
+    border-radius:28px;
 
 
-    padding:22px;
+    padding:26px;
 
 
     border:1px solid #c7dcff;
@@ -753,6 +791,7 @@
 
 
     0 25px 60px rgba(0,0,0,.12);
+
 
 
 }
@@ -765,10 +804,45 @@
     color:#023e7d;
 
 
-    font-size:20px;
+    font-size:21px;
 
 
 }
+
+
+
+
+
+
+
+
+
+/* =====================================================
+ LAPTOP
+===================================================== */
+
+
+@media(max-width:1200px){
+
+
+    .calendar-content{
+
+
+        grid-template-columns:
+
+        minmax(700px,1fr)
+
+        320px;
+
+
+    }
+
+
+}
+
+
+
+
 
 
 
@@ -780,6 +854,7 @@
 
 
 @media(max-width:900px){
+
 
 
 .calendar-page{
@@ -814,6 +889,7 @@
 
 .calendar-month{
 
+
     font-size:40px;
 
 }
@@ -821,6 +897,7 @@
 
 
 .calendar-day{
+
 
     min-height:80px;
 
