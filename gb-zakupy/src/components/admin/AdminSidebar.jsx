@@ -4,7 +4,7 @@ export default function AdminSidebar({
   activeTab,
   setActiveTab,
   pendingCount,
-  orderedCount,
+  completedCount,
   unreadNotificationsCount,
   goBack,
   logout,
@@ -37,12 +37,12 @@ export default function AdminSidebar({
         </button>
 
         <button
-          className={activeTab === 'zrealizowane' ? 'active' : ''}
-          onClick={() => setActiveTab('zrealizowane')}
-        >
-          ✅ Zrealizowane
-          {orderedCount > 0 && <span>{orderedCount}</span>}
-        </button>
+  className={activeTab === 'zrealizowane' ? 'active' : ''}
+  onClick={() => setActiveTab('zrealizowane')}
+>
+  ✅ Zrealizowane
+  {completedCount > 0 && <span>{completedCount}</span>}
+</button>
 
         <button
           className={activeTab === 'dziennik' ? 'active' : ''}
