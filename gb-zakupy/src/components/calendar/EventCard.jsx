@@ -1,8 +1,11 @@
 export default function EventCard({ event }) {
+
   function safeText(value) {
+
     if (value == null) return "";
 
     if (typeof value === "string") return value;
+
     if (typeof value === "number") return String(value);
 
     if (value instanceof Date) {
@@ -14,10 +17,11 @@ export default function EventCard({ event }) {
     }
 
     return "";
+
   }
 
   const title = safeText(event.title);
-  const type = safeText(event.type);
+  const type = safeText(event.type).toLowerCase();
   const emoji = safeText(event.emoji);
   const time = safeText(event.time);
   const location = safeText(event.location);
@@ -25,62 +29,112 @@ export default function EventCard({ event }) {
   const formattedDate = safeText(event.date);
 
   function getBadgeText() {
-    switch (type.toLowerCase()) {
+
+    switch (type) {
+
       case "company":
       case "firma":
-        return "🏭 Firma";
+        return "FIRMA";
 
       case "holiday":
       case "święto":
-        return "🎉 Święto";
+        return "ŚWIĘTO";
 
       case "birthday":
       case "urodziny":
-        return "🎂 Urodziny";
+        return "URODZINY";
 
       case "meeting":
       case "spotkanie":
-        return "👥 Spotkanie";
+        return "SPOTKANIE";
 
       case "vacation":
       case "urlop":
-        return "🌴 Urlop";
+        return "URLOP";
 
       default:
-        return type || "Wydarzenie";
+        return "INNE";
+
     }
+
   }
 
   return (
-    <article className="event-card">
-      <h3 className="event-title">
-        {emoji && `${emoji} `}
-        {title}
-      </h3>
 
-      {(formattedDate || time) && (
-        <div className="event-date">
-          {formattedDate && <span>{formattedDate}</span>}
-          {formattedDate && time && <span> • </span>}
-          {time && <span>{time}</span>}
-        </div>
-      )}
+    <article className={`event-card ${type}`}>
 
-      {location && (
-        <div className="event-description">
-          📍 {location}
-        </div>
-      )}
+      <div className="event-card-header">
 
-      {description && (
-        <div className="event-description">
-          {description}
-        </div>
-      )}
+        <h3 className="event-title">
 
-      <div className="event-badge">
-        {getBadgeText()}
+          {emoji && <span className="event-emoji">{emoji}</span>}
+
+          {title}
+
+        </h3>
+
+        <span className={`event-badge ${type}`}>
+
+          {getBadgeText()}
+
+        </span>
+
       </div>
+
+      <div className="event-divider"></div>
+
+      <div className="event-card-body">
+
+        {formattedDate && (
+
+          <div className="event-row">
+
+            <span className="event-icon">📅</span>
+
+            <span>{formattedDate}</span>
+
+          </div>
+
+        )}
+
+        {time && (
+
+          <div className="event-row">
+
+            <span className="event-icon">🕒</span>
+
+            <span>{time}</span>
+
+          </div>
+
+        )}
+
+        {location && (
+
+          <div className="event-row">
+
+            <span className="event-icon">📍</span>
+
+            <span>{location}</span>
+
+          </div>
+
+        )}
+
+        {description && (
+
+          <div className="event-description">
+
+            {description}
+
+          </div>
+
+        )}
+
+      </div>
+
     </article>
+
   );
+
 }
