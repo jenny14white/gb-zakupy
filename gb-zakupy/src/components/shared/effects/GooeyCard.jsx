@@ -1,3 +1,5 @@
+import "./GooeyCard.css";
+
 export default function GooeyCard({
     title,
     description,
@@ -16,60 +18,34 @@ return (
 >
 
 
-
     <div className="gooey-glow"></div>
-
-
 
 
 
     <div className="gooey-content">
 
 
-
-
-
         <div className="gooey-line"></div>
 
 
-
-
-
         <h3>
-
             {title}
-
         </h3>
 
 
 
-
-
-
         <p>
-
             {description}
-
         </p>
 
 
 
-
-
-
         <span className="gooey-arrow">
-
             →
-
         </span>
 
 
-
-
-
     </div>
-
-
 
 
 
@@ -77,6 +53,5 @@ return (
 
 
 );
-
 
 }
