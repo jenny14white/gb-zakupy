@@ -4,12 +4,14 @@ export const ORDER_STATUS = {
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   ORDERED: 'ordered',
+  COMPLETED: 'completed',
 };
 
 export const ORDER_STATUS_LABELS = {
-  pending: '🟡 Oczekuje na realizację',
-  accepted: '🟢 Przyjęto do realizacji',
-  ordered: '✅ Zamówione',
+  pending: '🟡 Oczekujące',
+  accepted: '🟢 Przyjęte do realizacji',
+  ordered: '🔵 Zamówione',
+  completed: '🟣 Zrealizowane',
 };
 
 export const UNITS = [
