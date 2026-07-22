@@ -1,35 +1,126 @@
-import { useState } from 'react';
-import Calendar from '../components/calendar/Calendar';
+import { useState } from "react";
 
-export default function CalendarPage({ goBack }) {
-  const [year] = useState(new Date().getFullYear());
+import Calendar from "../components/calendar/Calendar";
+
+
+export default function CalendarPage({
+  goBack,
+}) {
+
+
+  const [year] = useState(
+    new Date().getFullYear()
+  );
+
+
 
   return (
+
+
     <main className="calendar-page">
+
+
+
+
+
       <header className="calendar-page-header">
+
+
+
+
+
         <button
+
           type="button"
+
           className="back-button"
+
           onClick={goBack}
+
         >
-          ← Powrót do zakupów
+
+          ← Menu główne
+
         </button>
 
-        <div>
+
+
+
+
+
+
+
+        <div className="calendar-title-box">
+
+
+
           <p className="calendar-eyebrow">
-            GB Zakupy
+
+            GB Portal
+
           </p>
 
-          <h1>📅 Kalendarz firmowy</h1>
+
+
+
+
+          <h1>
+
+            Kalendarz firmowy
+
+          </h1>
+
+
+
+
 
           <p className="calendar-description">
-            Tutaj znajdziesz święta państwowe, nietypowe święta,
-            wydarzenia firmowe oraz spotkania.
+
+            Święta, wydarzenia oraz spotkania firmowe.
+
           </p>
+
+
+
+
+
         </div>
+
+
+
+
+
+
       </header>
 
-      <Calendar year={year} />
+
+
+
+
+
+
+
+      <section className="calendar-content">
+
+
+        <Calendar
+
+          year={year}
+
+        />
+
+
+      </section>
+
+
+
+
+
+
+
     </main>
+
+
   );
+
 }
