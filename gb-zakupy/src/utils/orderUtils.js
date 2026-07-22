@@ -5,21 +5,22 @@ export function getPendingOrders(orders) {
   return orders.filter(
     (order) =>
       order.status === ORDER_STATUS.PENDING ||
-      order.status === ORDER_STATUS.ACCEPTED
+      order.status === ORDER_STATUS.ACCEPTED ||
+      order.status === ORDER_STATUS.ORDERED
   );
 }
 
-export function getOrderedOrders(orders) {
+export function getCompletedOrders(orders) {
   return orders.filter(
-    (order) => order.status === ORDER_STATUS.ORDERED
+    (order) => order.status === ORDER_STATUS.COMPLETED
   );
 }
 
-export function groupOrdersByOrderedMonth(orders) {
+export function groupOrdersByCompletedMonth(orders) {
   const groups = {};
 
   orders.forEach((order) => {
-    const month = getMonthYear(order.orderedAt);
+    const month = getMonthYear(order.completedAt);
 
     if (!groups[month]) {
       groups[month] = [];
@@ -30,6 +31,6 @@ export function groupOrdersByOrderedMonth(orders) {
 
   return Object.entries(groups).map(([month, items]) => ({
     month,
-    items: sortByDateDesc(items, 'orderedAt'),
+    items: sortByDateDesc(items, 'completedAt'),
   }));
 }
