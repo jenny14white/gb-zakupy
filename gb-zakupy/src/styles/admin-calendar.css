@@ -4,15 +4,48 @@
 
 .admin-events-page{
 
+    position:relative;
+
     width:min(1500px,95%);
 
     margin:40px auto 80px;
+
+    padding:40px;
 
     display:flex;
 
     flex-direction:column;
 
     gap:30px;
+
+    overflow:hidden;
+
+    border-radius:36px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(3,83,164,.22),
+            transparent 38%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(2,62,125,.18),
+            transparent 42%
+        ),
+
+        linear-gradient(
+            180deg,
+            #0d2342 0%,
+            #123761 35%,
+            #1b4f84 100%
+        );
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.28);
 
 }
 
@@ -54,6 +87,9 @@
 
     font-weight:700;
 
+    text-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+
 }
 
 .admin-events-description{
@@ -86,18 +122,18 @@
 
 .admin-events-card{
 
-    background:rgba(255,255,255,.06);
+    background:rgba(255,255,255,.08);
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(20px);
 
     border-radius:24px;
 
     padding:30px;
 
     box-shadow:
-        0 20px 45px rgba(0,0,0,.18);
+        0 20px 45px rgba(0,0,0,.22);
 
 }
 
@@ -197,7 +233,7 @@
 
     width:100%;
 
-    border:none;
+    border:1px solid rgba(255,255,255,.08);
 
     outline:none;
 
@@ -220,6 +256,16 @@
     resize:vertical;
 
     min-height:140px;
+
+}
+
+.form-group input:hover,
+
+.form-group textarea:hover,
+
+.form-group select:hover{
+
+    background:rgba(255,255,255,.11);
 
 }
 
@@ -312,6 +358,7 @@
         0 12px 30px rgba(3,83,164,.35);
 
 }
+
 /* ======================================================
    STATYSTYKI
 ====================================================== */
@@ -328,7 +375,11 @@
 
 .event-stat-card{
 
-    background:rgba(255,255,255,.06);
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.12),
+        rgba(255,255,255,.05)
+    );
 
     border:1px solid rgba(255,255,255,.08);
 
