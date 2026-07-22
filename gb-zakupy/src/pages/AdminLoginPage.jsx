@@ -6,7 +6,7 @@ import {
 
 import Logo from '../components/shared/Logo';
 
-import Ferrofluid from '../components/shared/effects/Ferrofluid';
+import LiquidEther from '../components/shared/effects/LiquidEther';
 
 
 
