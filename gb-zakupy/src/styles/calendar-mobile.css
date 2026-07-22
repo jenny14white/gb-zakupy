@@ -1,1233 +1,765 @@
 /* =====================================================
-   GB KALENDARZ - MOBILE PREMIUM NAVY BLUE
+   GB KALENDARZ
+   MOBILE PREMIUM NAVY
+   PART 1 / 2
 ===================================================== */
-
 
 @media (max-width:767px){
 
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
 
+html,
+body{
+    overflow-x:hidden;
+}
+
+/* =====================================================
+   STRONA
+===================================================== */
 
 .calendar-page{
 
     width:100%;
-
-    max-width:520px;
-
-    margin:0 auto;
-
-    padding:12px;
-
+    max-width:100%;
     min-height:100vh;
 
+    margin:0 auto;
+    padding:8px;
+
+    overflow-x:hidden;
 
     background:
-
         radial-gradient(
             circle at top,
             rgba(3,83,164,.45),
             transparent 35%
         ),
-
         linear-gradient(
             180deg,
             #001233,
             #001845,
             #023e7d
         );
-
 }
 
-
-
-
-
-
-
-/* ===============================
- HEADER STRONY
-================================ */
-
-
-.calendar-page-header{
-
-
-    background:
-
-        rgba(255,255,255,.12);
-
-
-    backdrop-filter:
-
-        blur(22px);
-
-
-    -webkit-backdrop-filter:
-
-        blur(22px);
-
-
-
-    border-radius:24px;
-
-
-    padding:18px;
-
-
-
-    border:
-
-        1px solid rgba(255,255,255,.25);
-
-
-
-    box-shadow:
-
-
-        0 15px 40px rgba(0,0,0,.25);
-
-
-
-}
-
-
-
-.calendar-page-header h1{
-
-
-    font-size:25px;
-
-
-    color:white;
-
-
-}
-
-
-
-
-.calendar-eyebrow{
-
-
-    font-size:10px;
-
-
-    letter-spacing:.22em;
-
-
-    color:#8ec5ff;
-
-
-}
-
-
-
-
-.calendar-description{
-
-
-    font-size:13px;
-
-
-    color:
-
-        rgba(255,255,255,.8);
-
-
-    line-height:1.5;
-
-
-}
-
-
-
-
-
-
-
-/* POWRÓT */
-
-
-.back-button{
-
-
-    width:100%;
-
-
-    padding:12px;
-
-
-    border-radius:14px;
-
-
-    background:
-
-
-        rgba(255,255,255,.18);
-
-
-    backdrop-filter:
-
-        blur(15px);
-
-
-
-    color:white;
-
-
-    font-weight:900;
-
-
-}
-
-
-
-
-
-
-
-
+/* =====================================================
+   WRAPPER
+===================================================== */
 
 .calendar-wrapper{
 
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* =====================================================
+   HEADER STRONY
+===================================================== */
+
+.calendar-page-header{
 
     width:100%;
 
-
     display:flex;
-
-
     flex-direction:column;
-
-
     gap:14px;
 
+    padding:16px;
 
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:
+        1px solid rgba(255,255,255,.22);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.28);
 }
 
+.back-button{
 
+    width:100%;
 
+    border:none;
 
+    padding:12px;
 
+    border-radius:14px;
 
+    background:
+        rgba(255,255,255,.18);
 
+    color:#fff;
 
-/* ===============================
- HEADER MIESIĄCA
-================================ */
+    font-size:15px;
+    font-weight:800;
 
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.back-button:active{
+
+    transform:scale(.98);
+}
+
+.calendar-eyebrow{
+
+    margin:0;
+
+    color:#8ec5ff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.18em;
+
+    text-transform:uppercase;
+}
+
+.calendar-page-header h1{
+
+    margin:6px 0;
+
+    color:#fff;
+
+    font-size:24px;
+
+    line-height:1.2;
+
+    font-weight:900;
+}
+
+.calendar-description{
+
+    margin:0;
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size:13px;
+
+    line-height:1.45;
+}
+
+/* =====================================================
+   HEADER MIESIĄCA
+===================================================== */
 
 .calendar-header{
 
-
     position:relative;
-
 
     overflow:hidden;
 
-
+    width:100%;
 
     padding:
-
-
-        24px
-
+        18px
         12px
+        34px;
 
-        40px;
-
-
-
-    border-radius:28px;
-
-
+    border-radius:24px;
 
     background:
-
-
         linear-gradient(
             150deg,
             #001845,
             #0353a4
         );
 
-
-
     box-shadow:
-
-
-        0 20px 50px rgba(0,0,0,.35);
-
-
-
+        0 18px 45px rgba(0,0,0,.35);
 }
-
-
-
-
 
 .calendar-header::after{
 
-
     content:"";
-
-
 
     position:absolute;
 
+    left:-8%;
+    right:-8%;
 
+    bottom:-62px;
 
-    left:-20%;
-
-
-    right:-20%;
-
-
-
-    bottom:-80px;
-
-
-
-    height:120px;
-
-
+    height:96px;
 
     background:#f8fbff;
 
-
-
     border-radius:50%;
-
-
-
 }
 
+.calendar-header>*{
 
-
-
-
+    position:relative;
+    z-index:2;
+}
 
 .calendar-header-top{
 
-
-    position:relative;
-
-
-    z-index:2;
-
-
-
     display:flex;
-
-
     flex-direction:column;
 
-
     align-items:center;
-
-
     text-align:center;
-
-
 }
-
-
-
-
 
 .calendar-year{
 
+    margin:0;
 
-    font-family:
-
-        "Playfair Display",
-        serif;
-
-
-
-    font-size:20px;
-
-
-
-    letter-spacing:6px;
-
-
-
-    color:#bcdcff;
-
-
-
-}
-
-
-
-
-
-
-.calendar-month{
-
-
-    margin:6px 0 0;
-
-
-
-    font-family:
-
-        "Bebas Neue",
-        sans-serif;
-
-
-
-    font-size:44px;
-
-
-
-    letter-spacing:3px;
-
-
-
-    color:white;
-
-
-
-    line-height:1;
-
-
-
-}
-
-
-
-
-
-
-.calendar-divider{
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-
-    gap:10px;
-
-
-
-    width:170px;
-
-
-
-    margin-top:16px;
-
-
-
-}
-
-
-
-
-
-.calendar-divider span{
-
-
-    height:2px;
-
-
-    flex:1;
-
-
-
-    background:#8ec5ff;
-
-
-
-}
-
-
-
-
-
-
-
-.calendar-divider-icon{
-
-
-    width:32px;
-
-
-    height:32px;
-
-
-
-    border-radius:50%;
-
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-
-    background:white;
-
-
-
-    color:#023e7d;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
- NAWIGACJA
-================================ */
-
-
-.calendar-navigation{
-
-
-    position:relative;
-
-
-    z-index:3;
-
-
-
-    margin-top:20px;
-
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-
-    gap:8px;
-
-
-
-}
-
-
-
-
-.calendar-nav-button{
-
-
-    width:40px;
-
-
-    height:40px;
-
-
-
-    border-radius:14px;
-
-
-
-    background:white;
-
-
-
-    color:#023e7d;
-
-
+    color:#c6dfff;
 
     font-size:18px;
 
+    letter-spacing:7px;
 
-
+    font-family:
+        "Playfair Display",
+        serif;
 }
 
+.calendar-month{
 
+    margin:4px 0 0;
 
+    color:#fff;
 
+    font-size:42px;
 
-.today-button{
+    line-height:1;
 
-
-    width:120px;
-
-
-
-    padding:10px;
-
-
-
-    border-radius:14px;
-
-
-
-    background:white;
-
-
-
-    color:#023e7d;
-
-
+    letter-spacing:3px;
 
     font-weight:900;
 
-
-
+    font-family:
+        "Bebas Neue",
+        sans-serif;
 }
 
+/* =====================================================
+   DEKORACJA
+===================================================== */
 
+.calendar-divider{
 
-
-
-
-
-
-
-/* ===============================
- UKŁAD
-================================ */
-
-
-.calendar-content{
-
+    width:170px;
 
     display:flex;
 
+    align-items:center;
 
-    flex-direction:column;
+    gap:10px;
 
-
-
-    gap:14px;
-
-
-
+    margin-top:14px;
 }
 
+.calendar-divider span{
 
+    flex:1;
 
-
-
-
-
-/* ===============================
- DNI TYGODNIA
-================================ */
-
-
-.calendar-weekdays{
-
-
-    display:grid;
-
-
-
-    grid-template-columns:
-
-        repeat(7,1fr);
-
-
-
-    gap:4px;
-
-
-
-}
-
-
-
-
-.calendar-weekday{
-
-
-    padding:8px 0;
-
-
-
-    background:#023e7d;
-
-
-
-    color:white;
-
-
-
-    font-size:10px;
-
-
-
-    border-radius:10px;
-
-
-
-    text-align:center;
-
-
-
-}
-
-
-
-
-
-
-
-
-/* ===============================
- SIATKA
-================================ */
-
-
-.calendar-grid{
-
-
-    display:grid;
-
-
-
-    grid-template-columns:
-
-        repeat(7,1fr);
-
-
-
-    gap:5px;
-
-
-
-    padding:8px;
-
-
-
-    background:white;
-
-
-
-    border-radius:22px;
-
-
-
-    border:
-
-        1px solid #c7dcff;
-
-
-
-}
-
-
-
-
-
-
-
-
-/* ===============================
- DNI
-================================ */
-
-
-.calendar-day{
-
-
-    aspect-ratio:1;
-
-
-
-    padding:5px;
-
-
-
-    overflow:hidden;
-
-
-
-    border-radius:12px;
-
-
-
-    background:#f8fbff;
-
-
-
-    border:
-
-        1px solid #dbeafe;
-
-
-
-}
-
-
-
-
-.calendar-day.weekend{
-
-
-    background:#fff1f2;
-
-
-    border-color:#fecaca;
-
-
-
-}
-
-
-
-.calendar-day.weekend 
-.calendar-day-number{
-
-
-    color:#dc2626;
-
-
-
-}
-
-
-
-
-
-.calendar-day.today{
-
+    height:2px;
 
     background:#8ec5ff;
-
-
-
 }
 
+.calendar-divider-icon{
 
-
-
-.calendar-day.selected{
-
-
-    background:#023e7d;
-
-
-
-}
-
-
-
-
-.calendar-day.selected 
-.calendar-day-number{
-
-
-    color:white;
-
-
-
-}
-
-
-
-
-.calendar-day-number{
-
-
-    font-size:12px;
-
-
-
-    font-weight:900;
-
-
-
-    color:#023e7d;
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
- MOBILE EVENT DOTS
-================================ */
-
-
-.calendar-day-events{
-
-
-    display:none;
-
-
-
-}
-
-
-
-
-
-.calendar-mobile-dots{
-
-
-    margin-top:7px;
-
-
-
-    display:flex;
-
-
-
-    gap:4px;
-
-
-
-    flex-wrap:wrap;
-
-
-
-}
-
-
-
-
-
-
-.calendar-event-dot{
-
-
-    width:7px;
-
-
-    height:7px;
-
-
+    width:32px;
+    height:32px;
 
     border-radius:50%;
 
+    display:flex;
 
+    align-items:center;
+    justify-content:center;
 
-}
-
-
-
-.calendar-event-dot.company{
-
-    background:#0353a4;
-
-}
-
-
-
-.calendar-event-dot.holiday{
-
-    background:#4CAF50;
-
-}
-
-
-
-.calendar-event-dot.birthday{
-
-    background:#D85A8A;
-
-}
-
-
-
-.calendar-event-dot.meeting{
-
-    background:#7157B8;
-
-}
-
-
-
-.calendar-event-dot.vacation{
-
-    background:#D99A32;
-
-}
-
-
-
-.calendar-event-dot.other{
-
-    background:#64748B;
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
- SIDEBAR
-================================ */
-
-
-.calendar-sidebar{
-
-
-    width:100%;
-
-
-
-    padding:18px;
-
-
-
-    border-radius:22px;
-
-
-
-    background:white;
-
-
-
-    border:
-
-        1px solid #c7dcff;
-
-
-
-}
-
-
-
-
-
-.selected-day{
-
-
-    font-size:17px;
-
-
+    background:#fff;
 
     color:#023e7d;
 
-
-
+    font-size:18px;
 }
 
+/* =====================================================
+   NAWIGACJA
+===================================================== */
 
+.calendar-navigation{
 
+    position:relative;
 
+    z-index:3;
 
+    display:flex;
 
+    justify-content:center;
+    align-items:center;
 
+    gap:8px;
 
-/* EVENT CARD */
-
-
-.event-card{
-
-
-    margin-top:12px;
-
-
-
-    padding:14px;
-
-
-
-    border-radius:16px;
-
-
-
-    background:#f8fbff;
-
-
-
-    border-left:
-
-        4px solid #0353a4;
-
-
-
+    margin-top:18px;
 }
 
+.calendar-nav-button{
 
+    width:42px;
+    height:42px;
 
-.event-title{
+    border:none;
 
+    border-radius:14px;
+
+    background:#fff;
+
+    color:#023e7d;
+
+    font-size:18px;
+
+    font-weight:900;
+}
+
+.today-button{
+
+    min-width:118px;
+
+    border:none;
+
+    padding:11px 18px;
+
+    border-radius:14px;
+
+    background:#fff;
+
+    color:#023e7d;
 
     font-size:15px;
 
+    font-weight:900;
+}
 
+.calendar-nav-button:active,
+.today-button:active{
 
-    color:#023e7d;
+    transform:scale(.97);
+}
 
+/* =====================================================
+   UKŁAD
+===================================================== */
 
+.calendar-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+}
+
+/* =====================================================
+   DNI TYGODNIA
+===================================================== */
+
+.calendar-weekdays{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,minmax(0,1fr));
+
+    gap:4px;
+}
+
+.calendar-weekday{
+
+    padding:8px 0;
+
+    border-radius:10px;
+
+    background:#023e7d;
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-align:center;
+}
+/* =====================================================
+   SIATKA KALENDARZA
+===================================================== */
+
+.calendar-grid{
+
+    width:100%;
+    max-width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,minmax(0,1fr));
+
+    gap:3px;
+
+    padding:5px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    border:1px solid #c7dcff;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+}
+
+/* =====================================================
+   DNI
+===================================================== */
+
+.calendar-day{
+
+    min-width:0;
+
+    aspect-ratio:1;
+
+    padding:4px;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+    background:#f8fbff;
+
+    border:1px solid #dbeafe;
+
+    display:flex;
+
+    flex-direction:column;
 
 }
 
-
-
-.event-description{
-
-
-    font-size:13px;
-
-
-
-    padding:10px;
-
-
-
-}
-
-
-
-.event-badge{
-
+.calendar-day-number{
 
     font-size:11px;
 
-
-
-    padding:5px 12px;
-
-
-
-    background:#8ec5ff;
-
-
+    font-weight:900;
 
     color:#023e7d;
 
-
-
+    line-height:1;
 }
 
+.calendar-day.weekend{
 
+    background:#fff5f5;
 
+    border-color:#fecaca;
+}
 
+.calendar-day.weekend
+.calendar-day-number{
 
+    color:#dc2626;
+}
 
+.calendar-day.today{
 
+    background:#8ec5ff;
+}
 
+.calendar-day.today
+.calendar-day-number{
 
-/* UKRYCIE LEGENDY */
+    color:#023e7d;
+}
 
+.calendar-day.selected{
+
+    background:#023e7d;
+}
+
+.calendar-day.selected
+.calendar-day-number{
+
+    color:#ffffff;
+}
+
+/* =====================================================
+   MOBILE EVENTY
+===================================================== */
+
+.calendar-day-events{
+
+    display:none;
+}
+
+.calendar-mobile-dots{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:3px;
+
+    margin-top:5px;
+}
+
+.calendar-event-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+}
+
+.calendar-event-dot.company{
+    background:#0353a4;
+}
+
+.calendar-event-dot.holiday{
+    background:#4CAF50;
+}
+
+.calendar-event-dot.birthday{
+    background:#D85A8A;
+}
+
+.calendar-event-dot.meeting{
+    background:#7157B8;
+}
+
+.calendar-event-dot.vacation{
+    background:#D99A32;
+}
+
+.calendar-event-dot.other{
+    background:#64748B;
+}
+
+/* =====================================================
+   PANEL BOCZNY
+===================================================== */
+
+.calendar-sidebar{
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:#ffffff;
+
+    border:1px solid #c7dcff;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+}
+
+.selected-day{
+
+    margin:0 0 14px;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    color:#023e7d;
+}
+
+/* =====================================================
+   EVENT CARD
+===================================================== */
+
+.event-card{
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:#f8fbff;
+
+    border-left:4px solid #0353a4;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.08);
+}
+
+.event-title{
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#023e7d;
+}
+
+.event-description{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    color:#475569;
+}
+
+.event-badge{
+
+    display:inline-flex;
+
+    margin-top:10px;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+
+    background:#8ec5ff;
+
+    color:#023e7d;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+/* =====================================================
+   UKRYCIE LEGENDY
+===================================================== */
 
 .calendar-legend,
 .legend-item{
 
-
     display:none;
-
-
+}
 
 }
 
+/* =====================================================
+   MAŁE TELEFONY
+===================================================== */
 
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
- MAŁE TELEFONY
-================================ */
-
-
-@media(max-width:360px){
-
-
+@media (max-width:360px){
 
 .calendar-page{
 
-
-    padding:8px;
-
-
-
+    padding:6px;
 }
 
+.calendar-header{
 
+    padding:16px 8px 30px;
+}
 
 .calendar-month{
 
-
-    font-size:38px;
-
-
-
+    font-size:36px;
 }
-
-
 
 .calendar-year{
 
+    font-size:16px;
 
-    font-size:18px;
-
-
-
+    letter-spacing:5px;
 }
 
+.calendar-divider{
 
+    width:145px;
+}
+
+.calendar-nav-button{
+
+    width:38px;
+    height:38px;
+}
+
+.today-button{
+
+    min-width:100px;
+
+    padding:9px 12px;
+
+    font-size:14px;
+}
+
+.calendar-grid{
+
+    gap:2px;
+
+    padding:4px;
+}
+
+.calendar-day{
+
+    padding:2px;
+}
 
 .calendar-day-number{
 
-
     font-size:10px;
-
-
-
 }
-
-
 
 .calendar-weekday{
 
-
     font-size:9px;
 
-
-
+    padding:6px 0;
 }
-
-
 
 .calendar-event-dot{
 
-
-    width:6px;
-
-
-    height:6px;
-
-
-
+    width:5px;
+    height:5px;
 }
 
+.calendar-sidebar{
 
+    padding:15px;
+}
+
+.selected-day{
+
+    font-size:16px;
+}
+
+.event-card{
+
+    padding:12px;
+}
+
+.event-title{
+
+    font-size:14px;
+}
+
+.event-description{
+
+    font-size:12px;
+}
 
 }
