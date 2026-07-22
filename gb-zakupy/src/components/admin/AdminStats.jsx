@@ -1,4 +1,10 @@
-export default function AdminStats({ allCount, pendingCount, orderedCount }) {
+export default function AdminStats({
+  allCount,
+  pendingCount,
+  acceptedCount,
+  orderedCount,
+  completedCount,
+}) {
   return (
     <div className="stats">
       <div>
@@ -8,12 +14,22 @@ export default function AdminStats({ allCount, pendingCount, orderedCount }) {
 
       <div>
         <strong>{pendingCount}</strong>
-        <span>Na liście zakupowej</span>
+        <span>Oczekujące</span>
+      </div>
+
+      <div>
+        <strong>{acceptedCount}</strong>
+        <span>Przyjęte do realizacji</span>
       </div>
 
       <div>
         <strong>{orderedCount}</strong>
         <span>Zamówione</span>
+      </div>
+
+      <div>
+        <strong>{completedCount}</strong>
+        <span>Zrealizowane</span>
       </div>
     </div>
   );
