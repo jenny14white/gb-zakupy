@@ -325,7 +325,7 @@ GB Sp. z o.o.
 <p className="access-subtitle shader-text">
 
 Sekretariat
-
+(nowe funkcje już niedługo!)
 </p>
 
 
