@@ -1,7 +1,4 @@
-/* =====================================================
-   GB KALENDARZ - PREMIUM NAVY THEME WIDE DESKTOP
-===================================================== */
-
+@media (min-width:768px){
 
 /* ===============================
    STRONA
@@ -604,84 +601,18 @@
 
 
 
-/* =====================================================
- LAPTOP
-===================================================== */
-
-
-@media(max-width:1200px){
-
-    .calendar-layout{
-
-        grid-template-columns:
-            minmax(700px,1fr)
-            300px;
-
-    }
-
-}
-
-
-
-
-
-
-
-
 
 /* =====================================================
  MOBILE
 ===================================================== */
 
-
-@media(max-width:900px){
-
-
-
-.calendar-page{
-
-    padding:15px;
-
-}
-
-
-
-.calendar-page-header{
-
-
-    flex-direction:column;
-
-    align-items:stretch;
-
-
-}
-
-
+@media (min-width:768px) and (max-width:1200px){
 
 .calendar-layout{
-
-    grid-template-columns:1fr;
-
+    grid-template-columns:
+        minmax(700px,1fr)
+        300px;
 }
-
-
-
-.calendar-month{
-
-
-    font-size:40px;
-
-}
-
-
-
-.calendar-day{
-
-
-    min-height:80px;
-
-}
-
 
 }
 /* =====================================================
@@ -857,4 +788,5 @@
 .event-badge.other{
     background:#e2e8f0;
     color:#475569;
+}
 }
