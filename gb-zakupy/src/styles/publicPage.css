@@ -1374,3 +1374,14 @@
     }
 
 }
+@media (min-width:1400px){
+
+    .current-list-wrapper{
+
+        max-height:700px;
+
+        overflow:auto;
+
+    }
+
+}
