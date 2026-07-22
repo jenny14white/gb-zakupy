@@ -4,6 +4,7 @@ export default function AdminSidebar({
   activeTab,
   setActiveTab,
   pendingCount,
+  acceptedCount,
   completedCount,
   unreadNotificationsCount,
   goBack,
@@ -14,48 +15,70 @@ export default function AdminSidebar({
     <aside className="sidebar">
       <div className="sidebar-top">
         <Logo className="sidebar-logo" />
-        <h2>Panel admina</h2>
+
+        <h2>Panel administratora</h2>
       </div>
 
       <nav className="admin-nav">
+
         <button
           className={activeTab === 'lista' ? 'active' : ''}
           onClick={() => setActiveTab('lista')}
         >
-          🛒 Lista zakupowa
-          {pendingCount > 0 && <span>{pendingCount}</span>}
+          <div className="sidebar-item">
+            <span>🛒 Zakupy</span>
+
+            <small>
+              🟡 {pendingCount} &nbsp;|&nbsp; 🟢 {acceptedCount}
+            </small>
+          </div>
         </button>
 
         <button
           className={activeTab === 'powiadomienia' ? 'active' : ''}
           onClick={() => setActiveTab('powiadomienia')}
         >
-          🔔 Powiadomienia
-          {unreadNotificationsCount > 0 && (
-            <span>{unreadNotificationsCount}</span>
-          )}
+          <div className="sidebar-item">
+            <span>🔔 Powiadomienia</span>
+
+            {unreadNotificationsCount > 0 && (
+              <strong className="sidebar-counter">
+                {unreadNotificationsCount}
+              </strong>
+            )}
+          </div>
         </button>
 
         <button
-  className={activeTab === 'zrealizowane' ? 'active' : ''}
-  onClick={() => setActiveTab('zrealizowane')}
->
-  ✅ Zrealizowane
-  {completedCount > 0 && <span>{completedCount}</span>}
-</button>
+          className={activeTab === 'zrealizowane' ? 'active' : ''}
+          onClick={() => setActiveTab('zrealizowane')}
+        >
+          <div className="sidebar-item">
+            <span>✅ Zrealizowane</span>
+
+            {completedCount > 0 && (
+              <strong className="sidebar-counter">
+                {completedCount}
+              </strong>
+            )}
+          </div>
+        </button>
 
         <button
           className={activeTab === 'dziennik' ? 'active' : ''}
           onClick={() => setActiveTab('dziennik')}
         >
-          📜 Dziennik zdarzeń
+          <div className="sidebar-item">
+            <span>📜 Dziennik zdarzeń</span>
+          </div>
         </button>
 
-        <button
-          onClick={goToEvents}
-        >
-          📅 Kalendarz firmowy
+        <button onClick={goToEvents}>
+          <div className="sidebar-item">
+            <span>📅 Kalendarz firmowy</span>
+          </div>
         </button>
+
       </nav>
 
       <button
