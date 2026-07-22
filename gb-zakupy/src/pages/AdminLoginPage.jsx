@@ -3,6 +3,11 @@ import { loginAdmin } from "../firebase/auth";
 import Logo from "../components/shared/Logo";
 import LiquidEther from "../components/shared/effects/LiquidEther";
 
+const LIQUID_COLORS = [
+  "#0353a4",
+  "#023e7d",
+  "#002855"
+];
 const ADMIN_EMAIL = "belacount4@gmail.com";
 
 export default function AdminLoginPage({
@@ -66,42 +71,22 @@ export default function AdminLoginPage({
       <div className="admin-background">
 
         <LiquidEther
-
-          colors={[
-            "#0353a4",
-            "#023e7d",
-            "#002855"
-          ]}
-
-          mouseForce={20}
-
-          cursorSize={60}
-
-          isViscous
-
-          viscous={18}
-
-          iterationsViscous={16}
-
-          iterationsPoisson={16}
-
-          resolution={0.35}
-
-          isBounce={false}
-
-          autoDemo
-
-          autoSpeed={0.35}
-
-          autoIntensity={1.4}
-
-          takeoverDuration={0.25}
-
-          autoResumeDelay={3000}
-
-          autoRampDuration={0.6}
-
-        />
+    colors={LIQUID_COLORS}
+    mouseForce={20}
+    cursorSize={60}
+    isViscous
+    viscous={18}
+    iterationsViscous={16}
+    iterationsPoisson={16}
+    resolution={0.35}
+    isBounce={false}
+    autoDemo
+    autoSpeed={0.35}
+    autoIntensity={1.4}
+    takeoverDuration={0.25}
+    autoResumeDelay={3000}
+    autoRampDuration={0.6}
+/>
 
       </div>
 
