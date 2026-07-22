@@ -48,7 +48,7 @@ export default function CalendarHeader({
           <span></span>
 
           <div className="calendar-divider-icon">
-            ⚙
+            
           </div>
 
           <span></span>
