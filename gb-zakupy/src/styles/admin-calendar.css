@@ -22,30 +22,11 @@
 
     border-radius:36px;
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid var(--glass-border);
 
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(3,83,164,.22),
-            transparent 38%
-        ),
+    background:var(--page-gradient);
 
-        radial-gradient(
-            circle at bottom right,
-            rgba(2,62,125,.18),
-            transparent 42%
-        ),
-
-        linear-gradient(
-            180deg,
-            #0d2342 0%,
-            #123761 35%,
-            #1b4f84 100%
-        );
-
-    box-shadow:
-        0 30px 70px rgba(0,0,0,.28);
+    box-shadow:var(--shadow-large);
 
 }
 
@@ -65,7 +46,7 @@
 
     margin:0 0 8px;
 
-    color:#69b7ff;
+    color:var(--accent);
 
     text-transform:uppercase;
 
@@ -81,14 +62,13 @@
 
     margin:0;
 
-    color:#fff;
+    color:var(--text-white);
 
     font-size:2.2rem;
 
     font-weight:700;
 
-    text-shadow:
-        0 8px 25px rgba(0,0,0,.25);
+    text-shadow:var(--shadow-theme);
 
 }
 
@@ -96,7 +76,7 @@
 
     margin-top:12px;
 
-    color:#b9cbe7;
+    color:var(--text-on-primary);
 
     max-width:700px;
 
@@ -122,18 +102,17 @@
 
 .admin-events-card{
 
-    background:rgba(255,255,255,.08);
+    background:var(--glass-background);
 
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid var(--glass-border);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(var(--glass-blur));
 
     border-radius:24px;
 
     padding:30px;
 
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.22);
+    box-shadow:var(--shadow-medium);
 
 }
 
@@ -161,7 +140,7 @@
 
     margin:0;
 
-    color:#fff;
+    color:var(--text-white);
 
     font-size:1.5rem;
 
@@ -171,7 +150,7 @@
 
     margin:0;
 
-    color:#b9cbe7;
+    color:var(--text-on-primary);
 
 }
 
@@ -217,7 +196,7 @@
 
 .form-group label{
 
-    color:#8ebeff;
+    color:var(--accent);
 
     font-size:.9rem;
 
@@ -233,7 +212,7 @@
 
     width:100%;
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid var(--input-border);
 
     outline:none;
 
@@ -241,9 +220,9 @@
 
     padding:14px 16px;
 
-    background:rgba(255,255,255,.08);
+    background:var(--glass-background);
 
-    color:#fff;
+    color:var(--text-white);
 
     font-size:.95rem;
 
@@ -265,7 +244,7 @@
 
 .form-group select:hover{
 
-    background:rgba(255,255,255,.11);
+    background:var(--glass-hover);
 
 }
 
@@ -275,10 +254,9 @@
 
 .form-group select:focus{
 
-    background:rgba(255,255,255,.12);
+    background:var(--glass-hover);
 
-    box-shadow:
-        0 0 0 2px rgba(3,83,164,.45);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -286,13 +264,13 @@
 
 .form-group textarea::placeholder{
 
-    color:#8da6c7;
+    color:var(--text-muted);
 
 }
 
 .form-group option{
 
-    color:#000;
+    color:var(--text);
 
 }
 
@@ -306,7 +284,7 @@
 
     cursor:pointer;
 
-    color:#fff;
+    color:var(--text-white);
 
 }
 
@@ -338,13 +316,9 @@
 
     font-weight:700;
 
-    color:#fff;
+    color:var(--text-white);
 
-    background:linear-gradient(
-        135deg,
-        #0353a4,
-        #023e7d
-    );
+    background:var(--header-gradient);
 
     transition:.25s;
 
@@ -354,11 +328,9 @@
 
     transform:translateY(-2px);
 
-    box-shadow:
-        0 12px 30px rgba(3,83,164,.35);
+    box-shadow:var(--shadow-theme);
 
 }
-
 /* ======================================================
    STATYSTYKI
 ====================================================== */
@@ -375,15 +347,11 @@
 
 .event-stat-card{
 
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.12),
-        rgba(255,255,255,.05)
-    );
+    background:var(--glass-background);
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid var(--glass-border);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(var(--glass-blur));
 
     border-radius:22px;
 
@@ -401,8 +369,7 @@
 
     transition:.25s;
 
-    box-shadow:
-        0 20px 40px rgba(0,0,0,.15);
+    box-shadow:var(--shadow-medium);
 
 }
 
@@ -410,10 +377,9 @@
 
     transform:translateY(-4px);
 
-    border-color:rgba(78,168,255,.4);
+    border-color:var(--accent);
 
-    box-shadow:
-        0 20px 40px rgba(3,83,164,.25);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -423,13 +389,13 @@
 
     font-weight:700;
 
-    color:#4ea8ff;
+    color:var(--accent);
 
 }
 
 .stat-label{
 
-    color:#d9e8ff;
+    color:var(--text-on-primary);
 
     font-size:.95rem;
 
@@ -443,18 +409,17 @@
 
 .calendar-wrapper{
 
-    background:rgba(255,255,255,.06);
+    background:var(--glass-background);
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid var(--glass-border);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(var(--glass-blur));
 
     border-radius:26px;
 
     padding:30px;
 
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.18);
+    box-shadow:var(--shadow-medium);
 
 }
 
@@ -478,7 +443,7 @@
 
     margin:0;
 
-    color:#fff;
+    color:var(--text-white);
 
 }
 
@@ -496,15 +461,11 @@
 
     padding:14px 24px;
 
-    color:#fff;
+    color:var(--text-white);
 
     font-weight:700;
 
-    background:linear-gradient(
-        135deg,
-        #0353a4,
-        #023e7d
-    );
+    background:var(--header-gradient);
 
     transition:.25s;
 
@@ -514,8 +475,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:
-        0 12px 28px rgba(3,83,164,.35);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -655,15 +615,11 @@
 
     cursor:pointer;
 
-    color:#fff;
+    color:var(--text-white);
 
     font-size:1.4rem;
 
-    background:linear-gradient(
-        135deg,
-        #0353a4,
-        #023e7d
-    );
+    background:var(--header-gradient);
 
     transition:.25s;
 
@@ -692,7 +648,7 @@
 
     border-radius:12px;
 
-    color:#fff;
+    color:var(--text-white);
 
     font-weight:600;
 
@@ -704,11 +660,7 @@
 
 .edit-event-button{
 
-    background:linear-gradient(
-        135deg,
-        #0353a4,
-        #0466c8
-    );
+    background:var(--header-gradient);
 
 }
 
@@ -716,8 +668,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:
-        0 10px 22px rgba(3,83,164,.35);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -725,11 +676,7 @@
 
 .delete-event-button{
 
-    background:linear-gradient(
-        135deg,
-        #c1121f,
-        #780000
-    );
+    background:var(--danger);
 
 }
 
@@ -737,7 +684,8 @@
 
     transform:translateY(-2px);
 
-    box-shadow:
-        0 10px 22px rgba(193,18,31,.35);
+    background:var(--danger-hover);
+
+    box-shadow:var(--shadow-medium);
 
 }
