@@ -42,11 +42,7 @@ export default function AdminLoginPage({
             );
 
             if (user.email !== ADMIN_EMAIL) {
-
-                throw new Error(
-                    "Unauthorized"
-                );
-
+                throw new Error("Unauthorized");
             }
 
             onLogin(user);
@@ -106,19 +102,17 @@ export default function AdminLoginPage({
                     onClick={goBack}
                     className="back-button"
                 >
-                    {t("common.back")}
+                    {t("shopping.page.back")}
                 </button>
 
-                <Logo
-                    className="admin-logo"
-                />
+                <Logo className="admin-logo" />
 
                 <h1>
                     {t("admin.login.title")}
                 </h1>
 
                 <p>
-                    {t("admin.login.subtitle")}
+                    {t("admin.login.description")}
                 </p>
 
                 <input
@@ -143,22 +137,18 @@ export default function AdminLoginPage({
                 />
 
                 {error && (
-
                     <div className="admin-error">
                         {error}
                     </div>
-
                 )}
 
                 <button
                     className="admin-button"
                     disabled={loading}
                 >
-
                     {loading
                         ? t("admin.login.loggingIn")
                         : t("admin.login.login")}
-
                 </button>
 
             </form>
