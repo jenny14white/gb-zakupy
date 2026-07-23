@@ -1,200 +1,97 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import EmptyState from "../shared/EmptyState";
 import ShoppingListItem from "./ShoppingListItem";
 
-
-
-
-
 export default function CurrentShoppingList({
-  items = [],
-  loading
+    items = [],
+    loading,
 }) {
 
+    const { t } = useTranslation();
 
+    const [expanded, setExpanded] = useState(false);
 
-  const [expanded,setExpanded] = useState(false);
+    return (
 
+        <section className="current-list-wrapper">
 
+            <div className="current-list-header">
 
+                <h2>
+                    {t("shopping.currentList.title")}
+                </h2>
 
+                {items.length > 1 && (
 
+                    <button
+                        className="expand-list-button"
+                        onClick={() =>
+                            setExpanded((prev) => !prev)
+                        }
+                    >
 
+                        {expanded
+                            ? t("shopping.currentList.collapse")
+                            : t("shopping.currentList.expand")}
 
-  return (
+                    </button>
 
+                )}
 
-    <section className="current-list-wrapper">
+            </div>
 
+            {loading && (
 
+                <EmptyState>
+                    {t("shopping.currentList.loading")}
+                </EmptyState>
 
+            )}
 
+            {!loading && items.length === 0 && (
 
+                <EmptyState>
+                    {t("shopping.currentList.empty")}
+                </EmptyState>
 
+            )}
 
-      <div className="current-list-header">
-
-
-
-        <h2>
-          Aktualna lista zakupowa
-        </h2>
-
-
-
-
-
-
-
-        {
-          items.length > 1 && (
-
-
-            <button
-
-              className="expand-list-button"
-
-              onClick={()=>
-                setExpanded(prev => !prev)
-              }
-
-            >
-
-
-              {
-                expanded
-                ?
-                "Zwiń listę ↑"
-                :
-                "Rozwiń całą listę ↓"
-              }
-
-
-            </button>
-
-
-          )
-        }
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-      {
-        loading && (
-
-          <EmptyState>
-            Ładowanie listy...
-          </EmptyState>
-
-        )
-      }
-
-
-
-
-
-
-
-
-
-      {
-        !loading &&
-        items.length === 0 && (
-
-          <EmptyState>
-            Aktualna lista zakupowa jest pusta.
-          </EmptyState>
-
-        )
-      }
-
-
-
-
-
-
-
-
-
-      {
-        !loading &&
-        items.length > 0 && (
-
-
-          <div
-
-            className={
-              expanded
-              ?
-              "shopping-list expanded"
-              :
-              "shopping-list collapsed"
-            }
-
-          >
-
-
-
-
-            {
-              items.map((item,index)=>(
-
+            {!loading && items.length > 0 && (
 
                 <div
-
-                  key={item.id}
-
-                  className="shopping-wave-item"
-
-                  style={{
-                    "--delay":
-                    `${index * 50}ms`
-                  }}
-
+                    className={
+                        expanded
+                            ? "shopping-list expanded"
+                            : "shopping-list collapsed"
+                    }
                 >
 
+                    {items.map((item, index) => (
 
-                  <ShoppingListItem
+                        <div
+                            key={item.id}
+                            className="shopping-wave-item"
+                            style={{
+                                "--delay": `${index * 50}ms`,
+                            }}
+                        >
 
-                    item={item}
+                            <ShoppingListItem
+                                item={item}
+                            />
 
-                  />
+                        </div>
 
+                    ))}
 
                 </div>
 
+            )}
 
-              ))
-            }
+        </section>
 
-
-
-
-
-          </div>
-
-
-        )
-      }
-
-
-
-
-
-
-    </section>
-
-
-  );
+    );
 
 }
