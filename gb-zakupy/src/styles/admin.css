@@ -18,20 +18,7 @@
 
     display:flex;
 
-    background:
-
-        radial-gradient(
-            circle at top left,
-            rgba(38,118,225,.35),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #001233,
-            #001845,
-            #023e7d
-        );
+    background:var(--page-gradient);
 
 }
 
@@ -44,7 +31,6 @@
     padding:20px;
 
 }
-
 
 /* =====================================
    LIQUID BACKGROUND
@@ -92,7 +78,6 @@
 
 }
 
-
 /* =====================================
    LOGIN CARD
 ===================================== */
@@ -119,27 +104,19 @@
 
     text-align:center;
 
-    background:
+    background:var(--glass-background);
 
-        rgba(255,255,255,.13);
-
-    border:
-
-        1px solid rgba(38,118,225,.45);
+    border:1px solid var(--glass-border);
 
     border-radius:34px;
 
-    backdrop-filter:
+    backdrop-filter:blur(var(--glass-blur));
 
-        blur(12px);
+    -webkit-backdrop-filter:blur(var(--glass-blur));
 
-    box-shadow:
+    box-shadow:var(--shadow-large);
 
-        0 30px 80px rgba(38,118,225,.35);
-
-    animation:
-
-        adminCardEnter .8s ease;
+    animation:adminCardEnter .8s ease;
 
 }
 
@@ -150,7 +127,6 @@
         opacity:0;
 
         transform:
-
             translateY(30px)
             scale(.95);
 
@@ -165,8 +141,6 @@
     }
 
 }
-
-
 /* =====================================
    BACK BUTTON
 ===================================== */
@@ -175,7 +149,7 @@
 
     align-self:flex-start;
 
-    border:none;
+    border:1px solid var(--glass-border);
 
     padding:12px 18px;
 
@@ -185,13 +159,13 @@
 
     font-weight:800;
 
-    background:
+    background:var(--glass-background);
 
-        rgba(255,255,255,.18);
+    color:var(--text-white);
 
-    color:white;
+    backdrop-filter:blur(var(--glass-blur));
 
-    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(var(--glass-blur));
 
     transition:.25s;
 
@@ -199,14 +173,13 @@
 
 .login-card .back-button:hover{
 
-    background:
-
-        rgba(255,255,255,.28);
+    background:var(--glass-hover);
 
     transform:translateY(-2px);
 
-}
+    box-shadow:var(--shadow-theme);
 
+}
 
 /* =====================================
    LOGO
@@ -222,20 +195,17 @@
 
     object-fit:contain;
 
-    background:white;
+    background:var(--logo-background);
 
     border-radius:50%;
 
     padding:12px;
 
-    border:3px solid #2676e1;
+    border:3px solid var(--primary);
 
-    box-shadow:
-
-        0 20px 45px rgba(38,118,225,.25);
+    box-shadow:var(--logo-shadow);
 
     animation:
-
         adminLogoPulse 4s ease-in-out infinite;
 
 }
@@ -259,6 +229,7 @@
     }
 
 }
+
 /* =====================================
    TITLES
 ===================================== */
@@ -273,15 +244,7 @@
 
     letter-spacing:-1.5px;
 
-    background:
-        linear-gradient(
-            120deg,
-            #ffffff 15%,
-            #93c5fd 35%,
-            #ffffff 50%,
-            #2676e1 70%,
-            #ffffff 90%
-        );
+    background:var(--title-gradient);
 
     background-size:250% auto;
 
@@ -290,8 +253,7 @@
 
     color:transparent;
 
-    text-shadow:
-        0 4px 22px rgba(38,118,225,.45);
+    text-shadow:var(--shadow-theme);
 
     animation:
         metalShine 5s linear infinite,
@@ -303,7 +265,7 @@
 
     margin:0;
 
-    color:#dbeafe;
+    color:var(--text-on-primary);
 
     font-size:16px;
 
@@ -314,15 +276,11 @@
 @keyframes metalShine{
 
     0%{
-
         background-position:200% center;
-
     }
 
     100%{
-
         background-position:-200% center;
-
     }
 
 }
@@ -352,8 +310,6 @@
     }
 
 }
-
-
 /* =====================================
    INPUTS
 ===================================== */
@@ -366,13 +322,11 @@
 
     border-radius:18px;
 
-    border:2px solid #60a5fa;
+    border:2px solid var(--input-border);
 
-    background:
+    background:var(--input-background);
 
-        rgba(255,255,255,.92);
-
-    color:#0b1f5e;
+    color:var(--text);
 
     font-size:16px;
 
@@ -386,7 +340,7 @@
 
 .login-card input::placeholder{
 
-    color:#6b7280;
+    color:var(--input-placeholder);
 
     font-weight:600;
 
@@ -394,18 +348,13 @@
 
 .login-card input:focus{
 
-    border-color:#2676e1;
+    border-color:var(--input-focus);
 
     transform:translateY(-3px);
 
-    box-shadow:
-
-        0 10px 25px rgba(38,118,225,.35),
-
-        0 0 0 5px rgba(96,165,250,.20);
+    box-shadow:var(--shadow-theme);
 
 }
-
 
 /* =====================================
    BUTTON
@@ -425,15 +374,9 @@
 
     cursor:pointer;
 
-    background:
+    background:var(--header-gradient);
 
-        linear-gradient(
-            135deg,
-            #2c3bd3,
-            #2676e1
-        );
-
-    color:white;
+    color:var(--text-white);
 
     font-size:17px;
 
@@ -441,9 +384,7 @@
 
     transition:.25s;
 
-    box-shadow:
-
-        0 15px 35px rgba(38,118,225,.45);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -451,9 +392,7 @@
 
     transform:translateY(-3px);
 
-    box-shadow:
-
-        0 20px 45px rgba(38,118,225,.60);
+    box-shadow:var(--shadow-large);
 
 }
 
@@ -471,7 +410,6 @@
 
 }
 
-
 /* =====================================
    ERROR
 ===================================== */
@@ -486,15 +424,11 @@
 
     border-radius:16px;
 
-    background:
+    background:rgba(211,47,47,.12);
 
-        rgba(220,38,38,.18);
+    border:1px solid var(--danger);
 
-    border:
-
-        1px solid rgba(248,113,113,.45);
-
-    color:#ffe4e6;
+    color:var(--text-white);
 
     font-weight:800;
 
@@ -569,7 +503,6 @@
 
 }
 
-
 /* =====================================
    BACK BUTTON
 ===================================== */
@@ -580,15 +513,15 @@
 
     margin-bottom:6px;
 
-    background:
+    background:var(--glass-background);
 
-        rgba(255,255,255,.12);
+    color:var(--text-white);
 
-    color:#ffffff;
+    border:1px solid var(--glass-border);
 
-    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(var(--glass-blur));
 
-    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(var(--glass-blur));
 
     transition:.25s;
 
@@ -596,15 +529,11 @@
 
 .login-card .back-button:hover{
 
-    background:
-
-        rgba(255,255,255,.20);
+    background:var(--glass-hover);
 
     transform:translateY(-2px);
 
-    box-shadow:
-
-        0 12px 26px rgba(38,118,225,.28);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -614,14 +543,13 @@
 
 }
 
-
 /* =====================================
    INPUT HOVER
 ===================================== */
 
 .login-card input:hover{
 
-    border-color:#93c5fd;
+    border-color:var(--accent);
 
 }
 
@@ -630,7 +558,6 @@
     opacity:.45;
 
 }
-
 
 /* =====================================
    LOGO
@@ -655,7 +582,6 @@
         scale(1.03);
 
 }
-
 
 /* =====================================
    BUTTON GLOW
@@ -724,8 +650,6 @@
     }
 
 }
-
-
 /* =====================================
    CARD HOVER
 ===================================== */
@@ -746,11 +670,10 @@
 
         translateY(-4px);
 
-    box-shadow:
-
-        0 36px 90px rgba(38,118,225,.42);
+    box-shadow:var(--shadow-large);
 
 }
+
 /* =====================================
    MOBILE
 ===================================== */
@@ -819,7 +742,6 @@
 
 }
 
-
 /* =====================================
    LARGE SCREENS
 ===================================== */
@@ -833,7 +755,6 @@
     }
 
 }
-
 
 /* =====================================
    ACCESSIBILITY
@@ -863,7 +784,6 @@
 
 }
 
-
 /* =====================================
    SMOOTH RENDERING
 ===================================== */
@@ -878,7 +798,6 @@
     transform:translateZ(0);
 
 }
-
 
 /* =====================================
    OPTIONAL FADE
