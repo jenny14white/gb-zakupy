@@ -8,7 +8,6 @@ export default function CalendarDay({
   onClick,
 }) {
 
-
   const className = [
 
     "calendar-day",
@@ -22,70 +21,39 @@ export default function CalendarDay({
     isWeekend && "weekend",
 
   ]
-
-  .filter(Boolean)
-
-  .join(" ");
-
-
-
-
-
+    .filter(Boolean)
+    .join(" ");
 
   function getEventClass(type = "") {
 
-    switch(type.toLowerCase()){
-
+    switch (type.toLowerCase()) {
 
       case "firma":
       case "company":
-
         return "company";
-
-
 
       case "święto":
       case "holiday":
-
         return "holiday";
-
-
 
       case "urodziny":
       case "birthday":
-
         return "birthday";
-
-
 
       case "spotkanie":
       case "meeting":
-
         return "meeting";
-
-
 
       case "urlop":
       case "vacation":
-
         return "vacation";
 
-
-
       default:
-
         return "other";
 
     }
 
   }
-
-
-
-
-
-
-
 
   return (
 
@@ -99,14 +67,12 @@ export default function CalendarDay({
 
       onClick={() => onClick(day)}
 
+      onKeyDown={(e) => {
 
-      onKeyDown={(e)=>{
-
-
-        if(
+        if (
           e.key === "Enter" ||
           e.key === " "
-        ){
+        ) {
 
           e.preventDefault();
 
@@ -114,13 +80,9 @@ export default function CalendarDay({
 
         }
 
-
       }}
 
     >
-
-
-
 
       <div className="calendar-day-number">
 
@@ -128,25 +90,15 @@ export default function CalendarDay({
 
       </div>
 
-
-
-
-
-
       {events.length > 0 && (
-
 
         <>
 
-
-          {/* DESKTOP - EVENT BUBBLE */}
-
+          {/* DESKTOP */}
 
           <div className="calendar-day-events">
 
-
-            {events.slice(0,2).map((event,index)=>(
-
+            {events.slice(0, 1).map((event, index) => (
 
               <div
 
@@ -155,17 +107,13 @@ export default function CalendarDay({
                   `${event.title}-${index}`
                 }
 
-
                 className={
                   `calendar-event-bubble ${getEventClass(event.type)}`
                 }
 
-
                 title={event.title}
 
               >
-
-
 
                 <span className="event-emoji">
 
@@ -173,57 +121,33 @@ export default function CalendarDay({
 
                 </span>
 
-
-
-
                 <span className="event-name">
 
                   {event.title}
 
                 </span>
 
-
-
               </div>
-
 
             ))}
 
-
-
-
-
-
-            {events.length > 2 && (
-
+            {events.length > 1 && (
 
               <div className="calendar-event-more">
 
-                +{events.length - 2}
+                +{events.length - 1}
 
               </div>
 
-
             )}
-
-
 
           </div>
 
-
-
-
-
-
-
-          {/* MOBILE - KROPKI */}
-
+          {/* MOBILE */}
 
           <div className="calendar-mobile-dots">
 
-
-            {events.slice(0,5).map((event,index)=>(
-
+            {events.slice(0, 5).map((event, index) => (
 
               <span
 
@@ -232,32 +156,21 @@ export default function CalendarDay({
                   `${event.title}-dot-${index}`
                 }
 
-
                 className={
                   `calendar-event-dot ${getEventClass(event.type)}`
                 }
-
 
                 title={event.title}
 
               />
 
-
             ))}
-
 
           </div>
 
-
-
         </>
 
-
       )}
-
-
-
-
 
     </div>
 
