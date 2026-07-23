@@ -29,7 +29,7 @@
   },
 
   "home": {
-    "subtitle": "Company internal portal (new features coming soon!)",
+    "subtitle": "Internal company portal (new features coming soon!)",
 
     "cards": {
       "shopping": {
@@ -39,7 +39,7 @@
 
       "calendar": {
         "title": "GB Calendar",
-        "description": "Company holidays, events and meetings"
+        "description": "Holidays, company events and meetings"
       },
 
       "admin": {
@@ -63,27 +63,29 @@
     "languages": {
       "pl": "Polish",
       "en": "English",
-      "uk": "Українська"
+      "uk": "Ukrainian"
     }
   },
 
   "shopping": {
-    "title": "Shopping",
-
-    "intro": {
+    "header": {
       "title": "Shopping List",
 
-      "mobileSummary": "🛒 Shopping list information",
+      "summary": "Shopping list information",
 
-      "paragraph1": "🛒 Is something missing in the office? Or are you afraid you'll forget about it later? Enter your name and what you currently need below.",
+      "introTitle": "Missing something in the office?",
 
-      "paragraph2": "☕ Running out of your favorite tea? 🥛 No milk for your coffee? 🖊️ Need new pens, or was something missed in the last order? Or maybe the person responsible for ordering is unavailable? This is the perfect place to leave such information.",
+      "intro1": "Afraid you'll forget it later? Enter your name and what you currently need below.",
 
-      "paragraph3": "It only takes a moment, and thanks to that nothing will be forgotten. Your request will reach the right person and wait for processing.",
+      "intro2": "☕ Running out of your favorite tea? 🥛 No milk for your coffee? 🖊️ Need new pens or something was missed in the last order? Or maybe the person responsible for orders is currently unavailable? This is the perfect place to leave such information.",
 
-      "paragraph4": "📋 The current shopping list below shows all products waiting to be ordered. If a product is no longer on the list, it means it has already been ordered.",
+      "intro3": "It only takes a moment, and thanks to that nothing will be forgotten. Your request will reach the right person and wait to be processed.",
 
-      "footer": "💙 Thank you for helping keep our office running!"
+      "currentListTitle": "Current shopping list",
+
+      "intro4": "below shows all products waiting to be ordered. If a product is no longer on the list, it means it has already been ordered.",
+
+      "footer": "Thank you for helping keep our office running smoothly!"
     },
 
     "page": {
@@ -91,40 +93,39 @@
       "thanks": "Thank you! ♡"
     },
 
-    "currentList": {
-      "title": "Current Shopping List",
-
-      "expand": "Expand full list ↓",
-      "collapse": "Collapse list ↑",
-
-      "loading": "Loading shopping list...",
-
-      "empty": "The current shopping list is empty."
-    },
-
     "form": {
-      "name": "Name *",
-      "namePlaceholder": "Enter your name",
-
-      "product": "What needs to be ordered? *",
-      "productPlaceholder": "e.g. milk, coffee, pens...",
-
-      "requestedBy": "Requested by",
-
-      "quantity": "Quantity *",
+      "name": "Name",
+      "product": "What needs to be ordered?",
+      "quantity": "Quantity",
       "unit": "Unit",
+
+      "submit": "Add to list",
+      "loading": "Adding...",
+
+      "success": "Successfully added:",
 
       "saveChanges": "Save changes",
 
-      "submit": "Add to list",
-      "submitting": "Adding..."
+      "placeholders": {
+        "name": "Enter your name",
+        "product": "E.g. milk, coffee, pens..."
+      },
+
+      "errors": {
+        "required": "Please fill in your name, product and quantity.",
+        "addFailed": "Failed to add the product."
+      }
     },
-        "messages": {
-      "validation": "Please enter your name, product and quantity.",
 
-      "success": "Successfully added: {{product}}",
+    "currentList": {
+      "title": "Current shopping list",
 
-      "addError": "Failed to add the product."
+      "expand": "Expand entire list ↓",
+      "collapse": "Collapse list ↑",
+
+      "loading": "Loading list...",
+
+      "empty": "The current shopping list is empty."
     },
 
     "status": {
@@ -148,8 +149,7 @@
       "accept": "Accept",
       "markCompleted": "Mark as completed"
     },
-
-    "adminComment": {
+        "adminComment": {
       "title": "Admin comment",
       "placeholder": "Add a comment..."
     },
@@ -161,11 +161,11 @@
 
       "exportExcel": "Export to Excel",
 
-      "noDataExport": "No data to export.",
+      "noDataExport": "No data available for export.",
 
       "empty": "No completed products.",
 
-      "emptySearch": "No matching products found."
+      "emptySearch": "No products found."
     },
 
     "empty": {
@@ -175,7 +175,7 @@
 
     "deleteDialog": {
       "title": "Delete product",
-      "message": "Are you sure you want to delete \"{{product}}\"?"
+      "message": "Are you sure you want to delete the product \"{{product}}\"?"
     },
 
     "errors": {
@@ -203,10 +203,11 @@
       }
     }
   },
-    "calendar": {
+
+  "calendar": {
     "page": {
       "title": "Company Calendar",
-      "description": "Company holidays, events and meetings.",
+      "description": "Holidays, company events and meetings.",
       "back": "Main menu"
     },
 
@@ -216,50 +217,14 @@
       "nextMonth": "Next month"
     },
 
-    "weekDays": {
+    "weekdays": {
       "mon": "Mon",
       "tue": "Tue",
       "wed": "Wed",
       "thu": "Thu",
       "fri": "Fri",
       "sat": "Sat",
-      "sun": "Sun",
-
-      "monShort": "Mon",
-      "tueShort": "Tue",
-      "wedShort": "Wed",
-      "thuShort": "Thu",
-      "friShort": "Fri",
-      "satShort": "Sat",
-      "sunShort": "Sun"
-    },
-
-    "months": {
-      "january": "January",
-      "february": "February",
-      "march": "March",
-      "april": "April",
-      "may": "May",
-      "june": "June",
-      "july": "July",
-      "august": "August",
-      "september": "September",
-      "october": "October",
-      "november": "November",
-      "december": "December",
-
-      "januaryUpper": "JANUARY",
-      "februaryUpper": "FEBRUARY",
-      "marchUpper": "MARCH",
-      "aprilUpper": "APRIL",
-      "mayUpper": "MAY",
-      "juneUpper": "JUNE",
-      "julyUpper": "JULY",
-      "augustUpper": "AUGUST",
-      "septemberUpper": "SEPTEMBER",
-      "octoberUpper": "OCTOBER",
-      "novemberUpper": "NOVEMBER",
-      "decemberUpper": "DECEMBER"
+      "sun": "Sun"
     },
 
     "eventTypes": {
@@ -273,10 +238,8 @@
 
     "empty": {
       "title": "No events",
-      "description": "There are no events scheduled for the selected day."
+      "description": "There are no scheduled events for the selected day."
     },
-
-    "recurringEvent": "Recurring event",
 
     "form": {
       "title": "Title",
@@ -289,7 +252,7 @@
       "recurring": "Recurring event",
 
       "placeholders": {
-        "title": "e.g. Board Meeting",
+        "title": "E.g. Management Meeting",
         "location": "Conference room",
         "description": "Event description..."
       }
@@ -304,7 +267,7 @@
 
       "accessDenied": {
         "title": "Access denied",
-        "description": "The event panel is available to administrators only."
+        "description": "The events panel is available only to administrators."
       },
 
       "new": "New event",
@@ -322,8 +285,8 @@
       },
 
       "validation": {
-        "titleRequired": "Enter the event title.",
-        "dateRequired": "Select the event date."
+        "titleRequired": "Please enter an event title.",
+        "dateRequired": "Please select an event date."
       },
 
       "errors": {
@@ -361,7 +324,7 @@
     },
 
     "browser": {
-      "title": "📦 GB Zakupy",
+      "title": "📦 GB Shopping",
       "body": "{{user}} added: {{product}}"
     }
   },
@@ -382,10 +345,10 @@
 
       "loggingIn": "Signing in...",
 
-      "back": "Back to list",
+      "back": "Back to shopping list",
 
       "errors": {
-        "invalidCredentials": "Invalid credentials or no administrator permissions."
+        "invalidCredentials": "Invalid credentials or administrator access required."
       }
     },
 
