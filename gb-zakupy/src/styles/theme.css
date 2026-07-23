@@ -27,6 +27,7 @@
     ===================================================== */
 
     --background:#F4F8FD;
+
     --background-secondary:#EAF2FB;
 
     --page-gradient:
@@ -49,10 +50,13 @@
     ===================================================== */
 
     --surface:#FFFFFF;
+
     --surface-secondary:#F8FBFF;
+
     --surface-hover:#EEF5FF;
 
-    --surface-2:var(--surface-hover);
+    --surface-2:
+        var(--surface-hover);
 
     /* =====================================================
        CARD
@@ -123,6 +127,59 @@
         var(--shadow-medium);
 
     /* =====================================================
+       GLASS COMPONENTS
+    ===================================================== */
+
+    --glass-gradient:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.08)
+        );
+
+    --glass-gradient-hover:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.22),
+            rgba(255,255,255,.12)
+        );
+
+    --glass-glow:
+        var(--page-glow);
+
+    --glass-border-hover:
+        var(--accent);
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    --hero-gradient:
+        var(--page-gradient);
+
+    --hero-text:
+        var(--text-white);
+
+    --hero-subtitle:
+        var(--text-on-primary);
+
+    /* =====================================================
+       DECORATIONS
+    ===================================================== */
+
+    --decorative-glow:
+        var(--page-glow);
+
+    --decorative-highlight:
+        rgba(255,255,255,.18);
+
+    --decorative-border:
+        rgba(255,255,255,.10);
+
+    /* =====================================================
+       BORDER
+    ===================================================== */
+    /* =====================================================
        BORDER
     ===================================================== */
 
@@ -131,6 +188,9 @@
     --border-light:#EDF4FC;
 
     --border-strong:#C9DBF7;
+
+    --divider:
+        var(--border-light);
 
     /* =====================================================
        TEXT
@@ -149,17 +209,29 @@
     --text-on-primary:
         rgba(230,240,255,.90);
 
+    --text-inverse:
+        var(--text-white);
+
     /* =====================================================
        BUTTON
     ===================================================== */
 
-    --button-primary:var(--primary);
+    --button-primary:
+        var(--primary);
 
     --button-primary-hover:
         var(--primary-light);
 
     --button-secondary:
         var(--accent);
+
+    --button-secondary-hover:
+        var(--accent-dark);
+
+    --button-text:
+        var(--text-white);
+
+    --button-radius:16px;
 
     /* =====================================================
        INPUT
@@ -175,6 +247,8 @@
 
     --input-placeholder:#94A3B8;
 
+    --input-radius:14px;
+
     /* =====================================================
        BADGES
     ===================================================== */
@@ -184,6 +258,8 @@
 
     --badge-text:
         var(--primary);
+
+    --badge-radius:999px;
 
     /* =====================================================
        STATUS
@@ -226,6 +302,20 @@
         0 15px 35px rgba(2,62,125,.28);
 
     /* =====================================================
+       RADIUS
+    ===================================================== */
+
+    --radius-small:10px;
+
+    --radius-medium:16px;
+
+    --radius-large:22px;
+
+    --radius-xl:30px;
+
+    --radius-round:999px;
+
+    /* =====================================================
        TRANSITIONS
     ===================================================== */
 
@@ -263,6 +353,7 @@
     ===================================================== */
 
     --background:#F6F9EF;
+
     --background-secondary:#EEF5E2;
 
     --page-gradient:
@@ -285,10 +376,13 @@
     ===================================================== */
 
     --surface:#FFFFFF;
+
     --surface-secondary:#FAFCF5;
+
     --surface-hover:#F0F7E5;
 
-    --surface-2:var(--surface-hover);
+    --surface-2:
+        var(--surface-hover);
 
     /* =====================================================
        CARD
@@ -359,6 +453,56 @@
         var(--shadow-medium);
 
     /* =====================================================
+       GLASS COMPONENTS
+    ===================================================== */
+
+    --glass-gradient:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.14),
+            rgba(255,255,255,.07)
+        );
+
+    --glass-gradient-hover:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.20),
+            rgba(255,255,255,.10)
+        );
+
+    --glass-glow:
+        var(--page-glow);
+
+    --glass-border-hover:
+        var(--accent);
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    --hero-gradient:
+        var(--page-gradient);
+
+    --hero-text:
+        var(--text-white);
+
+    --hero-subtitle:
+        var(--text-on-primary);
+
+    /* =====================================================
+       DECORATIONS
+    ===================================================== */
+
+    --decorative-glow:
+        var(--page-glow);
+
+    --decorative-highlight:
+        rgba(255,255,255,.18);
+
+    --decorative-border:
+        rgba(255,255,255,.10);
+
+    /* =====================================================
        BORDER
     ===================================================== */
 
@@ -367,6 +511,9 @@
     --border-light:#EAF4D8;
 
     --border-strong:#CAD8B5;
+
+    --divider:
+        var(--border-light);
 
     /* =====================================================
        TEXT
@@ -385,17 +532,29 @@
     --text-on-primary:
         rgba(245,249,236,.90);
 
+    --text-inverse:
+        var(--text-white);
+
     /* =====================================================
        BUTTON
     ===================================================== */
 
-    --button-primary:var(--primary);
+    --button-primary:
+        var(--primary);
 
     --button-primary-hover:
         var(--primary-light);
 
     --button-secondary:
         var(--accent);
+
+    --button-secondary-hover:
+        var(--accent-dark);
+
+    --button-text:
+        var(--text-white);
+
+    --button-radius:16px;
 
     /* =====================================================
        INPUT
@@ -411,6 +570,8 @@
 
     --input-placeholder:#8A9476;
 
+    --input-radius:14px;
+
     /* =====================================================
        BADGES
     ===================================================== */
@@ -420,6 +581,8 @@
 
     --badge-text:
         var(--primary);
+
+    --badge-radius:999px;
 
     /* =====================================================
        STATUS
@@ -462,6 +625,20 @@
         0 15px 35px rgba(46,54,4,.30);
 
     /* =====================================================
+       RADIUS
+    ===================================================== */
+
+    --radius-small:10px;
+
+    --radius-medium:16px;
+
+    --radius-large:22px;
+
+    --radius-xl:30px;
+
+    --radius-round:999px;
+
+    /* =====================================================
        TRANSITIONS
     ===================================================== */
 
@@ -499,6 +676,7 @@
     ===================================================== */
 
     --background:#FFF9F1;
+
     --background-secondary:#FFF3DF;
 
     --page-gradient:
@@ -521,10 +699,13 @@
     ===================================================== */
 
     --surface:#FFFFFF;
+
     --surface-secondary:#FFFDF8;
+
     --surface-hover:#FFF7EB;
 
-    --surface-2:var(--surface-hover);
+    --surface-2:
+        var(--surface-hover);
 
     /* =====================================================
        CARD
@@ -595,6 +776,56 @@
         var(--shadow-medium);
 
     /* =====================================================
+       GLASS COMPONENTS
+    ===================================================== */
+
+    --glass-gradient:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.08)
+        );
+
+    --glass-gradient-hover:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.22),
+            rgba(255,255,255,.12)
+        );
+
+    --glass-glow:
+        var(--page-glow);
+
+    --glass-border-hover:
+        var(--accent);
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    --hero-gradient:
+        var(--page-gradient);
+
+    --hero-text:
+        var(--text-white);
+
+    --hero-subtitle:
+        var(--text-on-primary);
+
+    /* =====================================================
+       DECORATIONS
+    ===================================================== */
+
+    --decorative-glow:
+        var(--page-glow);
+
+    --decorative-highlight:
+        rgba(255,255,255,.18);
+
+    --decorative-border:
+        rgba(255,255,255,.10);
+
+    /* =====================================================
        BORDER
     ===================================================== */
 
@@ -603,6 +834,9 @@
     --border-light:#F7E8C8;
 
     --border-strong:#EFD5A1;
+
+    --divider:
+        var(--border-light);
 
     /* =====================================================
        TEXT
@@ -621,17 +855,29 @@
     --text-on-primary:
         rgba(255,249,240,.92);
 
+    --text-inverse:
+        var(--text-white);
+
     /* =====================================================
        BUTTON
     ===================================================== */
 
-    --button-primary:var(--primary);
+    --button-primary:
+        var(--primary);
 
     --button-primary-hover:
         var(--primary-light);
 
     --button-secondary:
         var(--accent);
+
+    --button-secondary-hover:
+        var(--accent-dark);
+
+    --button-text:
+        var(--text-white);
+
+    --button-radius:16px;
 
     /* =====================================================
        INPUT
@@ -647,6 +893,8 @@
 
     --input-placeholder:#B59763;
 
+    --input-radius:14px;
+
     /* =====================================================
        BADGES
     ===================================================== */
@@ -656,6 +904,8 @@
 
     --badge-text:
         var(--primary);
+
+    --badge-radius:999px;
 
     /* =====================================================
        STATUS
@@ -696,6 +946,20 @@
 
     --shadow-theme:
         0 15px 35px rgba(225,157,41,.28);
+
+    /* =====================================================
+       RADIUS
+    ===================================================== */
+
+    --radius-small:10px;
+
+    --radius-medium:16px;
+
+    --radius-large:22px;
+
+    --radius-xl:30px;
+
+    --radius-round:999px;
 
     /* =====================================================
        TRANSITIONS
