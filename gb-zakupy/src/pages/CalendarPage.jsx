@@ -42,13 +42,9 @@ export default function CalendarPage({
 
       </header>
 
-      <section className="calendar-layout">
-
-        <Calendar
-          year={year}
-        />
-
-      </section>
+      <section className="calendar-container">
+    <Calendar year={year} />
+</section>
 
     </main>
 
