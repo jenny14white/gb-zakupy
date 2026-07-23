@@ -1,108 +1,89 @@
-const MONTHS = [
-  "STYCZEŃ",
-  "LUTY",
-  "MARZEC",
-  "KWIECIEŃ",
-  "MAJ",
-  "CZERWIEC",
-  "LIPIEC",
-  "SIERPIEŃ",
-  "WRZESIEŃ",
-  "PAŹDZIERNIK",
-  "LISTOPAD",
-  "GRUDZIEŃ",
-];
-
+import { useTranslation } from "react-i18next";
 
 export default function CalendarHeader({
-  currentDate,
-  onPrev,
-  onNext,
-  onToday,
+    currentDate,
+    onPrev,
+    onNext,
+    onToday,
 }) {
 
-  return (
-    <header className="calendar-header">
+    const { t, i18n } = useTranslation();
 
-      <div className="calendar-header-top">
+    const month = currentDate
+        .toLocaleDateString(i18n.language, {
+            month: "long",
+        })
+        .toUpperCase();
 
+    return (
 
-        <div className="calendar-year">
+        <header className="calendar-header">
 
-          {currentDate.getFullYear()}
+            <div className="calendar-header-top">
 
-        </div>
+                <div className="calendar-year">
 
+                    {currentDate.getFullYear()}
 
+                </div>
 
-        <h1 className="calendar-month">
+                <h1 className="calendar-month">
 
-          {MONTHS[currentDate.getMonth()]}
+                    {month}
 
-        </h1>
+                </h1>
 
+                <div className="calendar-divider">
 
+                    <span></span>
 
-        <div className="calendar-divider">
+                    <div className="calendar-divider-icon">
+                    </div>
 
-          <span></span>
+                    <span></span>
 
-          <div className="calendar-divider-icon">
-            
-          </div>
+                </div>
 
-          <span></span>
+            </div>
 
-        </div>
+            <div className="calendar-navigation">
 
+                <button
+                    type="button"
+                    className="calendar-nav-button"
+                    onClick={onPrev}
+                    aria-label={t("calendar.navigation.previousMonth")}
+                >
 
-      </div>
+                    ←
 
+                </button>
 
+                <button
+                    type="button"
+                    className="today-button"
+                    onClick={onToday}
+                >
 
-      <div className="calendar-navigation">
+                    {t("calendar.navigation.today")}
 
+                </button>
 
-        <button
-          type="button"
-          className="calendar-nav-button"
-          onClick={onPrev}
-          aria-label="Poprzedni miesiąc"
-        >
+                <button
+                    type="button"
+                    className="calendar-nav-button"
+                    onClick={onNext}
+                    aria-label={t("calendar.navigation.nextMonth")}
+                >
 
-          ←
+                    →
 
-        </button>
+                </button>
 
+            </div>
 
+        </header>
 
-        <button
-          type="button"
-          className="today-button"
-          onClick={onToday}
-        >
+    );
 
-          Dzisiaj
-
-        </button>
-
-
-
-        <button
-          type="button"
-          className="calendar-nav-button"
-          onClick={onNext}
-          aria-label="Następny miesiąc"
-        >
-
-          →
-
-        </button>
-
-
-      </div>
-
-
-    </header>
-  );
 }
