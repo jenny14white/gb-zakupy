@@ -1,90 +1,95 @@
-import { useEffect, useState } from 'react';
-import Logo from '../shared/Logo';
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import Logo from "../shared/Logo";
 
 export default function PublicHeader() {
-  const [isMobile, setIsMobile] = useState(false);
+    const { t } = useTranslation();
 
-  useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const [isMobile, setIsMobile] = useState(false);
 
-    checkScreen();
+    useEffect(() => {
+        const checkScreen = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
 
-    window.addEventListener('resize', checkScreen);
+        checkScreen();
 
-    return () => window.removeEventListener('resize', checkScreen);
-  }, []);
+        window.addEventListener("resize", checkScreen);
 
-  return (
-    <>
-      <Logo />
+        return () =>
+            window.removeEventListener("resize", checkScreen);
+    }, []);
 
-      <h1>Lista zakupowa</h1>
+    return (
+        <>
+            <Logo />
 
-      {isMobile ? (
-        <details className="intro-box intro-mobile">
-          <summary>🛒 Informacje o liście zakupowej</summary>
+            <h1>{t("shopping.header.title")}</h1>
 
-          <p>
-            <strong>🛒 Brakuje czegoś w biurze?</strong> A może obawiasz się, że
-            później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego
-            aktualnie potrzebujesz.
-          </p>
+            {isMobile ? (
+                <details className="intro-box intro-mobile">
+                    <summary>
+                        🛒 {t("shopping.header.summary")}
+                    </summary>
 
-          <p>
-            ☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy?
-            🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś
-            zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest
-            akurat nieobecna? To idealne miejsce, aby zostawić taką informację.
-          </p>
+                    <p>
+                        <strong>
+                            🛒 {t("shopping.header.introTitle")}
+                        </strong>{" "}
+                        {t("shopping.header.intro1")}
+                    </p>
 
-          <p>
-            Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje
-            zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.
-          </p>
+                    <p>
+                        {t("shopping.header.intro2")}
+                    </p>
 
-          <p>
-            <strong>📋 Aktualna lista zakupowa</strong> poniżej pokazuje wszystkie
-            produkty oczekujące na zamówienie. Jeżeli produktu nie ma już na
-            liście, oznacza to, że został zamówiony.
-          </p>
+                    <p>
+                        {t("shopping.header.intro3")}
+                    </p>
 
-          <p className="intro-footer">
-            💙 Dziękujemy za pomoc w utrzymaniu naszego biura!
-          </p>
-        </details>
-      ) : (
-        <div className="intro-box">
-          <p>
-            <strong>🛒 Brakuje czegoś w biurze?</strong> A może obawiasz się, że
-            później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego
-            aktualnie potrzebujesz.
-          </p>
+                    <p>
+                        <strong>
+                            📋 {t("shopping.header.currentListTitle")}
+                        </strong>{" "}
+                        {t("shopping.header.intro4")}
+                    </p>
 
-          <p>
-            ☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy?
-            🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś
-            zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest
-            akurat nieobecna? To idealne miejsce, aby zostawić taką informację.
-          </p>
+                    <p className="intro-footer">
+                        💙 {t("shopping.header.footer")}
+                    </p>
+                </details>
+            ) : (
+                <div className="intro-box">
 
-          <p>
-            Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje
-            zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.
-          </p>
+                    <p>
+                        <strong>
+                            🛒 {t("shopping.header.introTitle")}
+                        </strong>{" "}
+                        {t("shopping.header.intro1")}
+                    </p>
 
-          <p>
-            <strong>📋 Aktualna lista zakupowa</strong> poniżej pokazuje wszystkie
-            produkty oczekekujące na zamówienie. Jeżeli produktu nie ma już na
-            liście, oznacza to, że został zamówiony.
-          </p>
+                    <p>
+                        {t("shopping.header.intro2")}
+                    </p>
 
-          <p className="intro-footer">
-            💙 Dziękujemy za pomoc w utrzymaniu naszego biura!
-          </p>
-        </div>
-      )}
-    </>
-  );
+                    <p>
+                        {t("shopping.header.intro3")}
+                    </p>
+
+                    <p>
+                        <strong>
+                            📋 {t("shopping.header.currentListTitle")}
+                        </strong>{" "}
+                        {t("shopping.header.intro4")}
+                    </p>
+
+                    <p className="intro-footer">
+                        💙 {t("shopping.header.footer")}
+                    </p>
+
+                </div>
+            )}
+        </>
+    );
 }
