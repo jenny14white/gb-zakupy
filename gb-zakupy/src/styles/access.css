@@ -6,946 +6,387 @@
    PAGE
 ===================================== */
 
+.access-page {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
 
-.access-page{
+    min-height: 100vh;
 
-    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    overflow:hidden;
+    padding: 20px;
 
-    isolation:isolate;
-
-
-    min-height:100vh;
-
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    padding:20px;
-
-
-    background:
-
-        radial-gradient(
-            circle at top left,
-            rgba(38,118,225,.35),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #001233,
-            #001845,
-            #023e7d
-        );
-
+    background: var(--page-gradient);
 }
-
-
-
-
 
 /* =====================================
    LIQUID ETHER BACKGROUND
 ===================================== */
 
+.access-background {
+    position: absolute;
+    inset: 0;
 
-.access-background{
+    width: 100%;
+    height: 100%;
 
-    position:absolute;
+    z-index: 0;
 
-    inset:0;
+    pointer-events: none;
 
-
-    width:100%;
-
-    height:100%;
-
-
-    z-index:0;
-
-
-    pointer-events:none;
-
-
-    overflow:hidden;
-
+    overflow: hidden;
 }
 
+.access-background .liquid-ether-container {
+    position: absolute;
+    inset: 0;
 
-
-.access-background .liquid-ether-container{
-
-    position:absolute;
-
-    inset:0;
-
-
-    width:100%;
-
-    height:100%;
-
+    width: 100%;
+    height: 100%;
 }
 
+.access-background canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
 
-
-.access-background canvas{
-
-    display:block;
-
-    width:100% !important;
-
-    height:100% !important;
-
-
-    transform:translateZ(0);
-
+    transform: translateZ(0);
 }
-
-
-
-
-
-
 
 /* =====================================
    CARD
 ===================================== */
 
+.access-card {
+    position: relative;
 
-.access-card{
+    z-index: 5;
 
+    width: 100%;
+    max-width: 430px;
 
-    position:relative;
+    padding: 42px 38px;
 
+    text-align: center;
 
-    z-index:5;
+    background: var(--glass-background);
 
+    border: 1px solid var(--glass-border);
 
+    border-radius: 34px;
 
-    width:100%;
+    backdrop-filter: blur(var(--glass-blur));
 
+    box-shadow: var(--shadow-large);
 
-    max-width:430px;
-
-
-
-    padding:42px 38px;
-
-
-
-    text-align:center;
-
-
-
-    background:
-
-
-        rgba(255,255,255,.13);
-
-
-
-    border:
-
-
-        1px solid rgba(38,118,225,.45);
-
-
-
-    border-radius:34px;
-
-
-
-    backdrop-filter:
-
-
-        blur(12px);
-
-
-
-    box-shadow:
-
-
-        0 30px 80px rgba(38,118,225,.35);
-
-
-
-    animation:
-
-
-        cardEnter .8s ease;
-
-
+    animation: cardEnter .8s ease;
 }
 
-
-
-
-
-@keyframes cardEnter{
-
-
-    from{
-
-
-        opacity:0;
-
+@keyframes cardEnter {
+    from {
+        opacity: 0;
 
         transform:
-
             translateY(30px)
-
             scale(.95);
-
-
     }
 
-
-    to{
-
-
-        opacity:1;
-
-
-        transform:none;
-
-
+    to {
+        opacity: 1;
+        transform: none;
     }
-
-
 }
-
-
-
-
-
-
 
 /* =====================================
    LOGO
 ===================================== */
 
+.access-logo {
+    width: 130px;
+    height: 130px;
 
-.access-logo{
+    margin: 0 auto 25px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    width:130px;
+    background: var(--logo-background);
 
-    height:130px;
+    border-radius: 50%;
 
+    padding: 12px;
 
-    margin:0 auto 25px;
+    overflow: hidden;
 
+    border: 3px solid var(--primary);
 
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-
-    background:white;
-
-
-
-    border-radius:50%;
-
-
-
-    padding:12px;
-
-
-
-    overflow:hidden;
-
-
-
-    border:
-
-
-        3px solid #2676e1;
-
-
-
-    animation:
-
-
-        logoPulse 4s infinite ease-in-out;
-
-
+    animation: logoPulse 4s infinite ease-in-out;
 }
 
-
-
-.access-logo img{
-
-
-    width:100%;
-
-
-    height:100%;
-
-
-    object-fit:contain;
-
-
+.access-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-
-
-
-
-
-
-@keyframes logoPulse{
-
-
-    0%,100%{
-
-
+@keyframes logoPulse {
+    0%,100% {
         box-shadow:
-
-
             0 20px 45px rgba(38,118,225,.25),
-
-
             0 0 0 8px rgba(38,118,225,.15);
-
-
     }
 
-
-
-    50%{
-
-
+    50% {
         box-shadow:
-
-
             0 25px 60px rgba(44,59,211,.45),
-
-
             0 0 0 15px rgba(41,112,226,.18);
-
-
     }
-
-
 }
-
-
-
-
-
-
-
 
 /* =====================================
    TEXT
 ===================================== */
 
+.access-card h1 {
+    margin: 0;
 
-.access-card h1{
+    font-size: 36px;
 
-    margin:0;
+    font-weight: 900;
 
-    font-size:36px;
-
-    font-weight:900;
-
-    letter-spacing:-1.5px;
-
+    letter-spacing: -1.5px;
 }
 
+.access-subtitle {
+    margin-top: 10px;
 
+    color: var(--text-on-primary);
 
-
-.access-subtitle{
-
-
-    margin-top:10px;
-
-
-    color:#dbeafe;
-
-
-    font-size:16px;
-
-
+    font-size: 16px;
 }
-
-
-
-
-
-
-
-
 
 /* =====================================
    FORM
 ===================================== */
 
+.access-form {
+    margin-top: 32px;
 
-.access-form{
+    display: flex;
+    flex-direction: column;
 
-
-    margin-top:32px;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:13px;
-
-
+    gap: 13px;
 }
 
+.access-form label {
+    text-align: left;
 
+    color: var(--text-white);
 
+    font-size: 14px;
 
-
-
-.access-form label{
-
-
-    text-align:left;
-
-
-    color:#eff6ff;
-
-
-    font-size:14px;
-
-
-    font-weight:900;
-
-
+    font-weight: 900;
 }
-
-
-
-
-
-
-
-
 
 /* =====================================
    PIN BOXES
 ===================================== */
 
+.code-boxes {
+    display: flex;
 
-.code-boxes{
+    justify-content: center;
 
+    gap: 10px;
 
-    display:flex;
-
-
-    justify-content:center;
-
-
-    gap:10px;
-
-
-    margin-top:10px;
-
-
+    margin-top: 10px;
 }
 
+.code-boxes input {
+    width: 52px;
+    height: 58px;
 
+    border-radius: 16px;
 
+    border: 2px solid var(--input-border);
 
+    background: var(--input-background);
 
+    color: var(--text);
 
+    font-size: 24px;
 
-.code-boxes input{
+    font-weight: 900;
 
+    text-align: center;
 
-    width:52px;
+    outline: none;
 
-    height:58px;
-
-
-
-    border-radius:16px;
-
-
-
-    border:
-
-
-        2px solid #60a5fa;
-
-
-
-    background:
-
-
-        rgba(255,255,255,.92);
-
-
-
-    color:#0b1f5e;
-
-
-
-    font-size:24px;
-
-
-
-    font-weight:900;
-
-
-
-    text-align:center;
-
-
-
-    outline:none;
-
-
-
-    transition:.25s;
-
-
+    transition: .25s;
 }
 
+.code-boxes input:focus {
+    border-color: var(--input-focus);
 
+    transform: translateY(-4px);
 
-
-
-
-.code-boxes input:focus{
-
-
-    border-color:#2676e1;
-
-
-
-    transform:
-
-
-        translateY(-4px);
-
-
-
-    box-shadow:
-
-
-        0 10px 25px rgba(38,118,225,.35),
-
-
-        0 0 0 5px rgba(96,165,250,.25);
-
-
+    box-shadow: var(--shadow-theme);
 }
-
-
-
-
-
-
-
-
 
 /* =====================================
    BUTTON
 ===================================== */
 
+.access-form button {
+    margin-top: 15px;
 
-.access-form button{
+    padding: 16px;
 
+    border: none;
 
-    margin-top:15px;
+    border-radius: 18px;
 
+    background: var(--header-gradient);
 
-    padding:16px;
+    color: var(--text-white);
 
+    font-size: 17px;
 
-    border:none;
+    font-weight: 900;
 
+    cursor: pointer;
 
-    border-radius:18px;
+    transition: .25s;
 
-
-
-    background:
-
-
-        linear-gradient(
-
-            135deg,
-
-            #2c3bd3,
-
-            #2676e1
-
-        );
-
-
-
-    color:white;
-
-
-
-    font-size:17px;
-
-
-    font-weight:900;
-
-
-
-    cursor:pointer;
-
-
-
-    transition:.25s;
-
-
-
-    box-shadow:
-
-
-        0 15px 35px rgba(38,118,225,.45);
-
-
+    box-shadow: var(--shadow-theme);
 }
 
+.access-form button:hover {
+    transform: translateY(-3px);
 
-
-.access-form button:hover{
-
-
-    transform:
-
-
-        translateY(-3px);
-
-
-
-    box-shadow:
-
-
-        0 20px 45px rgba(38,118,225,.6);
-
-
+    box-shadow: var(--shadow-large);
 }
 
-
-
-
-
-.access-form button:active{
-
-
-    transform:scale(.97);
-
-
+.access-form button:active {
+    transform: scale(.97);
 }
-
-
-
-
-
-
-
-
 
 /* =====================================
    ERROR
 ===================================== */
 
+.access-error {
+    margin-top: 18px;
 
-.access-error{
+    color: var(--danger);
 
-
-    margin-top:18px;
-
-
-    color:#ffb4b4;
-
-
-    font-weight:800;
-
-
+    font-weight: 800;
 }
-
-
-
-
-
-
-
-
-
 
 /* =====================================
    MOBILE
 ===================================== */
 
+@media (max-width:480px) {
 
-@media(max-width:480px){
-
-
-    .access-page{
-
-        padding:15px;
-
+    .access-page {
+        padding: 15px;
     }
 
+    .access-card {
+        padding: 32px 22px;
 
-
-    .access-card{
-
-
-        padding:32px 22px;
-
-
-        border-radius:28px;
-
-
+        border-radius: 28px;
     }
 
-
-
-
-    .access-logo{
-
-
-        width:100px;
-
-
-        height:100px;
-
-
+    .access-logo {
+        width: 100px;
+        height: 100px;
     }
 
-
-
-
-    .access-card h1{
-
-
-        font-size:28px;
-
-
+    .access-card h1 {
+        font-size: 28px;
     }
 
-
-
-
-    .code-boxes{
-
-
-        gap:7px;
-
-
+    .code-boxes {
+        gap: 7px;
     }
 
+    .code-boxes input {
+        width: 45px;
+        height: 52px;
 
-
-
-    .code-boxes input{
-
-
-        width:45px;
-
-
-        height:52px;
-
-
-        font-size:20px;
-
-
+        font-size: 20px;
     }
-
-
 }
-
-
-
-
-
-
-
-
 
 /* =====================================
-   COMPANY TITLE BLUE METAL
+   COMPANY TITLE
 ===================================== */
 
+.company-title {
+    display: block;
 
-.company-title{
+    margin: 0;
 
+    font-size: 36px;
 
-    display:block;
+    font-weight: 900;
 
+    letter-spacing: -1.5px;
 
-    margin:0;
+    background: var(--title-gradient);
 
+    background-size: 250% auto;
 
+    -webkit-background-clip: text;
+    background-clip: text;
 
-    font-size:36px;
+    color: transparent;
 
-
-    font-weight:900;
-
-
-
-    letter-spacing:-1.5px;
-
-
-
-    background:
-
-
-    linear-gradient(
-        120deg,
-        #ffffff 15%,
-        #93c5fd 35%,
-        #ffffff 50%,
-        #2676e1 70%,
-        #ffffff 90%
-    );
-
-
-
-    background-size:250% auto;
-
-
-
-    -webkit-background-clip:text;
-
-
-    background-clip:text;
-
-
-
-    color:transparent;
-
-
-
-    text-shadow:
-
-
-        0 4px 22px rgba(38,118,225,.45);
-
-
+    text-shadow: var(--shadow-theme);
 
     animation:
-
-
         metalShine 5s linear infinite,
-
         titleAppear .9s ease forwards;
-
-
 }
 
+@keyframes metalShine {
 
-
-
-
-
-
-@keyframes metalShine{
-
-
-    0%{
-
-
-        background-position:
-
-            200% center;
-
-
+    0% {
+        background-position: 200% center;
     }
 
-
-    100%{
-
-
-        background-position:
-
-            -200% center;
-
-
+    100% {
+        background-position: -200% center;
     }
-
 }
 
+@keyframes titleAppear {
 
-
-
-
-
-
-@keyframes titleAppear{
-
-
-    from{
-
-
-        opacity:0;
-
+    from {
+        opacity: 0;
 
         transform:
-
-
             translateY(20px)
-
             scale(.95);
 
-
-
-        filter:
-
-
-            blur(8px);
-
-
+        filter: blur(8px);
     }
 
+    to {
+        opacity: 1;
 
+        transform: none;
 
-    to{
-
-
-        opacity:1;
-
-
-        transform:none;
-
-
-        filter:
-
-
-            blur(0);
-
-
+        filter: blur(0);
     }
-
 }
 
-
-
-.company-title + .access-subtitle{
-
-
-    margin-top:12px;
-
-
+.company-title + .access-subtitle {
+    margin-top: 12px;
 }
