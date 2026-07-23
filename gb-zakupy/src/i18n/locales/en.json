@@ -1,1 +1,424 @@
+{
+  "common": {
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
 
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+
+    "loading": {
+      "app": "Loading application..."
+    }
+  },
+
+  "access": {
+    "subtitle": "Office (new features coming soon!)",
+
+    "codeLabel": "Enter access code",
+
+    "enter": "Enter",
+    "connecting": "Connecting...",
+
+    "errors": {
+      "invalidCode": "Invalid access code.",
+      "connection": "Could not connect to the server."
+    }
+  },
+
+  "home": {
+    "subtitle": "Company internal portal (new features coming soon!)",
+
+    "cards": {
+      "shopping": {
+        "title": "Shopping List",
+        "description": "Office supplies and equipment requests"
+      },
+
+      "calendar": {
+        "title": "GB Calendar",
+        "description": "Company holidays, events and meetings"
+      },
+
+      "admin": {
+        "title": "Admin Panel",
+        "description": "Manage orders and company events"
+      }
+    }
+  },
+
+  "theme": {
+    "title": "Choose theme",
+
+    "themes": {
+      "navy": "Navy",
+      "forest": "Forest",
+      "gold": "Gold"
+    }
+  },
+
+  "language": {
+    "languages": {
+      "pl": "Polish",
+      "en": "English",
+      "uk": "Українська"
+    }
+  },
+
+  "shopping": {
+    "title": "Shopping",
+
+    "intro": {
+      "title": "Shopping List",
+
+      "mobileSummary": "🛒 Shopping list information",
+
+      "paragraph1": "🛒 Is something missing in the office? Or are you afraid you'll forget about it later? Enter your name and what you currently need below.",
+
+      "paragraph2": "☕ Running out of your favorite tea? 🥛 No milk for your coffee? 🖊️ Need new pens, or was something missed in the last order? Or maybe the person responsible for ordering is unavailable? This is the perfect place to leave such information.",
+
+      "paragraph3": "It only takes a moment, and thanks to that nothing will be forgotten. Your request will reach the right person and wait for processing.",
+
+      "paragraph4": "📋 The current shopping list below shows all products waiting to be ordered. If a product is no longer on the list, it means it has already been ordered.",
+
+      "footer": "💙 Thank you for helping keep our office running!"
+    },
+
+    "page": {
+      "back": "Main menu",
+      "thanks": "Thank you! ♡"
+    },
+
+    "currentList": {
+      "title": "Current Shopping List",
+
+      "expand": "Expand full list ↓",
+      "collapse": "Collapse list ↑",
+
+      "loading": "Loading shopping list...",
+
+      "empty": "The current shopping list is empty."
+    },
+
+    "form": {
+      "name": "Name *",
+      "namePlaceholder": "Enter your name",
+
+      "product": "What needs to be ordered? *",
+      "productPlaceholder": "e.g. milk, coffee, pens...",
+
+      "requestedBy": "Requested by",
+
+      "quantity": "Quantity *",
+      "unit": "Unit",
+
+      "saveChanges": "Save changes",
+
+      "submit": "Add to list",
+      "submitting": "Adding..."
+    },
+        "messages": {
+      "validation": "Please enter your name, product and quantity.",
+
+      "success": "Successfully added: {{product}}",
+
+      "addError": "Failed to add the product."
+    },
+
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "completed": "Completed"
+    },
+
+    "products": {
+      "one": "product",
+      "many": "products"
+    },
+
+    "history": {
+      "added": "Added",
+      "accepted": "Accepted",
+      "completed": "Completed"
+    },
+
+    "actions": {
+      "accept": "Accept",
+      "markCompleted": "Mark as completed"
+    },
+
+    "adminComment": {
+      "title": "Admin comment",
+      "placeholder": "Add a comment..."
+    },
+
+    "completed": {
+      "title": "Completed",
+
+      "searchPlaceholder": "Search product...",
+
+      "exportExcel": "Export to Excel",
+
+      "noDataExport": "No data to export.",
+
+      "empty": "No completed products.",
+
+      "emptySearch": "No matching products found."
+    },
+
+    "empty": {
+      "pending": "No pending requests.",
+      "accepted": "No accepted products."
+    },
+
+    "deleteDialog": {
+      "title": "Delete product",
+      "message": "Are you sure you want to delete \"{{product}}\"?"
+    },
+
+    "errors": {
+      "acceptFailed": "Failed to accept the product.",
+      "completeFailed": "Failed to mark the product as completed.",
+      "deleteFailed": "Failed to delete the product."
+    },
+
+    "excel": {
+      "sheetName": "Shopping",
+
+      "filePrefix": "shopping",
+
+      "columns": {
+        "month": "Month",
+        "product": "Product",
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "requestedBy": "Requested by",
+        "status": "Status",
+        "createdAt": "Added",
+        "orderedAt": "Accepted",
+        "completedAt": "Completed",
+        "adminComment": "Admin comment"
+      }
+    }
+  },
+    "calendar": {
+    "page": {
+      "title": "Company Calendar",
+      "description": "Company holidays, events and meetings.",
+      "back": "Main menu"
+    },
+
+    "navigation": {
+      "today": "Today",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month"
+    },
+
+    "weekDays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun",
+
+      "monShort": "Mon",
+      "tueShort": "Tue",
+      "wedShort": "Wed",
+      "thuShort": "Thu",
+      "friShort": "Fri",
+      "satShort": "Sat",
+      "sunShort": "Sun"
+    },
+
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December",
+
+      "januaryUpper": "JANUARY",
+      "februaryUpper": "FEBRUARY",
+      "marchUpper": "MARCH",
+      "aprilUpper": "APRIL",
+      "mayUpper": "MAY",
+      "juneUpper": "JUNE",
+      "julyUpper": "JULY",
+      "augustUpper": "AUGUST",
+      "septemberUpper": "SEPTEMBER",
+      "octoberUpper": "OCTOBER",
+      "novemberUpper": "NOVEMBER",
+      "decemberUpper": "DECEMBER"
+    },
+
+    "eventTypes": {
+      "company": "COMPANY",
+      "holiday": "HOLIDAY",
+      "birthday": "BIRTHDAY",
+      "meeting": "MEETING",
+      "vacation": "VACATION",
+      "other": "OTHER"
+    },
+
+    "empty": {
+      "title": "No events",
+      "description": "There are no events scheduled for the selected day."
+    },
+
+    "recurringEvent": "Recurring event",
+
+    "form": {
+      "title": "Title",
+      "location": "Location",
+      "description": "Description",
+      "date": "Date",
+      "time": "Time",
+      "type": "Event type",
+      "icon": "Icon",
+      "recurring": "Recurring event",
+
+      "placeholders": {
+        "title": "e.g. Board Meeting",
+        "location": "Conference room",
+        "description": "Event description..."
+      }
+    },
+
+    "admin": {
+      "title": "Manage Events",
+
+      "description": "Create, edit and manage company events.",
+
+      "loadingAccess": "Checking access...",
+
+      "accessDenied": {
+        "title": "Access denied",
+        "description": "The event panel is available to administrators only."
+      },
+
+      "new": "New event",
+      "edit": "Edit event",
+
+      "fillForm": "Complete the form and save the event.",
+
+      "save": "Save changes",
+      "create": "Add event",
+
+      "stats": {
+        "all": "All",
+        "recurring": "Recurring",
+        "upcoming": "Upcoming"
+      },
+
+      "validation": {
+        "titleRequired": "Enter the event title.",
+        "dateRequired": "Select the event date."
+      },
+
+      "errors": {
+        "save": "Failed to save the event.",
+        "delete": "Failed to delete the event."
+      },
+
+      "deleteDialog": {
+        "title": "Delete event",
+        "message": "Are you sure you want to delete this event?"
+      }
+    }
+  },
+    "notifications": {
+    "title": "Notifications",
+
+    "description": "New requests waiting to be read.",
+
+    "tabs": {
+      "new": "New",
+      "read": "Read"
+    },
+
+    "empty": {
+      "unread": "No new notifications.",
+      "read": "No read notifications."
+    },
+
+    "card": {
+      "newRequest": "New request",
+      "read": "Read",
+      "addedBy": "Added by",
+      "readAt": "Read at",
+      "markAsRead": "Mark as read"
+    },
+
+    "browser": {
+      "title": "📦 GB Zakupy",
+      "body": "{{user}} added: {{product}}"
+    }
+  },
+
+  "admin": {
+    "title": "Administrator Panel",
+
+    "login": {
+      "title": "Admin Panel",
+
+      "description": "Sign in as an administrator.",
+
+      "email": "Email address",
+
+      "password": "Password",
+
+      "login": "Sign in",
+
+      "loggingIn": "Signing in...",
+
+      "back": "Back to list",
+
+      "errors": {
+        "invalidCredentials": "Invalid credentials or no administrator permissions."
+      }
+    },
+
+    "dashboard": {
+      "title": "Dashboard",
+
+      "loading": "Loading data...",
+
+      "checkingPermissions": "Checking permissions...",
+
+      "accessDenied": {
+        "title": "Access denied",
+        "description": "An administrator account is required."
+      }
+    },
+
+    "sidebar": {
+      "shopping": "Shopping List",
+      "notifications": "Notifications",
+      "completed": "Completed",
+      "eventLog": "Event Log",
+      "companyCalendar": "Company Calendar",
+      "backToApp": "Back to application",
+      "logout": "Sign out"
+    },
+
+    "stats": {
+      "all": "All"
+    },
+
+    "eventLog": {
+      "title": "Event Log",
+      "empty": "No entries."
+    }
+  }
+}
