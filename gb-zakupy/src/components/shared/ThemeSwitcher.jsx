@@ -1,14 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 
-import "../../styles/theme-switcher.css";
+import "../../styles/switchers.css";
 
 export default function ThemeSwitcher() {
 
-    const {
-        theme,
-        setTheme
-    } = useTheme();
+    const { theme, setTheme } = useTheme();
 
     const [open, setOpen] = useState(false);
 
@@ -16,11 +13,11 @@ export default function ThemeSwitcher() {
 
     useEffect(() => {
 
-        function handleClick(e) {
+        function handleClickOutside(event) {
 
             if (
                 menuRef.current &&
-                !menuRef.current.contains(e.target)
+                !menuRef.current.contains(event.target)
             ) {
                 setOpen(false);
             }
@@ -29,37 +26,36 @@ export default function ThemeSwitcher() {
 
         document.addEventListener(
             "mousedown",
-            handleClick
+            handleClickOutside
         );
 
-        return () =>
+        return () => {
+
             document.removeEventListener(
                 "mousedown",
-                handleClick
+                handleClickOutside
             );
+
+        };
 
     }, []);
 
     const themes = [
-
         {
             id: "navy",
             name: "Navy",
             icon: "🌊"
         },
-
         {
             id: "forest",
             name: "Forest",
             icon: "🌿"
         },
-
         {
             id: "gold",
             name: "Gold",
             icon: "🥇"
         }
-
     ];
 
     return (
@@ -70,19 +66,11 @@ export default function ThemeSwitcher() {
         >
 
             <button
-
                 className="theme-button"
-
-                onClick={() =>
-                    setOpen(!open)
-                }
-
-                title="Motyw"
-
+                title="Wybierz motyw"
+                onClick={() => setOpen(!open)}
             >
-
                 🎨
-
             </button>
 
             {
@@ -93,37 +81,20 @@ export default function ThemeSwitcher() {
 
                         {
 
-                            themes.map((item)=>(
+                            themes.map((item) => (
 
                                 <button
-
                                     key={item.id}
-
-                                    className={
-
-                                        item.id === theme
-
-                                            ? "theme-option active"
-
-                                            : "theme-option"
-
-                                    }
-
-                                    onClick={()=>{
+                                    className={`theme-option ${theme === item.id ? "active" : ""}`}
+                                    onClick={() => {
 
                                         setTheme(item.id);
-
                                         setOpen(false);
 
                                     }}
-
                                 >
 
-                                    <span>
-
-                                        {item.icon}
-
-                                    </span>
+                                    <span>{item.icon}</span>
 
                                     {item.name}
 
