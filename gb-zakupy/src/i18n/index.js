@@ -5,16 +5,10 @@ import pl from "./locales/pl.json";
 import en from "./locales/en.json";
 import uk from "./locales/uk.json";
 
-// Zapisany język użytkownika
 const savedLanguage = localStorage.getItem("gb-language");
-
-// Język przeglądarki (np. pl-PL -> pl)
 const browserLanguage = navigator.language.split("-")[0];
-
-// Obsługiwane języki
 const supportedLanguages = ["pl", "en", "uk"];
 
-// Wybór języka
 const language =
     savedLanguage ||
     (supportedLanguages.includes(browserLanguage)
@@ -37,9 +31,7 @@ i18n
         },
 
         lng: language,
-
         fallbackLng: "pl",
-
         supportedLngs: supportedLanguages,
 
         interpolation: {
