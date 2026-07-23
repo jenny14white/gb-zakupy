@@ -52,6 +52,8 @@
     --surface-secondary:#F8FBFF;
     --surface-hover:#EEF5FF;
 
+    --surface-2:var(--surface-hover);
+
     /* =====================================================
        CARD
     ===================================================== */
@@ -59,6 +61,9 @@
     --card:#FFFFFF;
 
     --card-hover:#F7FAFE;
+
+    --card-glass:
+        rgba(255,255,255,.96);
 
     --card-gradient:
         linear-gradient(
@@ -114,12 +119,18 @@
 
     --glass-blur:18px;
 
+    --glass-shadow:
+        var(--shadow-medium);
+
     /* =====================================================
        BORDER
     ===================================================== */
 
     --border:#D7E6FA;
+
     --border-light:#EDF4FC;
+
+    --border-strong:#C9DBF7;
 
     /* =====================================================
        TEXT
@@ -130,6 +141,8 @@
     --text-secondary:#4B5D75;
 
     --text-muted:#7A889A;
+
+    --text-disabled:#94A3B8;
 
     --text-white:#FFFFFF;
 
@@ -163,6 +176,16 @@
     --input-placeholder:#94A3B8;
 
     /* =====================================================
+       BADGES
+    ===================================================== */
+
+    --badge-background:
+        var(--accent-light);
+
+    --badge-text:
+        var(--primary);
+
+    /* =====================================================
        STATUS
     ===================================================== */
 
@@ -173,6 +196,18 @@
     --danger:#D32F2F;
 
     --info:#1976D2;
+
+    /* =====================================================
+       STATUS BACKGROUNDS
+    ===================================================== */
+
+    --success-background:#DCFCE7;
+
+    --warning-background:#FEF3C7;
+
+    --danger-background:#FEE2E2;
+
+    --info-background:#DBEAFE;
 
     /* =====================================================
        SHADOWS
@@ -189,6 +224,16 @@
 
     --shadow-theme:
         0 15px 35px rgba(2,62,125,.28);
+
+    /* =====================================================
+       TRANSITIONS
+    ===================================================== */
+
+    --transition-fast:.2s;
+
+    --transition-normal:.25s;
+
+    --transition-slow:.35s;
 
 }
 /* =====================================================
@@ -243,6 +288,8 @@
     --surface-secondary:#FAFCF5;
     --surface-hover:#F0F7E5;
 
+    --surface-2:var(--surface-hover);
+
     /* =====================================================
        CARD
     ===================================================== */
@@ -250,6 +297,9 @@
     --card:#FFFFFF;
 
     --card-hover:#F5FAED;
+
+    --card-glass:
+        rgba(255,255,255,.96);
 
     --card-gradient:
         linear-gradient(
@@ -305,12 +355,18 @@
 
     --glass-blur:18px;
 
+    --glass-shadow:
+        var(--shadow-medium);
+
     /* =====================================================
        BORDER
     ===================================================== */
 
     --border:#D6E5BF;
+
     --border-light:#EAF4D8;
+
+    --border-strong:#CAD8B5;
 
     /* =====================================================
        TEXT
@@ -321,6 +377,8 @@
     --text-secondary:#556239;
 
     --text-muted:#7A8662;
+
+    --text-disabled:#8A9476;
 
     --text-white:#FFFFFF;
 
@@ -354,6 +412,16 @@
     --input-placeholder:#8A9476;
 
     /* =====================================================
+       BADGES
+    ===================================================== */
+
+    --badge-background:
+        var(--accent-light);
+
+    --badge-text:
+        var(--primary);
+
+    /* =====================================================
        STATUS
     ===================================================== */
 
@@ -364,6 +432,18 @@
     --danger:#C62828;
 
     --info:#4E5E07;
+
+    /* =====================================================
+       STATUS BACKGROUNDS
+    ===================================================== */
+
+    --success-background:#DCFCE7;
+
+    --warning-background:#FEF3C7;
+
+    --danger-background:#FEE2E2;
+
+    --info-background:#DBEAFE;
 
     /* =====================================================
        SHADOWS
@@ -380,6 +460,16 @@
 
     --shadow-theme:
         0 15px 35px rgba(46,54,4,.30);
+
+    /* =====================================================
+       TRANSITIONS
+    ===================================================== */
+
+    --transition-fast:.2s;
+
+    --transition-normal:.25s;
+
+    --transition-slow:.35s;
 
 }
 /* =====================================================
@@ -434,6 +524,8 @@
     --surface-secondary:#FFFDF8;
     --surface-hover:#FFF7EB;
 
+    --surface-2:var(--surface-hover);
+
     /* =====================================================
        CARD
     ===================================================== */
@@ -441,6 +533,9 @@
     --card:#FFFFFF;
 
     --card-hover:#FFF9EF;
+
+    --card-glass:
+        rgba(255,255,255,.96);
 
     --card-gradient:
         linear-gradient(
@@ -496,12 +591,18 @@
 
     --glass-blur:18px;
 
+    --glass-shadow:
+        var(--shadow-medium);
+
     /* =====================================================
        BORDER
     ===================================================== */
 
     --border:#F0D7A2;
+
     --border-light:#F7E8C8;
+
+    --border-strong:#EFD5A1;
 
     /* =====================================================
        TEXT
@@ -512,6 +613,8 @@
     --text-secondary:#8B6930;
 
     --text-muted:#A18353;
+
+    --text-disabled:#B59763;
 
     --text-white:#FFFFFF;
 
@@ -545,6 +648,16 @@
     --input-placeholder:#B59763;
 
     /* =====================================================
+       BADGES
+    ===================================================== */
+
+    --badge-background:
+        var(--accent-light);
+
+    --badge-text:
+        var(--primary);
+
+    /* =====================================================
        STATUS
     ===================================================== */
 
@@ -555,6 +668,18 @@
     --danger:#C62828;
 
     --info:#E19D29;
+
+    /* =====================================================
+       STATUS BACKGROUNDS
+    ===================================================== */
+
+    --success-background:#DCFCE7;
+
+    --warning-background:#FEF3C7;
+
+    --danger-background:#FEE2E2;
+
+    --info-background:#DBEAFE;
 
     /* =====================================================
        SHADOWS
@@ -571,5 +696,15 @@
 
     --shadow-theme:
         0 15px 35px rgba(225,157,41,.28);
+
+    /* =====================================================
+       TRANSITIONS
+    ===================================================== */
+
+    --transition-fast:.2s;
+
+    --transition-normal:.25s;
+
+    --transition-slow:.35s;
 
 }
