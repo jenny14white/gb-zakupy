@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 
-import "./ThemeSwitcher.css";
+import "../../styles/theme-switcher.css";
 
 export default function ThemeSwitcher() {
 
