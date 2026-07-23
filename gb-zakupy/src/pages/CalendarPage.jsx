@@ -24,7 +24,7 @@ export default function CalendarPage({
                     className="back-button"
                     onClick={goBack}
                 >
-                    ← {t("common.mainMenu")}
+                    ← {t("calendar.page.back")}
                 </button>
 
                 <div className="calendar-header-top">
@@ -34,11 +34,11 @@ export default function CalendarPage({
                     </p>
 
                     <h1>
-                        {t("calendar.title")}
+                        {t("calendar.page.title")}
                     </h1>
 
                     <p className="calendar-description">
-                        {t("calendar.description")}
+                        {t("calendar.page.description")}
                     </p>
 
                 </div>
