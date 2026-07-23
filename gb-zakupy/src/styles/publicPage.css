@@ -1,5 +1,5 @@
 /* =======================================================
-   STRONA PUBLICZNA - GB NAVY GLASS
+   STRONA PUBLICZNA
 ======================================================= */
 
 .public-page{
@@ -8,33 +8,13 @@
 
     padding:28px 20px 40px;
 
-
     display:flex;
 
     flex-direction:column;
 
     align-items:center;
 
-
-
-    background:
-
-
-
-        radial-gradient(
-            circle at top left,
-            rgba(3,83,164,.45),
-            transparent 35%
-        ),
-
-
-
-        linear-gradient(
-            135deg,
-            #001233,
-            #001845,
-            #023e7d
-        );
+    background:var(--page-gradient);
 
 }
 
@@ -47,6 +27,7 @@
     width:min(720px,100%);
 
     display:grid;
+
     grid-template-columns:1fr 1fr;
 
     gap:18px;
@@ -59,21 +40,24 @@
 .admin-button-top{
 
     border:none;
+
     border-radius:22px;
 
     padding:18px;
 
     display:flex;
+
     align-items:center;
+
     gap:16px;
 
     cursor:pointer;
 
-    color:white;
+    color:var(--text-white);
 
     transition:.25s;
 
-    box-shadow:0 12px 28px rgba(15,23,42,.12);
+    box-shadow:var(--shadow-small);
 
 }
 
@@ -85,7 +69,7 @@
 
 .admin-button-top{
 
-    background:linear-gradient(135deg,#0b63b8,#084b91);
+    background:var(--header-gradient);
 
 }
 
@@ -94,7 +78,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 18px 36px rgba(15,23,42,.18);
+    box-shadow:var(--shadow-medium);
 
 }
 
@@ -108,15 +92,18 @@
 .action-icon{
 
     width:44px;
+
     height:44px;
 
     border-radius:16px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    background:rgba(255,255,255,.18);
+    background:var(--glass-background);
 
     font-size:24px;
 
@@ -127,6 +114,7 @@
 .action-content{
 
     display:flex;
+
     flex-direction:column;
 
     align-items:flex-start;
@@ -140,20 +128,22 @@
 .action-content strong{
 
     font-size:18px;
+
     font-weight:800;
 
     margin-bottom:5px;
 
-    color:white;
+    color:var(--text-white);
 
 }
 
 .action-content span{
 
     font-size:14px;
+
     line-height:1.45;
 
-    color:rgba(255,255,255,.92);
+    color:var(--text-on-primary);
 
 }
 
@@ -181,7 +171,7 @@
 
     overflow:hidden;
 
-    box-shadow:0 22px 60px rgba(15,23,42,.18);
+    box-shadow:var(--shadow-large);
 
 }
 
@@ -192,9 +182,11 @@
     position:absolute;
 
     left:38px;
+
     top:0;
 
     width:2px;
+
     height:100%;
 
     background:rgba(239,68,68,.22);
@@ -206,6 +198,7 @@
     position:absolute;
 
     left:12px;
+
     top:28px;
 
     display:grid;
@@ -217,16 +210,18 @@
 .holes span{
 
     width:15px;
+
     height:15px;
 
     border-radius:50%;
 
-    background:#f1f5f9;
+    background:var(--surface);
 
     box-shadow:
         inset 0 2px 5px rgba(0,0,0,.14);
 
 }
+
 /* =======================================================
    SZERSZY NOTES NA DESKTOPIE
 ======================================================= */
@@ -250,6 +245,7 @@
     }
 
 }
+
 /* =======================================================
    NAGŁÓWEK
 ======================================================= */
@@ -259,6 +255,7 @@
     display:block;
 
     width:120px;
+
     max-height:82px;
 
     object-fit:contain;
@@ -273,7 +270,7 @@
 
     text-align:center;
 
-    color:#0b4f99;
+    color:var(--primary);
 
     font-size:clamp(34px,7vw,50px);
 
@@ -289,10 +286,9 @@
 
 .intro-box{
 
-    background:
-        linear-gradient(135deg,#fff4c9,#fff9e9);
+    background:var(--card);
 
-    border:1px solid rgba(255,214,102,.45);
+    border:1px solid var(--border);
 
     border-radius:18px;
 
@@ -302,7 +298,9 @@
 
     line-height:1.7;
 
-    color:#374151;
+    color:var(--text);
+
+    box-shadow:var(--shadow-small);
 
 }
 
@@ -320,7 +318,7 @@
 
 .intro-box strong{
 
-    color:#0b4f99;
+    color:var(--primary);
 
 }
 
@@ -330,12 +328,11 @@
 
     text-align:center;
 
-    color:#0b63b8;
+    color:var(--primary);
 
     font-weight:700;
 
 }
-
 /* =======================================================
    FORMULARZ
 ======================================================= */
@@ -343,7 +340,9 @@
 .shopping-form,
 .current-list-wrapper{
 
-    background:rgba(255,255,255,.96);
+    background:var(--card);
+
+    border:1px solid var(--border);
 
     border-radius:16px;
 
@@ -351,7 +350,7 @@
 
     margin-bottom:16px;
 
-    box-shadow:0 10px 24px rgba(15,23,42,.08);
+    box-shadow:var(--shadow-small);
 
 }
 
@@ -364,10 +363,17 @@
 }
 
 .shopping-form label{
+
     display:grid;
+
     gap:6px;
+
     font-weight:700;
+
     font-size:15px;
+
+    color:var(--text);
+
 }
 
 .shopping-form input,
@@ -380,11 +386,20 @@
 
     border-radius:12px;
 
-    border:1px solid #d4d9e2;
+    border:1px solid var(--input-border);
 
-    background:white;
+    background:var(--input-background);
+
+    color:var(--text);
 
     font-size:15px;
+
+}
+
+.shopping-form input::placeholder,
+.shopping-form textarea::placeholder{
+
+    color:var(--input-placeholder);
 
 }
 
@@ -402,7 +417,7 @@
 
     outline:none;
 
-    border-color:#0b63b8;
+    border-color:var(--input-focus);
 
     box-shadow:0 0 0 4px rgba(11,99,184,.12);
 
@@ -426,14 +441,15 @@
 
     border-radius:14px;
 
-    background:
-        linear-gradient(135deg,#0b63b8,#084b91);
+    background:var(--header-gradient);
 
-    color:white;
+    color:var(--text-white);
 
     font-size:15px;
 
     font-weight:800;
+
+    letter-spacing:.2px;
 
     transition:.25s;
 
@@ -443,7 +459,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 12px 24px rgba(11,99,184,.22);
+    box-shadow:var(--shadow-theme);
 
 }
 
@@ -455,9 +471,9 @@
 
 .success-message{
 
-    background:#dcfce7;
+    background:var(--success-background);
 
-    color:#166534;
+    color:var(--success);
 
     padding:12px;
 
@@ -469,9 +485,9 @@
 
 .error-message{
 
-    background:#fee2e2;
+    background:var(--danger-background);
 
-    color:#991b1b;
+    color:var(--danger);
 
     padding:12px;
 
@@ -491,7 +507,7 @@
 
     text-align:center;
 
-    color:#0b63b8;
+    color:var(--primary);
 
     font-size:24px;
 
@@ -500,6 +516,7 @@
     font-weight:700;
 
 }
+
 /* =======================================================
    LISTA ZAKUPÓW
 ======================================================= */
@@ -508,7 +525,7 @@
 
     margin:0 0 18px;
 
-    color:#0f3d75;
+    color:var(--primary);
 
 }
 
@@ -522,17 +539,21 @@
 
 .shopping-item{
 
+    position:relative;
+
+    overflow:hidden;
+
     display:grid;
 
     gap:12px;
 
     padding:18px;
 
-    background:#fff;
+    background:var(--card);
 
-    border:1px solid #dbe7f5;
+    border:1px solid var(--border-light);
 
-    border-left:5px solid #0b63b8;
+    border-left:5px solid var(--primary);
 
     border-radius:18px;
 
@@ -544,7 +565,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 10px 24px rgba(15,23,42,.08);
+    box-shadow:var(--shadow-small);
 
 }
 
@@ -564,7 +585,7 @@
 
     margin:0;
 
-    color:#0f3d75;
+    color:var(--text);
 
     font-size:20px;
 
@@ -578,9 +599,9 @@
 
     border-radius:999px;
 
-    background:#e7f1ff;
+    background:var(--accent-light);
 
-    color:#0b63b8;
+    color:var(--primary);
 
     font-size:14px;
 
@@ -600,7 +621,7 @@
 
     gap:12px;
 
-    color:#64748b;
+    color:var(--text-secondary);
 
     font-size:14px;
 
@@ -612,11 +633,11 @@
 
     text-align:center;
 
-    color:#64748b;
+    color:var(--text-secondary);
 
     border-radius:16px;
 
-    background:#f8fafc;
+    background:var(--surface);
 
 }
 
@@ -664,20 +685,19 @@
 
     padding:12px 14px;
 
-    background:#f8fafc;
+    background:var(--surface);
 
-    border-left:4px solid #0b63b8;
+    border-left:4px solid var(--primary);
 
     border-radius:12px;
 
-    color:#475569;
+    color:var(--text-secondary);
 
     line-height:1.5;
 
     font-size:14px;
 
 }
-
 /* =======================================================
    RESPONSYWNOŚĆ
 ======================================================= */
@@ -815,6 +835,7 @@
     }
 
 }
+
 /* =======================================================
    DROBNE ANIMACJE
 ======================================================= */
@@ -856,22 +877,14 @@
 .shopping-form textarea:hover,
 .shopping-form select:hover{
 
-    border-color:#bfd5f2;
+    border-color:var(--input-focus);
 
 }
 
 .shopping-form input::placeholder,
 .shopping-form textarea::placeholder{
 
-    color:#94a3b8;
-
-}
-
-.shopping-item{
-
-    position:relative;
-
-    overflow:hidden;
+    color:var(--input-placeholder);
 
 }
 
@@ -926,7 +939,7 @@
 .admin-button-top:focus-visible,
 .submit-button:focus-visible{
 
-    outline:3px solid rgba(255,255,255,.6);
+    outline:3px solid var(--accent);
 
     outline-offset:3px;
 
@@ -960,50 +973,64 @@
     letter-spacing:.2px;
 
 }
+
 /* ===============================
    ROZWIJANY OPIS NA TELEFONACH
 ================================ */
 
 .intro-mobile summary{
+
     cursor:pointer;
+
     font-weight:700;
-    color:#0b4f99;
+
+    color:var(--primary);
+
     list-style:none;
+
     font-size:17px;
+
     outline:none;
+
 }
 
 .intro-mobile summary::-webkit-details-marker{
+
     display:none;
+
 }
 
 .intro-mobile summary::after{
+
     content:"▼";
+
     float:right;
+
     transition:.2s;
+
 }
 
 .intro-mobile[open] summary::after{
+
     content:"▲";
+
 }
 
 .intro-mobile p:first-of-type{
+
     margin-top:18px;
+
 }
 /* =======================================================
    ROZWIJANA LISTA ZAKUPOWA + FALA
 ======================================================= */
-
-
-/* =======================================================
-   ROZWIJANA LISTA ZAKUPOWA + FALA
-======================================================= */
-
 
 .current-list-header{
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     gap:12px;
@@ -1012,20 +1039,13 @@
 
 }
 
-
-
 .expand-list-button{
 
     border:none;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0b63b8,
-            #084b91
-        );
+    background:var(--header-gradient);
 
-    color:white;
+    color:var(--text-white);
 
     padding:10px 18px;
 
@@ -1037,31 +1057,23 @@
 
     transition:.25s;
 
-    box-shadow:
-        0 8px 18px rgba(11,99,184,.22);
+    box-shadow:var(--shadow-small);
 
 }
-
-
 
 .expand-list-button:hover{
 
     transform:translateY(-2px);
 
+    box-shadow:var(--shadow-theme);
+
 }
-
-
 
 .expand-list-button:active{
 
     transform:scale(.96);
 
 }
-
-
-
-
-
 
 /* LISTA ZWINIĘTA */
 
@@ -1075,15 +1087,9 @@
 
     overflow:hidden;
 
-    transition:
-        max-height .8s ease;
+    transition:max-height .8s ease;
 
 }
-
-
-
-
-
 
 /* LISTA ROZWINIĘTA */
 
@@ -1092,11 +1098,6 @@
     max-height:5000px;
 
 }
-
-
-
-
-
 
 .shopping-wave-item{
 
@@ -1114,11 +1115,6 @@
 
 }
 
-
-
-
-
-
 /* chowamy wszystkie poza pierwszym */
 
 .shopping-list.collapsed
@@ -1126,9 +1122,7 @@
 
     opacity:0;
 
-    transform:
-
-        translateY(-20px);
+    transform:translateY(-20px);
 
     pointer-events:none;
 
@@ -1138,75 +1132,38 @@
 
 }
 
-
-
-
-
-
-
 /* animacja rozwijania */
 
 .shopping-list.expanded
 .shopping-wave-item{
 
-
-    animation:
-
-        listReveal .45s ease forwards;
-
+    animation:listReveal .45s ease forwards;
 
 }
-
-
-
-
-
 
 @keyframes listReveal{
 
-
     from{
-
 
         opacity:0;
 
-
-        transform:
-
-            translateY(35px);
-
+        transform:translateY(35px);
 
     }
-
 
     to{
 
-
         opacity:1;
 
-
-        transform:
-
-            translateY(0);
-
+        transform:translateY(0);
 
     }
 
-
 }
-
-
-
-
-
-
-
 
 /* delikatna fala kart */
 
-
 .shopping-wave-item .shopping-item{
-
 
     transition:
 
@@ -1214,61 +1171,37 @@
 
         box-shadow .25s ease;
 
-
 }
-
-
-
-
 
 .shopping-wave-item:hover
 .shopping-item{
 
-
     transform:
-
         translateY(-4px)
         rotate(.3deg);
 
-
-
-    box-shadow:
-
-        0 18px 35px rgba(15,23,42,.12);
-
+    box-shadow:var(--shadow-medium);
 
 }
 
-
-
-
-
-
 @media(max-width:700px){
 
-
     .current-list-header{
-
 
         flex-direction:column;
 
         align-items:stretch;
 
-
     }
-
-
 
     .expand-list-button{
 
-
         width:100%;
-
 
     }
 
-
 }
+
 /* =======================================================
    UKŁAD DESKTOP - FORMULARZ + LISTA
 ======================================================= */
@@ -1306,6 +1239,7 @@
     }
 
 }
+
 /* =======================================================
    PRZYCISK POWROTU - DESKTOP
 ======================================================= */
@@ -1330,15 +1264,17 @@
 
         padding:12px 22px;
 
-        border:none;
+        border:1px solid var(--glass-border);
 
         border-radius:999px;
 
-        background:rgba(255,255,255,.96);
+        background:var(--glass-background);
 
-        backdrop-filter:blur(12px);
+        backdrop-filter:blur(var(--glass-blur));
 
-        color:#0b4f99;
+        -webkit-backdrop-filter:blur(var(--glass-blur));
+
+        color:var(--text);
 
         font-size:15px;
 
@@ -1346,12 +1282,14 @@
 
         cursor:pointer;
 
-        box-shadow:
-            0 12px 30px rgba(0,0,0,.18);
+        box-shadow:var(--shadow-medium);
 
         transition:
+
             transform .25s,
+
             box-shadow .25s,
+
             background .25s;
 
     }
@@ -1360,10 +1298,9 @@
 
         transform:translateY(-2px);
 
-        background:white;
+        background:var(--glass-hover);
 
-        box-shadow:
-            0 18px 40px rgba(0,0,0,.22);
+        box-shadow:var(--shadow-theme);
 
     }
 
@@ -1374,6 +1311,7 @@
     }
 
 }
+
 @media (min-width:1400px){
 
     .current-list-wrapper{
