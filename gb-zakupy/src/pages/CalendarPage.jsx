@@ -13,6 +13,7 @@ export default function CalendarPage({
         new Date().getFullYear()
     );
 
+    
     return (
 
         <main className="calendar-page">
