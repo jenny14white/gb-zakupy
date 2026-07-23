@@ -1,1 +1,222 @@
+/* =====================================================
+   GB PORTAL
+   SWITCHERS
+===================================================== */
 
+/* =====================================================
+   KONTENERY
+===================================================== */
+
+.theme-switcher,
+.language-switcher{
+
+    position:relative;
+
+    display:inline-flex;
+
+    align-items:center;
+
+}
+
+/* =====================================================
+   PRZYCISKI
+===================================================== */
+
+.theme-button,
+.language-button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-width:46px;
+    height:46px;
+
+    padding:0 16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.22);
+
+    transition:.25s ease;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.18);
+
+}
+
+.theme-button:hover,
+.language-button:hover{
+
+    transform:translateY(-2px);
+
+    background:rgba(255,255,255,.24);
+
+}
+
+.theme-button:active,
+.language-button:active{
+
+    transform:scale(.96);
+
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.theme-menu,
+.language-menu{
+
+    position:absolute;
+
+    top:58px;
+
+    right:0;
+
+    width:220px;
+
+    padding:8px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.16);
+
+    animation:switcherFade .2s ease;
+
+    z-index:9999;
+
+}
+
+/* =====================================================
+   OPCJE
+===================================================== */
+
+.theme-option,
+.language-option{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    transition:.2s;
+
+}
+
+.theme-option:hover,
+.language-option:hover{
+
+    background:var(--surface-2);
+
+}
+
+.theme-option.active,
+.language-option.active{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+}
+
+.theme-option span,
+.language-option span{
+
+    font-size:20px;
+
+}
+
+/* =====================================================
+   ANIMACJA
+===================================================== */
+
+@keyframes switcherFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+    .theme-button,
+    .language-button{
+
+        height:42px;
+
+        min-width:42px;
+
+        padding:0 14px;
+
+        font-size:15px;
+
+    }
+
+    .theme-menu,
+    .language-menu{
+
+        width:190px;
+
+    }
+
+}
