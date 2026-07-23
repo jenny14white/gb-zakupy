@@ -1,15 +1,12 @@
 /* =====================================================
-   GB HOME PAGE - PREMIUM NAVY GLASS
+   GB HOME PAGE - PREMIUM
 ===================================================== */
-
 
 /* ===============================
    STRONA
 ================================ */
 
-
 .home-page{
-
 
     position:relative;
 
@@ -17,554 +14,237 @@
 
     isolation:isolate;
 
-
-
     min-height:100vh;
-
-
 
     padding:30px;
 
-
-
     display:flex;
-
-
 
     align-items:center;
 
-
     justify-content:center;
 
-
-
-
-
-    background:
-
-
-
-    radial-gradient(
-        circle at top left,
-        rgba(3,83,164,.45),
-        transparent 35%
-    ),
-
-
-
-    linear-gradient(
-
-        135deg,
-
-        #001233,
-
-        #001845,
-
-        #023e7d
-
-    );
-
+    background:var(--page-gradient);
 
 }
-
-
-
-
-
-
 
 /* ===============================
    DELIKATNY GLOW
 ================================ */
 
-
-
 .home-page::before{
-
 
     content:"";
 
-
     position:absolute;
-
 
     width:500px;
 
-
     height:500px;
-
 
     top:-200px;
 
-
     right:-150px;
 
-
-
     background:
-
-
-    radial-gradient(
-
-        circle,
-
-        rgba(86,163,166,.25),
-
-        transparent 70%
-
-    );
-
-
+        radial-gradient(
+            circle,
+            rgba(86,163,166,.25),
+            transparent 70%
+        );
 
     filter:blur(40px);
 
-
-
     z-index:0;
 
-
-
 }
-
-
-
-
-
-
-
 
 /* ===============================
    CONTAINER
 ================================ */
 
-
-
 .home-container{
-
 
     position:relative;
 
-
     z-index:2;
-
-
 
     width:100%;
 
-
-
     max-width:1100px;
 
-
-
 }
-
-
-
-
-
-
-
 
 /* ===============================
    HEADER
 ================================ */
 
-
-
 .home-header{
-
-
 
     text-align:center;
 
-
-
     margin-bottom:55px;
-
-
 
 }
 
-
-
-
-
-
-
-
-/* LOGO */
-
+/* ===============================
+   LOGO
+================================ */
 
 .home-logo{
 
-
     width:130px;
-
 
     height:130px;
 
-
-
     margin:0 auto 25px;
 
-
-
-
-
-    background:white;
-
-
+    background:var(--logo-background);
 
     border-radius:50%;
 
-
-
     padding:12px;
-
-
 
     display:flex;
 
-
-
     align-items:center;
-
-
 
     justify-content:center;
 
+    border:3px solid var(--glass-border);
 
+    box-shadow:var(--logo-shadow);
 
-
-
-    border:
-
-
-    3px solid rgba(255,255,255,.5);
-
-
-
-
-
-    box-shadow:
-
-
-
-    0 25px 60px rgba(0,0,0,.35),
-
-
-
-    0 0 40px rgba(142,197,255,.35);
-
-
-
-
-
-    animation:
-
-
-    logoFloat 4s ease-in-out infinite;
-
-
+    animation:logoFloat 4s ease-in-out infinite;
 
 }
-
-
-
-
-
 
 .home-logo img{
 
-
     width:100%;
-
 
     height:100%;
 
-
     object-fit:contain;
 
-
 }
-
-
-
-
-
-
-
 
 @keyframes logoFloat{
 
-
     0%,100%{
-
 
         transform:translateY(0);
 
-
     }
-
-
 
     50%{
 
-
         transform:translateY(-8px);
-
 
     }
 
-
 }
 
-
-
-
-
-
-
-
-
-/* TYTUŁ */
-
-
+/* ===============================
+   TYTUŁ
+================================ */
 
 .home-header h1{
 
-
-
     margin:0;
 
-
-
-    font-size:
-
-
-        clamp(42px,7vw,68px);
-
-
+    font-size:clamp(42px,7vw,68px);
 
     letter-spacing:2px;
 
-
-
     font-weight:900;
 
-
-
-
-
-    background:
-
-
-
-    linear-gradient(
-
-        120deg,
-
-        #ffffff,
-
-        #8ec5ff,
-
-        #ffffff
-
-    );
-
-
-
-
+    background:var(--title-gradient);
 
     background-size:250% auto;
 
-
-
-
-
     -webkit-background-clip:text;
-
 
     background-clip:text;
 
-
-
     color:transparent;
 
+    text-shadow:var(--shadow-theme);
 
-
-
-
-    animation:
-
-
-    metalShine 5s linear infinite;
-
-
+    animation:metalShine 5s linear infinite;
 
 }
-
-
-
-
-
-
-
 
 @keyframes metalShine{
 
-
     from{
 
-
-        background-position:
-
-        200% center;
-
+        background-position:200% center;
 
     }
-
 
     to{
 
-
-        background-position:
-
-        -200% center;
-
+        background-position:-200% center;
 
     }
 
-
 }
-
-
-
-
-
-
-
 
 .home-header p{
 
-
     margin-top:12px;
 
-
-
-    color:
-
-
-    rgba(230,240,255,.85);
-
-
+    color:var(--text-on-primary);
 
     font-size:18px;
 
-
-
 }
-
-
-
-
-
-
-
-
-
 
 /* ===============================
    KARTY
 ================================ */
 
-
-
 .home-options{
-
 
     display:grid;
 
-
-
-    grid-template-columns:
-
-
-    repeat(3,1fr);
-
-
+    grid-template-columns:repeat(3,1fr);
 
     gap:30px;
 
-
-
 }
-
-
-
-
-
-
-
-
-
 
 /* ===============================
    RESPONSIVE
 ================================ */
 
-
-
-@media(max-width:900px){
-
-
+@media (max-width:900px){
 
     .home-page{
 
-
         padding:18px;
 
-
     }
-
-
-
 
     .home-options{
 
-
         grid-template-columns:1fr;
 
-
-
     }
-
-
-
-
 
     .home-header h1{
 
-
         font-size:44px;
 
-
     }
-
-
 
     .home-logo{
 
-
         width:110px;
-
 
         height:110px;
 
-
     }
-
-
 
 }
