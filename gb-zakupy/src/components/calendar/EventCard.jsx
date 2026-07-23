@@ -1,7 +1,5 @@
 export default function EventCard({ event }) {
-
   function safeText(value) {
-
     if (value == null) return "";
 
     if (typeof value === "string") return value;
@@ -17,7 +15,6 @@ export default function EventCard({ event }) {
     }
 
     return "";
-
   }
 
   const title = safeText(event.title);
@@ -29,9 +26,7 @@ export default function EventCard({ event }) {
   const formattedDate = safeText(event.date);
 
   function getBadgeText() {
-
     switch (type) {
-
       case "company":
       case "firma":
         return "FIRMA";
@@ -54,87 +49,52 @@ export default function EventCard({ event }) {
 
       default:
         return "INNE";
-
     }
-
   }
 
   return (
-
     <article className={`event-card ${type}`}>
-
       <div className="event-card-header">
-
         <h3 className="event-title">
-
           {emoji && <span className="event-emoji">{emoji}</span>}
-
           {title}
-
         </h3>
 
         <span className={`event-badge ${type}`}>
-
           {getBadgeText()}
-
         </span>
-
       </div>
 
       <div className="event-divider"></div>
 
       <div className="event-card-body">
-
         {formattedDate && (
-
-          <div className="event-row">
-
+          <div className="event-row date">
             <span className="event-icon">📅</span>
-
-            <span>{formattedDate}</span>
-
+            <span className="event-text">{formattedDate}</span>
           </div>
-
         )}
 
         {time && (
-
           <div className="event-row">
-
             <span className="event-icon">🕒</span>
-
-            <span>{time}</span>
-
+            <span className="event-text">{time}</span>
           </div>
-
         )}
 
         {location && (
-
           <div className="event-row">
-
             <span className="event-icon">📍</span>
-
-            <span>{location}</span>
-
+            <span className="event-text">{location}</span>
           </div>
-
         )}
 
         {description && (
-
           <div className="event-description">
-
             {description}
-
           </div>
-
         )}
-
       </div>
-
     </article>
-
   );
-
 }
