@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import PublicHeader from "../components/public/PublicHeader";
 import ShoppingForm from "../components/public/ShoppingForm";
 import CurrentShoppingList from "../components/public/CurrentShoppingList";
@@ -5,54 +7,56 @@ import CurrentShoppingList from "../components/public/CurrentShoppingList";
 import { usePublicOrders } from "../hooks/usePublicOrders";
 
 export default function PublicShoppingPage({
-  goBack,
+    goBack,
 }) {
 
-  const {
-    orders,
-    loading,
-  } = usePublicOrders();
+    const { t } = useTranslation();
 
-  return (
+    const {
+        orders,
+        loading,
+    } = usePublicOrders();
 
-    <main className="public-page">
+    return (
 
-      <button
-        className="back-home-button"
-        onClick={goBack}
-      >
-        ← Menu główne
-      </button>
+        <main className="public-page">
 
-      <section className="paper">
+            <button
+                className="back-home-button"
+                onClick={goBack}
+            >
+                ← {t("common.mainMenu")}
+            </button>
 
-        <div className="holes">
-          {Array.from({ length: 12 }).map((_, index) => (
-            <span key={index} />
-          ))}
-        </div>
+            <section className="paper">
 
-        <PublicHeader />
+                <div className="holes">
+                    {Array.from({ length: 12 }).map((_, index) => (
+                        <span key={index} />
+                    ))}
+                </div>
 
-        <div className="shopping-layout">
+                <PublicHeader />
 
-          <ShoppingForm />
+                <div className="shopping-layout">
 
-          <CurrentShoppingList
-            items={orders}
-            loading={loading}
-          />
+                    <ShoppingForm />
 
-        </div>
+                    <CurrentShoppingList
+                        items={orders}
+                        loading={loading}
+                    />
 
-        <p className="thanks">
-          Dziękujemy! ♡
-        </p>
+                </div>
 
-      </section>
+                <p className="thanks">
+                    {t("shopping.thankYou")}
+                </p>
 
-    </main>
+            </section>
 
-  );
+        </main>
+
+    );
 
 }
