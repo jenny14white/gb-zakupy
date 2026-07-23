@@ -1,7 +1,6 @@
 /* =====================================
-   GB GOOEY CARD - PREMIUM GLASS BLUE
+   GB GOOEY CARD - PREMIUM GLASS
 ===================================== */
-
 
 .gooey-card{
 
@@ -9,403 +8,185 @@
 
     overflow:hidden;
 
-
     min-height:240px;
-
 
     border:none;
 
     cursor:pointer;
 
-
     border-radius:34px;
-
 
     padding:35px;
 
-
     text-align:left;
 
+    background:var(--glass-background);
 
+    backdrop-filter:blur(24px);
 
-    background:
+    -webkit-backdrop-filter:blur(24px);
 
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.08)
-        );
+    border:1px solid var(--glass-border);
 
-
-
-    backdrop-filter:
-
-        blur(24px);
-
-
-    -webkit-backdrop-filter:
-
-        blur(24px);
-
-
-
-    border:
-
-        1px solid rgba(255,255,255,.25);
-
-
-
-    color:white;
-
-
+    color:var(--text-white);
 
     transition:
-
-        transform .35s ease,
-
-        box-shadow .35s ease,
-
-        background .35s ease,
-
-        border-color .35s ease;
-
-
+        transform var(--transition-slow),
+        box-shadow var(--transition-slow),
+        background var(--transition-slow),
+        border-color var(--transition-slow);
 
     isolation:isolate;
 
-
-
 }
-
-
-
-
-
 
 .gooey-card::before{
 
-
     content:"";
-
 
     position:absolute;
 
-
     inset:0;
 
-
-    background:
-
-
-        radial-gradient(
-            circle at top right,
-            rgba(86,163,166,.35),
-            transparent 45%
-        );
-
-
+    background:var(--page-glow);
 
     opacity:.7;
 
-
     z-index:-1;
-
 
     transition:.5s;
 
-
-
 }
-
-
-
-
-
 
 .gooey-card:hover{
 
+    transform:translateY(-10px);
 
-    transform:
+    border-color:var(--accent);
 
+    background:var(--glass-hover);
 
-        translateY(-10px);
-
-
-
-    border-color:
-
-
-        rgba(142,197,255,.6);
-
-
-
-    background:
-
-
-        rgba(255,255,255,.18);
-
-
-
-    box-shadow:
-
-
-        0 35px 90px rgba(0,0,0,.4);
-
-
+    box-shadow:var(--shadow-large);
 
 }
-
-
-
-
-
-
 
 .gooey-card:hover::before{
 
-
-    transform:
-
-        scale(1.25);
-
+    transform:scale(1.25);
 
 }
-
-
-
-
-
-
 
 /* =====================================
    CONTENT
 ===================================== */
 
-
 .gooey-content{
-
 
     position:relative;
 
-
     z-index:2;
 
-
-
 }
-
-
-
-
-
 
 .gooey-line{
 
-
     width:50px;
-
 
     height:4px;
 
-
-
     border-radius:20px;
 
-
-
     background:
-
-
         linear-gradient(
             90deg,
-            #56a3a6,
-            #8ec5ff
+            var(--accent-dark),
+            var(--accent)
         );
-
-
 
     margin-bottom:30px;
 
-
-
 }
-
-
-
-
-
 
 .gooey-card h3{
 
-
     margin:0 0 14px;
-
-
 
     font-size:28px;
 
-
-
     font-weight:900;
-
-
 
     letter-spacing:-.6px;
 
-
-
-    color:#ffffff;
-
-
+    color:var(--text-white);
 
 }
-
-
-
-
-
 
 .gooey-card p{
 
-
     margin:0;
-
-
 
     max-width:280px;
 
-
-
-    color:
-
-
-        rgba(230,240,255,.85);
-
-
+    color:var(--text-on-primary);
 
     font-size:16px;
 
-
-
     line-height:1.55;
 
-
-
 }
-
-
-
-
-
 
 .gooey-arrow{
 
-
     display:block;
-
-
 
     margin-top:30px;
 
-
-
     font-size:34px;
 
+    color:var(--accent);
 
-
-    color:#8ec5ff;
-
-
-
-    transition:.35s;
-
-
+    transition:var(--transition-slow);
 
 }
-
-
-
-
-
-
 
 .gooey-card:hover .gooey-arrow{
 
+    transform:translateX(12px);
 
-    transform:
-
-
-        translateX(12px);
-
-
-
-    color:white;
-
-
+    color:var(--text-white);
 
 }
 
-
-
-
-
-
 /* =====================================
-   ACTIVE CLICK
+   ACTIVE
 ===================================== */
-
 
 .gooey-card:active{
 
-
-    transform:
-
-
-        scale(.97);
-
-
+    transform:scale(.97);
 
 }
-
-
-
-
-
 
 /* =====================================
    MOBILE
 ===================================== */
 
-
 @media(max-width:700px){
-
 
     .gooey-card{
 
-
         min-height:210px;
-
 
         padding:28px;
 
-
         border-radius:28px;
 
-
-
     }
-
-
 
     .gooey-card h3{
 
-
         font-size:24px;
 
-
-
     }
-
-
 
 }
