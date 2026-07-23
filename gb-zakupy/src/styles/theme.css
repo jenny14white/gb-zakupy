@@ -1,79 +1,182 @@
 /* =====================================================
-   GB PORTAL
-   DESIGN SYSTEM
-   NIE WPISUJEMY KOLORÓW W INNYCH PLIKACH CSS
-===================================================== */
-
-
-/* =====================================================
-   NAVY (DEFAULT)
+   GB PORTAL DESIGN SYSTEM
+   CZĘŚĆ 1 - NAVY (DEFAULT)
 ===================================================== */
 
 :root,
 [data-theme="navy"]{
 
-    /* ========= PRIMARY ========= */
+    /* =====================================================
+       PRIMARY
+    ===================================================== */
 
     --primary:#023E7D;
     --primary-light:#0353A4;
     --primary-dark:#001233;
 
-    /* ========= SECONDARY ========= */
+    /* =====================================================
+       ACCENT
+    ===================================================== */
 
-    --secondary:#4EA8DE;
-    --secondary-light:#89C2FF;
+    --accent:#8EC5FF;
+    --accent-light:#B8DBFF;
+    --accent-dark:#4EA8DE;
 
-    /* ========= BACKGROUND ========= */
+    /* =====================================================
+       BACKGROUND
+    ===================================================== */
 
     --background:#F4F8FD;
     --background-secondary:#EAF2FB;
 
-    /* ========= SURFACE ========= */
+    --page-gradient:
+        linear-gradient(
+            135deg,
+            #001233,
+            #001845,
+            #023E7D
+        );
+
+    --page-glow:
+        radial-gradient(
+            circle,
+            rgba(86,163,166,.25),
+            transparent 70%
+        );
+
+    /* =====================================================
+       SURFACE
+    ===================================================== */
 
     --surface:#FFFFFF;
     --surface-secondary:#F8FBFF;
     --surface-hover:#EEF5FF;
 
-    /* ========= CARDS ========= */
+    /* =====================================================
+       CARD
+    ===================================================== */
 
     --card:#FFFFFF;
+
     --card-hover:#F7FAFE;
 
-    /* ========= BORDERS ========= */
+    --card-gradient:
+        linear-gradient(
+            180deg,
+            #FFFFFF,
+            #F7FAFE
+        );
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    --header-gradient:
+        linear-gradient(
+            135deg,
+            #023E7D,
+            #0353A4
+        );
+
+    --title-gradient:
+        linear-gradient(
+            120deg,
+            #FFFFFF,
+            #8EC5FF,
+            #FFFFFF
+        );
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    --logo-background:#FFFFFF;
+
+    --logo-border:
+        rgba(255,255,255,.50);
+
+    --logo-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 40px rgba(142,197,255,.35);
+
+    /* =====================================================
+       GLASS
+    ===================================================== */
+
+    --glass-background:
+        rgba(255,255,255,.14);
+
+    --glass-hover:
+        rgba(255,255,255,.22);
+
+    --glass-border:
+        rgba(255,255,255,.24);
+
+    --glass-blur:18px;
+
+    /* =====================================================
+       BORDER
+    ===================================================== */
 
     --border:#D7E6FA;
-    --border-light:#EAF2FB;
+    --border-light:#EDF4FC;
 
-    /* ========= TEXT ========= */
+    /* =====================================================
+       TEXT
+    ===================================================== */
 
     --text:#001845;
+
     --text-secondary:#4B5D75;
+
     --text-muted:#7A889A;
+
     --text-white:#FFFFFF;
 
-    /* ========= STATUS ========= */
+    --text-on-primary:
+        rgba(230,240,255,.90);
 
-    --success:#2E7D32;
-    --warning:#F9A825;
-    --danger:#D32F2F;
-    --info:#1976D2;
-
-    /* ========= BUTTONS ========= */
+    /* =====================================================
+       BUTTON
+    ===================================================== */
 
     --button-primary:var(--primary);
-    --button-primary-hover:var(--primary-light);
 
-    --button-success:var(--success);
-    --button-warning:var(--warning);
-    --button-danger:var(--danger);
+    --button-primary-hover:
+        var(--primary-light);
 
-    /* ========= INPUT ========= */
+    --button-secondary:
+        var(--accent);
+
+    /* =====================================================
+       INPUT
+    ===================================================== */
 
     --input-background:#FFFFFF;
+
     --input-border:#C9DBF7;
+
+    --input-border-hover:#8EC5FF;
+
     --input-focus:#4EA8DE;
 
-    /* ========= SHADOW ========= */
+    --input-placeholder:#94A3B8;
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    --success:#2E7D32;
+
+    --warning:#F9A825;
+
+    --danger:#D32F2F;
+
+    --info:#1976D2;
+
+    /* =====================================================
+       SHADOWS
+    ===================================================== */
 
     --shadow-small:
         0 4px 12px rgba(0,0,0,.08);
@@ -84,83 +187,187 @@
     --shadow-large:
         0 20px 45px rgba(0,0,0,.18);
 
-    --shadow-primary:
+    --shadow-theme:
         0 15px 35px rgba(2,62,125,.28);
 
-    /* ========= GRADIENT ========= */
-
-    --gradient-main:
-        linear-gradient(
-            135deg,
-            #001233,
-            #001845,
-            #023E7D
-        );
-
-    --gradient-header:
-        linear-gradient(
-            135deg,
-            #023E7D,
-            #0353A4
-        );
-
-    --gradient-card:
-        linear-gradient(
-            180deg,
-            #FFFFFF,
-            #F7FAFE
-        );
-
 }
-
-
-
 /* =====================================================
    FOREST
 ===================================================== */
 
 [data-theme="forest"]{
 
+    /* =====================================================
+       PRIMARY
+    ===================================================== */
+
     --primary:#2E3604;
     --primary-light:#4E5E07;
     --primary-dark:#1F2502;
 
-    --secondary:#8DB255;
-    --secondary-light:#BCD68D;
+    /* =====================================================
+       ACCENT
+    ===================================================== */
+
+    --accent:#8DB255;
+    --accent-light:#BCD68D;
+    --accent-dark:#6D8A3D;
+
+    /* =====================================================
+       BACKGROUND
+    ===================================================== */
 
     --background:#F6F9EF;
     --background-secondary:#EEF5E2;
+
+    --page-gradient:
+        linear-gradient(
+            135deg,
+            #1F2502,
+            #2E3604,
+            #4E5E07
+        );
+
+    --page-glow:
+        radial-gradient(
+            circle,
+            rgba(141,178,85,.25),
+            transparent 70%
+        );
+
+    /* =====================================================
+       SURFACE
+    ===================================================== */
 
     --surface:#FFFFFF;
     --surface-secondary:#FAFCF5;
     --surface-hover:#F0F7E5;
 
+    /* =====================================================
+       CARD
+    ===================================================== */
+
     --card:#FFFFFF;
+
     --card-hover:#F5FAED;
 
+    --card-gradient:
+        linear-gradient(
+            180deg,
+            #FFFFFF,
+            #F6FAEF
+        );
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    --header-gradient:
+        linear-gradient(
+            135deg,
+            #2E3604,
+            #4E5E07
+        );
+
+    --title-gradient:
+        linear-gradient(
+            120deg,
+            #FFFFFF,
+            #BCD68D,
+            #FFFFFF
+        );
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    --logo-background:#FFFFFF;
+
+    --logo-border:
+        rgba(255,255,255,.45);
+
+    --logo-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 40px rgba(141,178,85,.35);
+
+    /* =====================================================
+       GLASS
+    ===================================================== */
+
+    --glass-background:
+        rgba(255,255,255,.12);
+
+    --glass-hover:
+        rgba(255,255,255,.20);
+
+    --glass-border:
+        rgba(255,255,255,.20);
+
+    --glass-blur:18px;
+
+    /* =====================================================
+       BORDER
+    ===================================================== */
+
     --border:#D6E5BF;
-    --border-light:#E8F2D6;
+    --border-light:#EAF4D8;
+
+    /* =====================================================
+       TEXT
+    ===================================================== */
 
     --text:#2E3604;
+
     --text-secondary:#556239;
-    --text-muted:#798463;
+
+    --text-muted:#7A8662;
+
     --text-white:#FFFFFF;
 
-    --success:#2E7D32;
-    --warning:#E6A300;
-    --danger:#C62828;
-    --info:#4E5E07;
+    --text-on-primary:
+        rgba(245,249,236,.90);
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
 
     --button-primary:var(--primary);
-    --button-primary-hover:var(--primary-light);
 
-    --button-success:var(--success);
-    --button-warning:var(--warning);
-    --button-danger:var(--danger);
+    --button-primary-hover:
+        var(--primary-light);
+
+    --button-secondary:
+        var(--accent);
+
+    /* =====================================================
+       INPUT
+    ===================================================== */
 
     --input-background:#FFFFFF;
+
     --input-border:#CAD8B5;
+
+    --input-border-hover:#8DB255;
+
     --input-focus:#8DB255;
+
+    --input-placeholder:#8A9476;
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    --success:#2E7D32;
+
+    --warning:#D99800;
+
+    --danger:#C62828;
+
+    --info:#4E5E07;
+
+    /* =====================================================
+       SHADOWS
+    ===================================================== */
 
     --shadow-small:
         0 4px 12px rgba(46,54,4,.08);
@@ -171,81 +378,187 @@
     --shadow-large:
         0 20px 45px rgba(46,54,4,.18);
 
-    --shadow-primary:
+    --shadow-theme:
         0 15px 35px rgba(46,54,4,.30);
 
-    --gradient-main:
-        linear-gradient(
-            135deg,
-            #1F2502,
-            #2E3604,
-            #4E5E07
-        );
-
-    --gradient-header:
-        linear-gradient(
-            135deg,
-            #2E3604,
-            #4E5E07
-        );
-
-    --gradient-card:
-        linear-gradient(
-            180deg,
-            #FFFFFF,
-            #F6FAEF
-        );
-
 }
-
-
-
 /* =====================================================
    GOLD
 ===================================================== */
 
 [data-theme="gold"]{
 
+    /* =====================================================
+       PRIMARY
+    ===================================================== */
+
     --primary:#E19D29;
     --primary-light:#F0B44B;
     --primary-dark:#B97811;
 
-    --secondary:#F5D38E;
-    --secondary-light:#FFE8B5;
+    /* =====================================================
+       ACCENT
+    ===================================================== */
+
+    --accent:#F5D38E;
+    --accent-light:#FFE8B5;
+    --accent-dark:#D9A441;
+
+    /* =====================================================
+       BACKGROUND
+    ===================================================== */
 
     --background:#FFF9F1;
     --background-secondary:#FFF3DF;
+
+    --page-gradient:
+        linear-gradient(
+            135deg,
+            #D8D2CF,
+            #E19D29,
+            #F0B44B
+        );
+
+    --page-glow:
+        radial-gradient(
+            circle,
+            rgba(225,157,41,.25),
+            transparent 70%
+        );
+
+    /* =====================================================
+       SURFACE
+    ===================================================== */
 
     --surface:#FFFFFF;
     --surface-secondary:#FFFDF8;
     --surface-hover:#FFF7EB;
 
+    /* =====================================================
+       CARD
+    ===================================================== */
+
     --card:#FFFFFF;
+
     --card-hover:#FFF9EF;
+
+    --card-gradient:
+        linear-gradient(
+            180deg,
+            #FFFFFF,
+            #FFF7EB
+        );
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    --header-gradient:
+        linear-gradient(
+            135deg,
+            #D8D2CF,
+            #E19D29
+        );
+
+    --title-gradient:
+        linear-gradient(
+            120deg,
+            #FFFFFF,
+            #FFE8B5,
+            #FFFFFF
+        );
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    --logo-background:#FFFFFF;
+
+    --logo-border:
+        rgba(255,255,255,.45);
+
+    --logo-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 40px rgba(225,157,41,.35);
+
+    /* =====================================================
+       GLASS
+    ===================================================== */
+
+    --glass-background:
+        rgba(255,255,255,.14);
+
+    --glass-hover:
+        rgba(255,255,255,.24);
+
+    --glass-border:
+        rgba(255,255,255,.22);
+
+    --glass-blur:18px;
+
+    /* =====================================================
+       BORDER
+    ===================================================== */
 
     --border:#F0D7A2;
     --border-light:#F7E8C8;
 
+    /* =====================================================
+       TEXT
+    ===================================================== */
+
     --text:#6C4700;
+
     --text-secondary:#8B6930;
+
     --text-muted:#A18353;
+
     --text-white:#FFFFFF;
 
-    --success:#2E7D32;
-    --warning:#D98A00;
-    --danger:#C62828;
-    --info:#E19D29;
+    --text-on-primary:
+        rgba(255,249,240,.92);
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
 
     --button-primary:var(--primary);
-    --button-primary-hover:var(--primary-light);
 
-    --button-success:var(--success);
-    --button-warning:var(--warning);
-    --button-danger:var(--danger);
+    --button-primary-hover:
+        var(--primary-light);
+
+    --button-secondary:
+        var(--accent);
+
+    /* =====================================================
+       INPUT
+    ===================================================== */
 
     --input-background:#FFFFFF;
+
     --input-border:#EFD5A1;
+
+    --input-border-hover:#E19D29;
+
     --input-focus:#E19D29;
+
+    --input-placeholder:#B59763;
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    --success:#2E7D32;
+
+    --warning:#D98A00;
+
+    --danger:#C62828;
+
+    --info:#E19D29;
+
+    /* =====================================================
+       SHADOWS
+    ===================================================== */
 
     --shadow-small:
         0 4px 12px rgba(225,157,41,.08);
@@ -256,29 +569,7 @@
     --shadow-large:
         0 20px 45px rgba(225,157,41,.18);
 
-    --shadow-primary:
+    --shadow-theme:
         0 15px 35px rgba(225,157,41,.28);
-
-    --gradient-main:
-        linear-gradient(
-            135deg,
-            #D8D2CF,
-            #E19D29,
-            #F0B44B
-        );
-
-    --gradient-header:
-        linear-gradient(
-            135deg,
-            #D8D2CF,
-            #E19D29
-        );
-
-    --gradient-card:
-        linear-gradient(
-            180deg,
-            #FFFFFF,
-            #FFF7EB
-        );
 
 }
