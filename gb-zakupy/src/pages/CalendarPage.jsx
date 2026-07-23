@@ -1,53 +1,58 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Calendar from "../components/calendar/Calendar";
 
 export default function CalendarPage({
-  goBack,
+    goBack,
 }) {
 
-  const [year] = useState(
-    new Date().getFullYear()
-  );
+    const { t } = useTranslation();
 
-  return (
+    const [year] = useState(
+        new Date().getFullYear()
+    );
 
-    <main className="calendar-page">
+    return (
 
-      <header className="calendar-page-header">
+        <main className="calendar-page">
 
-        <button
-          type="button"
-          className="back-button"
-          onClick={goBack}
-        >
-          ← Menu główne
-        </button>
+            <header className="calendar-page-header">
 
-        <div className="calendar-header-top">
+                <button
+                    type="button"
+                    className="back-button"
+                    onClick={goBack}
+                >
+                    ← {t("common.mainMenu")}
+                </button>
 
-          <p className="calendar-eyebrow">
-            GB Sekretariat
-          </p>
+                <div className="calendar-header-top">
 
-          <h1>
-            Kalendarz firmowy
-          </h1>
+                    <p className="calendar-eyebrow">
+                        GB Sekretariat
+                    </p>
 
-          <p className="calendar-description">
-            Święta, wydarzenia oraz spotkania firmowe.
-          </p>
+                    <h1>
+                        {t("calendar.title")}
+                    </h1>
 
-        </div>
+                    <p className="calendar-description">
+                        {t("calendar.description")}
+                    </p>
 
-      </header>
+                </div>
 
-      <section className="calendar-container">
-    <Calendar year={year} />
-</section>
+            </header>
 
-    </main>
+            <section className="calendar-container">
 
-  );
+                <Calendar year={year} />
+
+            </section>
+
+        </main>
+
+    );
 
 }
