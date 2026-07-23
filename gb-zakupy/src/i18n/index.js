@@ -5,7 +5,7 @@ import pl from "./locales/pl.json";
 import en from "./locales/en.json";
 import uk from "./locales/uk.json";
 
-// Pobierz zapisany język
+// Zapisany język użytkownika
 const savedLanguage = localStorage.getItem("gb-language");
 
 // Język przeglądarki (np. pl-PL -> pl)
@@ -16,33 +16,37 @@ const supportedLanguages = ["pl", "en", "uk"];
 
 // Wybór języka
 const language =
-  savedLanguage ||
-  (supportedLanguages.includes(browserLanguage)
-    ? browserLanguage
-    : "pl");
+    savedLanguage ||
+    (supportedLanguages.includes(browserLanguage)
+        ? browserLanguage
+        : "pl");
 
 i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      pl: {
-        translation: pl,
-      },
-      en: {
-        translation: en,
-      },
-      uk: {
-        translation: uk,
-      },
-    },
+    .use(initReactI18next)
+    .init({
+        resources: {
+            pl: {
+                translation: pl,
+            },
+            en: {
+                translation: en,
+            },
+            uk: {
+                translation: uk,
+            },
+        },
 
-    lng: language,
+        lng: language,
 
-    fallbackLng: "pl",
+        fallbackLng: "pl",
 
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+        supportedLngs: supportedLanguages,
+
+        interpolation: {
+            escapeValue: false,
+        },
+
+        debug: false,
+    });
 
 export default i18n;
