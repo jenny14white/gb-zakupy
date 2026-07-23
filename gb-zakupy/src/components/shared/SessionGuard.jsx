@@ -2,243 +2,126 @@ import { useEffect } from "react";
 
 import { logoutPortal } from "../../firebase/auth";
 
-
-
 export default function SessionGuard({
-    onLogout
-}){
+    onLogout,
+}) {
 
-
-    useEffect(()=>{
-
+    useEffect(() => {
 
         const TIME = 10 * 60 * 1000;
 
-
         let timer = null;
 
-
-
-
-        function logout(){
-
+        function logout() {
 
             sessionStorage.removeItem(
                 "gbAccess"
             );
 
-
             sessionStorage.removeItem(
                 "gbLastActivity"
             );
 
-
-
             logoutPortal()
-                .catch(error =>
+                .catch((error) =>
                     console.error(error)
                 );
 
-
-
             onLogout();
-
 
         }
 
-
-
-
-
-
-
-        function refreshSession(){
-
-
+        function refreshSession() {
 
             sessionStorage.setItem(
                 "gbLastActivity",
                 Date.now()
             );
 
-
-
             clearTimeout(timer);
 
-
-
-
-            timer = setTimeout(()=>{
-
+            timer = setTimeout(() => {
 
                 logout();
 
-
             }, TIME);
-
-
 
         }
 
+        function checkExistingSession() {
 
+            const lastActivity = Number(
+                sessionStorage.getItem(
+                    "gbLastActivity"
+                )
+            );
 
-
-
-
-
-
-        function checkExistingSession(){
-
-
-
-            const lastActivity =
-
-                Number(
-                    sessionStorage.getItem(
-                        "gbLastActivity"
-                    )
-                );
-
-
-
-
-            if(!lastActivity){
-
+            if (!lastActivity) {
 
                 refreshSession();
 
                 return;
 
-
             }
 
-
-
-
-
-
             const inactiveTime =
-
                 Date.now() - lastActivity;
 
-
-
-
-
-
-            if(inactiveTime >= TIME){
-
+            if (inactiveTime >= TIME) {
 
                 logout();
 
+            } else {
 
-            }else{
-
-
-                timer=setTimeout(()=>{
-
+                timer = setTimeout(() => {
 
                     logout();
 
-
                 }, TIME - inactiveTime);
-
 
             }
 
-
-
         }
 
-
-
-
-
-
-
-
-        const events=[
-
-
+        const events = [
             "mousemove",
-
             "mousedown",
-
             "keydown",
-
             "scroll",
-
-            "touchstart"
-
-
+            "touchstart",
         ];
 
-
-
-
-
-
-
-        events.forEach(event=>{
-
+        events.forEach((event) => {
 
             window.addEventListener(
                 event,
                 refreshSession,
                 {
-                    passive:true
+                    passive: true,
                 }
             );
 
-
         });
-
-
-
-
-
-
-
 
         checkExistingSession();
 
-
-
-
-
-
-
-
-        return ()=>{
-
+        return () => {
 
             clearTimeout(timer);
 
-
-
-            events.forEach(event=>{
-
+            events.forEach((event) => {
 
                 window.removeEventListener(
                     event,
                     refreshSession
                 );
 
-
             });
-
 
         };
 
-
-
-    },[onLogout]);
-
-
-
-
+    }, [onLogout]);
 
     return null;
-
 
 }
