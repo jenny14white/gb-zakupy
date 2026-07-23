@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import i18n from "../i18n";
 
 const LanguageContext = createContext();
 
@@ -7,7 +8,7 @@ const DEFAULT_LANGUAGE = "pl";
 const AVAILABLE_LANGUAGES = [
     "pl",
     "en",
-    "ua"
+    "uk"
 ];
 
 export function LanguageProvider({ children }) {
@@ -33,6 +34,8 @@ export function LanguageProvider({ children }) {
             "gb-language",
             language
         );
+
+        i18n.changeLanguage(language);
 
     }, [language]);
 
