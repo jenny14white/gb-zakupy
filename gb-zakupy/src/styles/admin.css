@@ -424,7 +424,7 @@
 
     border-radius:16px;
 
-    background:rgba(211,47,47,.12);
+    background:var(--danger-background);
 
     border:1px solid var(--danger);
 
@@ -434,7 +434,9 @@
 
     text-align:center;
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(var(--glass-blur));
+
+    -webkit-backdrop-filter:blur(var(--glass-blur));
 
 }
 /* =====================================
