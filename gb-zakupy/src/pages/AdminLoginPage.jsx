@@ -1,164 +1,170 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { loginAdmin } from "../firebase/auth";
+
 import Logo from "../components/shared/Logo";
 import LiquidEther from "../components/shared/effects/LiquidEther";
 
 const LIQUID_COLORS = [
-  "#0353a4",
-  "#023e7d",
-  "#002855"
+    "#0353a4",
+    "#023e7d",
+    "#002855",
 ];
+
 const ADMIN_EMAIL = "belacount4@gmail.com";
 
 export default function AdminLoginPage({
-  goBack,
-  onLogin,
+    goBack,
+    onLogin,
 }) {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
-  async function handleLogin(event) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    event.preventDefault();
+    async function handleLogin(event) {
 
-    setError("");
+        event.preventDefault();
 
-    try {
+        setError("");
 
-      setLoading(true);
+        try {
 
-      const user = await loginAdmin(
-        email,
-        password
-      );
+            setLoading(true);
 
-      if (user.email !== ADMIN_EMAIL) {
+            const user = await loginAdmin(
+                email,
+                password
+            );
 
-        throw new Error(
-          "Brak uprawnień"
-        );
+            if (user.email !== ADMIN_EMAIL) {
 
-      }
+                throw new Error(
+                    "Unauthorized"
+                );
 
-      onLogin(user);
+            }
 
-      setEmail("");
-      setPassword("");
+            onLogin(user);
 
-    } catch (error) {
+            setEmail("");
+            setPassword("");
 
-      console.error(error);
+        } catch (error) {
 
-      setError(
-        "Nieprawidłowe dane lub brak uprawnień administratora."
-      );
+            console.error(error);
 
-    } finally {
+            setError(
+                t("admin.login.errors.invalidCredentials")
+            );
 
-      setLoading(false);
+        } finally {
+
+            setLoading(false);
+
+        }
 
     }
 
-  }
+    return (
 
-  return (
+        <main className="admin-page login-view">
 
-    <main className="admin-page login-view">
+            <div className="admin-background">
 
-      <div className="admin-background">
+                <LiquidEther
+                    colors={LIQUID_COLORS}
+                    mouseForce={20}
+                    cursorSize={60}
+                    isViscous
+                    viscous={18}
+                    iterationsViscous={16}
+                    iterationsPoisson={16}
+                    resolution={0.35}
+                    isBounce={false}
+                    autoDemo
+                    autoSpeed={0.35}
+                    autoIntensity={1.4}
+                    takeoverDuration={0.25}
+                    autoResumeDelay={3000}
+                    autoRampDuration={0.6}
+                />
 
-        <LiquidEther
-    colors={LIQUID_COLORS}
-    mouseForce={20}
-    cursorSize={60}
-    isViscous
-    viscous={18}
-    iterationsViscous={16}
-    iterationsPoisson={16}
-    resolution={0.35}
-    isBounce={false}
-    autoDemo
-    autoSpeed={0.35}
-    autoIntensity={1.4}
-    takeoverDuration={0.25}
-    autoResumeDelay={3000}
-    autoRampDuration={0.6}
-/>
+            </div>
 
-      </div>
+            <form
+                className="login-card"
+                onSubmit={handleLogin}
+            >
 
-      <form
-        className="login-card"
-        onSubmit={handleLogin}
-      >
+                <button
+                    type="button"
+                    onClick={goBack}
+                    className="back-button"
+                >
+                    {t("common.back")}
+                </button>
 
-        <button
-          type="button"
-          onClick={goBack}
-          className="back-button"
-        >
-          Wróć do listy
-        </button>
+                <Logo
+                    className="admin-logo"
+                />
 
-        <Logo
-          className="admin-logo"
-        />
+                <h1>
+                    {t("admin.login.title")}
+                </h1>
 
-        <h1>
-          Panel admina
-        </h1>
+                <p>
+                    {t("admin.login.subtitle")}
+                </p>
 
-        <p>
-          Zaloguj się jako administrator.
-        </p>
+                <input
+                    type="email"
+                    placeholder={t("admin.login.email")}
+                    value={email}
+                    onChange={(event) =>
+                        setEmail(event.target.value)
+                    }
+                    autoFocus
+                    required
+                />
 
-        <input
-          type="email"
-          placeholder="Adres e-mail"
-          value={email}
-          onChange={(event) =>
-            setEmail(event.target.value)
-          }
-          autoFocus
-          required
-        />
+                <input
+                    type="password"
+                    placeholder={t("admin.login.password")}
+                    value={password}
+                    onChange={(event) =>
+                        setPassword(event.target.value)
+                    }
+                    required
+                />
 
-        <input
-          type="password"
-          placeholder="Hasło"
-          value={password}
-          onChange={(event) =>
-            setPassword(event.target.value)
-          }
-          required
-        />
+                {error && (
 
-        {error && (
+                    <div className="admin-error">
+                        {error}
+                    </div>
 
-          <div className="admin-error">
-            {error}
-          </div>
+                )}
 
-        )}
+                <button
+                    className="admin-button"
+                    disabled={loading}
+                >
 
-        <button
-          className="admin-button"
-          disabled={loading}
-        >
+                    {loading
+                        ? t("admin.login.loggingIn")
+                        : t("admin.login.login")}
 
-          {loading
-            ? "Logowanie..."
-            : "Zaloguj"}
+                </button>
 
-        </button>
+            </form>
 
-      </form>
+        </main>
 
-    </main>
-
-  );
+    );
 
 }
