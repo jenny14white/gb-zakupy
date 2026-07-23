@@ -66,28 +66,55 @@
       "uk": "Українська"
     }
   },
-  "shopping": {
-    "title": "Zakupy",
 
-    "intro": {
+  "shopping": {
+    "header": {
       "title": "Lista zakupowa",
 
-      "mobileSummary": "🛒 Informacje o liście zakupowej",
+      "summary": "Informacje o liście zakupowej",
 
-      "paragraph1": "🛒 Brakuje czegoś w biurze? A może obawiasz się, że później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego aktualnie potrzebujesz.",
+      "introTitle": "Brakuje czegoś w biurze?",
 
-      "paragraph2": "☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy? 🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest akurat nieobecna? To idealne miejsce, aby zostawić taką informację.",
+      "intro1": "A może obawiasz się, że później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego aktualnie potrzebujesz.",
 
-      "paragraph3": "Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.",
+      "intro2": "☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy? 🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest akurat nieobecna? To idealne miejsce, aby zostawić taką informację.",
 
-      "paragraph4": "📋 Aktualna lista zakupowa poniżej pokazuje wszystkie produkty oczekujące na zamówienie. Jeżeli produktu nie ma już na liście, oznacza to, że został zamówiony.",
+      "intro3": "Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.",
 
-      "footer": "💙 Dziękujemy za pomoc w utrzymaniu naszego biura!"
+      "currentListTitle": "Aktualna lista zakupowa",
+
+      "intro4": "poniżej pokazuje wszystkie produkty oczekujące na zamówienie. Jeżeli produktu nie ma już na liście, oznacza to, że został zamówiony.",
+
+      "footer": "Dziękujemy za pomoc w utrzymaniu naszego biura!"
     },
 
     "page": {
       "back": "Menu główne",
       "thanks": "Dziękujemy! ♡"
+    },
+
+    "form": {
+      "name": "Imię",
+      "product": "Co potrzeba zamówić?",
+      "quantity": "Ilość",
+      "unit": "Jednostka",
+
+      "submit": "Dodaj do listy",
+      "loading": "Dodawanie...",
+
+      "success": "Pomyślnie dodano:",
+
+      "saveChanges": "Zapisz edycję",
+
+      "placeholders": {
+        "name": "Wpisz swoje imię",
+        "product": "Np. mleko, kawa, długopisy..."
+      },
+
+      "errors": {
+        "required": "Uzupełnij imię, produkt oraz ilość.",
+        "addFailed": "Nie udało się dodać produktu."
+      }
     },
 
     "currentList": {
@@ -99,32 +126,6 @@
       "loading": "Ładowanie listy...",
 
       "empty": "Aktualna lista zakupowa jest pusta."
-    },
-
-    "form": {
-      "name": "Imię *",
-      "namePlaceholder": "Wpisz swoje imię",
-
-      "product": "Co potrzeba zamówić? *",
-      "productPlaceholder": "Np. mleko, kawa, długopisy...",
-
-      "requestedBy": "Osoba zgłaszająca",
-
-      "quantity": "Ilość *",
-      "unit": "Jednostka",
-
-      "saveChanges": "Zapisz edycję",
-
-      "submit": "Dodaj do listy",
-      "submitting": "Dodawanie..."
-    },
-
-    "messages": {
-      "validation": "Uzupełnij imię, produkt oraz ilość.",
-
-      "success": "Pomyślnie dodano: {{product}}",
-
-      "addError": "Nie udało się dodać produktu."
     },
 
     "status": {
@@ -141,7 +142,7 @@
     "history": {
       "added": "Dodano",
       "accepted": "Przyjęto do realizacji",
-      "completed": "Zrealizowano"
+          "completed": "Zrealizowano"
     },
 
     "actions": {
@@ -203,7 +204,8 @@
       }
     }
   },
-    "calendar": {
+
+  "calendar": {
     "page": {
       "title": "Kalendarz firmowy",
       "description": "Święta, wydarzenia oraz spotkania firmowe.",
@@ -216,50 +218,14 @@
       "nextMonth": "Następny miesiąc"
     },
 
-    "weekDays": {
-      "mon": "Pn",
+    "weekdays": {
+      "mon": "Pon",
       "tue": "Wt",
       "wed": "Śr",
-      "thu": "Cz",
+      "thu": "Czw",
       "fri": "Pt",
-      "sat": "So",
-      "sun": "Nd",
-
-      "monShort": "Pon",
-      "tueShort": "Wt",
-      "wedShort": "Śr",
-      "thuShort": "Czw",
-      "friShort": "Pt",
-      "satShort": "Sob",
-      "sunShort": "Ndz"
-    },
-
-    "months": {
-      "january": "Styczeń",
-      "february": "Luty",
-      "march": "Marzec",
-      "april": "Kwiecień",
-      "may": "Maj",
-      "june": "Czerwiec",
-      "july": "Lipiec",
-      "august": "Sierpień",
-      "september": "Wrzesień",
-      "october": "Październik",
-      "november": "Listopad",
-      "december": "Grudzień",
-
-      "januaryUpper": "STYCZEŃ",
-      "februaryUpper": "LUTY",
-      "marchUpper": "MARZEC",
-      "aprilUpper": "KWIECIEŃ",
-      "mayUpper": "MAJ",
-      "juneUpper": "CZERWIEC",
-      "julyUpper": "LIPIEC",
-      "augustUpper": "SIERPIEŃ",
-      "septemberUpper": "WRZESIEŃ",
-      "octoberUpper": "PAŹDZIERNIK",
-      "novemberUpper": "LISTOPAD",
-      "decemberUpper": "GRUDZIEŃ"
+      "sat": "Sob",
+      "sun": "Ndz"
     },
 
     "eventTypes": {
@@ -275,8 +241,6 @@
       "title": "Brak wydarzeń",
       "description": "W wybranym dniu nie ma zaplanowanych wydarzeń."
     },
-
-    "recurringEvent": "Wydarzenie cykliczne",
 
     "form": {
       "title": "Tytuł",
@@ -337,7 +301,7 @@
       }
     }
   },
-    "notifications": {
+  "notifications": {
     "title": "Powiadomienia",
 
     "description": "Nowe zgłoszenia oczekujące na odczyt.",
