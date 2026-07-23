@@ -5,16 +5,10 @@ const LanguageContext = createContext();
 
 const DEFAULT_LANGUAGE = "pl";
 
-const AVAILABLE_LANGUAGES = [
-    "pl",
-    "en",
-    "uk"
-];
+const AVAILABLE_LANGUAGES = ["pl", "en", "uk"];
 
 export function LanguageProvider({ children }) {
-
     const [language, setLanguageState] = useState(() => {
-
         const savedLanguage = localStorage.getItem("gb-language");
 
         if (
@@ -25,58 +19,50 @@ export function LanguageProvider({ children }) {
         }
 
         return DEFAULT_LANGUAGE;
-
     });
 
     useEffect(() => {
-
-        localStorage.setItem(
-            "gb-language",
-            language
-        );
-
         i18n.changeLanguage(language);
-
+        localStorage.setItem("gb-language", language);
     }, [language]);
 
-    function setLanguage(newLanguage) {
+    useEffect(() => {
+        i18n.changeLanguage(language);
+    }, []);
 
-        if (
-            !AVAILABLE_LANGUAGES.includes(newLanguage)
-        ) {
+    const setLanguage = (newLanguage) => {
+        if (!AVAILABLE_LANGUAGES.includes(newLanguage)) {
+            return;
+        }
+
+        if (newLanguage === language) {
             return;
         }
 
         setLanguageState(newLanguage);
-
-    }
+    };
 
     return (
-
         <LanguageContext.Provider
-
             value={{
-
                 language,
-
                 setLanguage,
-
-                languages: AVAILABLE_LANGUAGES
-
+                languages: AVAILABLE_LANGUAGES,
             }}
-
         >
-
             {children}
-
         </LanguageContext.Provider>
-
     );
-
 }
 
 export function useLanguage() {
+    const context = useContext(LanguageContext);
 
-    return useContext(LanguageContext);
+    if (!context) {
+        throw new Error(
+            "useLanguage must be used inside LanguageProvider"
+        );
+    }
 
+    return context;
 }
