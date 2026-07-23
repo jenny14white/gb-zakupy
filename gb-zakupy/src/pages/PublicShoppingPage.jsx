@@ -25,7 +25,7 @@ export default function PublicShoppingPage({
                 className="back-home-button"
                 onClick={goBack}
             >
-                ← {t("common.mainMenu")}
+                ← {t("shopping.page.back")}
             </button>
 
             <section className="paper">
@@ -50,7 +50,7 @@ export default function PublicShoppingPage({
                 </div>
 
                 <p className="thanks">
-                    {t("shopping.thankYou")}
+                    {t("shopping.page.thanks")}
                 </p>
 
             </section>
