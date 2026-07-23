@@ -127,6 +127,7 @@
     box-shadow:var(--shadow-theme);
 
 }
+
 /* =====================================================
    HEADER MIESIĄCA
 ===================================================== */
@@ -277,6 +278,7 @@
     box-shadow:var(--shadow-small);
 
 }
+
 /* =====================================================
    UKŁAD DESKTOP SZERSZY
 ===================================================== */
@@ -381,9 +383,21 @@
 
     border:1px solid var(--border-light);
 
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
 }
 
 .calendar-day-number{
+
+    align-self:flex-end;
+
+    margin-bottom:6px;
+
+    font-size:16px;
 
     font-weight:900;
 
@@ -391,7 +405,7 @@
 
 }
 
-  /* =====================================================
+/* =====================================================
    EVENTY W DNIU
 ===================================================== */
 
@@ -401,7 +415,7 @@
 
     flex-direction:column;
 
-    gap:6px;
+    gap:4px;
 
     margin-top:6px;
 
@@ -411,7 +425,7 @@
 
     display:flex;
 
-    align-items:center;
+    align-items:flex-start;
 
     gap:6px;
 
@@ -431,39 +445,55 @@
 
     overflow:hidden;
 
+    cursor:pointer;
+
+    box-sizing:border-box;
+
 }
 
 .calendar-event-bubble:hover{
 
     transform:translateY(-1px);
 
+    border-color:var(--primary);
+
     box-shadow:var(--shadow-medium);
 
 }
 
-.event-emoji{
+/* NOWE KLASY TYLKO DLA KALENDARZA */
+
+.calendar-event-emoji{
 
     flex-shrink:0;
 
-    font-size:13px;
+    font-size:10px;
+
+    line-height:1.2;
+
+    margin-top:1px;
 
 }
 
-.event-name{
+.calendar-event-name{
 
     flex:1;
 
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-    white-space:nowrap;
-
-    font-size:12px;
+    font-size:10px;
 
     font-weight:700;
 
+    line-height:1.2;
+
     color:var(--text);
+
+    white-space:normal;
+
+    overflow-wrap:break-word;
+
+    word-break:normal;
+
+    hyphens:auto;
 
 }
 
@@ -479,7 +509,7 @@
 
     margin-top:2px;
 
-    padding:4px 10px;
+    padding:2px 8px;
 
     border-radius:999px;
 
@@ -495,7 +525,7 @@
 
     color:var(--primary);
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:800;
 
@@ -504,6 +534,7 @@
     white-space:nowrap;
 
 }
+
 .calendar-event-bubble.company{
 
     border-left:3px solid #0353a4;
@@ -539,6 +570,7 @@
     border-left:3px solid #64748b;
 
 }
+
 /* =====================================================
    SIDEBAR
 ===================================================== */
@@ -564,6 +596,7 @@
     font-size:21px;
 
 }
+
 /* =====================================================
    MOBILE
 ===================================================== */
@@ -646,6 +679,8 @@
 
 }
 
+/* EventCard zachowuje własną ikonę */
+
 .event-emoji{
 
     font-size:20px;
@@ -722,7 +757,6 @@
 
 /* =====================================================
    TYPY EVENTÓW
-   (pozostawione bez zmian)
 ===================================================== */
 
 .event-card.birthday{
