@@ -313,11 +313,16 @@ body{
     display:flex;
 
     justify-content:center;
+
     align-items:center;
+
+    flex-wrap:nowrap;
 
     gap:8px;
 
     margin-top:18px;
+
+    width:100%;
 
 }
 
@@ -326,6 +331,8 @@ body{
     width:42px;
 
     height:42px;
+
+    flex-shrink:0;
 
     border:none;
 
@@ -340,14 +347,18 @@ body{
     font-weight:900;
 
 }
-
+    
 .today-button{
 
-    min-width:118px;
+    flex:1;
+
+    min-width:0;
+
+    max-width:150px;
 
     border:none;
 
-    padding:11px 18px;
+    padding:11px 14px;
 
     border-radius:14px;
 
@@ -741,11 +752,25 @@ body{
 
 .today-button{
 
-    min-width:100px;
+    flex:1;
 
-    padding:9px 12px;
+    min-width:0;
 
-    font-size:14px;
+    max-width:100px;
+
+    padding:9px 10px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:900;
 
 }
 
