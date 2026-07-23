@@ -1,27 +1,99 @@
 *,
 *::before,
 *::after{
-  box-sizing:border-box;
+
+    box-sizing:border-box;
+
 }
 
 html,
 body,
 #root{
-  margin:0;
-  padding:0;
-  width:100%;
-  min-height:100%;
+
+    margin:0;
+
+    padding:0;
+
+    width:100%;
+
+    min-height:100%;
+
 }
 
 body{
-  font-family:Inter,system-ui,sans-serif;
-  background:#f4f7fb;
-  color:#14213d;
+
+    font-family:Inter,system-ui,sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
 }
 
 button,
 input,
 textarea,
 select{
-  font:inherit;
+
+    font:inherit;
+
+}
+
+button{
+
+    color:inherit;
+
+}
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+input,
+textarea,
+select{
+
+    background:var(--input-background);
+
+    color:var(--text);
+
+    border:1px solid var(--input-border);
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+    color:var(--input-placeholder);
+
+}
+
+:focus-visible{
+
+    outline:2px solid var(--input-focus);
+
+    outline-offset:2px;
+
+}
+
+::selection{
+
+    background:var(--accent);
+
+    color:var(--text-white);
+
 }
