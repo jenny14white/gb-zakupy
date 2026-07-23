@@ -6,7 +6,7 @@ import en from "./locales/en.json";
 import uk from "./locales/uk.json";
 
 // Pobierz zapisany język
-const savedLanguage = localStorage.getItem("language");
+const savedLanguage = localStorage.getItem("gb-language");
 
 // Język przeglądarki (np. pl-PL -> pl)
 const browserLanguage = navigator.language.split("-")[0];
