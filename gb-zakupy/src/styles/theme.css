@@ -659,38 +659,38 @@
        PRIMARY
     ===================================================== */
 
-    --primary:#E19D29;
-    --primary-light:#F0B44B;
-    --primary-dark:#B97811;
+    --primary:#C9A227;
+    --primary-light:#FFE169;
+    --primary-dark:#A47E1B;
 
     /* =====================================================
        ACCENT
     ===================================================== */
 
-    --accent:#F5D38E;
-    --accent-light:#FFE8B5;
-    --accent-dark:#D9A441;
+    --accent:#EDC531;
+    --accent-light:#FFE169;
+    --accent-dark:#805B10;
 
     /* =====================================================
        BACKGROUND
     ===================================================== */
 
-    --background:#FFF9F1;
+    --background:#FFFBF0;
 
-    --background-secondary:#FFF3DF;
+    --background-secondary:#FFF6D9;
 
     --page-gradient:
         linear-gradient(
             135deg,
-            #D8D2CF,
-            #E19D29,
-            #F0B44B
+            #805B10,
+            #C9A227,
+            #FFE169
         );
 
     --page-glow:
         radial-gradient(
             circle,
-            rgba(225,157,41,.25),
+            rgba(201,162,39,.25),
             transparent 70%
         );
 
@@ -702,7 +702,7 @@
 
     --surface-secondary:#FFFDF8;
 
-    --surface-hover:#FFF7EB;
+    --surface-hover:#FFF9E8;
 
     --surface-2:
         var(--surface-hover);
@@ -713,7 +713,7 @@
 
     --card:#FFFFFF;
 
-    --card-hover:#FFF9EF;
+    --card-hover:#FFF8E2;
 
     --card-glass:
         rgba(255,255,255,.96);
@@ -722,7 +722,7 @@
         linear-gradient(
             180deg,
             #FFFFFF,
-            #FFF7EB
+            #FFF8E2
         );
 
     /* =====================================================
@@ -732,15 +732,16 @@
     --header-gradient:
         linear-gradient(
             135deg,
-            #D8D2CF,
-            #E19D29
+            #A47E1B,
+            #C9A227,
+            #FFE169
         );
 
     --title-gradient:
         linear-gradient(
             120deg,
             #FFFFFF,
-            #FFE8B5,
+            #FFE169,
             #FFFFFF
         );
 
@@ -755,7 +756,7 @@
 
     --logo-shadow:
         0 25px 60px rgba(0,0,0,.35),
-        0 0 40px rgba(225,157,41,.35);
+        0 0 40px rgba(201,162,39,.35);
 
     /* =====================================================
        GLASS
@@ -829,11 +830,11 @@
        BORDER
     ===================================================== */
 
-    --border:#F0D7A2;
+    --border:#D8BE63;
 
-    --border-light:#F7E8C8;
+    --border-light:#F5E6A7;
 
-    --border-strong:#EFD5A1;
+    --border-strong:#C9A227;
 
     --divider:
         var(--border-light);
@@ -842,18 +843,18 @@
        TEXT
     ===================================================== */
 
-    --text:#6C4700;
+    --text:#4E3808;
 
-    --text-secondary:#8B6930;
+    --text-secondary:#6A5118;
 
-    --text-muted:#A18353;
+    --text-muted:#8C6D23;
 
-    --text-disabled:#B59763;
+    --text-disabled:#AF954A;
 
     --text-white:#FFFFFF;
 
     --text-on-primary:
-        rgba(255,249,240,.92);
+        rgba(255,251,240,.92);
 
     --text-inverse:
         var(--text-white);
@@ -866,13 +867,13 @@
         var(--primary);
 
     --button-primary-hover:
-        var(--primary-light);
+        var(--accent);
 
     --button-secondary:
         var(--accent);
 
     --button-secondary-hover:
-        var(--accent-dark);
+        var(--primary-dark);
 
     --button-text:
         var(--text-white);
@@ -885,13 +886,13 @@
 
     --input-background:#FFFFFF;
 
-    --input-border:#EFD5A1;
+    --input-border:#D8BE63;
 
-    --input-border-hover:#E19D29;
+    --input-border-hover:#C9A227;
 
-    --input-focus:#E19D29;
+    --input-focus:#EDC531;
 
-    --input-placeholder:#B59763;
+    --input-placeholder:#AF954A;
 
     --input-radius:14px;
 
@@ -917,7 +918,7 @@
 
     --danger:#C62828;
 
-    --info:#E19D29;
+    --info:#C9A227;
 
     /* =====================================================
        STATUS BACKGROUNDS
@@ -929,23 +930,23 @@
 
     --danger-background:#FEE2E2;
 
-    --info-background:#DBEAFE;
+    --info-background:#FFF4C8;
 
     /* =====================================================
        SHADOWS
     ===================================================== */
 
     --shadow-small:
-        0 4px 12px rgba(225,157,41,.08);
+        0 4px 12px rgba(201,162,39,.10);
 
     --shadow-medium:
-        0 12px 30px rgba(225,157,41,.14);
+        0 12px 30px rgba(201,162,39,.16);
 
     --shadow-large:
-        0 20px 45px rgba(225,157,41,.18);
+        0 20px 45px rgba(201,162,39,.22);
 
     --shadow-theme:
-        0 15px 35px rgba(225,157,41,.28);
+        0 18px 40px rgba(201,162,39,.32);
 
     /* =====================================================
        RADIUS
