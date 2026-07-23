@@ -7,11 +7,8 @@ import "../../styles/switchers.css";
 export default function LanguageSwitcher() {
 
     const {
-
         language,
-
         setLanguage
-
     } = useLanguage();
 
     const [open, setOpen] = useState(false);
@@ -59,7 +56,7 @@ export default function LanguageSwitcher() {
         },
 
         {
-            id: "ua",
+            id: "uk",
             name: "Українська",
             flag: "🇺🇦"
         }
@@ -69,7 +66,7 @@ export default function LanguageSwitcher() {
     const current =
         languages.find(
             item => item.id === language
-        );
+        ) || languages[0];
 
     return (
 
@@ -80,19 +77,27 @@ export default function LanguageSwitcher() {
 
             <button
 
+                type="button"
+
                 className="language-button"
 
                 onClick={() =>
-                    setOpen(!open)
+                    setOpen(prev => !prev)
                 }
 
             >
 
-                {current.flag}
+                <span>{current.flag}</span>
 
-                {current.id.toUpperCase()}
+                <span>
 
-                ▼
+                    {current.id === "uk"
+                        ? "UA"
+                        : current.id.toUpperCase()}
+
+                </span>
+
+                <span>▼</span>
 
             </button>
 
@@ -109,6 +114,8 @@ export default function LanguageSwitcher() {
                                 <button
 
                                     key={item.id}
+
+                                    type="button"
 
                                     className={
 
@@ -136,7 +143,11 @@ export default function LanguageSwitcher() {
 
                                     </span>
 
-                                    {item.name}
+                                    <span>
+
+                                        {item.name}
+
+                                    </span>
 
                                 </button>
 
