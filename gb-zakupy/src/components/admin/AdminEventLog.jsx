@@ -3,6 +3,7 @@ import { formatDate } from "../../utils/dateUtils";
 
 export default function AdminEventLog({ logs }) {
 
+    
     return (
 
         <section className="admin-event-log">
