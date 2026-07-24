@@ -6,7 +6,6 @@ import {
     markOrderAsCompleted,
 } from "../../services/ordersService";
 
-
 import { ORDER_STATUS } from "../../utils/constants";
 import { formatDate } from "../../utils/dateUtils";
 
@@ -152,200 +151,227 @@ export default function AdminOrderCard({ order }) {
                 onCancel={() => setShowDeleteDialog(false)}
             />
 
-            <article
-                className={`admin-order ${isCompleted ? "done" : ""}`}
-            >
+            <article className="shopping-card">
 
-                <header
-                    className="admin-order-header"
+                <div className="shopping-card-bar" />
+
+                <div
+                    className="shopping-card-content"
                     onClick={() => setExpanded(open => !open)}
                 >
 
-                    <div className="order-main">
+                    <div className="shopping-card-top">
 
-                        <strong>
+                        <div className="shopping-product">
 
-                            {order.product}
+                            <h3>
 
-                        </strong>
+                                {order.product}
 
-                        <span>
+                            </h3>
 
-                            {order.quantity} {order.unit}
+                            <p>
 
-                        </span>
+                                {order.quantity} {order.unit}
 
-                        <small>
+                            </p>
 
-                            {order.requestedBy}
-
-                        </small>
+                        </div>
 
                     </div>
+                                        {expanded && (
+
+                        <div className="shopping-card-footer">
+
+                            <div className="shopping-card-footer-left">
+
+                                <div className="shopping-meta">
+
+                                    <div className="shopping-chip">
+
+                                        📅 Dodano:{" "}
+                                        {formatDate(order.createdAt)}
+
+                                    </div>
+
+                                    <div className="shopping-chip">
+
+                                        ✅ Przyjęto:{" "}
+                                        {order.acceptedAt
+                                            ? formatDate(order.acceptedAt)
+                                            : "—"}
+
+                                    </div>
+
+                                    <div className="shopping-chip">
+
+                                        📦 Zrealizowano:{" "}
+                                        {order.completedAt
+                                            ? formatDate(order.completedAt)
+                                            : "—"}
+
+                                    </div>
+
+                                    <div className="shopping-chip">
+
+                                        👤 {order.requestedBy}
+
+                                    </div>
+
+                                </div>
+
+                                <textarea
+                                    className="shopping-comment"
+                                    rows={3}
+                                    value={adminComment}
+                                    placeholder="Komentarz administratora..."
+                                    disabled={loading || isCompleted}
+                                    onChange={(event) =>
+                                        setAdminComment(
+                                            event.target.value
+                                        )
+                                    }
+                                />
+
+                                {order.adminComment && (
+
+                                    <div className="shopping-request-info">
+
+                                        <strong>
+
+                                            Komentarz administratora
+
+                                        </strong>
+
+                                        <p>
+
+                                            {order.adminComment}
+
+                                        </p>
+
+                                    </div>
+
+                                )}
+
+                            </div>
+
+                            <div className="shopping-actions">
+
+                                {isPending && (
+
+                                    <button
+                                        type="button"
+                                        className="shopping-icon-btn success"
+                                        data-tooltip="Przyjmij"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            handleAccept();
+                                        }}
+                                        disabled={loading}
+                                    >
+
+                                        ✔
+
+                                    </button>
+
+                                )}
+
+                                {isAccepted && (
+
+                                    <button
+                                        type="button"
+                                        className="shopping-icon-btn success"
+                                        data-tooltip="Zrealizuj"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            handleCompleted();
+                                        }}
+                                        disabled={loading}
+                                    >
+
+                                        ✓
+
+                                    </button>
+
+                                )}
+
+                                {!isCompleted && (
+
+                                    <button
+                                        type="button"
+                                        className="shopping-icon-btn info"
+                                        data-tooltip="Edytuj"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            setIsEditing(true);
+                                        }}
+                                        disabled={loading}
+                                    >
+
+                                        ✏️
+
+                                    </button>
+
+                                )}
+
+                                <button
+                                    type="button"
+                                    className="shopping-icon-btn danger"
+                                    data-tooltip="Usuń"
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        setShowDeleteDialog(true);
+                                    }}
+                                    disabled={loading}
+                                >
+
+                                    🗑
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    )}
+
+                </div>
+
+                <div className="shopping-card-right">
 
                     <div
-                        className={`status-badge ${
+                        className={`shopping-status ${
                             isPending
                                 ? "pending"
                                 : isAccepted
-                                ? "accepted"
-                                : "completed"
+                                ? "progress"
+                                : "done"
                         }`}
                     >
 
                         {isPending && "🟡 Oczekujące"}
 
-                        {isAccepted &&
-                            "🟢 Przyjęte"}
+                        {isAccepted && "🟢 Przyjęte"}
 
-                        {isCompleted &&
-                            "🟣 Zrealizowane"}
+                        {isCompleted && "🟣 Zrealizowane"}
 
                     </div>
 
                     <button
                         type="button"
-                        className="expand-button"
+                        className="shopping-icon-btn"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            setExpanded(open => !open);
+                        }}
                     >
 
                         {expanded ? "▲" : "▼"}
 
                     </button>
 
-                </header>
-
-                {expanded && (
-
-                    <div className="admin-order-body">
-
-                        <div className="order-history">
-
-                            <small>
-
-                                📝 Dodano:{" "}
-                                {formatDate(order.createdAt)}
-
-                            </small>
-
-                            <small>
-
-                                ✅ Przyjęto:{" "}
-                                {order.acceptedAt
-                                    ? formatDate(order.acceptedAt)
-                                    : "—"}
-
-                            </small>
-
-                            <small>
-
-                                📦 Zrealizowano:{" "}
-                                {order.completedAt
-                                    ? formatDate(order.completedAt)
-                                    : "—"}
-
-                            </small>
-
-                        </div>
-
-                        <textarea
-                            rows={3}
-                            value={adminComment}
-                            placeholder="Komentarz administratora..."
-                            disabled={loading || isCompleted}
-                            onChange={event =>
-                                setAdminComment(
-                                    event.target.value
-                                )
-                            }
-                        />
-
-                        <div className="admin-actions">
-
-                            {isPending && (
-
-                                <button
-                                    className="admin-button success"
-                                    onClick={handleAccept}
-                                    disabled={loading}
-                                >
-
-                                    {loading
-                                        ? "Zapisywanie..."
-                                        : "✔ Przyjmij do realizacji"}
-
-                                </button>
-
-                            )}
-
-                            {isAccepted && (
-
-                                <button
-                                    className="admin-button success"
-                                    onClick={handleCompleted}
-                                    disabled={loading}
-                                >
-
-                                    {loading
-                                        ? "Zapisywanie..."
-                                        : "✔ Oznacz jako zrealizowane"}
-
-                                </button>
-
-                            )}
-
-                            {!isCompleted && (
-
-                                <button
-                                    className="admin-button"
-                                    onClick={() => setIsEditing(true)}
-                                    disabled={loading}
-                                >
-
-                                    ✏️ Edytuj
-
-                                </button>
-
-                            )}
-
-                            <button
-                                className="admin-button danger"
-                                onClick={() => setShowDeleteDialog(true)}
-                                disabled={loading}
-                            >
-
-                                {loading
-                                    ? "Usuwanie..."
-                                    : "🗑 Usuń"}
-
-                            </button>
-
-                        </div>
-
-                        {order.adminComment && (
-
-                            <div className="admin-comment">
-
-                                <strong>
-
-                                    Komentarz administratora
-
-                                </strong>
-
-                                <p>
-
-                                    {order.adminComment}
-
-                                </p>
-
-                            </div>
-
-                        )}
-
-                    </div>
-
-                )}
-
-            </article>
+                </div>
+                            </article>
 
         </>
 
