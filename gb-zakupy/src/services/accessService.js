@@ -1,23 +1,41 @@
-import { COMPANY_ACCESS_CODE } from "../utils/accessCode";
+import {
+    doc,
+    getDoc,
+} from "firebase/firestore";
+
+import { db } from "../firebase/firebase";
 
 
-export function checkAccessCode(code) {
+export async function checkAccessCode(code){
 
-  if (!code) {
-    return false;
-  }
-
-
-  const normalizedCode =
-    code
-      .trim()
-      .toUpperCase();
+    if(!code){
+        return false;
+    }
 
 
+    const snapshot =
+        await getDoc(
+            doc(
+                db,
+                "settings",
+                "access"
+            )
+        );
 
-  return (
-    normalizedCode ===
-    COMPANY_ACCESS_CODE.toUpperCase()
-  );
+
+    if(!snapshot.exists()){
+        return false;
+    }
+
+
+    const savedCode =
+        snapshot.data().code;
+
+
+    return (
+        code.trim().toUpperCase()
+        ===
+        savedCode.trim().toUpperCase()
+    );
 
 }
