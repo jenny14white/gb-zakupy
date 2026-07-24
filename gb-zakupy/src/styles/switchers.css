@@ -562,3 +562,102 @@
     );
 
 }
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px){
+
+    /* przyciski */
+
+    .theme-button,
+    .language-button{
+
+        height:44px;
+
+        min-width:44px;
+
+        padding:0 14px;
+
+        border-radius:16px;
+
+        font-size:14px;
+
+        gap:8px;
+
+    }
+
+    .theme-button span:first-child,
+    .language-button span:first-child{
+
+        font-size:17px;
+
+    }
+
+    /* menu */
+
+    .theme-menu,
+    .language-menu{
+
+        top:54px;
+
+        width:210px;
+
+        padding:8px;
+
+        border-radius:18px;
+
+    }
+
+    /* opcje */
+
+    .theme-option,
+    .language-option{
+
+        padding:11px 12px;
+
+        gap:10px;
+
+        font-size:14px;
+
+        border-radius:14px;
+
+    }
+
+    .theme-option span:first-child,
+    .language-option span:first-child{
+
+        width:24px;
+
+        height:24px;
+
+        font-size:18px;
+
+    }
+
+    .theme-option.active::after,
+    .language-option.active::after{
+
+        font-size:13px;
+
+    }
+
+    /* podgląd motywów */
+
+    .theme-preview{
+
+        min-width:46px;
+
+        gap:2px;
+
+    }
+
+    .theme-dot{
+
+        width:8px;
+
+        height:8px;
+
+    }
+
+}
