@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import logoGB from "../assets/logo.png";
@@ -6,11 +6,12 @@ import logoGB from "../assets/logo.png";
 import LiquidEther from "../components/shared/effects/LiquidEther";
 
 import { loginPortal } from "../firebase/auth";
+import { checkAccessCode } from "../services/accessService";
 
 const LIQUID_COLORS = [
     "#0353a4",
     "#023e7d",
-    "#002855"
+    "#002855",
 ];
 
 export default function AccessPage({
@@ -24,14 +25,14 @@ export default function AccessPage({
         "",
         "",
         "",
-        ""
+        "",
     ]);
 
     const [error, setError] = useState("");
-
     const [loading, setLoading] = useState(false);
 
     const inputs = useRef([]);
+
 
     function handleChange(value, index) {
 
@@ -41,22 +42,27 @@ export default function AccessPage({
 
         setError("");
 
-        const newCode = [...code];
+        const updated = [...code];
 
-        newCode[index] = value;
+        updated[index] = value;
 
-        setCode(newCode);
+        setCode(updated);
 
-        if (value && index < 4) {
+
+        if (
+            value &&
+            index < updated.length - 1
+        ) {
             inputs.current[index + 1]?.focus();
         }
 
     }
 
-    function handleKeyDown(e, index) {
+
+    function handleKeyDown(event, index) {
 
         if (
-            e.key === "Backspace" &&
+            event.key === "Backspace" &&
             !code[index] &&
             index > 0
         ) {
@@ -65,40 +71,42 @@ export default function AccessPage({
 
     }
 
-    async function handleSubmit(e) {
 
-        e.preventDefault();
+    async function handleSubmit(event) {
+
+        event.preventDefault();
 
         if (loading) {
             return;
         }
 
+
         const finalCode = code.join("");
 
-        const validCodes = [
-            "gb520",
-            "GB520",
-            "Gb520",
-            "gB520"
-        ];
-
-        if (!validCodes.includes(finalCode)) {
-
-            setError(
-                t("access.errors.invalidCode")
-            );
-
-            return;
-
-        }
 
         try {
 
             setLoading(true);
-
             setError("");
 
+
+            const valid =
+                await checkAccessCode(finalCode);
+
+
+            if (!valid) {
+
+                setError(
+                    t("access.errors.invalidCode")
+                );
+
+                return;
+
+            }
+
+
             await loginPortal();
+
 
             sessionStorage.setItem(
                 "gbAccess",
@@ -110,15 +118,22 @@ export default function AccessPage({
                 Date.now()
             );
 
+
             onSuccess();
+
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Access error:",
+                error
+            );
+
 
             setError(
                 t("access.errors.connection")
             );
+
 
         } finally {
 
@@ -127,6 +142,7 @@ export default function AccessPage({
         }
 
     }
+
 
     return (
 
@@ -154,6 +170,7 @@ export default function AccessPage({
 
             </div>
 
+
             <section className="access-card">
 
                 <div className="access-logo">
@@ -165,17 +182,16 @@ export default function AccessPage({
 
                 </div>
 
+
                 <h1 className="company-title">
-
                     GB Sp. z o.o.
-
                 </h1>
 
+
                 <p className="access-subtitle shader-text">
-
                     {t("access.subtitle")}
-
                 </p>
+
 
                 <form
                     onSubmit={handleSubmit}
@@ -183,83 +199,63 @@ export default function AccessPage({
                 >
 
                     <label>
-
                         {t("access.codeLabel")}
-
                     </label>
+
 
                     <div className="code-boxes">
 
-                        {
+                        {code.map((item, index) => (
 
-                            code.map((item, index) => (
+                            <input
+                                key={index}
+                                ref={(element) =>
+                                    inputs.current[index] = element
+                                }
+                                type="password"
+                                maxLength="1"
+                                value={item}
+                                onChange={(event) =>
+                                    handleChange(
+                                        event.target.value,
+                                        index
+                                    )
+                                }
+                                onKeyDown={(event) =>
+                                    handleKeyDown(
+                                        event,
+                                        index
+                                    )
+                                }
+                            />
 
-                                <input
-
-                                    key={index}
-
-                                    ref={(el) =>
-                                        inputs.current[index] = el
-                                    }
-
-                                    type="password"
-
-                                    maxLength="1"
-
-                                    value={item}
-
-                                    onChange={(e) =>
-                                        handleChange(
-                                            e.target.value,
-                                            index
-                                        )
-                                    }
-
-                                    onKeyDown={(e) =>
-                                        handleKeyDown(
-                                            e,
-                                            index
-                                        )
-                                    }
-
-                                />
-
-                            ))
-
-                        }
+                        ))}
 
                     </div>
+
 
                     <button
                         type="submit"
                         disabled={loading}
                     >
 
-                        {
-
-                            loading
-
-                                ? t("access.connecting")
-
-                                : t("access.enter")
-
-                        }
+                        {loading
+                            ? t("access.connecting")
+                            : t("access.enter")}
 
                     </button>
 
+
                 </form>
 
-                {
 
-                    error &&
+                {error && (
 
                     <p className="access-error">
-
                         {error}
-
                     </p>
 
-                }
+                )}
 
             </section>
 
