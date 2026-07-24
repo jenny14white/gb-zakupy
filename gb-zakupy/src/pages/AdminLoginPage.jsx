@@ -6,13 +6,11 @@ import { loginAdmin } from "../firebase/auth";
 import Logo from "../components/shared/Logo";
 import LiquidEther from "../components/shared/effects/LiquidEther";
 
-
 const LIQUID_COLORS = [
     "#0353a4",
     "#023e7d",
     "#002855",
 ];
-
 
 export default function AdminLoginPage({
     goBack,
@@ -28,7 +26,6 @@ export default function AdminLoginPage({
     const [loading,setLoading] = useState(false);
 
 
-
     async function handleLogin(event){
 
         event.preventDefault();
@@ -38,17 +35,29 @@ export default function AdminLoginPage({
         }
 
 
-        setError("");
+        if(
+            !email.trim() ||
+            !password
+        ){
+            setError(
+                t(
+                    "admin.login.errors.invalidCredentials"
+                )
+            );
+
+            return;
+        }
 
 
         try{
 
             setLoading(true);
+            setError("");
 
 
             const user =
                 await loginAdmin(
-                    email,
+                    email.trim(),
                     password
                 );
 
@@ -84,10 +93,10 @@ export default function AdminLoginPage({
     }
 
 
-
     return (
 
         <main className="admin-page login-view">
+
 
             <div className="admin-background">
 
@@ -116,6 +125,7 @@ export default function AdminLoginPage({
                 className="login-card"
                 onSubmit={handleLogin}
             >
+
 
                 <button
                     type="button"
@@ -149,6 +159,7 @@ export default function AdminLoginPage({
                     }
                     autoFocus
                     autoComplete="username"
+                    disabled={loading}
                     required
                 />
 
@@ -161,14 +172,17 @@ export default function AdminLoginPage({
                         setPassword(e.target.value)
                     }
                     autoComplete="current-password"
+                    disabled={loading}
                     required
                 />
 
 
                 {error && (
+
                     <div className="admin-error">
                         {error}
                     </div>
+
                 )}
 
 
@@ -177,14 +191,18 @@ export default function AdminLoginPage({
                     className="admin-button"
                     disabled={loading}
                 >
+
                     {
                         loading
                             ? t("admin.login.loggingIn")
                             : t("admin.login.login")
                     }
+
                 </button>
 
+
             </form>
+
 
         </main>
 
