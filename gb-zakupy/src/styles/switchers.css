@@ -16,6 +16,8 @@
 
     align-items:center;
 
+    flex-shrink:0;
+
 }
 
 /* =====================================================
@@ -104,30 +106,64 @@
 
     position:absolute;
 
-    top:56px;
+    top:58px;
 
     right:0;
 
-    min-width:220px;
+    width:230px;
+
+    max-width:calc(100vw - 24px);
+
+    max-height:70vh;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
 
     padding:8px;
 
-    border-radius:18px;
+    border-radius:20px;
 
     background:var(--surface);
 
     border:1px solid var(--border);
 
-    box-shadow:var(--shadow-medium);
-
-    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.18);
 
     animation:switcherFade .18s ease;
 
-    z-index:10000;
+    z-index:999999;
+
+    overscroll-behavior:contain;
+
+    -webkit-overflow-scrolling:touch;
 
 }
 
+/* Scrollbar */
+
+.theme-menu::-webkit-scrollbar,
+.language-menu::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.theme-menu::-webkit-scrollbar-thumb,
+.language-menu::-webkit-scrollbar-thumb{
+
+    background:var(--border);
+
+    border-radius:999px;
+
+}
+
+.theme-menu::-webkit-scrollbar-track,
+.language-menu::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
 /* =====================================================
    OPCJE
 ===================================================== */
@@ -141,13 +177,13 @@
 
     align-items:center;
 
-    gap:12px;
+    gap:14px;
 
-    padding:12px 14px;
+    padding:13px 14px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
     background:transparent;
 
@@ -163,7 +199,8 @@
 
     transition:
         background .2s,
-        color .2s;
+        color .2s,
+        transform .18s;
 
 }
 
@@ -171,6 +208,8 @@
 .language-option:hover{
 
     background:var(--surface-2);
+
+    transform:translateX(3px);
 
 }
 
@@ -186,13 +225,17 @@
 .theme-option span:first-child,
 .language-option span:first-child{
 
-    width:24px;
+    width:26px;
 
     display:flex;
 
+    align-items:center;
+
     justify-content:center;
 
-    font-size:20px;
+    flex-shrink:0;
+
+    font-size:22px;
 
 }
 
@@ -200,6 +243,12 @@
 .language-option span:last-child{
 
     flex:1;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
 
 }
 
@@ -213,7 +262,9 @@
 
         opacity:0;
 
-        transform:translateY(-8px);
+        transform:
+            translateY(-8px)
+            scale(.98);
 
     }
 
@@ -221,7 +272,9 @@
 
         opacity:1;
 
-        transform:translateY(0);
+        transform:
+            translateY(0)
+            scale(1);
 
     }
 
@@ -236,31 +289,39 @@
     .theme-button,
     .language-button{
 
-        min-width:42px;
+        min-width:44px;
 
-        height:42px;
+        height:44px;
 
         padding:0 14px;
 
-        font-size:14px;
-
         gap:6px;
+
+        font-size:14px;
 
     }
 
     .theme-menu,
     .language-menu{
 
-        min-width:190px;
+        top:52px;
 
         right:0;
+
+        width:min(230px,calc(100vw - 18px));
+
+        max-height:60vh;
+
+        border-radius:18px;
 
     }
 
     .theme-option,
     .language-option{
 
-        padding:11px 12px;
+        padding:12px;
+
+        gap:12px;
 
         font-size:14px;
 
@@ -269,7 +330,38 @@
     .theme-option span:first-child,
     .language-option span:first-child{
 
-        font-size:18px;
+        width:24px;
+
+        font-size:20px;
+
+    }
+
+}
+
+/* =====================================================
+   MAŁE TELEFONY
+===================================================== */
+
+@media (max-width:480px){
+
+    .theme-menu,
+    .language-menu{
+
+        position:fixed;
+
+        top:76px;
+
+        left:12px;
+
+        right:12px;
+
+        width:auto;
+
+        max-width:none;
+
+        max-height:65vh;
+
+        border-radius:20px;
 
     }
 
