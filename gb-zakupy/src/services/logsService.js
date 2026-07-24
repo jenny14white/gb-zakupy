@@ -13,47 +13,91 @@ import {
     db,
 } from "../firebase/firebase";
 
-const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
+const ADMIN_UID =
+    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
+
+const LOG_LIMIT = 200;
+
+
 
 function checkAdmin() {
-    const user = auth.currentUser;
 
-    if (!user || user.uid !== ADMIN_UID) {
+    const user =
+        auth.currentUser;
+
+
+    if (
+        !user ||
+        user.uid !== ADMIN_UID
+    ) {
         throw new Error(
             "Brak uprawnień administratora"
         );
     }
+
 }
+
+
+
+function cleanText(value = "") {
+
+    return String(value).trim();
+
+}
+
+
 
 export async function addLog(
     message,
     type = "info"
 ) {
+
+    const cleanMessage =
+        cleanText(message);
+
+
+    if (!cleanMessage) {
+        return;
+    }
+
+
     await addDoc(
         collection(db, "logs"),
         {
-            message,
-            type,
-            createdAt: serverTimestamp(),
+            message: cleanMessage,
+
+            type:
+                cleanText(type) || "info",
+
+            createdAt:
+                serverTimestamp(),
         }
     );
+
 }
+
+
 
 export function listenToLogs(callback) {
 
     checkAdmin();
 
-    const q = query(
-        collection(db, "logs"),
-        orderBy(
-            "createdAt",
-            "desc"
-        ),
-        limit(200)
-    );
+
+    const logsQuery =
+        query(
+            collection(db, "logs"),
+            orderBy(
+                "createdAt",
+                "desc"
+            ),
+            limit(LOG_LIMIT)
+        );
+
 
     return onSnapshot(
-        q,
+        logsQuery,
         snapshot => {
 
             const logs =
@@ -64,7 +108,10 @@ export function listenToLogs(callback) {
                     })
                 );
 
+
             callback(logs);
+
         }
     );
+
 }
