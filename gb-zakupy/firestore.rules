@@ -5,106 +5,51 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
 
-    // =========================
-    // FUNKCJE
-    // =========================
-
-
     function isLogged() {
-
       return request.auth != null;
-
     }
-
 
 
     function isAdmin() {
-
       return request.auth != null
-        && request.auth.token.email
-        == "belacount4@gmail.com";
-
+      && request.auth.uid == "kRulgEcxNed8aYacTWq3j9GgP4J2";
     }
 
-
-
-
-
-    // =========================
-    // ZAMÓWIENIA
-    // =========================
 
 
     match /orders/{orderId} {
 
-
-      // użytkownik po AccessPage może oglądać listę
-
       allow read: if isLogged();
 
-
-
-      // każdy zalogowany portalowo może dodać zamówienie
-
       allow create: if isLogged()
-        && request.resource.data.status == "pending";
-
-
-
-      // tylko administrator
+      && request.resource.data.status == "pending"
+      && request.resource.data.requestedBy is string
+      && request.resource.data.product is string
+      && request.resource.data.quantity > 0;
 
       allow update, delete: if isAdmin();
 
-
     }
 
-
-
-
-
-    // =========================
-    // LOGI
-    // =========================
 
 
     match /logs/{logId} {
 
-
-      // aplikacja może zapisywać logi
-
       allow create: if isLogged();
 
+      allow read: if isAdmin();
 
-
-      // tylko admin widzi historię
-
-      allow read, update, delete: if isAdmin();
-
+      allow update, delete: if false;
 
     }
 
 
 
-
-
-    // =========================
-    // KALENDARZ
-    // =========================
-
-
     match /events/{eventId} {
-
-
-      // każdy po AccessPage widzi kalendarz
 
       allow read: if isLogged();
 
-
-
-      // tylko administrator zarządza
-
       allow create, update, delete: if isAdmin();
-
 
     }
 
