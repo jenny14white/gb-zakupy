@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect,useRef,useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import logoGB from "../assets/logo.png";
@@ -8,37 +8,45 @@ import LiquidEther from "../components/shared/effects/LiquidEther";
 import { loginPortal } from "../firebase/auth";
 import { checkAccessCode } from "../services/accessService";
 
+
 const LIQUID_COLORS = [
     "#0353a4",
     "#023e7d",
     "#002855",
 ];
 
+const CODE_LENGTH = 5;
+
+
 export default function AccessPage({
     onSuccess,
-}) {
+}){
 
     const { t } = useTranslation();
 
-    const [code, setCode] = useState([
-        "",
-        "",
-        "",
-        "",
-        "",
-    ]);
+    const [code,setCode] = useState(
+        Array(CODE_LENGTH).fill("")
+    );
 
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [error,setError] = useState("");
+    const [loading,setLoading] = useState(false);
 
     const inputs = useRef([]);
 
 
-    function handleChange(value, index) {
+    useEffect(()=>{
 
-        if (!/^[a-zA-Z0-9]?$/.test(value)) {
+        inputs.current[0]?.focus();
+
+    },[]);
+
+
+
+    function handleChange(value,index){
+
+        if(!/^[a-zA-Z0-9]?$/.test(value))
             return;
-        }
+
 
         setError("");
 
@@ -49,42 +57,49 @@ export default function AccessPage({
         setCode(updated);
 
 
-        if (
+        if(
             value &&
-            index < updated.length - 1
-        ) {
+            index < CODE_LENGTH - 1
+        ){
+
             inputs.current[index + 1]?.focus();
+
         }
 
     }
 
 
-    function handleKeyDown(event, index) {
 
-        if (
+    function handleKeyDown(event,index){
+
+        if(
             event.key === "Backspace" &&
             !code[index] &&
             index > 0
-        ) {
+        ){
+
             inputs.current[index - 1]?.focus();
+
         }
 
     }
 
 
-    async function handleSubmit(event) {
+
+    async function handleSubmit(event){
 
         event.preventDefault();
 
-        if (loading) {
+
+        if(loading)
             return;
-        }
 
 
-        const finalCode = code.join("");
+        const finalCode =
+            code.join("");
 
 
-        try {
+        try{
 
             setLoading(true);
             setError("");
@@ -94,7 +109,7 @@ export default function AccessPage({
                 await checkAccessCode(finalCode);
 
 
-            if (!valid) {
+            if(!valid){
 
                 setError(
                     t("access.errors.invalidCode")
@@ -113,6 +128,7 @@ export default function AccessPage({
                 "true"
             );
 
+
             sessionStorage.setItem(
                 "gbLastActivity",
                 Date.now()
@@ -122,7 +138,7 @@ export default function AccessPage({
             onSuccess();
 
 
-        } catch (error) {
+        }catch(error){
 
             console.error(
                 "Access error:",
@@ -135,13 +151,14 @@ export default function AccessPage({
             );
 
 
-        } finally {
+        }finally{
 
             setLoading(false);
 
         }
 
     }
+
 
 
     return (
@@ -173,6 +190,7 @@ export default function AccessPage({
 
             <section className="access-card">
 
+
                 <div className="access-logo">
 
                     <img
@@ -194,8 +212,8 @@ export default function AccessPage({
 
 
                 <form
-                    onSubmit={handleSubmit}
                     className="access-form"
+                    onSubmit={handleSubmit}
                 >
 
                     <label>
@@ -205,23 +223,23 @@ export default function AccessPage({
 
                     <div className="code-boxes">
 
-                        {code.map((item, index) => (
+                        {code.map((item,index)=>(
 
                             <input
                                 key={index}
-                                ref={(element) =>
+                                ref={element =>
                                     inputs.current[index] = element
                                 }
                                 type="password"
                                 maxLength="1"
                                 value={item}
-                                onChange={(event) =>
+                                onChange={event =>
                                     handleChange(
                                         event.target.value,
                                         index
                                     )
                                 }
-                                onKeyDown={(event) =>
+                                onKeyDown={event =>
                                     handleKeyDown(
                                         event,
                                         index
@@ -256,6 +274,7 @@ export default function AccessPage({
                     </p>
 
                 )}
+
 
             </section>
 
