@@ -1,99 +1,152 @@
-import Logo from '../shared/Logo';
+import Logo from "../shared/Logo";
 
 export default function AdminSidebar({
-  activeTab,
-  setActiveTab,
-  pendingCount,
-  acceptedCount,
-  completedCount,
-  unreadNotificationsCount,
-  goBack,
-  logout,
-  goToEvents,
+    activeTab,
+    setActiveTab,
+    pendingCount,
+    acceptedCount,
+    completedCount,
+    unreadNotificationsCount,
+    goBack,
+    logout,
+    goToEvents,
 }) {
-  return (
-    <aside className="sidebar">
-      <div className="sidebar-top">
-        <Logo className="sidebar-logo" />
 
-        <h2>Panel administratora</h2>
-      </div>
+    function NavButton({
+        tab,
+        icon,
+        label,
+        counter,
+        subtitle,
+        onClick,
+    }) {
 
-      <nav className="admin-nav">
+        const active =
+            tab && activeTab === tab;
 
-        <button
-          className={activeTab === 'lista' ? 'active' : ''}
-          onClick={() => setActiveTab('lista')}
-        >
-          <div className="sidebar-item">
-            <span>🛒 Zakupy</span>
+        return (
 
-            <small>
-              🟡 {pendingCount} &nbsp;|&nbsp; 🟢 {acceptedCount}
-            </small>
-          </div>
-        </button>
+            <button
+                className={active ? "active" : ""}
+                onClick={
+                    onClick ??
+                    (() => setActiveTab(tab))
+                }
+            >
 
-        <button
-          className={activeTab === 'powiadomienia' ? 'active' : ''}
-          onClick={() => setActiveTab('powiadomienia')}
-        >
-          <div className="sidebar-item">
-            <span>🔔 Powiadomienia</span>
+                <div className="sidebar-item">
 
-            {unreadNotificationsCount > 0 && (
-              <strong className="sidebar-counter">
-                {unreadNotificationsCount}
-              </strong>
-            )}
-          </div>
-        </button>
+                    <span>
 
-        <button
-          className={activeTab === 'zrealizowane' ? 'active' : ''}
-          onClick={() => setActiveTab('zrealizowane')}
-        >
-          <div className="sidebar-item">
-            <span>✅ Zrealizowane</span>
+                        {icon} {label}
 
-            {completedCount > 0 && (
-              <strong className="sidebar-counter">
-                {completedCount}
-              </strong>
-            )}
-          </div>
-        </button>
+                    </span>
 
-        <button
-          className={activeTab === 'dziennik' ? 'active' : ''}
-          onClick={() => setActiveTab('dziennik')}
-        >
-          <div className="sidebar-item">
-            <span>📜 Dziennik zdarzeń</span>
-          </div>
-        </button>
+                    {subtitle && (
 
-        <button onClick={goToEvents}>
-          <div className="sidebar-item">
-            <span>📅 Kalendarz firmowy</span>
-          </div>
-        </button>
+                        <small>
 
-      </nav>
+                            {subtitle}
 
-      <button
-        className="return-button"
-        onClick={goBack}
-      >
-        ← Wróć do aplikacji
-      </button>
+                        </small>
 
-      <button
-        className="logout-button"
-        onClick={logout}
-      >
-        Wyloguj
-      </button>
-    </aside>
-  );
+                    )}
+
+                    {counter > 0 && (
+
+                        <strong className="sidebar-counter">
+
+                            {counter}
+
+                        </strong>
+
+                    )}
+
+                </div>
+
+            </button>
+
+        );
+
+    }
+
+    return (
+
+        <aside className="sidebar">
+
+            <div className="sidebar-top">
+
+                <Logo className="sidebar-logo" />
+
+                <h2>
+
+                    Panel administratora
+
+                </h2>
+
+            </div>
+
+            <nav className="admin-nav">
+
+                <NavButton
+                    tab="lista"
+                    icon="🛒"
+                    label="Zakupy"
+                    subtitle={`🟡 ${pendingCount} | 🟢 ${acceptedCount}`}
+                />
+
+                <NavButton
+                    tab="powiadomienia"
+                    icon="🔔"
+                    label="Powiadomienia"
+                    counter={unreadNotificationsCount}
+                />
+
+                <NavButton
+                    tab="zrealizowane"
+                    icon="✅"
+                    label="Zrealizowane"
+                    counter={completedCount}
+                />
+
+                <NavButton
+                    tab="dziennik"
+                    icon="📜"
+                    label="Dziennik zdarzeń"
+                />
+
+                <NavButton
+                    icon="📅"
+                    label="Kalendarz firmowy"
+                    onClick={goToEvents}
+                />
+
+            </nav>
+
+            <div className="sidebar-bottom">
+
+                <button
+                    className="return-button"
+                    onClick={goBack}
+                >
+
+                    ← Wróć do aplikacji
+
+                </button>
+
+                <button
+                    className="logout-button"
+                    onClick={logout}
+                >
+
+                    Wyloguj
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    );
+
 }
