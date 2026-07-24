@@ -55,6 +55,21 @@ export default function ThemeSwitcher() {
             id: "gold",
             name: "Gold",
             icon: "🥇"
+        },
+        {
+            id: "crimson",
+            name: "Crimson",
+            icon: "❤️"
+        },
+        {
+            id: "blossom",
+            name: "Cherry Blossom",
+            icon: "🌸"
+        },
+        {
+            id: "violet",
+            name: "Violet",
+            icon: "💜"
         }
     ];
 
@@ -67,7 +82,7 @@ export default function ThemeSwitcher() {
 
             <button
                 className="theme-button"
-                title="Wybierz motyw"
+                title="Choose theme"
                 onClick={() => setOpen(!open)}
             >
                 🎨
