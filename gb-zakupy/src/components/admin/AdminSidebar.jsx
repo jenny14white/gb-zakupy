@@ -11,106 +11,213 @@ export default function AdminSidebar({
     logout,
     goToEvents,
 }) {
+
+
     function NavButton({
         tab,
         icon,
         label,
-        counter,
+        counter = 0,
         subtitle,
         onClick,
     }) {
-        const active = tab && activeTab === tab;
+
+        const active =
+            tab &&
+            activeTab === tab;
+
 
         return (
             <button
-                className={active ? "active" : ""}
-                onClick={onClick ?? (() => setActiveTab(tab))}
+                className={
+                    active
+                        ? "active"
+                        : ""
+                }
+                onClick={
+                    onClick ||
+                    (() =>
+                        setActiveTab(tab)
+                    )
+                }
             >
-                {active && <div className="menu-indicator" />}
+
+                {active && (
+                    <div className="menu-indicator" />
+                )}
+
 
                 <div>
+
                     <strong>
                         {icon} {label}
                     </strong>
+
 
                     {subtitle && (
                         <small>
                             {subtitle}
                         </small>
                     )}
+
                 </div>
 
+
                 {counter > 0 && (
-                    <span>{counter}</span>
+                    <span>
+                        {counter}
+                    </span>
                 )}
+
             </button>
         );
+
     }
 
-    return (
-        <aside className="sidebar">
-            <div className="sidebar-top">
-                <Logo className="sidebar-logo" />
 
-                <h2>Panel administratora</h2>
+
+    return (
+
+        <aside className="sidebar">
+
+
+            <div className="sidebar-top">
+
+                <Logo
+                    className="sidebar-logo"
+                />
+
+
+                <h2>
+                    Panel administratora
+                </h2>
+
 
                 <p>
                     GB Zakupy
                     <br />
                     Management Center
                 </p>
+
             </div>
+
+
 
             <nav className="admin-nav">
+
+
                 <NavButton
+
                     tab="lista"
+
                     icon="🛒"
+
                     label="Zakupy"
-                    subtitle={`🟡 ${pendingCount} • 🟢 ${acceptedCount}`}
+
+                    subtitle={
+                        `🟡 ${pendingCount} • 🟢 ${acceptedCount}`
+                    }
+
                 />
 
+
+
                 <NavButton
+
                     tab="powiadomienia"
+
                     icon="🔔"
+
                     label="Powiadomienia"
-                    counter={unreadNotificationsCount}
+
+                    counter={
+                        unreadNotificationsCount
+                    }
+
                 />
 
+
+
                 <NavButton
+
                     tab="zrealizowane"
+
                     icon="✅"
+
                     label="Zrealizowane"
-                    counter={completedCount}
+
+                    counter={
+                        completedCount
+                    }
+
                 />
 
+
+
                 <NavButton
+
                     tab="dziennik"
+
                     icon="📜"
+
                     label="Dziennik"
+
                 />
 
+
+
                 <NavButton
+
+                    tab="kalendarz"
+
                     icon="📅"
+
                     label="Kalendarz"
+
                     onClick={goToEvents}
+
                 />
+
+
             </nav>
 
+
+
             <div className="sidebar-footer">
-                <button
-                    className="return-button"
-                    onClick={goBack}
-                >
-                    ← Wróć do aplikacji
-                </button>
+
 
                 <button
-                    className="logout-button"
-                    onClick={logout}
+
+                    className="return-button"
+
+                    onClick={goBack}
+
                 >
-                    Wyloguj
+
+                    ← Wróć do aplikacji
+
                 </button>
+
+
+
+                <button
+
+                    className="logout-button"
+
+                    onClick={logout}
+
+                >
+
+                    Wyloguj
+
+                </button>
+
+
             </div>
+
+
         </aside>
+
     );
+
 }
