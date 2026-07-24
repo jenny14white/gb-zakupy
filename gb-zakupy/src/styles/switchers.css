@@ -16,6 +16,8 @@
 
     align-items:center;
 
+    justify-content:center;
+
     flex-shrink:0;
 
 }
@@ -27,23 +29,25 @@
 .theme-button,
 .language-button{
 
+    position:relative;
+
     display:flex;
 
     align-items:center;
 
     justify-content:center;
 
-    gap:8px;
+    gap:10px;
 
-    min-width:46px;
+    min-width:48px;
 
-    height:46px;
+    height:48px;
 
-    padding:0 16px;
+    padding:0 18px;
 
     border:1px solid var(--glass-border);
 
-    border-radius:16px;
+    border-radius:18px;
 
     cursor:pointer;
 
@@ -55,6 +59,8 @@
 
     font-weight:700;
 
+    letter-spacing:.2px;
+
     backdrop-filter:blur(var(--glass-blur));
 
     -webkit-backdrop-filter:blur(var(--glass-blur));
@@ -62,16 +68,48 @@
     box-shadow:var(--shadow-medium);
 
     transition:
-        background .25s,
-        transform .2s,
-        box-shadow .25s;
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        transform .2s ease,
+        box-shadow .25s ease;
+
+    overflow:hidden;
 
 }
+
+/* subtelny połysk */
+
+.theme-button::before,
+.language-button::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.18),
+            transparent 45%
+        );
+
+    opacity:.55;
+
+    pointer-events:none;
+
+}
+
+/* hover */
 
 .theme-button:hover,
 .language-button:hover{
 
     background:var(--glass-hover);
+
+    border-color:rgba(255,255,255,.18);
 
     transform:translateY(-2px);
 
@@ -79,10 +117,25 @@
 
 }
 
+/* klik */
+
 .theme-button:active,
 .language-button:active{
 
-    transform:scale(.96);
+    transform:translateY(0) scale(.96);
+
+}
+
+/* focus */
+
+.theme-button:focus-visible,
+.language-button:focus-visible{
+
+    outline:none;
+
+    box-shadow:
+        0 0 0 3px rgba(255,255,255,.12),
+        var(--shadow-theme);
 
 }
 
@@ -95,8 +148,22 @@
 
     justify-content:center;
 
+    position:relative;
+
+    z-index:1;
+
 }
 
+/* ikony */
+
+.theme-button span:first-child,
+.language-button span:first-child{
+
+    font-size:18px;
+
+    line-height:1;
+
+}
 /* =====================================================
    MENU
 ===================================================== */
@@ -106,11 +173,11 @@
 
     position:absolute;
 
-    top:58px;
+    top:60px;
 
     right:0;
 
-    width:230px;
+    width:250px;
 
     max-width:calc(100vw - 24px);
 
@@ -120,15 +187,21 @@
 
     overflow-x:hidden;
 
-    padding:8px;
+    padding:10px;
 
-    border-radius:20px;
+    border-radius:22px;
 
     background:var(--surface);
 
-    border:1px solid var(--border);
+    border:1px solid var(--glass-border);
 
-    box-shadow:0 20px 60px rgba(0,0,0,.18);
+    backdrop-filter:blur(calc(var(--glass-blur) * 1.3));
+
+    -webkit-backdrop-filter:blur(calc(var(--glass-blur) * 1.3));
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.08);
 
     animation:switcherFade .18s ease;
 
@@ -140,12 +213,38 @@
 
 }
 
-/* Scrollbar */
+/* delikatny połysk */
+
+.theme-menu::before,
+.language-menu::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.08),
+            transparent 40%
+        );
+
+    pointer-events:none;
+
+}
+
+/* ===============================
+   SCROLLBAR
+================================ */
 
 .theme-menu::-webkit-scrollbar,
 .language-menu::-webkit-scrollbar{
 
-    width:6px;
+    width:7px;
 
 }
 
@@ -155,6 +254,15 @@
     background:var(--border);
 
     border-radius:999px;
+
+    transition:background .2s;
+
+}
+
+.theme-menu::-webkit-scrollbar-thumb:hover,
+.language-menu::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
 
 }
 
@@ -171,6 +279,8 @@
 .theme-option,
 .language-option{
 
+    position:relative;
+
     width:100%;
 
     display:flex;
@@ -179,11 +289,11 @@
 
     gap:14px;
 
-    padding:13px 14px;
+    padding:14px 16px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:16px;
 
     background:transparent;
 
@@ -198,20 +308,25 @@
     text-align:left;
 
     transition:
-        background .2s,
-        color .2s,
-        transform .18s;
+        background .22s ease,
+        color .22s ease,
+        transform .18s ease,
+        box-shadow .22s ease;
 
 }
+
+/* hover */
 
 .theme-option:hover,
 .language-option:hover{
 
     background:var(--surface-2);
 
-    transform:translateX(3px);
+    transform:translateX(4px);
 
 }
+
+/* aktywny */
 
 .theme-option.active,
 .language-option.active{
@@ -220,12 +335,20 @@
 
     color:var(--text-white);
 
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.12),
+        0 6px 18px rgba(0,0,0,.12);
+
 }
+
+/* ikona */
 
 .theme-option span:first-child,
 .language-option span:first-child{
 
-    width:26px;
+    width:28px;
+
+    height:28px;
 
     display:flex;
 
@@ -237,7 +360,11 @@
 
     font-size:22px;
 
+    border-radius:50%;
+
 }
+
+/* tekst */
 
 .theme-option span:last-child,
 .language-option span:last-child{
@@ -246,123 +373,37 @@
 
     overflow:hidden;
 
-    text-overflow:ellipsis;
-
     white-space:nowrap;
 
-}
-
-/* =====================================================
-   ANIMACJA
-===================================================== */
-
-@keyframes switcherFade{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translateY(-8px)
-            scale(.98);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
+    text-overflow:ellipsis;
 
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* znacznik aktywnej pozycji */
 
-@media (max-width:768px){
+.theme-option.active::after,
+.language-option.active::after{
 
-    .theme-button,
-    .language-button{
+    content:"✓";
 
-        min-width:44px;
+    margin-left:auto;
 
-        height:44px;
+    font-size:15px;
 
-        padding:0 14px;
+    font-weight:900;
 
-        gap:6px;
-
-        font-size:14px;
-
-    }
-
-    .theme-menu,
-    .language-menu{
-
-        top:52px;
-
-        right:0;
-
-        width:min(230px,calc(100vw - 18px));
-
-        max-height:60vh;
-
-        border-radius:18px;
-
-    }
-
-    .theme-option,
-    .language-option{
-
-        padding:12px;
-
-        gap:12px;
-
-        font-size:14px;
-
-    }
-
-    .theme-option span:first-child,
-    .language-option span:first-child{
-
-        width:24px;
-
-        font-size:20px;
-
-    }
+    opacity:.95;
 
 }
 
-/* =====================================================
-   MAŁE TELEFONY
-===================================================== */
+/* focus */
 
-@media (max-width:480px){
+.theme-option:focus-visible,
+.language-option:focus-visible{
 
-    .theme-menu,
-    .language-menu{
+    outline:none;
 
-        position:fixed;
-
-        top:76px;
-
-        left:12px;
-
-        right:12px;
-
-        width:auto;
-
-        max-width:none;
-
-        max-height:65vh;
-
-        border-radius:20px;
-
-    }
+    box-shadow:
+        0 0 0 3px rgba(255,255,255,.10);
 
 }
