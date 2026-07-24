@@ -21,53 +21,68 @@ export default function AdminLoginPage({
 
     const { t } = useTranslation();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
 
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [error,setError] = useState("");
+    const [loading,setLoading] = useState(false);
 
 
-    async function handleLogin(event) {
+
+    async function handleLogin(event){
 
         event.preventDefault();
 
-        if (loading) return;
+        if(loading){
+            return;
+        }
+
 
         setError("");
 
-        try {
+
+        try{
 
             setLoading(true);
 
-            const user = await loginAdmin(
-                email.trim(),
-                password
-            );
+
+            const user =
+                await loginAdmin(
+                    email,
+                    password
+                );
+
 
             onLogin(user);
+
 
             setEmail("");
             setPassword("");
 
-        } catch (error) {
+
+        }catch(error){
 
             console.error(
                 "Admin login error:",
                 error
             );
 
+
             setError(
-                t("admin.login.errors.invalidCredentials")
+                t(
+                    "admin.login.errors.invalidCredentials"
+                )
             );
 
-        } finally {
+
+        }finally{
 
             setLoading(false);
 
         }
 
     }
+
 
 
     return (
@@ -104,8 +119,8 @@ export default function AdminLoginPage({
 
                 <button
                     type="button"
-                    onClick={goBack}
                     className="back-button"
+                    onClick={goBack}
                     disabled={loading}
                 >
                     {t("shopping.page.back")}
@@ -129,8 +144,8 @@ export default function AdminLoginPage({
                     type="email"
                     placeholder={t("admin.login.email")}
                     value={email}
-                    onChange={(event) =>
-                        setEmail(event.target.value)
+                    onChange={e =>
+                        setEmail(e.target.value)
                     }
                     autoFocus
                     autoComplete="username"
@@ -142,8 +157,8 @@ export default function AdminLoginPage({
                     type="password"
                     placeholder={t("admin.login.password")}
                     value={password}
-                    onChange={(event) =>
-                        setPassword(event.target.value)
+                    onChange={e =>
+                        setPassword(e.target.value)
                     }
                     autoComplete="current-password"
                     required
@@ -162,9 +177,11 @@ export default function AdminLoginPage({
                     className="admin-button"
                     disabled={loading}
                 >
-                    {loading
-                        ? t("admin.login.loggingIn")
-                        : t("admin.login.login")}
+                    {
+                        loading
+                            ? t("admin.login.loggingIn")
+                            : t("admin.login.login")
+                    }
                 </button>
 
             </form>
