@@ -12,7 +12,7 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
-      && request.auth.uid == "kRulgEcxNed8aYacTWq3j9GgP4J2";
+        && request.auth.uid == "kRulgEcxNed8aYacTWq3j9GgP4J2";
     }
 
 
@@ -21,11 +21,13 @@ service cloud.firestore {
 
       allow read: if isLogged();
 
+
       allow create: if isLogged()
-      && request.resource.data.status == "pending"
-      && request.resource.data.requestedBy is string
-      && request.resource.data.product is string
-      && request.resource.data.quantity > 0;
+        && request.resource.data.status == "pending"
+        && request.resource.data.requestedBy is string
+        && request.resource.data.product is string
+        && request.resource.data.quantity > 0;
+
 
       allow update, delete: if isAdmin();
 
@@ -37,7 +39,9 @@ service cloud.firestore {
 
       allow create: if isLogged();
 
+
       allow read: if isAdmin();
+
 
       allow update, delete: if false;
 
@@ -49,7 +53,16 @@ service cloud.firestore {
 
       allow read: if isLogged();
 
+
       allow create, update, delete: if isAdmin();
+
+    }
+
+
+
+    match /settings/{document} {
+
+      allow read, write: if false;
 
     }
 
