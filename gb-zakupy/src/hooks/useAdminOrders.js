@@ -1,104 +1,210 @@
-import { useEffect, useRef, useState } from "react";
-import { listenToOrders } from "../services/ordersService";
+import {
+    useEffect,
+    useRef,
+    useState,
+} from "react";
+
+import {
+    listenToOrders,
+} from "../services/ordersService";
 
 
-export function useAdminOrders(enabled = true) {
+const NOTIFICATION_TITLE =
+    "📦 GB Zakupy";
 
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-    const initialized = useRef(false);
-    const previousIds = useRef(new Set());
+export function useAdminOrders(
+    enabled = true
+) {
+
+    const [orders,setOrders] =
+        useState([]);
+
+    const [loading,setLoading] =
+        useState(true);
+
+
+
+    const initialized =
+        useRef(false);
+
+
+    const previousIds =
+        useRef(new Set());
+
 
 
     useEffect(() => {
 
-        if (!enabled) {
+
+        if(!enabled){
 
             setOrders([]);
+
             setLoading(false);
 
             initialized.current = false;
-            previousIds.current = new Set();
+
+            previousIds.current =
+                new Set();
 
             return;
 
         }
 
 
-        if ("Notification" in window) {
 
-            Notification.requestPermission();
+        let active = true;
+
+
+
+        async function enableNotifications(){
+
+            if(
+                "Notification" in window &&
+                Notification.permission === "default"
+            ){
+
+                try{
+
+                    await Notification.requestPermission();
+
+                }catch(error){
+
+                    console.error(
+                        "Notification error:",
+                        error
+                    );
+
+                }
+
+            }
 
         }
 
 
-        const unsubscribe = listenToOrders((data) => {
+        enableNotifications();
 
 
-            if (!initialized.current) {
 
-                previousIds.current = new Set(
-                    data.map(order => order.id)
-                );
-
-                initialized.current = true;
-
-                setOrders(data);
-                setLoading(false);
-
-                return;
-
-            }
+        const unsubscribe =
+            listenToOrders(
+                data => {
 
 
-            data.forEach(order => {
+                    if(!active){
+                        return;
+                    }
 
-                if (
-                    !previousIds.current.has(order.id) &&
-                    "Notification" in window &&
-                    Notification.permission === "granted"
-                ) {
 
-                    const notification = new Notification(
-                        "📦 GB Zakupy",
-                        {
-                            body:
-                                `${order.requestedBy} dodał(a): ${order.product}`,
-                            icon: "/logo.png",
-                            badge: "/logo.png",
+
+                    if(
+                        !initialized.current
+                    ){
+
+                        previousIds.current =
+                            new Set(
+                                data.map(
+                                    order =>
+                                        order.id
+                                )
+                            );
+
+
+                        initialized.current =
+                            true;
+
+
+                        setOrders(data);
+
+                        setLoading(false);
+
+                        return;
+
+                    }
+
+
+
+                    data.forEach(
+                        order => {
+
+
+                            const isNew =
+                                !previousIds.current.has(
+                                    order.id
+                                );
+
+
+                            if(
+                                isNew &&
+                                "Notification" in window &&
+                                Notification.permission === "granted"
+                            ){
+
+                                const notification =
+                                    new Notification(
+                                        NOTIFICATION_TITLE,
+                                        {
+                                            body:
+                                                `${order.requestedBy} dodał(a): ${order.product}`,
+
+                                            icon:
+                                                "/logo.png",
+
+                                            badge:
+                                                "/logo.png",
+                                        }
+                                    );
+
+
+                                notification.onclick =
+                                    () => {
+
+                                        window.focus();
+
+                                        notification.close();
+
+                                    };
+
+                            }
+
                         }
                     );
 
 
-                    notification.onclick = () => {
 
-                        window.focus();
-                        notification.close();
+                    previousIds.current =
+                        new Set(
+                            data.map(
+                                order =>
+                                    order.id
+                            )
+                        );
 
-                    };
+
+
+                    setOrders(data);
+
+                    setLoading(false);
+
 
                 }
-
-            });
-
-
-            previousIds.current = new Set(
-                data.map(order => order.id)
             );
 
 
-            setOrders(data);
-            setLoading(false);
+
+        return () => {
+
+            active = false;
+
+            unsubscribe();
+
+        };
 
 
-        });
-
-
-        return unsubscribe;
-
-
-    }, [enabled]);
+    },[
+        enabled
+    ]);
 
 
 
@@ -108,6 +214,7 @@ export function useAdminOrders(enabled = true) {
     };
 
 }
+
 
 
 export default useAdminOrders;
