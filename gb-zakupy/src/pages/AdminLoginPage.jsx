@@ -6,13 +6,13 @@ import { loginAdmin } from "../firebase/auth";
 import Logo from "../components/shared/Logo";
 import LiquidEther from "../components/shared/effects/LiquidEther";
 
+
 const LIQUID_COLORS = [
     "#0353a4",
     "#023e7d",
     "#002855",
 ];
 
-const ADMIN_EMAIL = "belacount4@gmail.com";
 
 export default function AdminLoginPage({
     goBack,
@@ -23,12 +23,16 @@ export default function AdminLoginPage({
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
 
     async function handleLogin(event) {
 
         event.preventDefault();
+
+        if (loading) return;
 
         setError("");
 
@@ -37,13 +41,9 @@ export default function AdminLoginPage({
             setLoading(true);
 
             const user = await loginAdmin(
-                email,
+                email.trim(),
                 password
             );
-
-            if (user.email !== ADMIN_EMAIL) {
-                throw new Error("Unauthorized");
-            }
 
             onLogin(user);
 
@@ -52,7 +52,10 @@ export default function AdminLoginPage({
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Admin login error:",
+                error
+            );
 
             setError(
                 t("admin.login.errors.invalidCredentials")
@@ -65,6 +68,7 @@ export default function AdminLoginPage({
         }
 
     }
+
 
     return (
 
@@ -92,6 +96,7 @@ export default function AdminLoginPage({
 
             </div>
 
+
             <form
                 className="login-card"
                 onSubmit={handleLogin}
@@ -101,19 +106,24 @@ export default function AdminLoginPage({
                     type="button"
                     onClick={goBack}
                     className="back-button"
+                    disabled={loading}
                 >
                     {t("shopping.page.back")}
                 </button>
 
+
                 <Logo className="admin-logo" />
+
 
                 <h1>
                     {t("admin.login.title")}
                 </h1>
 
+
                 <p>
                     {t("admin.login.description")}
                 </p>
+
 
                 <input
                     type="email"
@@ -123,8 +133,10 @@ export default function AdminLoginPage({
                         setEmail(event.target.value)
                     }
                     autoFocus
+                    autoComplete="username"
                     required
                 />
+
 
                 <input
                     type="password"
@@ -133,8 +145,10 @@ export default function AdminLoginPage({
                     onChange={(event) =>
                         setPassword(event.target.value)
                     }
+                    autoComplete="current-password"
                     required
                 />
+
 
                 {error && (
                     <div className="admin-error">
@@ -142,7 +156,9 @@ export default function AdminLoginPage({
                     </div>
                 )}
 
+
                 <button
+                    type="submit"
                     className="admin-button"
                     disabled={loading}
                 >
