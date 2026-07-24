@@ -1,26 +1,20 @@
-/* ==========================================================
-   GB PORTAL
-   ADMIN NOTIFICATIONS
-   PART 1 / 4
-========================================================== */
+/* Page */
 
-/* ==========================================================
-   PAGE
-========================================================== */
-
-.notifications-page{
-
+.notifications-page,
+.notifications-header-left,
+.notifications-list,
+.notifications-group,
+.notification-content,
+.notifications-empty{
     display:flex;
-
     flex-direction:column;
-
-    gap:32px;
-
 }
 
-/* ==========================================================
-   HEADER
-========================================================== */
+.notifications-page{
+    gap:32px;
+}
+
+/* Header */
 
 .notifications-header{
 
@@ -37,10 +31,6 @@
 }
 
 .notifications-header-left{
-
-    display:flex;
-
-    flex-direction:column;
 
     gap:10px;
 
@@ -92,9 +82,7 @@
 
 }
 
-/* ==========================================================
-   ACTIONS
-========================================================== */
+/* Actions */
 
 .notifications-toolbar{
 
@@ -108,15 +96,24 @@
 
 }
 
-.notifications-button{
+/* Shared flex center */
 
-    height:52px;
+.notifications-button,
+.notification-action,
+.notification-icon,
+.notifications-empty-icon{
 
     display:flex;
 
     align-items:center;
 
     justify-content:center;
+
+}
+
+.notifications-button{
+
+    height:52px;
 
     gap:10px;
 
@@ -135,30 +132,12 @@
     background:
 
         linear-gradient(
-
             135deg,
-
             var(--accent),
-
             color-mix(in srgb,var(--accent) 78%,white)
-
         );
 
     transition:.3s;
-
-}
-
-.notifications-button:hover{
-
-    transform:
-
-        translateY(-3px)
-
-        scale(1.03);
-
-    box-shadow:
-
-        0 16px 34px rgba(0,0,0,.18);
 
 }
 
@@ -182,37 +161,47 @@
 
 }
 
+/* Buttons hover */
+
+.notifications-button:hover,
+.notifications-button-secondary:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.notifications-button:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 16px 34px rgba(0,0,0,.18);
+
+}
+
 .notifications-button-secondary:hover{
 
     background:rgba(255,255,255,.12);
 
 }
 
-/* ==========================================================
-   LIST
-========================================================== */
+/* List */
 
 .notifications-list{
-
-    display:flex;
-
-    flex-direction:column;
 
     gap:18px;
 
 }
 
-/* ==========================================================
-   GROUP
-========================================================== */
+/* Groups */
 
 .notifications-group{
 
-    display:flex;
-
-    flex-direction:column;
-
     gap:14px;
+
+    position:relative;
 
 }
 
@@ -227,6 +216,26 @@
     gap:16px;
 
     margin-bottom:8px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:10;
+
+    padding:10px 0;
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    transition:color .3s;
+
+}
+
+.notifications-group:hover .notifications-group-title h2{
+
+    color:var(--accent);
 
 }
 
@@ -254,11 +263,20 @@
 
     font-weight:700;
 
+    transition:
+        transform .3s,
+        background .3s;
+
 }
 
-/* ==========================================================
-   NOTIFICATION
-========================================================== */
+.notifications-group:hover .notifications-group-title span{
+
+    transform:scale(1.05);
+
+    background:rgba(255,255,255,.14);
+
+}
+/* Notification */
 
 .notification-card{
 
@@ -269,7 +287,6 @@
     display:grid;
 
     grid-template-columns:
-
         70px
         1fr
         auto;
@@ -283,155 +300,44 @@
     border-radius:28px;
 
     background:
-
         linear-gradient(
-
             145deg,
-
             rgba(255,255,255,.09),
-
             rgba(255,255,255,.04)
-
         );
 
     border:1px solid rgba(255,255,255,.10);
 
     backdrop-filter:blur(22px);
 
-    transition:
+    transition:.35s;
 
-        .35s;
+    animation:notificationEnter .45s ease;
+
+    outline:none;
 
 }
 
 .notification-card:hover{
 
-    transform:
+    transform:translateY(-5px);
 
-        translateY(-5px);
-
-    border-color:
-
-        rgba(255,255,255,.18);
+    border-color:rgba(255,255,255,.18);
 
     box-shadow:
-
         0 24px 60px rgba(0,0,0,.18);
 
 }
 
-/* ==========================================================
-   ICON
-========================================================== */
+.notification-card:focus-within{
 
-.notification-icon{
+    border-color:rgba(255,255,255,.20);
 
-    width:58px;
-
-    height:58px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:20px;
-
-    background:
-
-        rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    font-size:1.35rem;
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,.08),
+        0 22px 60px rgba(0,0,0,.18);
 
 }
-
-/* ==========================================================
-   CONTENT
-========================================================== */
-
-.notification-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
-}
-
-.notification-content h3{
-
-    margin:0;
-
-    font-size:1.1rem;
-
-    font-weight:800;
-
-    color:var(--text-white);
-
-}
-
-.notification-content p{
-
-    margin:0;
-
-    color:var(--text-on-primary);
-
-    line-height:1.7;
-
-}
-
-/* ==========================================================
-   TIME
-========================================================== */
-
-.notification-time{
-
-    color:var(--text-on-primary);
-
-    font-size:.85rem;
-
-}
-/* ==========================================================
-   NOTIFICATION STATES
-========================================================== */
-
-.notification-card.info{
-
-    --notification-color:#60a5fa;
-
-}
-
-.notification-card.success{
-
-    --notification-color:#4ade80;
-
-}
-
-.notification-card.warning{
-
-    --notification-color:#facc15;
-
-}
-
-.notification-card.error{
-
-    --notification-color:#fb7185;
-
-}
-
-.notification-card.system{
-
-    --notification-color:#a78bfa;
-
-}
-
-/* ==========================================================
-   LEFT GLOW BAR
-========================================================== */
 
 .notification-card::before{
 
@@ -451,10 +357,6 @@
 
 }
 
-/* ==========================================================
-   SHINE
-========================================================== */
-
 .notification-card::after{
 
     content:"";
@@ -464,7 +366,6 @@
     inset:0;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(255,255,255,.10),
@@ -475,26 +376,33 @@
 
 }
 
-/* ==========================================================
-   ICON
-========================================================== */
+/* Icon */
 
 .notification-icon{
 
+    width:58px;
+
+    height:58px;
+
     position:relative;
+
+    border-radius:20px;
 
     color:var(--notification-color);
 
     background:
-
         color-mix(in srgb,var(--notification-color) 18%,transparent);
 
     border:1px solid
         color-mix(in srgb,var(--notification-color) 40%,transparent);
 
+    font-size:1.35rem;
+
     transition:
         transform .35s,
         box-shadow .35s;
+
+    animation:notificationFloat 7s ease-in-out infinite;
 
 }
 
@@ -503,15 +411,89 @@
     transform:scale(1.08);
 
     box-shadow:
-
         0 0 28px
         color-mix(in srgb,var(--notification-color) 40%,transparent);
 
 }
 
-/* ==========================================================
-   BADGE
-========================================================== */
+/* Content */
+
+.notification-content{
+
+    gap:8px;
+
+}
+
+.notification-content h3{
+
+    margin:0;
+
+    font-size:1.1rem;
+
+    font-weight:800;
+
+    color:var(--text-white);
+
+    transition:color .3s;
+
+}
+
+.notification-card:hover .notification-content h3{
+
+    color:var(--notification-color);
+
+}
+
+.notification-content p{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    line-height:1.7;
+
+}
+
+/* Time */
+
+.notification-time{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--text-on-primary);
+
+    font-size:.85rem;
+
+    opacity:.75;
+
+}
+/* States */
+
+.notification-card.info{
+    --notification-color:#60a5fa;
+}
+
+.notification-card.success{
+    --notification-color:#4ade80;
+}
+
+.notification-card.warning{
+    --notification-color:#facc15;
+}
+
+.notification-card.error{
+    --notification-color:#fb7185;
+}
+
+.notification-card.system{
+    --notification-color:#a78bfa;
+}
+
+/* Badge */
 
 .notification-badge{
 
@@ -528,7 +510,6 @@
     border-radius:999px;
 
     background:
-
         color-mix(in srgb,var(--notification-color) 18%,transparent);
 
     color:var(--notification-color);
@@ -555,25 +536,7 @@
 
 }
 
-/* ==========================================================
-   TITLE
-========================================================== */
-
-.notification-content h3{
-
-    transition:color .3s;
-
-}
-
-.notification-card:hover h3{
-
-    color:var(--notification-color);
-
-}
-
-/* ==========================================================
-   META
-========================================================== */
+/* Meta */
 
 .notification-meta{
 
@@ -607,25 +570,7 @@
 
 }
 
-/* ==========================================================
-   TIME
-========================================================== */
-
-.notification-time{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    opacity:.75;
-
-}
-
-/* ==========================================================
-   NEW
-========================================================== */
+/* New */
 
 .notification-new{
 
@@ -644,14 +589,44 @@
     background:var(--notification-color);
 
     box-shadow:
-
         0 0 14px var(--notification-color);
 
-    animation:
-
-        notificationPulse 2s infinite;
+    animation:notificationPulse 2s infinite;
 
 }
+
+/* Read / Unread */
+
+.notification-card.unread{
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notification-color) 40%,
+            rgba(255,255,255,.10)
+        );
+
+}
+
+.notification-card.unread .notification-content h3{
+
+    font-weight:900;
+
+}
+
+.notification-card.read{
+
+    opacity:.78;
+
+}
+
+.notification-card.read:hover{
+
+    opacity:1;
+
+}
+
+/* Animations */
 
 @keyframes notificationPulse{
 
@@ -681,42 +656,63 @@
 
 }
 
-/* ==========================================================
-   UNREAD
-========================================================== */
+@keyframes notificationEnter{
 
-.notification-card.unread{
+    from{
 
-    border-color:
+        opacity:0;
 
-        color-mix(in srgb,var(--notification-color) 40%,rgba(255,255,255,.10));
+        transform:
+            translateY(22px)
+            scale(.98);
 
-}
+    }
 
-.notification-card.unread .notification-content h3{
+    to{
 
-    font-weight:900;
+        opacity:1;
 
-}
+        transform:none;
 
-/* ==========================================================
-   READ
-========================================================== */
-
-.notification-card.read{
-
-    opacity:.78;
+    }
 
 }
 
-.notification-card.read:hover{
+@keyframes notificationFloat{
 
-    opacity:1;
+    0%,
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-3px);
+
+    }
 
 }
-/* ==========================================================
-   CARD ACTIONS
-========================================================== */
+
+/* Stagger */
+
+.notification-card:nth-child(2){
+    animation-delay:.05s;
+}
+
+.notification-card:nth-child(3){
+    animation-delay:.10s;
+}
+
+.notification-card:nth-child(4){
+    animation-delay:.15s;
+}
+
+.notification-card:nth-child(5){
+    animation-delay:.20s;
+}
+/* Actions */
 
 .notification-actions{
 
@@ -746,10 +742,6 @@
 
 }
 
-/* ==========================================================
-   ACTION BUTTON
-========================================================== */
-
 .notification-action{
 
     position:relative;
@@ -758,15 +750,9 @@
 
     height:46px;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    cursor:pointer;
 
     border:none;
-
-    cursor:pointer;
 
     border-radius:16px;
 
@@ -792,8 +778,7 @@
         translateY(-3px)
         scale(1.08);
 
-    background:
-        rgba(255,255,255,.15);
+    background:rgba(255,255,255,.15);
 
     box-shadow:
         0 14px 30px rgba(0,0,0,.18);
@@ -806,9 +791,7 @@
 
 }
 
-/* ==========================================================
-   ACTION COLORS
-========================================================== */
+/* Action colors */
 
 .notification-action.primary:hover{
 
@@ -842,9 +825,7 @@
 
 }
 
-/* ==========================================================
-   TOOLTIP
-========================================================== */
+/* Tooltip */
 
 .notification-action::after{
 
@@ -890,15 +871,9 @@
 
 }
 
-/* ==========================================================
-   EMPTY STATE
-========================================================== */
+/* Empty */
 
 .notifications-empty{
-
-    display:flex;
-
-    flex-direction:column;
 
     align-items:center;
 
@@ -923,12 +898,6 @@
     width:90px;
 
     height:90px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
 
     border-radius:50%;
 
@@ -964,9 +933,7 @@
 
 }
 
-/* ==========================================================
-   LOADING
-========================================================== */
+/* Loading */
 
 .notifications-loading{
 
@@ -992,8 +959,7 @@
 
     border-top-color:var(--accent);
 
-    animation:
-        notificationsSpin .9s linear infinite;
+    animation:notificationsSpin .9s linear infinite;
 
 }
 
@@ -1007,153 +973,7 @@
 
 }
 
-/* ==========================================================
-   CARD ENTER
-========================================================== */
-
-.notification-card{
-
-    animation:
-        notificationEnter .45s ease;
-
-}
-
-@keyframes notificationEnter{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translateY(22px)
-            scale(.98);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-
-/* ==========================================================
-   STAGGER
-========================================================== */
-
-.notification-card:nth-child(2){
-
-    animation-delay:.05s;
-
-}
-
-.notification-card:nth-child(3){
-
-    animation-delay:.10s;
-
-}
-
-.notification-card:nth-child(4){
-
-    animation-delay:.15s;
-
-}
-
-.notification-card:nth-child(5){
-
-    animation-delay:.20s;
-
-}
-/* ==========================================================
-   GROUP
-========================================================== */
-
-.notifications-group{
-
-    position:relative;
-
-}
-
-.notifications-group-title{
-
-    position:sticky;
-
-    top:0;
-
-    z-index:10;
-
-    padding:10px 0;
-
-    backdrop-filter:blur(18px);
-
-    -webkit-backdrop-filter:blur(18px);
-
-}
-
-/* ==========================================================
-   GROUP HOVER
-========================================================== */
-
-.notifications-group-title{
-
-    transition:
-        color .3s;
-
-}
-
-.notifications-group:hover .notifications-group-title h2{
-
-    color:var(--accent);
-
-}
-
-.notifications-group-title span{
-
-    transition:
-        transform .3s,
-        background .3s;
-
-}
-
-.notifications-group:hover .notifications-group-title span{
-
-    transform:scale(1.05);
-
-    background:
-
-        rgba(255,255,255,.14);
-
-}
-
-/* ==========================================================
-   CARD FOCUS
-========================================================== */
-
-.notification-card{
-
-    outline:none;
-
-}
-
-.notification-card:focus-within{
-
-    border-color:
-
-        rgba(255,255,255,.20);
-
-    box-shadow:
-
-        0 0 0 2px rgba(255,255,255,.08),
-        0 22px 60px rgba(0,0,0,.18);
-
-}
-
-/* ==========================================================
-   BUTTON FOCUS
-========================================================== */
+/* Focus */
 
 .notifications-button:focus-visible,
 .notifications-button-secondary:focus-visible,
@@ -1162,88 +982,18 @@
     outline:none;
 
     box-shadow:
-
         0 0 0 3px rgba(255,255,255,.15),
         0 0 0 6px rgba(255,255,255,.05);
 
 }
 
-/* ==========================================================
-   ICON FLOAT
-========================================================== */
-
-.notification-icon{
-
-    animation:
-
-        notificationFloat 7s ease-in-out infinite;
-
-}
-
-@keyframes notificationFloat{
-
-    0%,
-    100%{
-
-        transform:translateY(0);
-
-    }
-
-    50%{
-
-        transform:translateY(-3px);
-
-    }
-
-}
-
-/* ==========================================================
-   SCROLLBAR
-========================================================== */
-
-.notifications-list{
-
-    scrollbar-width:thin;
-
-    scrollbar-color:
-
-        rgba(255,255,255,.18)
-        transparent;
-
-}
-
-.notifications-list::-webkit-scrollbar{
-
-    width:8px;
-
-}
-
-.notifications-list::-webkit-scrollbar-track{
-
-    background:transparent;
-
-}
-
-.notifications-list::-webkit-scrollbar-thumb{
-
-    background:
-
-        rgba(255,255,255,.18);
-
-    border-radius:999px;
-
-}
-
-/* ==========================================================
-   MOBILE
-========================================================== */
+/* Mobile */
 
 @media (max-width:1100px){
 
     .notification-card{
 
         grid-template-columns:
-
             60px
             1fr;
 
@@ -1281,12 +1031,7 @@
 
     }
 
-    .notifications-button{
-
-        flex:1;
-
-    }
-
+    .notifications-button,
     .notifications-button-secondary{
 
         flex:1;
@@ -1369,9 +1114,7 @@
 
 }
 
-/* ==========================================================
-   GPU
-========================================================== */
+/* GPU */
 
 .notification-card,
 .notification-icon,
@@ -1379,19 +1122,13 @@
 .notifications-button,
 .notifications-button-secondary{
 
-    will-change:
+    will-change:transform;
 
-        transform;
-
-    transform:
-
-        translateZ(0);
+    transform:translateZ(0);
 
 }
 
-/* ==========================================================
-   REDUCED MOTION
-========================================================== */
+/* Reduced motion */
 
 @media (prefers-reduced-motion:reduce){
 
