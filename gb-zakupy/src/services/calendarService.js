@@ -1,457 +1,215 @@
 import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  serverTimestamp,
-  updateDoc,
-} from 'firebase/firestore';
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    onSnapshot,
+    serverTimestamp,
+    updateDoc,
+} from "firebase/firestore";
 
+import { auth, db } from "../firebase/firebase";
 
-import {
-  auth
-} from '../firebase/firebase';
+const EVENTS_COLLECTION = "events";
 
+const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
 
-import { db } from '../firebase/firebase';
+function checkAdmin() {
+    const user = auth.currentUser;
 
-
-
-const EVENTS_COLLECTION = 'events';
-
-
-
-const ADMIN_EMAIL =
-  "belacount4@gmail.com";
-
-
-
-
-
-function checkAdmin(){
-
-
-  const user = auth.currentUser;
-
-
-
-  if(
-    !user ||
-    user.email !== ADMIN_EMAIL
-  ){
-
-    throw new Error(
-      "Brak uprawnień administratora"
-    );
-
-  }
-
-
+    if (!user || user.uid !== ADMIN_UID) {
+        throw new Error(
+            "Brak uprawnień administratora"
+        );
+    }
 }
-
-
-
-
-
-
-
-
 
 function normalizeEvent(event) {
-
-  return {
-
-    id:event.id,
-
-    title:event.title || '',
-
-    description:event.description || '',
-
-    type:event.type || 'inne',
-
-    date:event.date,
-
-    time:event.time || '',
-
-    location:event.location || '',
-
-    emoji:event.emoji || '📅',
-
-    recurring:event.recurring || false,
-
-    createdAt:event.createdAt || null,
-
-    updatedAt:event.updatedAt || null,
-
-  };
-
+    return {
+        id: event.id,
+        title: event.title || "",
+        description: event.description || "",
+        type: event.type || "inne",
+        date: event.date,
+        time: event.time || "",
+        location: event.location || "",
+        emoji: event.emoji || "📅",
+        recurring: event.recurring || false,
+        createdAt: event.createdAt || null,
+        updatedAt: event.updatedAt || null,
+    };
 }
 
+function sortEvents(events) {
+    return events.sort(
+        (a, b) =>
+            getEventDate(a) - getEventDate(b)
+    );
+}
 
-
-
-
-
-
-
+function getEventDate(event) {
+    return (
+        event.date?.toDate?.() ??
+        new Date(event.date)
+    );
+}
 
 export function listenToEvents(callback) {
+    return onSnapshot(
+        collection(
+            db,
+            EVENTS_COLLECTION
+        ),
+        snapshot => {
 
+            const events =
+                snapshot.docs.map(
+                    document =>
+                        normalizeEvent({
+                            id: document.id,
+                            ...document.data(),
+                        })
+                );
 
-  return onSnapshot(
-
-    collection(
-      db,
-      EVENTS_COLLECTION
-    ),
-
-    (snapshot)=>{
-
-
-      const events = snapshot.docs
-
-      .map((document)=>
-
-        normalizeEvent({
-
-          id:document.id,
-
-          ...document.data(),
-
-        })
-
-      )
-
-
-      .sort((a,b)=>{
-
-
-        const dateA =
-          a.date?.toDate?.()
-          ??
-          new Date(a.date);
-
-
-
-        const dateB =
-          b.date?.toDate?.()
-          ??
-          new Date(b.date);
-
-
-
-        return dateA-dateB;
-
-
-      });
-
-
-
-      callback(events);
-
-
-    }
-
-  );
-
-
+            callback(
+                sortEvents(events)
+            );
+        }
+    );
 }
 
+export async function getAllCalendarEvents() {
 
-
-
-
-
-
-
-
-export async function getAllCalendarEvents(){
-
-
-  const snapshot = await getDocs(
-
-    collection(
-      db,
-      EVENTS_COLLECTION
-    )
-
-  );
-
-
-
-  return snapshot.docs
-
-  .map((document)=>
-
-    normalizeEvent({
-
-      id:document.id,
-
-      ...document.data(),
-
-    })
-
-  )
-
-
-  .sort((a,b)=>{
-
-
-    const dateA =
-      a.date?.toDate?.()
-      ??
-      new Date(a.date);
-
-
-
-    const dateB =
-      b.date?.toDate?.()
-      ??
-      new Date(b.date);
-
-
-
-    return dateA-dateB;
-
-
-  });
-
-
-}
-
-
-
-
-
-
-
-
-
-export function getEventsForDate(events,date){
-
-
-  return events.filter((event)=>{
-
-
-    const eventDate =
-      event.date?.toDate?.()
-      ??
-      new Date(event.date);
-
-
-
-    return (
-
-      eventDate.getFullYear()
-      ===
-      date.getFullYear()
-
-      &&
-
-      eventDate.getMonth()
-      ===
-      date.getMonth()
-
-      &&
-
-      eventDate.getDate()
-      ===
-      date.getDate()
-
+    const snapshot = await getDocs(
+        collection(
+            db,
+            EVENTS_COLLECTION
+        )
     );
 
+    const events =
+        snapshot.docs.map(
+            document =>
+                normalizeEvent({
+                    id: document.id,
+                    ...document.data(),
+                })
+        );
 
-  });
-
-
+    return sortEvents(events);
 }
 
+export function getEventsForDate(
+    events,
+    date
+) {
+    return events.filter(event => {
 
+        const eventDate =
+            getEventDate(event);
 
+        return (
+            eventDate.getFullYear() === date.getFullYear() &&
+            eventDate.getMonth() === date.getMonth() &&
+            eventDate.getDate() === date.getDate()
+        );
 
-
-
-
-
-
-export async function createEvent(data){
-
-
-  checkAdmin();
-
-
-
-  await addDoc(
-
-    collection(
-      db,
-      EVENTS_COLLECTION
-    ),
-
-    {
-
-
-      title:data.title.trim(),
-
-      description:
-        data.description?.trim()
-        ||
-        '',
-
-
-      type:
-        data.type
-        ||
-        'inne',
-
-
-      date:data.date,
-
-
-      time:
-        data.time
-        ||
-        '',
-
-
-      location:
-        data.location
-        ||
-        '',
-
-
-      emoji:
-        data.emoji
-        ||
-        '📅',
-
-
-      recurring:
-        data.recurring
-        ||
-        false,
-
-
-      createdAt:
-        serverTimestamp(),
-
-
-      updatedAt:
-        serverTimestamp(),
-
-
-    }
-
-  );
-
-
+    });
 }
 
+export async function createEvent(data) {
 
+    checkAdmin();
 
+    await addDoc(
+        collection(
+            db,
+            EVENTS_COLLECTION
+        ),
+        {
+            title: data.title.trim(),
 
+            description:
+                data.description?.trim() || "",
 
+            type:
+                data.type || "inne",
 
+            date: data.date,
 
+            time:
+                data.time || "",
 
+            location:
+                data.location || "",
 
-export async function updateEvent(id,data){
+            emoji:
+                data.emoji || "📅",
 
+            recurring:
+                Boolean(data.recurring),
 
-  checkAdmin();
+            createdAt:
+                serverTimestamp(),
 
-
-
-  await updateDoc(
-
-    doc(
-      db,
-      EVENTS_COLLECTION,
-      id
-    ),
-
-    {
-
-
-      title:data.title.trim(),
-
-
-      description:
-        data.description?.trim()
-        ||
-        '',
-
-
-      type:
-        data.type
-        ||
-        'inne',
-
-
-      date:data.date,
-
-
-      time:
-        data.time
-        ||
-        '',
-
-
-      location:
-        data.location
-        ||
-        '',
-
-
-      emoji:
-        data.emoji
-        ||
-        '📅',
-
-
-      recurring:
-        data.recurring
-        ||
-        false,
-
-
-      updatedAt:
-        serverTimestamp(),
-
-
-    }
-
-  );
-
-
+            updatedAt:
+                serverTimestamp(),
+        }
+    );
 }
 
+export async function updateEvent(
+    id,
+    data
+) {
 
+    checkAdmin();
 
+    await updateDoc(
+        doc(
+            db,
+            EVENTS_COLLECTION,
+            id
+        ),
+        {
+            title: data.title.trim(),
 
+            description:
+                data.description?.trim() || "",
 
+            type:
+                data.type || "inne",
 
+            date: data.date,
 
+            time:
+                data.time || "",
 
+            location:
+                data.location || "",
 
-export async function deleteEvent(id){
+            emoji:
+                data.emoji || "📅",
 
+            recurring:
+                Boolean(data.recurring),
 
-  checkAdmin();
+            updatedAt:
+                serverTimestamp(),
+        }
+    );
+}
 
+export async function deleteEvent(id) {
 
+    checkAdmin();
 
-  await deleteDoc(
-
-    doc(
-      db,
-      EVENTS_COLLECTION,
-      id
-    )
-
-  );
-
-
+    await deleteDoc(
+        doc(
+            db,
+            EVENTS_COLLECTION,
+            id
+        )
+    );
 }
