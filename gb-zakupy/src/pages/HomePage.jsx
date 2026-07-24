@@ -15,11 +15,13 @@ export default function HomePage({
 
     const { t } = useTranslation();
 
+
     return (
 
         <main className="home-page">
 
             <section className="home-container">
+
 
                 <div className="home-switchers">
 
@@ -30,6 +32,7 @@ export default function HomePage({
                     <ThemeSwitcher />
 
                 </div>
+
 
                 <header className="home-header">
 
@@ -42,9 +45,11 @@ export default function HomePage({
 
                     </div>
 
+
                     <h1 className="company-title">
                         GB Sp. z o.o.
                     </h1>
+
 
                     <p>
                         {t("home.subtitle")}
@@ -52,27 +57,55 @@ export default function HomePage({
 
                 </header>
 
+
                 <div className="home-options">
 
                     <GooeyCard
-                        title={t("home.cards.shopping.title")}
-                        description={t("home.cards.shopping.description")}
+                        title={
+                            t(
+                                "home.cards.shopping.title"
+                            )
+                        }
+                        description={
+                            t(
+                                "home.cards.shopping.description"
+                            )
+                        }
                         onClick={goToShopping}
                     />
 
+
                     <GooeyCard
-                        title={t("home.cards.calendar.title")}
-                        description={t("home.cards.calendar.description")}
+                        title={
+                            t(
+                                "home.cards.calendar.title"
+                            )
+                        }
+                        description={
+                            t(
+                                "home.cards.calendar.description"
+                            )
+                        }
                         onClick={goToCalendar}
                     />
 
+
                     <GooeyCard
-                        title={t("home.cards.admin.title")}
-                        description={t("home.cards.admin.description")}
+                        title={
+                            t(
+                                "home.cards.admin.title"
+                            )
+                        }
+                        description={
+                            t(
+                                "home.cards.admin.description"
+                            )
+                        }
                         onClick={goToAdmin}
                     />
 
                 </div>
+
 
             </section>
 
