@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 
 import "../../styles/admin-calendar.css";
 
-
 const WEEK_DAYS = [
     "Pn",
     "Wt",
@@ -33,7 +32,6 @@ export default function AdminCalendar({
     onEdit,
     onDelete,
 }) {
-
     const today = new Date();
 
     const [currentMonth, setCurrentMonth] = useState(
@@ -77,7 +75,6 @@ export default function AdminCalendar({
     ];
 
     function changeMonth(step) {
-
         setCurrentMonth(
             new Date(
                 year,
@@ -85,11 +82,9 @@ export default function AdminCalendar({
                 1
             )
         );
-
     }
 
     function goToToday() {
-
         const now = new Date();
 
         setCurrentMonth(
@@ -101,13 +96,10 @@ export default function AdminCalendar({
         );
 
         setSelectedDate(now);
-
     }
 
     function getEventsForDay(date) {
-
         return events.filter(event => {
-
             const eventDate =
                 event.date?.toDate?.() ??
                 new Date(event.date);
@@ -117,9 +109,7 @@ export default function AdminCalendar({
                 eventDate.getMonth() === date.getMonth() &&
                 eventDate.getDate() === date.getDate()
             );
-
         });
-
     }
 
     const selectedEvents = useMemo(
@@ -128,7 +118,6 @@ export default function AdminCalendar({
     );
 
     return (
-
         <section className="calendar-wrapper">
 
             <div className="calendar-header">
@@ -152,242 +141,238 @@ export default function AdminCalendar({
                 </div>
 
                 <h2>
-
                     {MONTHS[month]} {year}
-
                 </h2>
 
                 <button
                     className="calendar-today"
                     onClick={goToToday}
                 >
-
                     📅 Dzisiaj
-
                 </button>
 
             </div>
 
-            <div className="calendar-layout">
+            <div className="react-calendar">
 
-                <div className="calendar-grid">
+                <div className="react-calendar__month-view">
 
-                    {WEEK_DAYS.map(day => (
+                    <div className="react-calendar__month-view__weekdays">
 
-                        <div
-                            key={day}
-                            className="calendar-weekday"
-                        >
+                        {WEEK_DAYS.map(day => (
 
-                            {day}
+                            <div
+                                key={day}
+                                className="react-calendar__month-view__weekdays__weekday"
+                            >
 
-                        </div>
-
-                    ))}
-                                        {calendarDays.map((date, index) => (
-
-                        <CalendarDay
-                            key={
-                                date
-                                    ? date.toISOString()
-                                    : `empty-${index}`
-                            }
-                            date={date}
-                            today={today}
-                            selectedDate={selectedDate}
-                            onSelect={setSelectedDate}
-                            events={date ? getEventsForDay(date) : []}
-                        />
-
-                    ))}
-
-                </div>
-
-                <aside className="calendar-events">
-
-                    <div className="calendar-events-header">
-
-                        <div>
-
-                            <h3>
-
-                                {selectedDate.toLocaleDateString(
-                                    "pl-PL",
-                                    {
-                                        day: "numeric",
-                                        month: "long",
-                                        year: "numeric",
-                                    }
-                                )}
-
-                            </h3>
-
-                            <p>
-
-                                Wybrane wydarzenia
-
-                            </p>
-
-                        </div>
-
-                        <span className="calendar-events-count">
-
-                            {selectedEvents.length}
-
-                        </span>
-
-                    </div>
-                                        {selectedEvents.length === 0 ? (
-
-                        <div className="calendar-empty">
-
-                            <div className="calendar-empty-icon">
-
-                                📅
+                                <abbr>{day}</abbr>
 
                             </div>
 
-                            <h3>
+                        ))}
 
-                                Brak wydarzeń
+                    </div>
 
-                            </h3>
+                    <div className="react-calendar__month-view__days">
 
-                            <p>
+                        {calendarDays.map((date, index) => (
 
-                                Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
+                            <CalendarDay
+                                key={
+                                    date
+                                        ? date.toISOString()
+                                        : `empty-${index}`
+                                }
+                                date={date}
+                                today={today}
+                                selectedDate={selectedDate}
+                                onSelect={setSelectedDate}
+                                events={date ? getEventsForDay(date) : []}
+                            />
 
-                            </p>
+                        ))}
 
+                    </div>
+
+                </div>
+
+            </div>
+
+            <aside className="calendar-events">
+
+                <div className="calendar-events-header">
+
+                    <div>
+
+                        <h3>
+
+                            {selectedDate.toLocaleDateString(
+                                "pl-PL",
+                                {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                }
+                            )}
+
+                        </h3>
+
+                        <p>
+
+                            Wybrane wydarzenia
+
+                        </p>
+
+                    </div>
+
+                    <span className="calendar-events-count">
+
+                        {selectedEvents.length}
+
+                    </span>
+
+                </div>
+                                {selectedEvents.length === 0 ? (
+
+                    <div className="calendar-empty">
+
+                        <div className="calendar-empty-icon">
+                            📅
                         </div>
 
-                    ) : (
+                        <h3>
+                            Brak wydarzeń
+                        </h3>
 
-                        selectedEvents.map(event => {
+                        <p>
+                            Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
+                        </p>
 
-                            const eventDate =
-                                event.date?.toDate?.() ??
-                                new Date(event.date);
+                    </div>
 
-                            return (
+                ) : (
 
-                                <article
-                                    key={event.id}
-                                    className="calendar-event-card"
-                                >
+                    selectedEvents.map(event => {
 
-                                    <div className="calendar-event-bar" />
+                        const eventDate =
+                            event.date?.toDate?.() ??
+                            new Date(event.date);
 
-                                    <div className="calendar-event-time">
+                        return (
 
-                                        <strong>
+                            <article
+                                key={event.id}
+                                className="calendar-event-card"
+                            >
 
-                                            {event.time || "--:--"}
+                                <div className="calendar-event-bar" />
 
-                                        </strong>
+                                <div className="calendar-event-time">
 
-                                        <span>
+                                    <strong>
+                                        {event.time || "--:--"}
+                                    </strong>
 
-                                            {eventDate.toLocaleDateString(
-                                                "pl-PL",
-                                                {
-                                                    day: "numeric",
-                                                    month: "short",
-                                                }
-                                            )}
+                                    <span>
 
-                                        </span>
+                                        {eventDate.toLocaleDateString(
+                                            "pl-PL",
+                                            {
+                                                day: "numeric",
+                                                month: "short",
+                                            }
+                                        )}
 
-                                    </div>
+                                    </span>
 
-                                    <div className="calendar-event-content">
+                                </div>
 
-                                        <div className="calendar-event-category">
+                                <div className="calendar-event-content">
 
-                                            {event.type || "Wydarzenie"}
+    {event.type && (
+
+        <div className="calendar-event-category">
+
+            {event.type}
+
+        </div>
+
+    )}
+
+                                    <h4>
+
+                                        {event.emoji || "📅"} {event.title}
+
+                                    </h4>
+
+                                    {event.location && (
+
+                                        <p>
+
+                                            📍 {event.location}
+
+                                        </p>
+
+                                    )}
+
+                                    {event.description && (
+
+                                        <p>
+
+                                            {event.description}
+
+                                        </p>
+
+                                    )}
+
+                                    {event.recurring && (
+
+                                        <div>
+
+                                            🔁 Powtarzające się wydarzenie
 
                                         </div>
 
-                                        <h4>
+                                    )}
 
-                                            {event.emoji || "📅"} {event.title}
+                                </div>
 
-                                        </h4>
+                                <div className="calendar-event-actions">
 
-                                        {event.location && (
+                                    <button
+                                        type="button"
+                                        className="calendar-event-action"
+                                        onClick={() => onEdit(event)}
+                                    >
+                                        ✏️
+                                    </button>
 
-                                            <p>
+                                    <button
+    type="button"
+    className="calendar-event-action"
+    onClick={() => onDelete(event.id)}
+>
+    🗑️
+</button>
 
-                                                📍 {event.location}
+                                </div>
 
-                                            </p>
+                            </article>
 
-                                        )}
+                        );
 
-                                        {event.description && (
+                    })
 
-                                            <p>
+                )}
 
-                                                {event.description}
-
-                                            </p>
-
-                                        )}
-
-                                        {event.recurring && (
-
-                                            <div className="calendar-recurring">
-
-                                                🔁 Powtarzające się wydarzenie
-
-                                            </div>
-
-                                        )}
-
-                                    </div>
-
-                                    <div className="calendar-event-actions">
-
-                                        <button
-                                            type="button"
-                                            className="calendar-event-action"
-                                            onClick={() => onEdit(event)}
-                                        >
-
-                                            ✏️
-
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            className="calendar-event-action danger"
-                                            onClick={() => onDelete(event.id)}
-                                        >
-
-                                            🗑️
-
-                                        </button>
-
-                                    </div>
-
-                                </article>
-
-                            );
-
-                        })
-
-                    )}
-
-                </aside>
-
-            </div>
+            </aside>
 
         </section>
 
     );
 
 }
-
 function CalendarDay({
     date,
     today,
@@ -397,12 +382,13 @@ function CalendarDay({
 }) {
 
     if (!date) {
-
-        return (
-            <div className="calendar-empty-tile" />
-        );
-
-    }
+    return (
+        <div
+            className="react-calendar__tile"
+            style={{ visibility: "hidden" }}
+        />
+    );
+}
 
     const isToday =
         date.toDateString() === today.toDateString();
@@ -414,76 +400,48 @@ function CalendarDay({
 
         <button
             type="button"
-            className={`calendar-day ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
+            className={`
+                react-calendar__tile
+                ${isToday ? "react-calendar__tile--now" : ""}
+                ${isSelected ? "react-calendar__tile--active" : ""}
+            `}
             onClick={() => onSelect(date)}
         >
 
-            <div className="calendar-day-top">
+            <abbr>
+                {date.getDate()}
+            </abbr>
 
-                <span className="calendar-number">
+            {events.length === 1 && (
+                <div className="calendar-event-dot" />
+            )}
 
-                    {date.getDate()}
+            {events.length === 2 && (
+                <div className="calendar-event-dots">
+                    <span />
+                    <span />
+                </div>
+            )}
 
-                </span>
+            {events.length === 3 && (
+                <div className="calendar-event-dots">
+                    <span />
+                    <span />
+                    <span />
+                </div>
+            )}
 
-                {events.length > 0 && (
+            {events.length > 3 && (
+                <div className="calendar-more-events">
+                    +{events.length}
+                </div>
+            )}
 
-                    <span className="calendar-day-badge">
-
-                        {events.length}
-
-                    </span>
-
-                )}
-
-            </div>
-
-            <div className="calendar-day-body">
-
-                {events.slice(0, 2).map(event => (
-
-                    <div
-                        key={event.id}
-                        className="calendar-day-item"
-                    >
-
-                        <span>
-
-                            {event.emoji || "📅"}
-
-                        </span>
-
-                        <span>
-
-                            {event.title}
-
-                        </span>
-
-                    </div>
-
-                ))}
-
-                {events.length === 0 && (
-
-                    <div className="calendar-day-placeholder">
-
-                        Brak wydarzeń
-
-                    </div>
-
-                )}
-
-                {events.length > 2 && (
-
-                    <div className="calendar-day-more">
-
-                        +{events.length - 2} więcej
-
-                    </div>
-
-                )}
-
-            </div>
+            {events[0]?.type && (
+                <div className="calendar-day-chip">
+                    {events[0].type}
+                </div>
+            )}
 
         </button>
 
