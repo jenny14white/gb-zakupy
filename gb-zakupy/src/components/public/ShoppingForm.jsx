@@ -8,23 +8,29 @@ export default function ShoppingForm() {
 
     const { t } = useTranslation();
 
-    const [requestedBy, setRequestedBy] = useState("");
-    const [product, setProduct] = useState("");
-    const [quantity, setQuantity] = useState("1");
-    const [unit, setUnit] = useState("szt.");
-    const [message, setMessage] = useState("");
-    const [isError, setIsError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [requestedBy,setRequestedBy] = useState("");
+    const [product,setProduct] = useState("");
+    const [quantity,setQuantity] = useState("1");
+    const [unit,setUnit] = useState("szt.");
+    const [message,setMessage] = useState("");
+    const [isError,setIsError] = useState(false);
+    const [loading,setLoading] = useState(false);
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event){
 
         event.preventDefault();
 
-        if (
+        if(loading)
+            return;
+
+        const amount = Number(quantity);
+
+        if(
             !requestedBy.trim() ||
             !product.trim() ||
-            !quantity.trim()
-        ) {
+            !amount ||
+            amount < 1
+        ){
 
             setIsError(true);
 
@@ -36,17 +42,18 @@ export default function ShoppingForm() {
 
         }
 
-        try {
+        try{
 
             setLoading(true);
             setIsError(false);
 
             await createOrder({
-                requestedBy,
-                product,
-                quantity,
+                requestedBy: requestedBy.trim(),
+                product: product.trim(),
+                quantity: amount,
                 unit,
             });
+
 
             setMessage(
                 `${t("shopping.form.success")} ${product}`
@@ -56,12 +63,14 @@ export default function ShoppingForm() {
             setQuantity("1");
             setUnit("szt.");
 
+
             setTimeout(
-                () => setMessage(""),
+                ()=>setMessage(""),
                 3500
             );
 
-        } catch (error) {
+
+        }catch(error){
 
             console.error(error);
 
@@ -71,13 +80,15 @@ export default function ShoppingForm() {
                 t("shopping.form.errors.addFailed")
             );
 
-        } finally {
+
+        }finally{
 
             setLoading(false);
 
         }
 
     }
+
 
     return (
 
@@ -100,23 +111,23 @@ export default function ShoppingForm() {
 
             )}
 
+
             <label>
 
                 {t("shopping.form.name")} *
 
                 <input
                     value={requestedBy}
-                    onChange={(event) =>
-                        setRequestedBy(
-                            event.target.value
-                        )
+                    onChange={e =>
+                        setRequestedBy(e.target.value)
                     }
-                    placeholder={t(
-                        "shopping.form.placeholders.name"
-                    )}
+                    placeholder={
+                        t("shopping.form.placeholders.name")
+                    }
                 />
 
             </label>
+
 
             <label>
 
@@ -125,17 +136,16 @@ export default function ShoppingForm() {
                 <textarea
                     rows="4"
                     value={product}
-                    onChange={(event) =>
-                        setProduct(
-                            event.target.value
-                        )
+                    onChange={e =>
+                        setProduct(e.target.value)
                     }
-                    placeholder={t(
-                        "shopping.form.placeholders.product"
-                    )}
+                    placeholder={
+                        t("shopping.form.placeholders.product")
+                    }
                 />
 
             </label>
+
 
             <div className="form-row">
 
@@ -147,14 +157,13 @@ export default function ShoppingForm() {
                         type="number"
                         min="1"
                         value={quantity}
-                        onChange={(event) =>
-                            setQuantity(
-                                event.target.value
-                            )
+                        onChange={e =>
+                            setQuantity(e.target.value)
                         }
                     />
 
                 </label>
+
 
                 <label>
 
@@ -162,17 +171,16 @@ export default function ShoppingForm() {
 
                     <select
                         value={unit}
-                        onChange={(event) =>
-                            setUnit(
-                                event.target.value
-                            )
+                        onChange={e =>
+                            setUnit(e.target.value)
                         }
                     >
 
-                        {UNITS.map((item) => (
+                        {UNITS.map(item => (
 
                             <option
                                 key={item}
+                                value={item}
                             >
                                 {item}
                             </option>
@@ -184,6 +192,7 @@ export default function ShoppingForm() {
                 </label>
 
             </div>
+
 
             <button
                 className="submit-button"
