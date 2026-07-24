@@ -1,1 +1,1580 @@
+/* ==========================================================
+   GB PORTAL
+   ADMIN SHOPPING
+   PART 1 / 4
+========================================================== */
 
+/* ==========================================================
+   SHOPPING LAYOUT
+========================================================== */
+
+.shopping-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:32px;
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.shopping-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:28px;
+
+    flex-wrap:wrap;
+
+}
+
+.shopping-header-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.shopping-header-left small{
+
+    width:max-content;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.08);
+
+    color:var(--accent);
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.shopping-header-left h1{
+
+    margin:0;
+
+    font-size:2.8rem;
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+
+    color:var(--text-white);
+
+}
+
+.shopping-header-left p{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    line-height:1.7;
+
+}
+
+/* ==========================================================
+   TOOLBAR
+========================================================== */
+
+.shopping-toolbar{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   ACTION BUTTON
+========================================================== */
+
+.shopping-button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    height:54px;
+
+    padding:0 22px;
+
+    border:none;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--accent),
+
+            color-mix(in srgb,var(--accent) 75%,white)
+
+        );
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.shopping-button:hover{
+
+    transform:
+
+        translateY(-3px)
+
+        scale(1.03);
+
+    box-shadow:
+
+        0 18px 35px rgba(0,0,0,.18);
+
+}
+
+/* ==========================================================
+   SECONDARY BUTTON
+========================================================== */
+
+.shopping-button-secondary{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    height:54px;
+
+    padding:0 22px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.07);
+
+    color:var(--text-white);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.shopping-button-secondary:hover{
+
+    background:rgba(255,255,255,.12);
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================================
+   SHOPPING CONTENT
+========================================================== */
+
+.shopping-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+}
+
+/* ==========================================================
+   CATEGORY
+========================================================== */
+
+.shopping-category{
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(255,255,255,.09),
+
+            rgba(255,255,255,.04)
+
+        );
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    transition:
+
+        .35s;
+
+}
+
+.shopping-category:hover{
+
+    border-color:
+
+        rgba(255,255,255,.18);
+
+}
+
+/* ==========================================================
+   CATEGORY HEADER
+========================================================== */
+
+.shopping-category-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:24px 30px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+/* ==========================================================
+   LEFT
+========================================================== */
+
+.shopping-category-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+/* ==========================================================
+   CHEVRON
+========================================================== */
+
+.shopping-chevron{
+
+    width:44px;
+
+    height:44px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
+    transition:.35s;
+
+}
+
+.shopping-category.open .shopping-chevron{
+
+    transform:rotate(90deg);
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.shopping-category-title{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.shopping-category-title h2{
+
+    margin:0;
+
+    font-size:1.2rem;
+
+    font-weight:800;
+
+    color:var(--text-white);
+
+}
+
+.shopping-category-title span{
+
+    color:var(--text-on-primary);
+
+}
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.shopping-count{
+
+    min-width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:0 14px;
+
+    border-radius:999px;
+
+    background:
+
+        rgba(255,255,255,.09);
+
+    color:var(--text-white);
+
+    font-weight:800;
+
+}
+/* ==========================================================
+   CATEGORY BODY
+========================================================== */
+
+.shopping-category-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    padding:0 24px 24px;
+
+}
+
+/* ==========================================================
+   SHOPPING CARD
+========================================================== */
+
+.shopping-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:grid;
+
+    grid-template-columns:
+
+        6px
+        1fr
+        auto;
+
+    align-items:center;
+
+    gap:24px;
+
+    min-height:120px;
+
+    padding:0;
+
+    border-radius:26px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.04)
+        );
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(20px);
+
+    transition:
+        transform .35s,
+        box-shadow .35s,
+        border-color .35s;
+
+}
+
+.shopping-card:hover{
+
+    transform:
+        translateY(-6px);
+
+    border-color:
+        rgba(255,255,255,.18);
+
+    box-shadow:
+        0 24px 60px rgba(0,0,0,.20);
+
+}
+
+/* ==========================================================
+   LEFT BAR
+========================================================== */
+
+.shopping-card-bar{
+
+    align-self:stretch;
+
+    border-radius:26px 0 0 26px;
+
+    background:var(--accent);
+
+}
+
+/* ==========================================================
+   CARD CONTENT
+========================================================== */
+
+.shopping-card-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    padding:24px 0;
+
+}
+
+/* ==========================================================
+   TOP
+========================================================== */
+
+.shopping-card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   PRODUCT
+========================================================== */
+
+.shopping-product{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.shopping-product h3{
+
+    margin:0;
+
+    font-size:1.35rem;
+
+    font-weight:800;
+
+    color:var(--text-white);
+
+}
+
+.shopping-product p{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    line-height:1.6;
+
+}
+
+/* ==========================================================
+   META
+========================================================== */
+
+.shopping-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+/* ==========================================================
+   META CHIP
+========================================================== */
+
+.shopping-chip{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:.88rem;
+
+    font-weight:600;
+
+    color:var(--text-on-primary);
+
+    transition:.3s;
+
+}
+
+.shopping-card:hover .shopping-chip{
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+/* ==========================================================
+   RIGHT
+========================================================== */
+
+.shopping-card-right{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    gap:18px;
+
+    padding-right:24px;
+
+}
+
+/* ==========================================================
+   DATE
+========================================================== */
+
+.shopping-date{
+
+    font-size:.85rem;
+
+    color:var(--text-on-primary);
+
+}
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+.shopping-status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:11px 18px;
+
+    border-radius:999px;
+
+    font-weight:700;
+
+    font-size:.9rem;
+
+}
+
+/* ==========================================================
+   STATUS DOT
+========================================================== */
+
+.shopping-status::before{
+
+    content:"";
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:currentColor;
+
+}
+
+/* ==========================================================
+   COLORS
+========================================================== */
+
+.shopping-status.pending{
+
+    color:#facc15;
+
+    background:rgba(250,204,21,.12);
+
+}
+
+.shopping-status.progress{
+
+    color:#60a5fa;
+
+    background:rgba(96,165,250,.12);
+
+}
+
+.shopping-status.done{
+
+    color:#4ade80;
+
+    background:rgba(74,222,128,.12);
+
+}
+
+.shopping-status.cancelled{
+
+    color:#fb7185;
+
+    background:rgba(251,113,133,.12);
+
+}
+
+/* ==========================================================
+   SHINE
+========================================================== */
+
+.shopping-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.10),
+            transparent 45%
+        );
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   GLOW
+========================================================== */
+
+.shopping-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:-80px;
+
+    right:-80px;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            rgba(255,255,255,.10),
+            transparent 70%
+        );
+
+    filter:blur(34px);
+
+    pointer-events:none;
+
+}
+/* ==========================================================
+   CARD FOOTER
+========================================================== */
+
+.shopping-card-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   REQUEST INFO
+========================================================== */
+
+.shopping-request{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.shopping-avatar{
+
+    width:46px;
+
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.08)
+        );
+
+    border:1px solid rgba(255,255,255,.12);
+
+    font-weight:800;
+
+    color:var(--text-white);
+
+    flex-shrink:0;
+
+}
+
+.shopping-request-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.shopping-request-info strong{
+
+    color:var(--text-white);
+
+    font-size:.96rem;
+
+}
+
+.shopping-request-info span{
+
+    color:var(--text-on-primary);
+
+    font-size:.84rem;
+
+}
+
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.shopping-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   ICON BUTTON
+========================================================== */
+
+.shopping-icon-btn{
+
+    position:relative;
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(18px);
+
+    color:var(--text-white);
+
+    transition:
+        transform .28s,
+        background .28s,
+        box-shadow .28s;
+
+}
+
+.shopping-icon-btn:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.08);
+
+    background:
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 14px 30px rgba(0,0,0,.18);
+
+}
+
+.shopping-icon-btn:active{
+
+    transform:scale(.94);
+
+}
+
+/* ==========================================================
+   BUTTON COLORS
+========================================================== */
+
+.shopping-icon-btn.success:hover{
+
+    background:rgba(34,197,94,.18);
+
+    color:#4ade80;
+
+}
+
+.shopping-icon-btn.warning:hover{
+
+    background:rgba(250,204,21,.18);
+
+    color:#facc15;
+
+}
+
+.shopping-icon-btn.info:hover{
+
+    background:rgba(96,165,250,.18);
+
+    color:#60a5fa;
+
+}
+
+.shopping-icon-btn.danger:hover{
+
+    background:rgba(248,113,113,.18);
+
+    color:#fb7185;
+
+}
+
+/* ==========================================================
+   TOOLTIP
+========================================================== */
+
+.shopping-icon-btn::after{
+
+    content:attr(data-tooltip);
+
+    position:absolute;
+
+    bottom:calc(100% + 10px);
+
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateY(8px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    white-space:nowrap;
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    background:rgba(20,20,20,.92);
+
+    color:#fff;
+
+    font-size:.74rem;
+
+    transition:.25s;
+
+}
+
+.shopping-icon-btn:hover::after{
+
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+}
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.shopping-empty{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+    padding:90px 40px;
+
+    text-align:center;
+
+    border:2px dashed rgba(255,255,255,.10);
+
+    border-radius:30px;
+
+    background:
+
+        rgba(255,255,255,.04);
+
+}
+
+.shopping-empty-icon{
+
+    width:88px;
+
+    height:88px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+    font-size:2rem;
+
+}
+
+.shopping-empty h3{
+
+    margin:0;
+
+    font-size:1.4rem;
+
+    color:var(--text-white);
+
+}
+
+.shopping-empty p{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    max-width:420px;
+
+    line-height:1.8;
+
+}
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.shopping-loading{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:80px;
+
+}
+
+/* ==========================================================
+   SPINNER
+========================================================== */
+
+.shopping-spinner{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.08);
+
+    border-top-color:var(--accent);
+
+    animation:
+        shoppingSpin .9s linear infinite;
+
+}
+
+@keyframes shoppingSpin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==========================================================
+   CARD APPEAR
+========================================================== */
+
+.shopping-card{
+
+    animation:
+        shoppingCardIn .45s ease;
+
+}
+
+@keyframes shoppingCardIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(22px)
+            scale(.98);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* ==========================================================
+   CATEGORY OPEN
+========================================================== */
+
+.shopping-category-body{
+
+    animation:
+        shoppingExpand .35s ease;
+
+}
+
+@keyframes shoppingExpand{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+/* ==========================================================
+   COLLAPSE
+========================================================== */
+
+.shopping-category{
+
+    transition:
+        border-color .35s,
+        box-shadow .35s,
+        background .35s;
+
+}
+
+.shopping-category.open{
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.18);
+
+}
+
+.shopping-category.closed .shopping-category-body{
+
+    display:none;
+
+}
+
+/* ==========================================================
+   HOVER HEADER
+========================================================== */
+
+.shopping-category-header{
+
+    transition:
+        background .3s;
+
+}
+
+.shopping-category-header:hover{
+
+    background:
+        rgba(255,255,255,.04);
+
+}
+
+/* ==========================================================
+   CARD SEPARATOR
+========================================================== */
+
+.shopping-card + .shopping-card{
+
+    margin-top:2px;
+
+}
+
+/* ==========================================================
+   GLASS BORDER
+========================================================== */
+
+.shopping-card{
+
+    isolation:isolate;
+
+}
+
+.shopping-card::selection{
+
+    background:transparent;
+
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.shopping-button:focus-visible,
+.shopping-button-secondary:focus-visible,
+.shopping-icon-btn:focus-visible{
+
+    outline:none;
+
+    box-shadow:
+
+        0 0 0 3px rgba(255,255,255,.15),
+        0 0 0 6px rgba(255,255,255,.05);
+
+}
+
+/* ==========================================================
+   BADGE TRANSITION
+========================================================== */
+
+.shopping-count{
+
+    transition:
+        transform .3s,
+        background .3s;
+
+}
+
+.shopping-category:hover .shopping-count{
+
+    transform:scale(1.08);
+
+    background:
+        rgba(255,255,255,.14);
+
+}
+
+/* ==========================================================
+   PRODUCT TITLE
+========================================================== */
+
+.shopping-product h3{
+
+    transition:color .3s;
+
+}
+
+.shopping-card:hover .shopping-product h3{
+
+    color:var(--accent);
+
+}
+
+/* ==========================================================
+   CHIP
+========================================================== */
+
+.shopping-chip{
+
+    transition:
+        background .3s,
+        border-color .3s;
+
+}
+
+.shopping-chip:hover{
+
+    background:
+
+        rgba(255,255,255,.14);
+
+    border-color:
+
+        rgba(255,255,255,.18);
+
+}
+
+/* ==========================================================
+   SCROLL
+========================================================== */
+
+.shopping-content{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:
+        rgba(255,255,255,.18)
+        transparent;
+
+}
+
+.shopping-content::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.shopping-content::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+.shopping-content::-webkit-scrollbar-thumb{
+
+    background:
+        rgba(255,255,255,.18);
+
+    border-radius:999px;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:1200px){
+
+    .shopping-card{
+
+        grid-template-columns:
+            6px
+            1fr;
+
+    }
+
+    .shopping-card-right{
+
+        align-items:flex-start;
+
+        padding:
+
+            0
+            0
+            24px
+            30px;
+
+    }
+
+}
+
+@media (max-width:900px){
+
+    .shopping-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .shopping-toolbar{
+
+        width:100%;
+
+    }
+
+    .shopping-button{
+
+        flex:1;
+
+    }
+
+    .shopping-button-secondary{
+
+        flex:1;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .shopping-card{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .shopping-card-bar{
+
+        width:100%;
+
+        height:6px;
+
+        border-radius:
+
+            26px
+            26px
+            0
+            0;
+
+    }
+
+    .shopping-card-content{
+
+        padding:24px;
+
+    }
+
+    .shopping-card-right{
+
+        padding:
+
+            0
+            24px
+            24px;
+
+    }
+
+    .shopping-card-top{
+
+        flex-direction:column;
+
+    }
+
+    .shopping-meta{
+
+        flex-direction:column;
+
+    }
+
+    .shopping-actions{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .shopping-header-left h1{
+
+        font-size:2rem;
+
+    }
+
+    .shopping-category-header{
+
+        padding:20px;
+
+    }
+
+    .shopping-chevron{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+    .shopping-icon-btn{
+
+        width:44px;
+
+        height:44px;
+
+    }
+
+}
+
+/* ==========================================================
+   GPU
+========================================================== */
+
+.shopping-card,
+.shopping-category,
+.shopping-icon-btn,
+.shopping-button,
+.shopping-button-secondary,
+.shopping-chip{
+
+    will-change:
+        transform;
+
+    transform:
+        translateZ(0);
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    .shopping-card,
+    .shopping-category,
+    .shopping-icon-btn,
+    .shopping-button,
+    .shopping-button-secondary{
+
+        animation:none;
+
+        transition:none;
+
+    }
+
+}
