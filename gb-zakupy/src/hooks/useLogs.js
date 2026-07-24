@@ -1,13 +1,35 @@
-import { useEffect, useState } from 'react';
-import { listenToLogs } from '../services/logsService';
+import { useEffect, useState } from "react";
+import { listenToLogs } from "../services/logsService";
 
-export function useLogs() {
-  const [logs, setLogs] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = listenToLogs(setLogs);
-    return unsubscribe;
-  }, []);
+export function useLogs(enabled = true) {
 
-  return logs;
+    const [logs, setLogs] = useState([]);
+
+
+    useEffect(() => {
+
+        if (!enabled) {
+
+            setLogs([]);
+
+            return;
+
+        }
+
+
+        const unsubscribe = listenToLogs(setLogs);
+
+
+        return unsubscribe;
+
+
+    }, [enabled]);
+
+
+    return logs;
+
 }
+
+
+export default useLogs;
