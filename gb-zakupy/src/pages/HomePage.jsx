@@ -12,22 +12,34 @@ export default function HomePage({
     goToCalendar,
     goToAdmin,
 }) {
+
     const { t } = useTranslation();
 
     return (
+
         <main className="home-page">
+
             <section className="home-container">
+
                 <div className="home-switchers">
+
                     <LanguageSwitcher />
+
+                    <div className="home-switchers-divider" />
+
                     <ThemeSwitcher />
+
                 </div>
 
                 <header className="home-header">
+
                     <div className="home-logo">
+
                         <img
                             src={logoGB}
                             alt="GB Sp. z o.o."
                         />
+
                     </div>
 
                     <h1 className="company-title">
@@ -37,9 +49,11 @@ export default function HomePage({
                     <p>
                         {t("home.subtitle")}
                     </p>
+
                 </header>
 
                 <div className="home-options">
+
                     <GooeyCard
                         title={t("home.cards.shopping.title")}
                         description={t("home.cards.shopping.description")}
@@ -57,8 +71,13 @@ export default function HomePage({
                         description={t("home.cards.admin.description")}
                         onClick={goToAdmin}
                     />
+
                 </div>
+
             </section>
+
         </main>
+
     );
+
 }
