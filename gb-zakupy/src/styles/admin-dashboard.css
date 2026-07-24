@@ -1,32 +1,83 @@
 /* ==========================================================
-   GB PORTAL
-   ADMIN DASHBOARD
-   PART 1 / 4
+   Dashboard
 ========================================================== */
 
-/* ==========================================================
-   DASHBOARD
-========================================================== */
+/* Glass Variables */
+
+:root{
+
+    --glass-bg:rgba(255,255,255,.08);
+    --glass-bg-light:rgba(255,255,255,.05);
+
+    --glass-gradient:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.10),
+            rgba(255,255,255,.04)
+        );
+
+    --glass-border:
+        1px solid rgba(255,255,255,.10);
+
+    --glass-shadow:
+        0 22px 50px rgba(0,0,0,.18);
+
+    --glass-blur:blur(22px);
+
+}
+
+/* Layout */
 
 .dashboard{
 
     position:relative;
-
     z-index:2;
-
     flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:34px;
-
     overflow-y:auto;
 
     padding:42px;
+    gap:34px;
 
 }
+
+/* Shared Flex Column */
+
+.dashboard,
+.dashboard-hero-left,
+.dashboard-section,
+.dashboard-panel,
+.workspace-info,
+.dashboard-list{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+/* Shared Flex */
+
+.dashboard-hero-right,
+.section-actions,
+.workspace-actions{
+
+    display:flex;
+    align-items:center;
+
+}
+
+/* Shared Center */
+
+.dashboard-action,
+.dashboard-mini-button,
+.workspace-icon{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+/* Scrollbar */
 
 .dashboard::-webkit-scrollbar{
 
@@ -43,60 +94,43 @@
 .dashboard::-webkit-scrollbar-thumb{
 
     background:rgba(255,255,255,.18);
-
     border-radius:999px;
 
 }
 
 /* ==========================================================
-   HERO
+   Hero
 ========================================================== */
 
 .dashboard-hero{
 
     position:relative;
-
     overflow:hidden;
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
     gap:28px;
-
     padding:34px;
 
     border-radius:34px;
 
     background:
-
         linear-gradient(
-
             145deg,
-
             rgba(255,255,255,.12),
-
             rgba(255,255,255,.05)
-
         );
 
-    backdrop-filter:blur(24px);
+    border:var(--glass-border);
 
+    backdrop-filter:blur(24px);
     -webkit-backdrop-filter:blur(24px);
 
-    border:1px solid rgba(255,255,255,.10);
-
-    box-shadow:
-
-        0 22px 50px rgba(0,0,0,.18);
+    box-shadow:var(--glass-shadow);
 
 }
-
-/* ==========================================================
-   HERO GLOW
-========================================================== */
 
 .dashboard-hero::before{
 
@@ -105,23 +139,17 @@
     position:absolute;
 
     top:-120px;
-
     right:-120px;
 
     width:280px;
-
     height:280px;
 
     border-radius:50%;
 
     background:
-
         radial-gradient(
-
             rgba(255,255,255,.15),
-
             transparent 70%
-
         );
 
     filter:blur(45px);
@@ -137,23 +165,17 @@
     position:absolute;
 
     left:-80px;
-
     bottom:-80px;
 
     width:220px;
-
     height:220px;
 
     border-radius:50%;
 
     background:
-
         radial-gradient(
-
             rgba(255,255,255,.06),
-
             transparent 70%
-
         );
 
     filter:blur(40px);
@@ -162,32 +184,21 @@
 
 }
 
-/* ==========================================================
-   HERO LEFT
-========================================================== */
+/* Hero Left */
 
 .dashboard-hero-left{
 
     position:relative;
-
     z-index:2;
-
-    display:flex;
-
-    flex-direction:column;
-
     gap:14px;
 
 }
 
-/* ==========================================================
-   EYEBROW
-========================================================== */
+/* Eyebrow */
 
 .dashboard-eyebrow{
 
     display:inline-flex;
-
     align-items:center;
 
     width:max-content;
@@ -196,45 +207,35 @@
 
     border-radius:999px;
 
-    background:
-
-        rgba(255,255,255,.08);
+    background:var(--glass-bg);
 
     color:var(--accent);
 
     font-size:.78rem;
-
     font-weight:700;
 
     letter-spacing:2px;
-
     text-transform:uppercase;
 
 }
 
-/* ==========================================================
-   TITLE
-========================================================== */
+/* Title */
 
 .dashboard h1{
 
     margin:0;
 
     font-size:3rem;
-
     font-weight:900;
 
     letter-spacing:-2px;
-
     line-height:1.05;
 
     color:var(--text-white);
 
 }
 
-/* ==========================================================
-   DESCRIPTION
-========================================================== */
+/* Description */
 
 .dashboard-description{
 
@@ -245,58 +246,45 @@
     color:var(--text-on-primary);
 
     font-size:1rem;
-
     line-height:1.8;
 
 }
 
-/* ==========================================================
-   HERO RIGHT
-========================================================== */
+/* Hero Right */
 
 .dashboard-hero-right{
-
-    display:flex;
-
-    align-items:center;
 
     gap:18px;
 
 }
 
 /* ==========================================================
-   SEARCH
+   Search
 ========================================================== */
 
 .search-input{
 
     width:340px;
-
     height:58px;
 
     padding:0 22px;
 
     border-radius:18px;
 
-    border:1px solid rgba(255,255,255,.10);
+    border:var(--glass-border);
 
-    background:
-
-        rgba(255,255,255,.08);
+    background:var(--glass-bg);
 
     backdrop-filter:blur(16px);
 
     color:var(--text-white);
 
     font-size:15px;
-
     font-weight:600;
 
     outline:none;
 
-    transition:
-
-        .3s;
+    transition:.3s;
 
 }
 
@@ -308,9 +296,7 @@
 
 .search-input:hover{
 
-    background:
-
-        rgba(255,255,255,.10);
+    background:rgba(255,255,255,.10);
 
 }
 
@@ -319,68 +305,68 @@
     border-color:var(--accent);
 
     box-shadow:
-
         0 0 18px rgba(255,255,255,.10);
 
 }
 
 /* ==========================================================
-   QUICK ACTION
+   Icon Buttons
 ========================================================== */
 
-.dashboard-action{
+.dashboard-action,
+.workspace-icon{
 
     width:58px;
-
     height:58px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
 
     border-radius:18px;
 
-    cursor:pointer;
+}
 
-    border:1px solid rgba(255,255,255,.10);
+.dashboard-mini-button{
 
-    background:
+    width:46px;
+    height:46px;
 
-        rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-
-    transition:.28s;
+    border-radius:16px;
 
 }
 
-.dashboard-action:hover{
+.dashboard-action,
+.dashboard-mini-button,
+.workspace-icon{
+
+    cursor:pointer;
+
+    border:var(--glass-border);
+
+    background:var(--glass-bg);
+
+    backdrop-filter:blur(18px);
+
+    transition:.3s;
+
+}
+
+.dashboard-action:hover,
+.dashboard-mini-button:hover,
+.workspace-icon:hover{
 
     transform:
-
         translateY(-3px)
+        scale(1.05);
 
-        scale(1.04);
-
-    background:
-
-        rgba(255,255,255,.14);
+    background:rgba(255,255,255,.14);
 
 }
 
 /* ==========================================================
-   SECTION
+   Sections
 ========================================================== */
 
 .dashboard-section{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:22px;
+    gap:26px;
 
 }
 
@@ -389,7 +375,6 @@
     margin:0;
 
     font-size:1.75rem;
-
     font-weight:800;
 
     color:var(--text-white);
@@ -403,60 +388,224 @@
     color:var(--text-on-primary);
 
 }
-
 /* ==========================================================
-   GLASS CARD
+   Dashboard Grid
 ========================================================== */
 
-.dashboard-card{
+.dashboard-grid{
 
-    position:relative;
-
-    overflow:hidden;
-
-    border-radius:28px;
-
-    background:
-
-        rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    backdrop-filter:blur(20px);
-
-    -webkit-backdrop-filter:blur(20px);
-
-    box-shadow:
-
-        0 20px 42px rgba(0,0,0,.16);
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+    align-items:start;
 
 }
 
-.dashboard-card::before{
+/* ==========================================================
+   Glass Cards
+========================================================== */
+
+.dashboard-card,
+.dashboard-panel,
+.glass-section{
+
+    position:relative;
+    overflow:hidden;
+
+    border:var(--glass-border);
+
+    backdrop-filter:var(--glass-blur);
+    -webkit-backdrop-filter:var(--glass-blur);
+
+    box-shadow:var(--glass-shadow);
+
+}
+
+.dashboard-card::before,
+.dashboard-panel::before,
+.glass-section::before{
 
     content:"";
 
     position:absolute;
-
     inset:0;
 
     background:
-
         linear-gradient(
-
             135deg,
-
             rgba(255,255,255,.10),
-
             transparent 40%
-
         );
 
     pointer-events:none;
 
 }
+
+/* Dashboard Card */
+
+.dashboard-card{
+
+    border-radius:28px;
+    background:var(--glass-bg);
+
+}
+
+/* Dashboard Panel */
+
+.dashboard-panel{
+
+    gap:24px;
+    padding:30px;
+
+    border-radius:32px;
+
+    background:var(--glass-gradient);
+
+    animation:dashboardPanelEnter .6s ease;
+
+}
+
+/* Glass Section */
+
+.glass-section{
+
+    border-radius:34px;
+
+    background:
+        linear-gradient(
+            140deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.05)
+        );
+
+}
+
 /* ==========================================================
-   STATISTICS
+   Panel Animation
+========================================================== */
+
+@keyframes dashboardPanelEnter{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:none;
+
+    }
+
+}
+
+/* ==========================================================
+   Section Header
+========================================================== */
+
+.section-header,
+.section-title{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.section-header{
+
+    margin:0;
+
+}
+
+.section-title{
+
+    margin-bottom:24px;
+
+}
+
+.section-header h2,
+.section-title h2{
+
+    margin:0;
+
+    font-size:1.65rem;
+    font-weight:800;
+
+    color:var(--text-white);
+
+}
+
+.section-header p,
+.section-title p{
+
+    margin-top:8px;
+    color:var(--text-on-primary);
+
+}
+
+/* ==========================================================
+   Hero Info
+========================================================== */
+
+.hero-info{
+
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+
+}
+
+/* Hero Item */
+
+.hero-item{
+
+    flex:1;
+    min-width:170px;
+
+    padding:24px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+
+}
+
+.hero-item:hover{
+
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.09);
+
+}
+
+.hero-item strong{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-size:2rem;
+    font-weight:900;
+
+}
+
+.hero-item span{
+
+    color:var(--text-on-primary);
+
+}
+
+/* ==========================================================
+   Stats
 ========================================================== */
 
 .stats{
@@ -464,30 +613,21 @@
     display:grid;
 
     grid-template-columns:
-
         repeat(auto-fit,minmax(220px,1fr));
 
     gap:26px;
 
 }
 
-/* ==========================================================
-   STAT CARD
-========================================================== */
-
 .stats>div{
 
     position:relative;
-
     overflow:hidden;
 
     display:flex;
-
     flex-direction:column;
-
-    align-items:center;
-
     justify-content:center;
+    align-items:center;
 
     gap:18px;
 
@@ -495,295 +635,19 @@
 
     border-radius:32px;
 
-    background:
+    background:var(--glass-gradient);
 
-        linear-gradient(
-
-            145deg,
-
-            rgba(255,255,255,.10),
-
-            rgba(255,255,255,.04)
-
-        );
-
-    border:1px solid rgba(255,255,255,.10);
+    border:var(--glass-border);
 
     backdrop-filter:blur(24px);
-
     -webkit-backdrop-filter:blur(24px);
 
     transition:
-
         transform .35s,
-
         box-shadow .35s,
-
         border-color .35s;
 
-}
-
-/* ==========================================================
-   SHINE
-========================================================== */
-
-.stats>div::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        linear-gradient(
-
-            135deg,
-
-            rgba(255,255,255,.14),
-
-            transparent 40%
-
-        );
-
-    pointer-events:none;
-
-}
-
-/* ==========================================================
-   GLOW
-========================================================== */
-
-.stats>div::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-
-    height:180px;
-
-    top:-90px;
-
-    right:-90px;
-
-    border-radius:50%;
-
-    background:
-
-        radial-gradient(
-
-            rgba(255,255,255,.12),
-
-            transparent 70%
-
-        );
-
-    filter:blur(35px);
-
-    pointer-events:none;
-
-}
-
-/* ==========================================================
-   HOVER
-========================================================== */
-
-.stats>div:hover{
-
-    transform:
-
-        translateY(-8px)
-
-        scale(1.02);
-
-    border-color:
-
-        rgba(255,255,255,.18);
-
-    box-shadow:
-
-        0 28px 60px rgba(0,0,0,.20);
-
-}
-
-/* ==========================================================
-   CIRCLE
-========================================================== */
-
-.stats-circle{
-
-    position:relative;
-
-    width:118px;
-
-    height:118px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:
-
-        radial-gradient(
-
-            circle at 35% 30%,
-
-            rgba(255,255,255,.45),
-
-            rgba(255,255,255,.12)
-
-        );
-
-    border:1px solid rgba(255,255,255,.18);
-
-    box-shadow:
-
-        inset 0 2px 12px rgba(255,255,255,.15),
-
-        0 20px 36px rgba(0,0,0,.18);
-
-}
-
-/* ==========================================================
-   INNER GLOW
-========================================================== */
-
-.stats-circle::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:8px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(255,255,255,.10);
-
-}
-
-/* ==========================================================
-   NUMBER
-========================================================== */
-
-.stats strong{
-
-    position:relative;
-
-    z-index:2;
-
-    margin:0;
-
-    font-size:2.9rem;
-
-    font-weight:900;
-
-    line-height:1;
-
-    color:var(--text-white);
-
-}
-
-/* ==========================================================
-   TITLE
-========================================================== */
-
-.stats span{
-
-    font-size:.95rem;
-
-    font-weight:700;
-
-    color:var(--text-on-primary);
-
-    text-align:center;
-
-}
-
-/* ==========================================================
-   ACCENT
-========================================================== */
-
-.stats small{
-
-    font-size:.82rem;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-    color:var(--accent);
-
-}
-
-/* ==========================================================
-   COLOR STATES
-========================================================== */
-
-.stats>div:nth-child(1){
-
-    --stat-color:#60a5fa;
-
-}
-
-.stats>div:nth-child(2){
-
-    --stat-color:#34d399;
-
-}
-
-.stats>div:nth-child(3){
-
-    --stat-color:#fbbf24;
-
-}
-
-.stats>div:nth-child(4){
-
-    --stat-color:#f472b6;
-
-}
-
-.stats>div:nth-child(5){
-
-    --stat-color:#a78bfa;
-
-}
-
-/* ==========================================================
-   CIRCLE RING
-========================================================== */
-
-.stats-circle{
-
-    outline:6px solid rgba(255,255,255,.04);
-
-}
-
-.stats>div:hover .stats-circle{
-
-    transform:scale(1.05);
-
-    transition:.35s;
-
-}
-
-/* ==========================================================
-   FLOAT
-========================================================== */
-
-.stats>div{
-
-    animation:
-
-        statFloat 7s ease-in-out infinite;
+    animation:statFloat 7s ease-in-out infinite;
 
 }
 
@@ -805,6 +669,161 @@
 
 }
 
+.stats>div:hover{
+
+    transform:
+        translateY(-8px)
+        scale(1.02);
+
+    border-color:rgba(255,255,255,.18);
+
+    box-shadow:
+        0 28px 60px rgba(0,0,0,.20);
+
+}
+
+.stats>div::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.14),
+            transparent 40%
+        );
+
+    pointer-events:none;
+
+}
+
+.stats>div::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:-90px;
+    right:-90px;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(255,255,255,.12),
+            transparent 70%
+        );
+
+    filter:blur(35px);
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   Stats Circle
+========================================================== */
+
+.stats-circle{
+
+    position:relative;
+
+    width:118px;
+    height:118px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.45),
+            rgba(255,255,255,.12)
+        );
+
+    border:1px solid rgba(255,255,255,.18);
+
+    outline:6px solid rgba(255,255,255,.04);
+
+    box-shadow:
+        inset 0 2px 12px rgba(255,255,255,.15),
+        0 20px 36px rgba(0,0,0,.18);
+
+}
+
+.stats-circle::before{
+
+    content:"";
+
+    position:absolute;
+    inset:8px;
+
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.10);
+
+}
+
+.stats>div:hover .stats-circle{
+
+    transform:scale(1.05);
+    transition:.35s;
+
+}
+
+.stats strong{
+
+    position:relative;
+    z-index:2;
+
+    margin:0;
+
+    font-size:2.9rem;
+    font-weight:900;
+    line-height:1;
+
+    color:var(--text-white);
+
+}
+
+.stats span{
+
+    text-align:center;
+
+    font-size:.95rem;
+    font-weight:700;
+
+    color:var(--text-on-primary);
+
+}
+
+.stats small{
+
+    font-size:.82rem;
+
+    letter-spacing:1px;
+    text-transform:uppercase;
+
+    color:var(--accent);
+
+}
+
+/* Stat Colors */
+
+.stats>div:nth-child(1){ --stat-color:#60a5fa; }
+.stats>div:nth-child(2){ --stat-color:#34d399; }
+.stats>div:nth-child(3){ --stat-color:#fbbf24; }
+.stats>div:nth-child(4){ --stat-color:#f472b6; }
+.stats>div:nth-child(5){ --stat-color:#a78bfa; }
+
 @keyframes statFloat{
 
     0%,100%{
@@ -821,451 +840,21 @@
 
 }
 /* ==========================================================
-   CONTENT GRID
-========================================================== */
-
-.dashboard-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        2fr
-        1fr;
-
-    gap:30px;
-
-    align-items:start;
-
-}
-
-/* ==========================================================
-   PANEL
-========================================================== */
-
-.dashboard-panel{
-
-    position:relative;
-
-    overflow:hidden;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:24px;
-
-    padding:30px;
-
-    border-radius:32px;
-
-    background:
-
-        linear-gradient(
-
-            145deg,
-
-            rgba(255,255,255,.09),
-
-            rgba(255,255,255,.04)
-
-        );
-
-    border:1px solid rgba(255,255,255,.10);
-
-    backdrop-filter:blur(22px);
-
-    -webkit-backdrop-filter:blur(22px);
-
-    box-shadow:
-
-        0 24px 55px rgba(0,0,0,.16);
-
-}
-
-/* ==========================================================
-   SHINE
-========================================================== */
-
-.dashboard-panel::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        linear-gradient(
-
-            135deg,
-
-            rgba(255,255,255,.10),
-
-            transparent 45%
-
-        );
-
-    pointer-events:none;
-
-}
-
-/* ==========================================================
-   HEADER
-========================================================== */
-
-.section-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:24px;
-
-    margin:0;
-
-}
-
-.section-header h2{
-
-    margin:0;
-
-    font-size:1.65rem;
-
-    font-weight:800;
-
-    color:var(--text-white);
-
-}
-
-.section-header p{
-
-    margin-top:8px;
-
-    color:var(--text-on-primary);
-
-}
-
-/* ==========================================================
-   ACTIONS
-========================================================== */
-
-.section-actions{
-
-    display:flex;
-
-    gap:14px;
-
-    align-items:center;
-
-}
-
-/* ==========================================================
-   MINI BUTTON
-========================================================== */
-
-.dashboard-mini-button{
-
-    width:46px;
-
-    height:46px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:16px;
-
-    cursor:pointer;
-
-    border:1px solid rgba(255,255,255,.10);
-
-    background:
-
-        rgba(255,255,255,.08);
-
-    transition:.3s;
-
-}
-
-.dashboard-mini-button:hover{
-
-    transform:
-
-        translateY(-3px)
-
-        scale(1.05);
-
-    background:
-
-        rgba(255,255,255,.14);
-
-}
-
-/* ==========================================================
-   HERO INFO
-========================================================== */
-
-.hero-info{
-
-    display:flex;
-
-    gap:22px;
-
-    flex-wrap:wrap;
-
-}
-
-/* ==========================================================
-   HERO CARD
-========================================================== */
-
-.hero-item{
-
-    min-width:170px;
-
-    flex:1;
-
-    padding:24px;
-
-    border-radius:24px;
-
-    background:
-
-        rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    transition:.3s;
-
-}
-
-.hero-item:hover{
-
-    transform:
-
-        translateY(-4px);
-
-    background:
-
-        rgba(255,255,255,.09);
-
-}
-
-.hero-item strong{
-
-    display:block;
-
-    margin-bottom:10px;
-
-    font-size:2rem;
-
-    font-weight:900;
-
-}
-
-.hero-item span{
-
-    color:var(--text-on-primary);
-
-}
-
-/* ==========================================================
-   QUICK GRID
-========================================================== */
-
-.quick-grid{
-
-    display:grid;
-
-    grid-template-columns:
-
-        repeat(auto-fit,minmax(220px,1fr));
-
-    gap:20px;
-
-}
-
-/* ==========================================================
-   QUICK CARD
-========================================================== */
-
-.quick-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:26px;
-
-    border-radius:26px;
-
-    background:
-
-        rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    transition:.3s;
-
-}
-
-.quick-card:hover{
-
-    transform:
-
-        translateY(-5px);
-
-    background:
-
-        rgba(255,255,255,.10);
-
-}
-
-.quick-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:-60px;
-
-    right:-60px;
-
-    width:120px;
-
-    height:120px;
-
-    border-radius:50%;
-
-    background:
-
-        radial-gradient(
-
-            rgba(255,255,255,.10),
-
-            transparent
-
-        );
-
-    filter:blur(22px);
-
-}
-
-.quick-card h3{
-
-    margin:0 0 14px;
-
-    font-size:1.15rem;
-
-    font-weight:800;
-
-}
-
-.quick-card p{
-
-    margin:0;
-
-    color:var(--text-on-primary);
-
-    line-height:1.6;
-
-}
-
-/* ==========================================================
-   EMPTY
-========================================================== */
-
-.empty-admin-box{
-
-    padding:70px 40px;
-
-    border-radius:32px;
-
-    text-align:center;
-
-    border:2px dashed rgba(255,255,255,.10);
-
-    background:
-
-        rgba(255,255,255,.04);
-
-    color:var(--text-on-primary);
-
-    font-size:1rem;
-
-}
-
-/* ==========================================================
-   SECTION SPACING
-========================================================== */
-
-.dashboard-section{
-
-    gap:26px;
-
-}
-
-/* ==========================================================
-   PANEL ANIMATION
-========================================================== */
-
-.dashboard-panel{
-
-    animation:
-
-        dashboardPanelEnter .6s ease;
-
-}
-
-@keyframes dashboardPanelEnter{
-
-    from{
-
-        opacity:0;
-
-        transform:
-
-            translateY(30px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-/* ==========================================================
-   WORKSPACE HEADER
+   Workspace
 ========================================================== */
 
 .workspace-header{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
     gap:30px;
-
     flex-wrap:wrap;
 
 }
 
 .workspace-info{
-
-    display:flex;
-
-    flex-direction:column;
 
     gap:10px;
 
@@ -1274,7 +863,6 @@
 .workspace-info small{
 
     display:inline-flex;
-
     align-items:center;
 
     width:max-content;
@@ -1283,14 +871,13 @@
 
     border-radius:999px;
 
-    background:rgba(255,255,255,.08);
+    background:var(--glass-bg);
 
     color:var(--accent);
 
     font-weight:700;
 
     letter-spacing:2px;
-
     text-transform:uppercase;
 
 }
@@ -1300,11 +887,9 @@
     margin:0;
 
     font-size:3.1rem;
-
     font-weight:900;
 
     letter-spacing:-2px;
-
     line-height:1.05;
 
 }
@@ -1320,310 +905,150 @@
 }
 
 /* ==========================================================
-   WORKSPACE ACTIONS
+   Quick Grid
 ========================================================== */
 
-.workspace-actions{
+.quick-grid{
 
-    display:flex;
+    display:grid;
 
-    align-items:center;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
 
-    gap:16px;
-
-}
-
-.workspace-icon{
-
-    width:58px;
-
-    height:58px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    cursor:pointer;
-
-    border-radius:20px;
-
-    background:
-
-        rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    backdrop-filter:blur(20px);
-
-    transition:
-
-        .3s;
-
-}
-
-.workspace-icon:hover{
-
-    transform:
-
-        translateY(-4px)
-
-        scale(1.06);
-
-    background:
-
-        rgba(255,255,255,.14);
+    gap:20px;
 
 }
 
 /* ==========================================================
-   GLASS CONTAINER
+   Shared Cards
 ========================================================== */
 
-.glass-section{
+.hero-item,
+.quick-card{
 
     position:relative;
-
     overflow:hidden;
 
-    border-radius:34px;
-
-    background:
-
-        linear-gradient(
-
-            140deg,
-
-            rgba(255,255,255,.09),
-
-            rgba(255,255,255,.05)
-
-        );
-
-    border:1px solid rgba(255,255,255,.10);
-
-    backdrop-filter:blur(22px);
-
-    -webkit-backdrop-filter:blur(22px);
-
-    box-shadow:
-
-        0 24px 60px rgba(0,0,0,.18);
+    transition:
+        transform .3s,
+        background .3s;
 
 }
 
-.glass-section::before{
+.hero-item:hover,
+.quick-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* ==========================================================
+   Quick Card
+========================================================== */
+
+.quick-card{
+
+    padding:26px;
+
+    border-radius:26px;
+
+    background:rgba(255,255,255,.06);
+
+    border:var(--glass-border);
+
+}
+
+.quick-card:hover{
+
+    background:rgba(255,255,255,.10);
+
+}
+
+.quick-card::before{
 
     content:"";
 
     position:absolute;
 
-    inset:0;
+    top:-60px;
+    right:-60px;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
 
     background:
 
-        linear-gradient(
-
-            135deg,
-
+        radial-gradient(
             rgba(255,255,255,.10),
-
-            transparent 40%
-
+            transparent
         );
+
+    filter:blur(22px);
 
     pointer-events:none;
 
 }
 
-/* ==========================================================
-   SECTION TITLE
-========================================================== */
+.quick-card h3{
 
-.section-title{
+    margin:0 0 14px;
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:20px;
-
-    margin-bottom:24px;
-
-}
-
-.section-title h2{
-
-    margin:0;
-
-    font-size:1.6rem;
-
+    font-size:1.15rem;
     font-weight:800;
 
 }
 
-.section-title p{
+.quick-card p{
 
-    margin-top:8px;
+    margin:0;
 
     color:var(--text-on-primary);
 
+    line-height:1.6;
+
 }
 
 /* ==========================================================
-   GRID
+   Empty State
 ========================================================== */
 
-.dashboard-grid{
+.empty-admin-box{
 
-    align-items:start;
+    padding:70px 40px;
 
-}
+    border-radius:32px;
 
-/* ==========================================================
-   GLASS LIST
-========================================================== */
+    text-align:center;
 
-.dashboard-list{
+    background:rgba(255,255,255,.04);
 
-    display:flex;
+    border:2px dashed rgba(255,255,255,.10);
 
-    flex-direction:column;
+    color:var(--text-on-primary);
 
-    gap:18px;
+    font-size:1rem;
 
 }
 
 /* ==========================================================
-   FLOATING CARD
+   Floating
 ========================================================== */
 
 .dashboard-floating{
 
     transition:
-
         transform .35s,
-
         box-shadow .35s;
 
 }
 
 .dashboard-floating:hover{
 
-    transform:
-
-        translateY(-6px);
+    transform:translateY(-6px);
 
     box-shadow:
-
         0 28px 65px rgba(0,0,0,.20);
-
-}
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media (max-width:1200px){
-
-    .dashboard-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-}
-
-@media (max-width:900px){
-
-    .dashboard{
-
-        padding:30px;
-
-    }
-
-    .workspace-header{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-    .workspace-actions{
-
-        width:100%;
-
-        justify-content:flex-start;
-
-    }
-
-}
-
-@media (max-width:640px){
-
-    .dashboard{
-
-        padding:22px;
-
-        gap:26px;
-
-    }
-
-    .workspace-info h1{
-
-        font-size:2.3rem;
-
-    }
-
-    .workspace-actions{
-
-        flex-wrap:wrap;
-
-    }
-
-    .workspace-icon{
-
-        width:52px;
-
-        height:52px;
-
-    }
-
-}
-
-@media (max-width:480px){
-
-    .workspace-info h1{
-
-        font-size:2rem;
-
-    }
-
-    .workspace-info p{
-
-        font-size:.95rem;
-
-    }
-
-}
-
-/* ==========================================================
-   GPU
-========================================================== */
-
-.dashboard,
-.dashboard-panel,
-.stats>div,
-.quick-card,
-.hero-item,
-.workspace-icon{
-
-    will-change:transform;
-
-    transform:translateZ(0);
 
 }
