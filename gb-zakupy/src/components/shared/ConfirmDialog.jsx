@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function ConfirmDialog({
@@ -13,50 +14,109 @@ export default function ConfirmDialog({
 
     const { t } = useTranslation();
 
-    if (!open) return null;
+    useEffect(() => {
+
+        const handleEscape = (e) => {
+
+            if(e.key === "Escape"){
+                onCancel();
+            }
+
+        };
+
+        if(open){
+            document.addEventListener(
+                "keydown",
+                handleEscape
+            );
+        }
+
+        return () => {
+
+            document.removeEventListener(
+                "keydown",
+                handleEscape
+            );
+
+        };
+
+    }, [open,onCancel]);
+
+
+    if(!open) return null;
+
 
     return (
-        <div className="confirm-overlay">
 
-            <div className="confirm-dialog">
+        <div
+            className="confirm-overlay"
+            onMouseDown={onCancel}
+        >
 
-                <div className="confirm-icon">
-                    {danger ? "🗑️" : "❓"}
+            <div
+                className="confirm-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="confirm-title"
+                onMouseDown={(e)=>e.stopPropagation()}
+            >
+
+                <div
+                    className={
+                        danger
+                        ? "confirm-icon danger"
+                        : "confirm-icon"
+                    }
+                >
+                    {danger ? "!" : "?"}
                 </div>
 
-                <h2>
+
+                <h2 id="confirm-title">
                     {title}
                 </h2>
+
 
                 <p>
                     {message}
                 </p>
 
+
                 <div className="confirm-buttons">
 
+
                     <button
-                        className="gray-button"
+                        className="confirm-cancel"
                         onClick={onCancel}
                     >
-                        {cancelText ?? t("common.cancel")}
+                        {
+                            cancelText ??
+                            t("common.cancel")
+                        }
                     </button>
+
 
                     <button
                         className={
                             danger
-                                ? "delete-button"
-                                : "admin-button"
+                            ? "confirm-danger"
+                            : "confirm-primary"
                         }
                         onClick={onConfirm}
                     >
-                        {confirmText ?? t("common.confirm")}
+                        {
+                            confirmText ??
+                            t("common.confirm")
+                        }
                     </button>
+
 
                 </div>
 
             </div>
 
         </div>
+
     );
 
 }
