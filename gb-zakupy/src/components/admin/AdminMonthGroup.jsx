@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import AdminOrderCard from "./AdminOrderCard";
 
-
 export default function AdminMonthGroup({
     month,
     orders,
@@ -23,43 +22,53 @@ export default function AdminMonthGroup({
 
     return (
 
-        <section className="month-section">
+        <section
+            className={`shopping-category ${isOpen ? "open" : "closed"}`}
+        >
 
             <button
-                className="month-toggle"
+                type="button"
+                className="shopping-category-header"
                 onClick={() => setIsOpen(open => !open)}
             >
 
-                <div className="month-info">
+                <div className="shopping-category-left">
 
-                    <span className="month-arrow">
+                    <div className="shopping-chevron">
 
                         {isOpen ? "▼" : "▶"}
 
-                    </span>
+                    </div>
 
-                    <span className="month-name">
+                    <div className="shopping-category-title">
 
-                        {month}
+                        <h2>
 
-                    </span>
+                            {month}
+
+                        </h2>
+
+                        <span>
+
+                            {orders.length} zamówień
+
+                        </span>
+
+                    </div>
 
                 </div>
 
-                <span className="month-count">
+                <div className="shopping-count">
 
-                    {orders.length}{" "}
-                    {orders.length === 1
-                        ? "produkt"
-                        : "produktów"}
+                    {orders.length}
 
-                </span>
+                </div>
 
             </button>
 
             {isOpen && (
 
-                <div className="admin-orders">
+                <div className="shopping-category-body">
 
                     {orders.map(order => (
 
