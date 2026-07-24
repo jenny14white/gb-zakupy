@@ -11,7 +11,12 @@ export default function CurrentShoppingList({
 
     const { t } = useTranslation();
 
-    const [expanded, setExpanded] = useState(false);
+    const [expanded,setExpanded] = useState(false);
+
+    const visibleItems = expanded
+        ? items
+        : items.slice(0,1);
+
 
     return (
 
@@ -28,19 +33,18 @@ export default function CurrentShoppingList({
                     <button
                         className="expand-list-button"
                         onClick={() =>
-                            setExpanded((prev) => !prev)
+                            setExpanded(value => !value)
                         }
                     >
-
                         {expanded
                             ? t("shopping.currentList.collapse")
                             : t("shopping.currentList.expand")}
-
                     </button>
 
                 )}
 
             </div>
+
 
             {loading && (
 
@@ -50,6 +54,7 @@ export default function CurrentShoppingList({
 
             )}
 
+
             {!loading && items.length === 0 && (
 
                 <EmptyState>
@@ -57,6 +62,7 @@ export default function CurrentShoppingList({
                 </EmptyState>
 
             )}
+
 
             {!loading && items.length > 0 && (
 
@@ -68,13 +74,13 @@ export default function CurrentShoppingList({
                     }
                 >
 
-                    {items.map((item, index) => (
+                    {visibleItems.map((item,index)=>(
 
                         <div
                             key={item.id}
                             className="shopping-wave-item"
                             style={{
-                                "--delay": `${index * 50}ms`,
+                                "--delay": `${Math.min(index,20) * 50}ms`,
                             }}
                         >
 
