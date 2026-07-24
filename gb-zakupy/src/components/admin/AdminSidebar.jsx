@@ -1,6 +1,5 @@
 import Logo from "../shared/Logo";
 
-
 export default function AdminSidebar({
     activeTab,
     setActiveTab,
@@ -12,7 +11,6 @@ export default function AdminSidebar({
     logout,
     goToEvents,
 }) {
-
     function NavButton({
         tab,
         icon,
@@ -21,79 +19,54 @@ export default function AdminSidebar({
         subtitle,
         onClick,
     }) {
-
-        const active =
-            tab && activeTab === tab;
+        const active = tab && activeTab === tab;
 
         return (
-
             <button
                 className={active ? "active" : ""}
-                onClick={
-                    onClick ??
-                    (() => setActiveTab(tab))
-                }
+                onClick={onClick ?? (() => setActiveTab(tab))}
             >
+                {active && <div className="menu-indicator" />}
 
-                <div className="sidebar-item">
-
-                    <span>
-
+                <div>
+                    <strong>
                         {icon} {label}
-
-                    </span>
+                    </strong>
 
                     {subtitle && (
-
                         <small>
-
                             {subtitle}
-
                         </small>
-
                     )}
-
-                    {counter > 0 && (
-
-                        <strong className="sidebar-counter">
-
-                            {counter}
-
-                        </strong>
-
-                    )}
-
                 </div>
 
+                {counter > 0 && (
+                    <span>{counter}</span>
+                )}
             </button>
-
         );
-
     }
 
     return (
-
         <aside className="sidebar">
-
             <div className="sidebar-top">
-
                 <Logo className="sidebar-logo" />
 
-                <h2>
+                <h2>Panel administratora</h2>
 
-                    Panel administratora
-
-                </h2>
-
+                <p>
+                    GB Zakupy
+                    <br />
+                    Management Center
+                </p>
             </div>
 
             <nav className="admin-nav">
-
                 <NavButton
                     tab="lista"
                     icon="🛒"
                     label="Zakupy"
-                    subtitle={`🟡 ${pendingCount} | 🟢 ${acceptedCount}`}
+                    subtitle={`🟡 ${pendingCount} • 🟢 ${acceptedCount}`}
                 />
 
                 <NavButton
@@ -113,41 +86,31 @@ export default function AdminSidebar({
                 <NavButton
                     tab="dziennik"
                     icon="📜"
-                    label="Dziennik zdarzeń"
+                    label="Dziennik"
                 />
 
                 <NavButton
                     icon="📅"
-                    label="Kalendarz firmowy"
+                    label="Kalendarz"
                     onClick={goToEvents}
                 />
-
             </nav>
 
-            <div className="sidebar-bottom">
-
+            <div className="sidebar-footer">
                 <button
                     className="return-button"
                     onClick={goBack}
                 >
-
                     ← Wróć do aplikacji
-
                 </button>
 
                 <button
                     className="logout-button"
                     onClick={logout}
                 >
-
                     Wyloguj
-
                 </button>
-
             </div>
-
         </aside>
-
     );
-
 }
