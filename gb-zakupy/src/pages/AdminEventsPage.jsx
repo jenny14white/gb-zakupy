@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -12,6 +12,8 @@ import {
     listenToEvents,
     updateEvent,
 } from "../services/calendarService";
+
+import "../styles/admin-events.css";
 
 const TYPES = [
     "meeting",
@@ -36,7 +38,7 @@ const EMOJIS = [
     "⭐",
 ];
 
-const emptyForm = {
+const EMPTY_FORM = {
     title: "",
     description: "",
     date: "",
@@ -54,17 +56,14 @@ export default function AdminEventsPage({
     const { t } = useTranslation();
 
     const [authorized, setAuthorized] = useState(false);
+
     const [checking, setChecking] = useState(true);
 
     const [events, setEvents] = useState([]);
 
     const [editingId, setEditingId] = useState(null);
 
-    const [form, setForm] = useState(emptyForm);
-
-    // ==========================================
-    // FIREBASE AUTH
-    // ==========================================
+    const [form, setForm] = useState(EMPTY_FORM);
 
     useEffect(() => {
 
@@ -94,13 +93,10 @@ export default function AdminEventsPage({
 
     }, []);
 
-    // ==========================================
-    // EVENT LISTENER
-    // ==========================================
-
     useEffect(() => {
 
-        if (!authorized) return;
+        if (!authorized)
+            return;
 
         const unsubscribe =
             listenToEvents(setEvents);
@@ -109,32 +105,62 @@ export default function AdminEventsPage({
 
     }, [authorized]);
 
-    // ==========================================
-    // FORM HANDLERS
-    // ==========================================
+    const stats = useMemo(() => {
 
-    function handleChange(e) {
+        const now = new Date();
+
+const upcoming = events.filter(event => {
+
+    const date =
+        event.date?.toDate?.() ??
+        new Date(event.date);
+
+    return date >= now;
+
+}).length;
+        const recurring = events.filter(
+
+            event => event.recurring
+
+        ).length;
+
+        return {
+
+            all: events.length,
+
+            recurring,
+
+            upcoming,
+
+        };
+
+    }, [events]);
+
+    function handleChange(event) {
 
         const {
             name,
             value,
-            type,
             checked,
-        } = e.target;
+            type,
+        } = event.target;
 
-        setForm((prev) => ({
-            ...prev,
+        setForm(previous => ({
+
+            ...previous,
+
             [name]:
                 type === "checkbox"
                     ? checked
                     : value,
+
         }));
 
     }
 
-    async function handleSubmit(e) {
+    async function handleSubmit(event) {
 
-        e.preventDefault();
+        event.preventDefault();
 
         if (!form.title.trim()) {
 
@@ -157,11 +183,13 @@ export default function AdminEventsPage({
         }
 
         const payload = {
-            ...form,
-            date: new Date(form.date),
-        };
 
-        try {
+            ...form,
+
+            date: new Date(form.date),
+
+        };
+                try {
 
             if (editingId) {
 
@@ -172,13 +200,15 @@ export default function AdminEventsPage({
 
             } else {
 
-                await createEvent(payload);
+                await createEvent(
+                    payload
+                );
 
             }
 
             setEditingId(null);
 
-            setForm(emptyForm);
+            setForm(EMPTY_FORM);
 
         } catch (error) {
 
@@ -192,10 +222,6 @@ export default function AdminEventsPage({
 
     }
 
-    // ==========================================
-    // EDIT EVENT
-    // ==========================================
-
     function editEvent(event) {
 
         const date =
@@ -205,43 +231,55 @@ export default function AdminEventsPage({
         setEditingId(event.id);
 
         setForm({
-            title: event.title || "",
+
+            title:
+                event.title || "",
+
             description:
                 event.description || "",
+
             location:
                 event.location || "",
-            time:
-                event.time || "",
-            type:
-                event.type || "meeting",
-            emoji:
-                event.emoji || "📅",
-            recurring:
-                event.recurring || false,
+
             date:
                 date
                     .toISOString()
                     .split("T")[0],
+
+            time:
+                event.time || "",
+
+            type:
+                event.type || "meeting",
+
+            emoji:
+                event.emoji || "📅",
+
+            recurring:
+                event.recurring || false,
+
         });
 
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth",
+
         });
 
     }
 
-    // ==========================================
-    // DELETE EVENT
-    // ==========================================
-
     async function removeEvent(id) {
 
         const confirmed = window.confirm(
+
             t("admin.events.confirmDelete")
+
         );
 
-        if (!confirmed) return;
+        if (!confirmed)
+            return;
 
         try {
 
@@ -252,68 +290,76 @@ export default function AdminEventsPage({
             console.error(error);
 
             alert(
+
                 t("admin.events.errors.deleteFailed")
+
             );
 
         }
 
     }
 
-
-    // ==========================================
-    // LOADING
-    // ==========================================
-
     if (checking) {
+
         return (
+
             <main className="admin-events-page">
 
                 <section className="admin-events-card loading-card">
 
                     <h2>
+
                         🔐 {t("admin.events.checkingAccess")}
+
                     </h2>
 
                 </section>
 
             </main>
+
         );
+
     }
 
-    // ==========================================
-    // NO ACCESS
-    // ==========================================
-
     if (!authorized) {
+
         return (
+
             <main className="admin-events-page">
 
                 <section className="admin-events-card">
 
                     <h1>
+
                         🔒 {t("admin.events.noAccess.title")}
+
                     </h1>
 
                     <p>
+
                         {t("admin.events.noAccess.description")}
+
                     </p>
 
                     <button
+
                         className="back-button"
+
                         onClick={goBack}
+
                     >
+
                         ← {t("common.back")}
+
                     </button>
 
                 </section>
 
             </main>
-        );
-    }
 
-    // ==========================================
-    // PAGE
-    // ==========================================
+        );
+
+    }
 
     return (
 
@@ -324,47 +370,61 @@ export default function AdminEventsPage({
                 <div>
 
                     <p className="admin-events-eyebrow">
+
                         GB Portal
+
                     </p>
 
                     <h1>
+
                         📅 {t("admin.events.title")}
+
                     </h1>
 
                     <p className="admin-events-description">
+
                         {t("admin.events.description")}
+
                     </p>
 
                 </div>
 
                 <button
+
                     className="back-button"
+
                     onClick={goBack}
+
                 >
+
                     ← {t("common.back")}
+
                 </button>
 
             </header>
 
             <section className="events-top">
-
-                <section className="admin-events-card form-card">
+                                <section className="admin-events-card form-card">
 
                     <div className="card-title">
 
-                        <h2>
+                        <div>
 
-                            {editingId
-                                ? `✏️ ${t("admin.events.editEvent")}`
-                                : `➕ ${t("admin.events.newEvent")}`}
+                            <h2>
 
-                        </h2>
+                                {editingId
+                                    ? `✏️ ${t("admin.events.editEvent")}`
+                                    : `➕ ${t("admin.events.newEvent")}`}
 
-                        <p>
+                            </h2>
 
-                            {t("admin.events.formDescription")}
+                            <p>
 
-                        </p>
+                                {t("admin.events.formDescription")}
+
+                            </p>
+
+                        </div>
 
                     </div>
 
@@ -374,16 +434,19 @@ export default function AdminEventsPage({
                     >
 
                         <div className="event-form-grid">
+
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.title")}
+
                                 </label>
 
                                 <input
                                     name="title"
-                                    placeholder={t("admin.events.placeholders.title")}
                                     value={form.title}
+                                    placeholder={t("admin.events.placeholders.title")}
                                     onChange={handleChange}
                                 />
 
@@ -392,13 +455,15 @@ export default function AdminEventsPage({
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.location")}
+
                                 </label>
 
                                 <input
                                     name="location"
-                                    placeholder={t("admin.events.placeholders.location")}
                                     value={form.location}
+                                    placeholder={t("admin.events.placeholders.location")}
                                     onChange={handleChange}
                                 />
 
@@ -407,7 +472,9 @@ export default function AdminEventsPage({
                             <div className="form-group full">
 
                                 <label>
+
                                     {t("admin.events.fields.description")}
+
                                 </label>
 
                                 <textarea
@@ -423,7 +490,9 @@ export default function AdminEventsPage({
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.date")}
+
                                 </label>
 
                                 <input
@@ -438,7 +507,9 @@ export default function AdminEventsPage({
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.time")}
+
                                 </label>
 
                                 <input
@@ -453,7 +524,9 @@ export default function AdminEventsPage({
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.type")}
+
                                 </label>
 
                                 <select
@@ -462,13 +535,15 @@ export default function AdminEventsPage({
                                     onChange={handleChange}
                                 >
 
-                                    {TYPES.map((type) => (
+                                    {TYPES.map(type => (
 
                                         <option
                                             key={type}
                                             value={type}
                                         >
+
                                             {t(`calendar.eventTypes.${type}`)}
+
                                         </option>
 
                                     ))}
@@ -480,7 +555,9 @@ export default function AdminEventsPage({
                             <div className="form-group">
 
                                 <label>
+
                                     {t("admin.events.fields.icon")}
+
                                 </label>
 
                                 <select
@@ -489,13 +566,15 @@ export default function AdminEventsPage({
                                     onChange={handleChange}
                                 >
 
-                                    {EMOJIS.map((icon) => (
+                                    {EMOJIS.map(icon => (
 
                                         <option
                                             key={icon}
                                             value={icon}
                                         >
+
                                             {icon}
+
                                         </option>
 
                                     ))}
@@ -516,7 +595,9 @@ export default function AdminEventsPage({
                                     />
 
                                     <span>
+
                                         {t("admin.events.fields.recurring")}
+
                                     </span>
 
                                 </label>
@@ -539,75 +620,72 @@ export default function AdminEventsPage({
                     </form>
 
                 </section>
-                    <aside className="events-stats">
 
-            <div className="event-stat-card">
+                <aside className="events-stats">
 
-                <span className="stat-number">
-                    {events.length}
-                </span>
+                    <div className="event-stat-card">
 
-                <span className="stat-label">
-                    {t("admin.events.stats.all")}
-                </span>
+                        <span className="stat-number">
 
-            </div>
+                            {stats.all}
 
-            <div className="event-stat-card">
+                        </span>
 
-                <span className="stat-number">
-                    {
-                        events.filter(
-                            (event) => event.recurring
-                        ).length
-                    }
-                </span>
+                        <span className="stat-label">
 
-                <span className="stat-label">
-                    {t("admin.events.stats.recurring")}
-                </span>
+                            {t("admin.events.stats.all")}
 
-            </div>
+                        </span>
 
-            <div className="event-stat-card">
+                    </div>
 
-                <span className="stat-number">
-                    {
-                        events.filter((event) => {
+                    <div className="event-stat-card">
 
-                            const date =
-                                event.date?.toDate?.() ??
-                                new Date(event.date);
+                        <span className="stat-number">
 
-                            return date >= new Date();
+                            {stats.recurring}
 
-                        }).length
-                    }
-                </span>
+                        </span>
 
-                <span className="stat-label">
-                    {t("admin.events.stats.upcoming")}
-                </span>
+                        <span className="stat-label">
 
-            </div>
+                            {t("admin.events.stats.recurring")}
 
-        </aside>
+                        </span>
 
-    </section>
+                    </div>
 
-    <section className="calendar-wrapper">
+                    <div className="event-stat-card">
 
-        <AdminCalendar
-            events={events}
-            onEdit={editEvent}
-            onDelete={removeEvent}
-        />
+                        <span className="stat-number">
 
-    </section>
+                            {stats.upcoming}
 
-</main>
+                        </span>
+
+                        <span className="stat-label">
+
+                            {t("admin.events.stats.upcoming")}
+
+                        </span>
+
+                    </div>
+
+                </aside>
+
+            </section>
+                        <section className="calendar-wrapper">
+
+                <AdminCalendar
+                    events={events}
+                    onEdit={editEvent}
+                    onDelete={removeEvent}
+                />
+
+            </section>
+
+        </main>
 
     );
 
 }
-                          
