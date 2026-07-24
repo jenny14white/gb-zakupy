@@ -3,9 +3,7 @@ import { useEffect, useRef } from "react";
 import { logoutPortal } from "../../firebase/auth";
 
 
-const SESSION_TIME =
-    10 * 60 * 1000;
-
+const SESSION_TIME = 10 * 60 * 1000;
 
 const ACTIVITY_EVENTS = [
     "mousemove",
@@ -16,22 +14,15 @@ const ACTIVITY_EVENTS = [
 ];
 
 
-
 export default function SessionGuard({
     onLogout,
 }) {
 
-
-    const timerRef =
-        useRef(null);
-
-
-    const loggedOutRef =
-        useRef(false);
+    const timerRef = useRef(null);
+    const loggedOutRef = useRef(false);
 
 
-
-    useEffect(() => {
+    useEffect(()=>{
 
 
         function clearTimer(){
@@ -52,11 +43,8 @@ export default function SessionGuard({
 
         function logout(){
 
-            if(
-                loggedOutRef.current
-            ){
+            if(loggedOutRef.current)
                 return;
-            }
 
 
             loggedOutRef.current = true;
@@ -69,7 +57,6 @@ export default function SessionGuard({
                 "gbAccess"
             );
 
-
             sessionStorage.removeItem(
                 "gbLastActivity"
             );
@@ -78,12 +65,13 @@ export default function SessionGuard({
             logoutPortal()
                 .catch(error =>
                     console.error(
+                        "Logout error:",
                         error
                     )
                 );
 
 
-            onLogout();
+            onLogout?.();
 
         }
 
@@ -106,11 +94,8 @@ export default function SessionGuard({
 
         function refreshSession(){
 
-            if(
-                loggedOutRef.current
-            ){
+            if(loggedOutRef.current)
                 return;
-            }
 
 
             sessionStorage.setItem(
@@ -150,7 +135,6 @@ export default function SessionGuard({
                 lastActivity;
 
 
-
             if(
                 inactiveTime >= SESSION_TIME
             ){
@@ -171,43 +155,36 @@ export default function SessionGuard({
 
 
 
-        ACTIVITY_EVENTS.forEach(
-            event => {
+        ACTIVITY_EVENTS.forEach(event => {
 
-                window.addEventListener(
-                    event,
-                    refreshSession,
-                    {
-                        passive:true,
-                    }
-                );
+            window.addEventListener(
+                event,
+                refreshSession,
+                {
+                    passive:true,
+                }
+            );
 
-            }
-        );
-
+        });
 
 
         checkSession();
 
 
 
-        return () => {
-
+        return ()=>{
 
             clearTimer();
 
 
-            ACTIVITY_EVENTS.forEach(
-                event => {
+            ACTIVITY_EVENTS.forEach(event=>{
 
-                    window.removeEventListener(
-                        event,
-                        refreshSession
-                    );
+                window.removeEventListener(
+                    event,
+                    refreshSession
+                );
 
-                }
-            );
-
+            });
 
         };
 
@@ -215,7 +192,6 @@ export default function SessionGuard({
     },[
         onLogout
     ]);
-
 
 
     return null;
