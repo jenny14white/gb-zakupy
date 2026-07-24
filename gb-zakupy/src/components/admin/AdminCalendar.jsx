@@ -28,179 +28,103 @@ const MONTHS = [
 ];
 
 export default function AdminCalendar({
-
     events = [],
     onEdit,
     onDelete,
-
-}){
+}) {
 
     const today = new Date();
 
     const [currentMonth, setCurrentMonth] = useState(
-
         new Date(
-
             today.getFullYear(),
             today.getMonth(),
             1
-
         )
-
     );
 
     const [selectedDate, setSelectedDate] =
         useState(today);
 
     const month = currentMonth.getMonth();
-
     const year = currentMonth.getFullYear();
 
-    const firstDay = new Date(
+    const firstDay = new Date(year, month, 1);
 
-        year,
-        month,
-        1
-
-    );
-
-    let startWeekDay = firstDay.getDay();
-
-    startWeekDay =
-        startWeekDay === 0
+    const offset =
+        firstDay.getDay() === 0
             ? 6
-            : startWeekDay - 1;
+            : firstDay.getDay() - 1;
 
     const daysInMonth = new Date(
-
         year,
         month + 1,
         0
-
     ).getDate();
 
-    const calendarDays = [];
+    const calendarDays = [
+        ...Array(offset).fill(null),
+        ...Array.from(
+            { length: daysInMonth },
+            (_, index) =>
+                new Date(
+                    year,
+                    month,
+                    index + 1
+                )
+        ),
+    ];
 
-    for (
+    function changeMonth(step) {
 
-        let i = 0;
-        i < startWeekDay;
-        i++
-
-    ){
-
-        calendarDays.push(null);
-
-    }
-
-    for (
-
-        let day = 1;
-        day <= daysInMonth;
-        day++
-
-    ){
-
-        calendarDays.push(
-
+        setCurrentMonth(
             new Date(
                 year,
-                month,
-                day
+                month + step,
+                1
             )
-
         );
 
     }
 
-    const previousMonth = () =>
-
-        setCurrentMonth(
-
-            new Date(
-
-                year,
-                month - 1,
-                1
-
-            )
-
-        );
-
-    const nextMonth = () =>
-
-        setCurrentMonth(
-
-            new Date(
-
-                year,
-                month + 1,
-                1
-
-            )
-
-        );
-
-    const goToToday = () => {
+    function goToToday() {
 
         const now = new Date();
 
         setCurrentMonth(
-
             new Date(
-
                 now.getFullYear(),
                 now.getMonth(),
                 1
-
             )
-
         );
 
         setSelectedDate(now);
 
-    };
+    }
 
-    const getEventsForDay = (date) => {
+    function getEventsForDay(date) {
 
         return events.filter(event => {
 
             const eventDate =
-
-                event.date?.toDate?.()
-
-                ??
-
+                event.date?.toDate?.() ??
                 new Date(event.date);
 
             return (
-
-                eventDate.getFullYear() ===
-                    date.getFullYear()
-
-                &&
-
-                eventDate.getMonth() ===
-                    date.getMonth()
-
-                &&
-
-                eventDate.getDate() ===
-                    date.getDate()
-
+                eventDate.getFullYear() === date.getFullYear() &&
+                eventDate.getMonth() === date.getMonth() &&
+                eventDate.getDate() === date.getDate()
             );
 
         });
 
-    };
+    }
 
-    const selectedEvents = useMemo(() => {
-
-        return getEventsForDay(
-            selectedDate
-        );
-
-    }, [events, selectedDate]);
+    const selectedEvents = useMemo(
+        () => getEventsForDay(selectedDate),
+        [events, selectedDate]
+    );
 
     return (
 
@@ -211,47 +135,30 @@ export default function AdminCalendar({
                 <div className="calendar-navigation">
 
                     <button
-
                         className="calendar-nav"
-
-                        onClick={previousMonth}
-
+                        onClick={() => changeMonth(-1)}
                     >
-
                         ←
-
                     </button>
 
                     <button
-
                         className="calendar-nav"
-
-                        onClick={nextMonth}
-
+                        onClick={() => changeMonth(1)}
                     >
-
                         →
-
                     </button>
 
                 </div>
 
                 <h2>
 
-                    {MONTHS[month]}
-
-                    {" "}
-
-                    {year}
+                    {MONTHS[month]} {year}
 
                 </h2>
 
                 <button
-
                     className="calendar-today"
-
                     onClick={goToToday}
-
                 >
 
                     📅 Dzisiaj
@@ -267,11 +174,8 @@ export default function AdminCalendar({
                     {WEEK_DAYS.map(day => (
 
                         <div
-
                             key={day}
-
                             className="calendar-weekday"
-
                         >
 
                             {day}
@@ -279,155 +183,22 @@ export default function AdminCalendar({
                         </div>
 
                     ))}
-
-                    {calendarDays.map((date,index)=>{
-                                  if (!date) {
-
-                            return (
-
-                                <div
-                                    key={`empty-${index}`}
-                                    className="calendar-empty-tile"
-                                />
-
-                            );
-
-                        }
-
-                        const dayEvents =
-                            getEventsForDay(date);
-
-                        const isToday =
-                            date.toDateString() ===
-                            today.toDateString();
-
-                        const isSelected =
-                            date.toDateString() ===
-                            selectedDate.toDateString();
-
-                        return (
-
-                            <button
-
-                                key={date.toISOString()}
-
-                                type="button"
-
-                                className={`
-                                    calendar-day
-                                    ${isToday ? "today" : ""}
-                                    ${isSelected ? "selected" : ""}
-                                `}
-
-                                onClick={() =>
-                                    setSelectedDate(date)
-                                }
-
-                            >
-
-                                <div className="calendar-day-top">
-
-                                    <span className="calendar-number">
-
-                                        {date.getDate()}
-
-                                    </span>
-
-                                    {dayEvents.length > 0 && (
-
-                                        <span className="calendar-day-badge">
-
-                                            {dayEvents.length}
-
-                                        </span>
-
-                                    )}
-
-                                </div>
-
-                                <div className="calendar-day-body">
-
-                                    {dayEvents.length === 0 && (
-
-                                        <div className="calendar-day-placeholder">
-
-                                            Brak wydarzeń
-
-                                        </div>
-
-                                    )}
-
-                                    {dayEvents
-                                        .slice(0, 2)
-                                        .map(event => (
-
-                                            <div
-
-                                                key={event.id}
-
-                                                className="calendar-day-item"
-
-                                            >
-
-                                                <span className="calendar-day-item-emoji">
-
-                                                    {event.emoji || "📅"}
-
-                                                </span>
-
-                                                <span className="calendar-day-item-title">
-
-                                                    {event.title}
-
-                                                </span>
-
-                                            </div>
-
-                                        ))}
-
-                                    {dayEvents.length > 2 && (
-
-                                        <div className="calendar-day-more">
-
-                                            +{dayEvents.length - 2} więcej
-
-                                        </div>
-
-                                    )}
-
-                                </div>
-
-                                {dayEvents.length > 0 && (
-
-                                    <div className="calendar-day-footer">
-
-                                        <div className="calendar-event-dots">
-
-                                            {dayEvents
-                                                .slice(0, 3)
-                                                .map(event => (
-
-                                                    <span
-
-                                                        key={event.id}
-
-                                                        className="calendar-event-dot"
-
-                                                    />
-
-                                                ))}
-
-                                        </div>
-
-                                    </div>
-
-                                )}
-
-                            </button>
-
-                        );
-
-                    })}
+                                        {calendarDays.map((date, index) => (
+
+                        <CalendarDay
+                            key={
+                                date
+                                    ? date.toISOString()
+                                    : `empty-${index}`
+                            }
+                            date={date}
+                            today={today}
+                            selectedDate={selectedDate}
+                            onSelect={setSelectedDate}
+                            events={date ? getEventsForDay(date) : []}
+                        />
+
+                    ))}
 
                 </div>
 
@@ -440,19 +211,12 @@ export default function AdminCalendar({
                             <h3>
 
                                 {selectedDate.toLocaleDateString(
-
                                     "pl-PL",
-
                                     {
-
                                         day: "numeric",
-
                                         month: "long",
-
                                         year: "numeric",
-
                                     }
-
                                 )}
 
                             </h3>
@@ -472,7 +236,7 @@ export default function AdminCalendar({
                         </span>
 
                     </div>
-                                      {selectedEvents.length === 0 ? (
+                                        {selectedEvents.length === 0 ? (
 
                         <div className="calendar-empty">
 
@@ -490,8 +254,7 @@ export default function AdminCalendar({
 
                             <p>
 
-                                Na wybrany dzień nie dodano jeszcze
-                                żadnych wydarzeń.
+                                Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
 
                             </p>
 
@@ -501,19 +264,15 @@ export default function AdminCalendar({
 
                         selectedEvents.map(event => {
 
-                            const date =
-                                event.date?.toDate?.()
-                                ??
+                            const eventDate =
+                                event.date?.toDate?.() ??
                                 new Date(event.date);
 
                             return (
 
                                 <article
-
                                     key={event.id}
-
                                     className="calendar-event-card"
-
                                 >
 
                                     <div className="calendar-event-bar" />
@@ -528,18 +287,12 @@ export default function AdminCalendar({
 
                                         <span>
 
-                                            {date.toLocaleDateString(
-
+                                            {eventDate.toLocaleDateString(
                                                 "pl-PL",
-
                                                 {
-
                                                     day: "numeric",
-
                                                     month: "short",
-
                                                 }
-
                                             )}
 
                                         </span>
@@ -556,9 +309,7 @@ export default function AdminCalendar({
 
                                         <h4>
 
-                                            {event.emoji || "📅"}{" "}
-
-                                            {event.title}
+                                            {event.emoji || "📅"} {event.title}
 
                                         </h4>
 
@@ -597,15 +348,9 @@ export default function AdminCalendar({
                                     <div className="calendar-event-actions">
 
                                         <button
-
                                             type="button"
-
                                             className="calendar-event-action"
-
                                             onClick={() => onEdit(event)}
-
-                                            title="Edytuj"
-
                                         >
 
                                             ✏️
@@ -613,15 +358,9 @@ export default function AdminCalendar({
                                         </button>
 
                                         <button
-
                                             type="button"
-
                                             className="calendar-event-action danger"
-
                                             onClick={() => onDelete(event.id)}
-
-                                            title="Usuń"
-
                                         >
 
                                             🗑️
@@ -637,11 +376,115 @@ export default function AdminCalendar({
                         })
 
                     )}
-                                  </aside>
+
+                </aside>
 
             </div>
 
         </section>
+
+    );
+
+}
+
+function CalendarDay({
+    date,
+    today,
+    selectedDate,
+    onSelect,
+    events,
+}) {
+
+    if (!date) {
+
+        return (
+            <div className="calendar-empty-tile" />
+        );
+
+    }
+
+    const isToday =
+        date.toDateString() === today.toDateString();
+
+    const isSelected =
+        date.toDateString() === selectedDate.toDateString();
+
+    return (
+
+        <button
+            type="button"
+            className={`calendar-day ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
+            onClick={() => onSelect(date)}
+        >
+
+            <div className="calendar-day-top">
+
+                <span className="calendar-number">
+
+                    {date.getDate()}
+
+                </span>
+
+                {events.length > 0 && (
+
+                    <span className="calendar-day-badge">
+
+                        {events.length}
+
+                    </span>
+
+                )}
+
+            </div>
+
+            <div className="calendar-day-body">
+
+                {events.slice(0, 2).map(event => (
+
+                    <div
+                        key={event.id}
+                        className="calendar-day-item"
+                    >
+
+                        <span>
+
+                            {event.emoji || "📅"}
+
+                        </span>
+
+                        <span>
+
+                            {event.title}
+
+                        </span>
+
+                    </div>
+
+                ))}
+
+                {events.length === 0 && (
+
+                    <div className="calendar-day-placeholder">
+
+                        Brak wydarzeń
+
+                    </div>
+
+                )}
+
+                {events.length > 2 && (
+
+                    <div className="calendar-day-more">
+
+                        +{events.length - 2} więcej
+
+                    </div>
+
+                )}
+
+            </div>
+
+        </button>
 
     );
 
