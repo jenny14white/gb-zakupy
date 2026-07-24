@@ -7,7 +7,10 @@ const DEFAULT_THEME = "navy";
 const AVAILABLE_THEMES = [
   "navy",
   "forest",
-  "gold"
+  "gold",
+  "crimson",
+  "blossom",
+  "violet"
 ];
 
 export function ThemeProvider({ children }) {
@@ -41,8 +44,6 @@ export function ThemeProvider({ children }) {
 
   }, [theme]);
 
-
-
   function setTheme(newTheme) {
 
     if (
@@ -54,8 +55,6 @@ export function ThemeProvider({ children }) {
     setThemeState(newTheme);
 
   }
-
-
 
   function toggleTheme() {
 
@@ -71,8 +70,6 @@ export function ThemeProvider({ children }) {
     );
 
   }
-
-
 
   return (
 
@@ -99,8 +96,6 @@ export function ThemeProvider({ children }) {
   );
 
 }
-
-
 
 export function useTheme() {
 
