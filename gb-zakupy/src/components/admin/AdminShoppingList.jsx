@@ -1,83 +1,114 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
-import EmptyState from '../shared/EmptyState';
-import AdminOrderCard from './AdminOrderCard';
+import EmptyState from "../shared/EmptyState";
+import AdminOrderCard from "./AdminOrderCard";
 
-import { ORDER_STATUS } from '../../utils/constants';
+import { ORDER_STATUS } from "../../utils/constants";
 
 export default function AdminShoppingList({ orders }) {
-  const pendingOrders = useMemo(
-    () =>
-      orders.filter(
-        (order) => order.status === ORDER_STATUS.PENDING
-      ),
-    [orders]
-  );
 
-  const acceptedOrders = useMemo(
-    () =>
-      orders.filter(
-        (order) => order.status === ORDER_STATUS.ACCEPTED
-      ),
-    [orders]
-  );
+    const pendingOrders = useMemo(
+        () =>
+            orders.filter(
+                order => order.status === ORDER_STATUS.PENDING
+            ),
+        [orders]
+    );
 
-  return (
-    <>
-      <h2>Zakupy</h2>
+    const acceptedOrders = useMemo(
+        () =>
+            orders.filter(
+                order => order.status === ORDER_STATUS.ACCEPTED
+            ),
+        [orders]
+    );
 
-      {/* ---------------- Oczekujące ---------------- */}
+    function renderSection(title, icon, items, emptyMessage) {
 
-      <section className="admin-section">
-        <h3>
-          🟡 Oczekujące
-          {' '}
-          <span>({pendingOrders.length})</span>
-        </h3>
+        return (
 
-        {pendingOrders.length === 0 ? (
-          <EmptyState>
-            Brak oczekujących zgłoszeń.
-          </EmptyState>
-        ) : (
-          <div className="admin-orders">
-            {pendingOrders.map((order) => (
-              <AdminOrderCard
-                key={order.id}
-                order={order}
-              />
-            ))}
-          </div>
-        )}
-      </section>
+            <section className="admin-section">
 
-      {/* ---------------- Przyjęte ---------------- */}
+                <div className="section-header">
 
-      <section
-        className="admin-section"
-        style={{ marginTop: 40 }}
-      >
-        <h3>
-          🟢 Przyjęte do realizacji
-          {' '}
-          <span>({acceptedOrders.length})</span>
-        </h3>
+                    <h3>
 
-        {acceptedOrders.length === 0 ? (
-          <EmptyState>
-            Brak produktów przyjętych do realizacji.
-          </EmptyState>
-        ) : (
-          <div className="admin-orders">
-            {acceptedOrders.map((order) => (
-              <AdminOrderCard
-                key={order.id}
-                order={order}
-              />
-            ))}
-          </div>
-        )}
-      </section>
-    </>
-  );
+                        {icon} {title}
+
+                        <span> ({items.length})</span>
+
+                    </h3>
+
+                </div>
+
+                {items.length === 0 ? (
+
+                    <EmptyState>
+
+                        {emptyMessage}
+
+                    </EmptyState>
+
+                ) : (
+
+                    <div className="admin-orders">
+
+                        {items.map(order => (
+
+                            <AdminOrderCard
+                                key={order.id}
+                                order={order}
+                            />
+
+                        ))}
+
+                    </div>
+
+                )}
+
+            </section>
+
+        );
+
+    }
+
+    return (
+
+        <section className="admin-shopping-list">
+
+            <div className="admin-list-header">
+
+                <div>
+
+                    <h2>🛒 Zakupy</h2>
+
+                    <p>
+
+                        Łącznie aktywnych zgłoszeń:{" "}
+                        {pendingOrders.length + acceptedOrders.length}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {renderSection(
+                "Oczekujące",
+                "🟡",
+                pendingOrders,
+                "Brak oczekujących zgłoszeń."
+            )}
+
+            {renderSection(
+                "Przyjęte do realizacji",
+                "🟢",
+                acceptedOrders,
+                "Brak produktów przyjętych do realizacji."
+            )}
+
+        </section>
+
+    );
+
 }
