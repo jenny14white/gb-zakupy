@@ -12,25 +12,28 @@ import { formatDate } from "../../utils/dateUtils";
 import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
 
+
 export default function AdminOrderCard({ order }) {
 
-    const [expanded, setExpanded] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+    const [expanded,setExpanded] = useState(false);
+    const [isEditing,setIsEditing] = useState(false);
+    const [loading,setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(false);
-
-    const [adminComment, setAdminComment] = useState(
+    const [adminComment,setAdminComment] = useState(
         order.adminComment || ""
     );
 
-    const [showDeleteDialog, setShowDeleteDialog] =
-        useState(false);
+    const [showDeleteDialog,setShowDeleteDialog] = useState(false);
+
 
     useEffect(() => {
 
-        setAdminComment(order.adminComment || "");
+        setAdminComment(
+            order.adminComment || ""
+        );
 
-    }, [order]);
+    },[order]);
+
 
     const isPending =
         order.status === ORDER_STATUS.PENDING;
@@ -41,57 +44,29 @@ export default function AdminOrderCard({ order }) {
     const isCompleted =
         order.status === ORDER_STATUS.COMPLETED;
 
-    async function handleAccept() {
 
-        if (loading)
+
+    async function handleAction(action){
+
+        if(loading){
             return;
-
-        try {
-
-            setLoading(true);
-
-            await markOrderAsAccepted(
-                order,
-                adminComment
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Nie udało się przyjąć zamówienia.");
-
-        } finally {
-
-            setLoading(false);
-
         }
 
-    }
-
-    async function handleCompleted() {
-
-        if (loading)
-            return;
-
-        try {
+        try{
 
             setLoading(true);
 
-            await markOrderAsCompleted(
-                order,
-                adminComment
-            );
+            await action();
 
-        } catch (error) {
+        }catch(error){
 
             console.error(error);
 
             alert(
-                "Nie udało się oznaczyć zamówienia jako zrealizowane."
+                "Nie udało się wykonać operacji."
             );
 
-        } finally {
+        }finally{
 
             setLoading(false);
 
@@ -99,42 +74,64 @@ export default function AdminOrderCard({ order }) {
 
     }
 
-    async function confirmDelete() {
 
-        try {
+    function handleAccept(){
 
-            setLoading(true);
+        handleAction(() =>
+            markOrderAsAccepted(
+                order,
+                adminComment
+            )
+        );
+
+    }
+
+
+    function handleCompleted(){
+
+        handleAction(() =>
+            markOrderAsCompleted(
+                order,
+                adminComment
+            )
+        );
+
+    }
+
+
+    function confirmDelete(){
+
+        handleAction(async () => {
 
             await deleteOrder(order);
 
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Nie udało się usunąć zamówienia.");
-
-        } finally {
-
-            setLoading(false);
             setShowDeleteDialog(false);
 
-        }
+        });
 
     }
 
-    if (isEditing) {
+
+
+    if(isEditing){
 
         return (
 
             <AdminOrderEditForm
                 order={order}
-                onCancel={() => setIsEditing(false)}
-                onSaved={() => setIsEditing(false)}
+                onCancel={() =>
+                    setIsEditing(false)
+                }
+                onSaved={() =>
+                    setIsEditing(false)
+                }
             />
 
         );
 
     }
+
+
 
     return (
 
@@ -148,16 +145,23 @@ export default function AdminOrderCard({ order }) {
                 confirmText="Usuń"
                 cancelText="Anuluj"
                 onConfirm={confirmDelete}
-                onCancel={() => setShowDeleteDialog(false)}
+                onCancel={() =>
+                    setShowDeleteDialog(false)
+                }
             />
+
 
             <article className="shopping-card">
 
+
                 <div className="shopping-card-bar" />
+
 
                 <div
                     className="shopping-card-content"
-                    onClick={() => setExpanded(open => !open)}
+                    onClick={() =>
+                        setExpanded(value => !value)
+                    }
                 >
 
                     <div className="shopping-card-top">
@@ -165,97 +169,100 @@ export default function AdminOrderCard({ order }) {
                         <div className="shopping-product">
 
                             <h3>
-
                                 {order.product}
-
                             </h3>
 
                             <p>
-
                                 {order.quantity} {order.unit}
-
                             </p>
 
                         </div>
 
                     </div>
-                                        {expanded && (
+
+
+
+                    {expanded && (
 
                         <div className="shopping-card-footer">
 
+
                             <div className="shopping-card-footer-left">
+
 
                                 <div className="shopping-meta">
 
                                     <div className="shopping-chip">
-
-                                        📅 Dodano:{" "}
-                                        {formatDate(order.createdAt)}
-
+                                        📅 Dodano: {formatDate(order.createdAt)}
                                     </div>
 
                                     <div className="shopping-chip">
-
                                         ✅ Przyjęto:{" "}
-                                        {order.acceptedAt
-                                            ? formatDate(order.acceptedAt)
-                                            : "—"}
-
+                                        {
+                                            order.acceptedAt
+                                                ? formatDate(order.acceptedAt)
+                                                : "—"
+                                        }
                                     </div>
 
                                     <div className="shopping-chip">
-
                                         📦 Zrealizowano:{" "}
-                                        {order.completedAt
-                                            ? formatDate(order.completedAt)
-                                            : "—"}
-
+                                        {
+                                            order.completedAt
+                                                ? formatDate(order.completedAt)
+                                                : "—"
+                                        }
                                     </div>
 
                                     <div className="shopping-chip">
-
                                         👤 {order.requestedBy}
-
                                     </div>
 
                                 </div>
+
+
 
                                 <textarea
                                     className="shopping-comment"
                                     rows={3}
                                     value={adminComment}
                                     placeholder="Komentarz administratora..."
-                                    disabled={loading || isCompleted}
-                                    onChange={(event) =>
+                                    disabled={
+                                        loading ||
+                                        isCompleted
+                                    }
+                                    onChange={event =>
                                         setAdminComment(
                                             event.target.value
                                         )
                                     }
                                 />
 
+
+
                                 {order.adminComment && (
 
                                     <div className="shopping-request-info">
 
                                         <strong>
-
                                             Komentarz administratora
-
                                         </strong>
 
                                         <p>
-
                                             {order.adminComment}
-
                                         </p>
 
                                     </div>
 
                                 )}
 
+
                             </div>
 
+
+
                             <div className="shopping-actions">
+
 
                                 {isPending && (
 
@@ -263,18 +270,18 @@ export default function AdminOrderCard({ order }) {
                                         type="button"
                                         className="shopping-icon-btn success"
                                         data-tooltip="Przyjmij"
-                                        onClick={(event) => {
+                                        onClick={event => {
                                             event.stopPropagation();
                                             handleAccept();
                                         }}
                                         disabled={loading}
                                     >
-
                                         ✔
-
                                     </button>
 
                                 )}
+
+
 
                                 {isAccepted && (
 
@@ -282,18 +289,18 @@ export default function AdminOrderCard({ order }) {
                                         type="button"
                                         className="shopping-icon-btn success"
                                         data-tooltip="Zrealizuj"
-                                        onClick={(event) => {
+                                        onClick={event => {
                                             event.stopPropagation();
                                             handleCompleted();
                                         }}
                                         disabled={loading}
                                     >
-
                                         ✓
-
                                     </button>
 
                                 )}
+
+
 
                                 {!isCompleted && (
 
@@ -301,43 +308,47 @@ export default function AdminOrderCard({ order }) {
                                         type="button"
                                         className="shopping-icon-btn info"
                                         data-tooltip="Edytuj"
-                                        onClick={(event) => {
+                                        onClick={event => {
                                             event.stopPropagation();
                                             setIsEditing(true);
                                         }}
                                         disabled={loading}
                                     >
-
                                         ✏️
-
                                     </button>
 
                                 )}
+
+
 
                                 <button
                                     type="button"
                                     className="shopping-icon-btn danger"
                                     data-tooltip="Usuń"
-                                    onClick={(event) => {
+                                    onClick={event => {
                                         event.stopPropagation();
                                         setShowDeleteDialog(true);
                                     }}
                                     disabled={loading}
                                 >
-
                                     🗑
-
                                 </button>
 
+
                             </div>
+
 
                         </div>
 
                     )}
 
+
                 </div>
 
+
+
                 <div className="shopping-card-right">
+
 
                     <div
                         className={`shopping-status ${
@@ -357,21 +368,24 @@ export default function AdminOrderCard({ order }) {
 
                     </div>
 
+
+
                     <button
                         type="button"
                         className="shopping-icon-btn"
-                        onClick={(event) => {
+                        onClick={event => {
                             event.stopPropagation();
-                            setExpanded(open => !open);
+                            setExpanded(value => !value);
                         }}
                     >
-
                         {expanded ? "▲" : "▼"}
-
                     </button>
 
+
                 </div>
-                            </article>
+
+
+            </article>
 
         </>
 
