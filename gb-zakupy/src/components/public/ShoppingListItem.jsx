@@ -7,6 +7,28 @@ export default function ShoppingListItem({ item }) {
 
     const { t } = useTranslation();
 
+
+    function getStatus(){
+
+        switch(item.status){
+
+            case ORDER_STATUS.PENDING:
+                return t("shopping.status.pending");
+
+            case ORDER_STATUS.ACCEPTED:
+                return t("shopping.status.accepted");
+
+            case ORDER_STATUS.COMPLETED:
+                return t("shopping.status.completed");
+
+            default:
+                return item.status;
+
+        }
+
+    }
+
+
     return (
 
         <article className="shopping-item">
@@ -23,6 +45,7 @@ export default function ShoppingListItem({ item }) {
 
             </div>
 
+
             <div className="shopping-meta">
 
                 <span>
@@ -35,33 +58,18 @@ export default function ShoppingListItem({ item }) {
 
             </div>
 
+
             <div
                 className={`shopping-status ${
                     item.status === ORDER_STATUS.ACCEPTED
                         ? "accepted"
+                        : item.status === ORDER_STATUS.COMPLETED
+                        ? "completed"
                         : "pending"
                 }`}
             >
-
-                {item.status === ORDER_STATUS.PENDING
-                    ? t("shopping.status.pending")
-                    : item.status === ORDER_STATUS.ACCEPTED
-                    ? t("shopping.status.accepted")
-                    : item.status === ORDER_STATUS.COMPLETED
-                    ? t("shopping.status.completed")
-                    : item.status}
-
+                {getStatus()}
             </div>
-
-            {item.adminComment && (
-
-                <div className="shopping-comment">
-
-                    💬 {item.adminComment}
-
-                </div>
-
-            )}
 
         </article>
 
