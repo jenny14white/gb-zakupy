@@ -19,7 +19,19 @@ export default function ThemeSwitcher() {
                 menuRef.current &&
                 !menuRef.current.contains(event.target)
             ) {
+
                 setOpen(false);
+
+            }
+
+        }
+
+        function handleEscape(event) {
+
+            if (event.key === "Escape") {
+
+                setOpen(false);
+
             }
 
         }
@@ -29,11 +41,21 @@ export default function ThemeSwitcher() {
             handleClickOutside
         );
 
+        document.addEventListener(
+            "keydown",
+            handleEscape
+        );
+
         return () => {
 
             document.removeEventListener(
                 "mousedown",
                 handleClickOutside
+            );
+
+            document.removeEventListener(
+                "keydown",
+                handleEscape
             );
 
         };
@@ -118,9 +140,11 @@ export default function ThemeSwitcher() {
         >
 
             <button
+                type="button"
                 className="theme-button"
                 title="Choose theme"
-                onClick={() => setOpen(!open)}
+                aria-label="Choose theme"
+                onClick={() => setOpen((value) => !value)}
             >
 
                 <span>🎨</span>
@@ -133,16 +157,26 @@ export default function ThemeSwitcher() {
 
                     <div className="theme-menu">
 
+                        <div className="switcher-menu-title">
+
+                            Theme
+
+                        </div>
+
+                        <div className="switcher-menu-divider" />
+
                         {
 
                             themes.map((item) => (
 
                                 <button
                                     key={item.id}
+                                    type="button"
                                     className={`theme-option ${theme === item.id ? "active" : ""}`}
                                     onClick={() => {
 
                                         setTheme(item.id);
+
                                         setOpen(false);
 
                                     }}
@@ -158,7 +192,7 @@ export default function ThemeSwitcher() {
                                                     key={index}
                                                     className="theme-dot"
                                                     style={{
-                                                        background: color
+                                                        backgroundColor: color
                                                     }}
                                                 />
 
@@ -169,7 +203,9 @@ export default function ThemeSwitcher() {
                                     </div>
 
                                     <span className="theme-name">
+
                                         {item.name}
+
                                     </span>
 
                                 </button>
