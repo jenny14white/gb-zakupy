@@ -1,12 +1,15 @@
 import { formatDate } from "../../utils/dateUtils";
 
+
 export default function AdminEventLog({ logs }) {
 
     return (
 
         <section className="event-log-page">
 
+
             <div className="event-log-header">
+
 
                 <div className="event-log-header-left">
 
@@ -24,87 +27,93 @@ export default function AdminEventLog({ logs }) {
 
                 </div>
 
+
+
                 <div className="event-log-toolbar">
 
                     <button
                         type="button"
                         className="event-log-button-secondary"
                     >
-
                         Odśwież
-
                     </button>
 
                 </div>
 
+
             </div>
+
+
 
             {logs.length === 0 ? (
 
                 <div className="event-empty">
 
                     <div className="event-empty-icon">
-
                         📜
-
                     </div>
 
                     <h3>
-
                         Brak zdarzeń
-
                     </h3>
 
                     <p>
-
                         Nie znaleziono żadnych wpisów.
-
                     </p>
 
                 </div>
+
 
             ) : (
 
                 <div className="event-timeline">
 
+
                     {logs.map(log => (
 
                         <article
                             key={log.id}
-                            className={`event-item ${log.type || "system"}`}
+                            className={
+                                `event-item ${
+                                    log.type || "system"
+                                }`
+                            }
                         >
 
                             <div className="event-node" />
 
+
                             <div className="event-card">
+
 
                                 <div className="event-header">
 
+
                                     <div className="event-title">
 
+
                                         <div className="event-icon">
-
                                             📜
-
                                         </div>
+
 
                                         <div>
 
                                             <h3>
-
                                                 Zdarzenie
-
                                             </h3>
 
+
                                             <p>
-
                                                 {log.message}
-
                                             </p>
 
                                         </div>
 
+
                                     </div>
+
+
 
                                     <div className="event-time">
 
@@ -119,7 +128,10 @@ export default function AdminEventLog({ logs }) {
 
                                     </div>
 
+
                                 </div>
+
+
 
                                 <div className="event-meta">
 
@@ -131,15 +143,19 @@ export default function AdminEventLog({ logs }) {
 
                                 </div>
 
+
                             </div>
+
 
                         </article>
 
                     ))}
 
+
                 </div>
 
             )}
+
 
         </section>
 
