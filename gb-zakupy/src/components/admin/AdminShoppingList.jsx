@@ -5,26 +5,35 @@ import AdminOrderCard from "./AdminOrderCard";
 
 import { ORDER_STATUS } from "../../utils/constants";
 
+
 export default function AdminShoppingList({ orders }) {
 
-    
     const pendingOrders = useMemo(
         () =>
             orders.filter(
-                order => order.status === ORDER_STATUS.PENDING
+                order =>
+                    order.status === ORDER_STATUS.PENDING
             ),
         [orders]
     );
+
 
     const acceptedOrders = useMemo(
         () =>
             orders.filter(
-                order => order.status === ORDER_STATUS.ACCEPTED
+                order =>
+                    order.status === ORDER_STATUS.ACCEPTED
             ),
         [orders]
     );
 
-    function renderSection(title, icon, items, emptyMessage) {
+
+    function renderSection(
+        title,
+        icon,
+        items,
+        emptyMessage
+    ){
 
         return (
 
@@ -33,21 +42,17 @@ export default function AdminShoppingList({ orders }) {
                 <div className="section-header">
 
                     <h3>
-
                         {icon} {title}
-
                         <span> ({items.length})</span>
-
                     </h3>
 
                 </div>
 
+
                 {items.length === 0 ? (
 
                     <EmptyState>
-
                         {emptyMessage}
-
                     </EmptyState>
 
                 ) : (
@@ -73,26 +78,32 @@ export default function AdminShoppingList({ orders }) {
 
     }
 
+
     return (
 
         <section className="admin-shopping-list">
+
 
             <div className="admin-list-header">
 
                 <div>
 
-                    <h2>🛒 Zakupy</h2>
+                    <h2>
+                        🛒 Zakupy
+                    </h2>
 
                     <p>
-
                         Łącznie aktywnych zgłoszeń:{" "}
-                        {pendingOrders.length + acceptedOrders.length}
-
+                        {
+                            pendingOrders.length +
+                            acceptedOrders.length
+                        }
                     </p>
 
                 </div>
 
             </div>
+
 
             {renderSection(
                 "Oczekujące",
@@ -101,12 +112,14 @@ export default function AdminShoppingList({ orders }) {
                 "Brak oczekujących zgłoszeń."
             )}
 
+
             {renderSection(
                 "Przyjęte do realizacji",
                 "🟢",
                 acceptedOrders,
                 "Brak produktów przyjętych do realizacji."
             )}
+
 
         </section>
 
