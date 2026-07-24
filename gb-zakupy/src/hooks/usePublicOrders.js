@@ -1,21 +1,47 @@
-import { useEffect, useMemo, useState } from 'react';
-import { listenToOrders } from '../services/ordersService';
-import { getPendingOrders } from '../utils/orderUtils';
+import { useEffect,useMemo,useState } from "react";
 
-export function usePublicOrders() {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+import { listenToOrders } from "../services/ordersService";
+import { getPendingOrders } from "../utils/orderUtils";
 
-  useEffect(() => {
-    const unsubscribe = listenToOrders((data) => {
-      setOrders(data);
-      setLoading(false);
-    });
+export function usePublicOrders(){
 
-    return unsubscribe;
-  }, []);
+    const [orders,setOrders] = useState([]);
+    const [loading,setLoading] = useState(true);
 
-  const publicOrders = useMemo(() => getPendingOrders(orders), [orders]);
 
-  return { orders: publicOrders, loading };
+    useEffect(()=>{
+
+        const unsubscribe =
+            listenToOrders(data=>{
+
+                setOrders(
+                    Array.isArray(data)
+                        ? data
+                        : []
+                );
+
+                setLoading(false);
+
+            });
+
+
+        return unsubscribe;
+
+    },[]);
+
+
+
+    const publicOrders = useMemo(
+        ()=>getPendingOrders(orders),
+        [orders]
+    );
+
+
+    return {
+        orders:publicOrders,
+        loading,
+    };
+
 }
+
+export default usePublicOrders;
