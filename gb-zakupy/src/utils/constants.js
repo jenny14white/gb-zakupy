@@ -1,22 +1,44 @@
-export const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+export const ADMIN_EMAIL =
+    import.meta.env.VITE_ADMIN_EMAIL || "";
 
-export const ORDER_STATUS = {
-  PENDING: 'pending',
-  ACCEPTED: 'accepted',
-  COMPLETED: 'completed',
-};
 
-export const ORDER_STATUS_LABELS = {
-  pending: '🟡 Oczekujące',
-  accepted: '🟢 Przyjęte do realizacji',
-  completed: '🟣 Zrealizowane',
-};
+export const ORDER_STATUS = Object.freeze({
 
-export const UNITS = [
-  'szt.',
-  'op.',
-  'kpl.',
-  'karton',
-  'l',
-  'kg',
-];
+    PENDING: "pending",
+
+    ACCEPTED: "accepted",
+
+    COMPLETED: "completed",
+
+});
+
+
+export const ORDER_STATUS_LABELS = Object.freeze({
+
+    [ORDER_STATUS.PENDING]:
+        "🟡 Oczekujące",
+
+    [ORDER_STATUS.ACCEPTED]:
+        "🟢 Przyjęte do realizacji",
+
+    [ORDER_STATUS.COMPLETED]:
+        "🟣 Zrealizowane",
+
+});
+
+
+export const UNITS = Object.freeze([
+
+    "szt.",
+
+    "op.",
+
+    "kpl.",
+
+    "karton",
+
+    "l",
+
+    "kg",
+
+]);
