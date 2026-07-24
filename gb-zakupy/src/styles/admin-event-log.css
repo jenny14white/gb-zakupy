@@ -1,1 +1,1479 @@
+/* ==========================================================
+   GB PORTAL
+   ADMIN EVENT LOG
+   PART 1 / 4
+========================================================== */
 
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.event-log-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:32px;
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.event-log-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.event-log-header-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.event-log-header-left small{
+
+    width:max-content;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.08);
+
+    color:var(--accent);
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.event-log-header-left h1{
+
+    margin:0;
+
+    font-size:2.8rem;
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+
+    color:var(--text-white);
+
+}
+
+.event-log-header-left p{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    line-height:1.7;
+
+}
+
+/* ==========================================================
+   TOOLBAR
+========================================================== */
+
+.event-log-toolbar{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    flex-wrap:wrap;
+
+}
+
+.event-log-button{
+
+    height:52px;
+
+    padding:0 22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    border:none;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--accent),
+
+            color-mix(in srgb,var(--accent) 80%,white)
+
+        );
+
+    transition:.3s;
+
+}
+
+.event-log-button:hover{
+
+    transform:
+
+        translateY(-3px)
+
+        scale(1.03);
+
+    box-shadow:
+
+        0 18px 36px rgba(0,0,0,.18);
+
+}
+
+.event-log-button-secondary{
+
+    height:52px;
+
+    padding:0 20px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:
+
+        rgba(255,255,255,.07);
+
+    color:var(--text-white);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.event-log-button-secondary:hover{
+
+    background:
+
+        rgba(255,255,255,.12);
+
+}
+
+/* ==========================================================
+   TIMELINE
+========================================================== */
+
+.event-timeline{
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+    padding-left:42px;
+
+}
+
+/* ==========================================================
+   LINE
+========================================================== */
+
+.event-timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:23px;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:
+
+        linear-gradient(
+
+            rgba(255,255,255,.14),
+
+            rgba(255,255,255,.03)
+
+        );
+
+}
+
+/* ==========================================================
+   ITEM
+========================================================== */
+
+.event-item{
+
+    position:relative;
+
+    display:flex;
+
+    gap:26px;
+
+    align-items:flex-start;
+
+}
+
+/* ==========================================================
+   NODE
+========================================================== */
+
+.event-node{
+
+    position:absolute;
+
+    left:-42px;
+
+    top:18px;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    border:4px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 0 20px rgba(255,255,255,.18);
+
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.event-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    flex:1;
+
+    padding:24px 28px;
+
+    border-radius:28px;
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(255,255,255,.09),
+
+            rgba(255,255,255,.04)
+
+        );
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(22px);
+
+    transition:
+
+        .35s;
+
+}
+
+.event-card:hover{
+
+    transform:
+
+        translateY(-5px);
+
+    border-color:
+
+        rgba(255,255,255,.18);
+
+    box-shadow:
+
+        0 24px 60px rgba(0,0,0,.18);
+
+}
+
+.event-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(255,255,255,.10),
+
+            transparent 45%
+
+        );
+
+    pointer-events:none;
+
+}
+/* ==========================================================
+   EVENT TYPES
+========================================================== */
+
+.event-item.login{
+
+    --event-color:#4ade80;
+
+}
+
+.event-item.shopping{
+
+    --event-color:#60a5fa;
+
+}
+
+.event-item.notification{
+
+    --event-color:#facc15;
+
+}
+
+.event-item.user{
+
+    --event-color:#a78bfa;
+
+}
+
+.event-item.system{
+
+    --event-color:#94a3b8;
+
+}
+
+.event-item.error{
+
+    --event-color:#fb7185;
+
+}
+
+/* ==========================================================
+   NODE
+========================================================== */
+
+.event-node{
+
+    background:var(--event-color);
+
+    box-shadow:
+
+        0 0 0 6px color-mix(in srgb,var(--event-color) 18%,transparent),
+        0 0 22px color-mix(in srgb,var(--event-color) 55%,transparent);
+
+    transition:
+
+        transform .35s,
+        box-shadow .35s;
+
+}
+
+.event-item:hover .event-node{
+
+    transform:scale(1.18);
+
+}
+
+/* ==========================================================
+   CARD HEADER
+========================================================== */
+
+.event-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:24px;
+
+    margin-bottom:18px;
+
+}
+
+.event-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.event-icon{
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:18px;
+
+    color:var(--event-color);
+
+    background:
+
+        color-mix(in srgb,var(--event-color) 16%,transparent);
+
+    border:1px solid
+        color-mix(in srgb,var(--event-color) 35%,transparent);
+
+    transition:
+
+        transform .35s,
+        box-shadow .35s;
+
+}
+
+.event-item:hover .event-icon{
+
+    transform:scale(1.08);
+
+    box-shadow:
+
+        0 0 26px
+        color-mix(in srgb,var(--event-color) 35%,transparent);
+
+}
+
+.event-title h3{
+
+    margin:0;
+
+    font-size:1.15rem;
+
+    font-weight:800;
+
+    color:var(--text-white);
+
+}
+
+.event-title p{
+
+    margin:6px 0 0;
+
+    color:var(--text-on-primary);
+
+}
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.event-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 14px;
+
+    border-radius:999px;
+
+    background:
+
+        color-mix(in srgb,var(--event-color) 16%,transparent);
+
+    color:var(--event-color);
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+}
+
+.event-badge::before{
+
+    content:"";
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:currentColor;
+
+}
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.event-description{
+
+    color:var(--text-on-primary);
+
+    line-height:1.8;
+
+    margin-bottom:22px;
+
+}
+
+/* ==========================================================
+   META
+========================================================== */
+
+.event-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+.event-meta-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    background:
+
+        rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:var(--text-on-primary);
+
+    font-size:.84rem;
+
+    transition:
+
+        background .3s,
+        border-color .3s;
+
+}
+
+.event-card:hover .event-meta-item{
+
+    background:
+
+        rgba(255,255,255,.10);
+
+}
+
+/* ==========================================================
+   TIME
+========================================================== */
+
+.event-time{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    gap:6px;
+
+    color:var(--text-on-primary);
+
+    white-space:nowrap;
+
+}
+
+.event-time strong{
+
+    color:var(--text-white);
+
+    font-size:1rem;
+
+}
+
+.event-time span{
+
+    font-size:.82rem;
+
+    opacity:.7;
+
+}
+/* ==========================================================
+   DETAILS
+========================================================== */
+
+.event-details{
+
+    margin-top:22px;
+
+    padding-top:22px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    animation:eventExpand .35s ease;
+
+}
+
+@keyframes eventExpand{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* ==========================================================
+   INFO GRID
+========================================================== */
+
+.event-info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:16px;
+
+}
+
+/* ==========================================================
+   INFO CARD
+========================================================== */
+
+.event-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:
+
+        rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.event-info small{
+
+    color:var(--text-on-primary);
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    font-size:.72rem;
+
+}
+
+.event-info strong{
+
+    color:var(--text-white);
+
+    font-size:.95rem;
+
+}
+
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.event-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:8px;
+
+}
+
+/* ==========================================================
+   ICON BUTTON
+========================================================== */
+
+.event-action{
+
+    position:relative;
+
+    width:46px;
+
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:16px;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    color:var(--text-white);
+
+    backdrop-filter:blur(18px);
+
+    transition:
+
+        transform .28s,
+        background .28s,
+        box-shadow .28s,
+        color .28s;
+
+}
+
+.event-action:hover{
+
+    transform:
+
+        translateY(-4px)
+        scale(1.08);
+
+    background:
+
+        rgba(255,255,255,.15);
+
+    box-shadow:
+
+        0 14px 32px rgba(0,0,0,.18);
+
+}
+
+.event-action:active{
+
+    transform:scale(.94);
+
+}
+
+/* ==========================================================
+   ACTION STATES
+========================================================== */
+
+.event-action.primary:hover{
+
+    color:#60a5fa;
+
+    background:rgba(96,165,250,.18);
+
+}
+
+.event-action.success:hover{
+
+    color:#4ade80;
+
+    background:rgba(74,222,128,.18);
+
+}
+
+.event-action.warning:hover{
+
+    color:#facc15;
+
+    background:rgba(250,204,21,.18);
+
+}
+
+.event-action.danger:hover{
+
+    color:#fb7185;
+
+    background:rgba(251,113,133,.18);
+
+}
+
+/* ==========================================================
+   TOOLTIP
+========================================================== */
+
+.event-action::after{
+
+    content:attr(data-tooltip);
+
+    position:absolute;
+
+    bottom:calc(100% + 10px);
+
+    left:50%;
+
+    transform:
+
+        translateX(-50%)
+        translateY(8px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    white-space:nowrap;
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    background:rgba(20,20,20,.94);
+
+    color:#fff;
+
+    font-size:.74rem;
+
+    transition:.25s;
+
+}
+
+.event-action:hover::after{
+
+    opacity:1;
+
+    transform:
+
+        translateX(-50%)
+        translateY(0);
+
+}
+
+/* ==========================================================
+   EMPTY
+========================================================== */
+
+.event-empty{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+    padding:100px 40px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    border:2px dashed rgba(255,255,255,.10);
+
+    background:
+
+        rgba(255,255,255,.04);
+
+}
+
+.event-empty-icon{
+
+    width:92px;
+
+    height:92px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    font-size:2rem;
+
+}
+
+.event-empty h3{
+
+    margin:0;
+
+    color:var(--text-white);
+
+    font-size:1.45rem;
+
+}
+
+.event-empty p{
+
+    margin:0;
+
+    max-width:480px;
+
+    color:var(--text-on-primary);
+
+    line-height:1.8;
+
+}
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.event-loading{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:90px;
+
+}
+
+.event-spinner{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.08);
+
+    border-top-color:var(--accent);
+
+    animation:eventSpin .9s linear infinite;
+
+}
+
+@keyframes eventSpin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==========================================================
+   CARD ANIMATION
+========================================================== */
+
+.event-item{
+
+    animation:eventAppear .45s ease;
+
+}
+
+@keyframes eventAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(24px)
+            scale(.98);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+.event-item:nth-child(2){animation-delay:.05s;}
+.event-item:nth-child(3){animation-delay:.10s;}
+.event-item:nth-child(4){animation-delay:.15s;}
+.event-item:nth-child(5){animation-delay:.20s;}
+/* ==========================================================
+   TIMELINE INTERACTIONS
+========================================================== */
+
+.event-item{
+
+    transition:
+        transform .3s,
+        opacity .3s;
+
+}
+
+.event-timeline:hover .event-item{
+
+    opacity:.72;
+
+}
+
+.event-timeline:hover .event-item:hover{
+
+    opacity:1;
+
+    transform:translateX(6px);
+
+}
+
+/* ==========================================================
+   CARD FOCUS
+========================================================== */
+
+.event-card{
+
+    outline:none;
+
+}
+
+.event-card:focus-within{
+
+    border-color:
+
+        rgba(255,255,255,.18);
+
+    box-shadow:
+
+        0 0 0 2px rgba(255,255,255,.08),
+        0 22px 60px rgba(0,0,0,.18);
+
+}
+
+/* ==========================================================
+   META
+========================================================== */
+
+.event-meta-item{
+
+    transition:
+        transform .25s,
+        background .25s,
+        border-color .25s;
+
+}
+
+.event-meta-item:hover{
+
+    transform:translateY(-2px);
+
+    background:
+
+        rgba(255,255,255,.12);
+
+    border-color:
+
+        rgba(255,255,255,.15);
+
+}
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.event-badge{
+
+    transition:
+        transform .25s,
+        filter .25s;
+
+}
+
+.event-card:hover .event-badge{
+
+    transform:scale(1.05);
+
+    filter:brightness(1.05);
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.event-title h3{
+
+    transition:color .25s;
+
+}
+
+.event-item:hover .event-title h3{
+
+    color:var(--event-color);
+
+}
+
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.event-actions{
+
+    opacity:.92;
+
+    transition:opacity .3s;
+
+}
+
+.event-item:hover .event-actions{
+
+    opacity:1;
+
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+.event-timeline{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:
+
+        rgba(255,255,255,.18)
+        transparent;
+
+}
+
+.event-timeline::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.event-timeline::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+.event-timeline::-webkit-scrollbar-thumb{
+
+    background:
+
+        rgba(255,255,255,.18);
+
+    border-radius:999px;
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:1000px){
+
+    .event-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:16px;
+
+    }
+
+    .event-time{
+
+        align-items:flex-start;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .event-timeline{
+
+        padding-left:28px;
+
+    }
+
+    .event-timeline::before{
+
+        left:14px;
+
+    }
+
+    .event-node{
+
+        left:-28px;
+
+    }
+
+    .event-card{
+
+        padding:22px;
+
+        border-radius:24px;
+
+    }
+
+    .event-title{
+
+        align-items:flex-start;
+
+    }
+
+    .event-info-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:640px){
+
+    .event-header{
+
+        gap:20px;
+
+    }
+
+    .event-title{
+
+        flex-direction:column;
+
+    }
+
+    .event-icon{
+
+        width:48px;
+
+        height:48px;
+
+        border-radius:16px;
+
+    }
+
+    .event-meta{
+
+        flex-direction:column;
+
+    }
+
+    .event-actions{
+
+        width:100%;
+
+        flex-wrap:wrap;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .event-log-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .event-log-toolbar{
+
+        width:100%;
+
+    }
+
+    .event-log-button,
+
+    .event-log-button-secondary{
+
+        flex:1;
+
+    }
+
+    .event-log-header-left h1{
+
+        font-size:2rem;
+
+    }
+
+    .event-card{
+
+        padding:20px;
+
+    }
+
+    .event-action{
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+    .event-node{
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+}
+
+/* ==========================================================
+   FLOATING ICON
+========================================================== */
+
+.event-icon{
+
+    animation:
+
+        eventFloat 7s ease-in-out infinite;
+
+}
+
+@keyframes eventFloat{
+
+    0%,
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-3px);
+
+    }
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    .event-item,
+    .event-card,
+    .event-node,
+    .event-icon,
+    .event-action{
+
+        animation:none;
+
+        transition:none;
+
+    }
+
+}
+
+/* ==========================================================
+   GPU
+========================================================== */
+
+.event-item,
+.event-card,
+.event-node,
+.event-icon,
+.event-action,
+.event-meta-item{
+
+    will-change:transform;
+
+    transform:translateZ(0);
+
+}
