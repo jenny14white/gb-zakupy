@@ -27,77 +27,91 @@ export default function AdminDashboardPage({
     logout,
     goToEvents,
 }) {
+
     const { t } = useTranslation();
 
-    const [activeTab, setActiveTab] = useState("lista");
-    const [authorized, setAuthorized] = useState(false);
-    const [checking, setChecking] = useState(true);
+    const [activeTab,setActiveTab] = useState("lista");
+    const [authorized,setAuthorized] = useState(false);
+    const [checking,setChecking] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, user => {
-            setAuthorized(
-                Boolean(
-                    user &&
-                    user.uid === ADMIN_UID
-                )
-            );
 
-            setChecking(false);
-        });
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            user => {
+
+                setAuthorized(
+                    Boolean(
+                        user &&
+                        user.uid === ADMIN_UID
+                    )
+                );
+
+                setChecking(false);
+            }
+        );
 
         return unsubscribe;
-    }, []);
 
-    const {
-        orders,
-        loading,
-    } = useAdminOrders(authorized);
+    },[]);
 
-    const logs = useLogs(authorized);
+
+    const { orders, loading } =
+        useAdminOrders(authorized);
+
+    const logs =
+        useLogs(authorized);
 
     const {
         events,
-        loading: eventsLoading,
+        loading:eventsLoading,
     } = useEvents(authorized);
 
-    const pendingOrders = useMemo(
-        () =>
+
+    const {
+        pendingOrders,
+        completedOrders,
+        pendingCount,
+        acceptedCount,
+        unreadNotifications,
+    } = useMemo(() => {
+
+        const active =
             orders.filter(order =>
                 order.status === ORDER_STATUS.PENDING ||
                 order.status === ORDER_STATUS.ACCEPTED
-            ),
-        [orders]
-    );
+            );
 
-    const completedOrders = useMemo(
-        () =>
-            orders.filter(
-                order =>
-                    order.status === ORDER_STATUS.COMPLETED
-            ),
-        [orders]
-    );
+        const completed =
+            orders.filter(order =>
+                order.status === ORDER_STATUS.COMPLETED
+            );
 
-    const pendingCount = pendingOrders.filter(
-        order =>
-            order.status === ORDER_STATUS.PENDING
-    ).length;
+        return {
+            pendingOrders: active,
+            completedOrders: completed,
 
-    const acceptedCount = pendingOrders.filter(
-        order =>
-            order.status === ORDER_STATUS.ACCEPTED
-    ).length;
+            pendingCount:
+                active.filter(order =>
+                    order.status === ORDER_STATUS.PENDING
+                ).length,
 
-    const unreadNotifications = useMemo(
-        () =>
-            pendingOrders.filter(
-                order =>
+            acceptedCount:
+                active.filter(order =>
+                    order.status === ORDER_STATUS.ACCEPTED
+                ).length,
+
+            unreadNotifications:
+                active.filter(order =>
                     !order.notificationRead
-            ),
-        [pendingOrders]
-    );
+                ),
+        };
 
-    if (checking) {
+    },[orders]);
+
+
+    if(checking){
+
         return (
             <main className="admin-page">
                 <section className="dashboard">
@@ -105,12 +119,16 @@ export default function AdminDashboardPage({
                 </section>
             </main>
         );
+
     }
 
-    if (!authorized) {
+
+    if(!authorized){
+
         return (
             <main className="admin-page login-view">
                 <section className="login-card">
+
                     <h1>
                         {t("admin.dashboard.accessDenied.title")}
                     </h1>
@@ -125,12 +143,76 @@ export default function AdminDashboardPage({
                     >
                         {t("shopping.page.back")}
                     </button>
+
                 </section>
             </main>
         );
+
     }
 
+
+    function renderContent(){
+
+        if(loading || eventsLoading){
+
+            return (
+                <div className="empty-admin-box">
+                    {t("admin.dashboard.loading")}
+                </div>
+            );
+
+        }
+
+
+        switch(activeTab){
+
+            case "lista":
+                return (
+                    <AdminShoppingList
+                        orders={pendingOrders}
+                    />
+                );
+
+            case "powiadomienia":
+                return (
+                    <AdminNotifications
+                        orders={pendingOrders}
+                    />
+                );
+
+            case "zrealizowane":
+                return (
+                    <AdminCompletedList
+                        orders={completedOrders}
+                    />
+                );
+
+            case "dziennik":
+                return (
+                    <AdminEventLog
+                        logs={logs}
+                    />
+                );
+
+            case "kalendarz":
+                return (
+                    <AdminCalendar
+                        events={events}
+                        onEdit={() => {}}
+                        onDelete={() => {}}
+                    />
+                );
+
+            default:
+                return null;
+
+        }
+
+    }
+
+
     return (
+
         <main className="admin-page">
 
             <AdminSidebar
@@ -139,9 +221,7 @@ export default function AdminDashboardPage({
                 pendingCount={pendingCount}
                 acceptedCount={acceptedCount}
                 completedCount={completedOrders.length}
-                unreadNotificationsCount={
-                    unreadNotifications.length
-                }
+                unreadNotificationsCount={unreadNotifications.length}
                 goBack={goBack}
                 logout={logout}
                 goToEvents={goToEvents}
@@ -164,46 +244,12 @@ export default function AdminDashboardPage({
                     completedCount={completedOrders.length}
                 />
 
-                {(loading || eventsLoading) && (
-                    <div className="empty-admin-box">
-                        {t("admin.dashboard.loading")}
-                    </div>
-                )}
-
-                {!loading && activeTab === "lista" && (
-                    <AdminShoppingList
-                        orders={pendingOrders}
-                    />
-                )}
-
-                {!loading && activeTab === "powiadomienia" && (
-                    <AdminNotifications
-                        orders={pendingOrders}
-                    />
-                )}
-
-                {!loading && activeTab === "zrealizowane" && (
-                    <AdminCompletedList
-                        orders={completedOrders}
-                    />
-                )}
-
-                {!loading && activeTab === "dziennik" && (
-                    <AdminEventLog
-                        logs={logs}
-                    />
-                )}
-
-                {!eventsLoading && activeTab === "kalendarz" && (
-                    <AdminCalendar
-                        events={events}
-                        onEdit={() => {}}
-                        onDelete={() => {}}
-                    />
-                )}
+                {renderContent()}
 
             </section>
 
         </main>
+
     );
+
 }
