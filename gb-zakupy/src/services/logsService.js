@@ -28,7 +28,7 @@ function checkAdmin() {
         auth.currentUser;
 
 
-    if (
+    if(
         !user ||
         user.uid !== ADMIN_UID
     ) {
@@ -58,23 +58,38 @@ export async function addLog(
         cleanText(message);
 
 
-    if (!cleanMessage) {
+    if(!cleanMessage) {
         return;
     }
 
 
-    await addDoc(
-        collection(db, "logs"),
-        {
-            message: cleanMessage,
+    try {
 
-            type:
-                cleanText(type) || "info",
+        await addDoc(
+            collection(
+                db,
+                "logs"
+            ),
+            {
+                message:
+                    cleanMessage,
 
-            createdAt:
-                serverTimestamp(),
-        }
-    );
+                type:
+                    cleanText(type) || "info",
+
+                createdAt:
+                    serverTimestamp(),
+            }
+        );
+
+    } catch(error) {
+
+        console.error(
+            "Log save error:",
+            error
+        );
+
+    }
 
 }
 
@@ -87,7 +102,10 @@ export function listenToLogs(callback) {
 
     const logsQuery =
         query(
-            collection(db, "logs"),
+            collection(
+                db,
+                "logs"
+            ),
             orderBy(
                 "createdAt",
                 "desc"
