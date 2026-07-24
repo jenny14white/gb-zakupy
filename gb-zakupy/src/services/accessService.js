@@ -1,40 +1,44 @@
-import {
-    doc,
-    getDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
 
 
-export async function checkAccessCode(code){
+const SETTINGS_COLLECTION = "settings";
+const ACCESS_DOCUMENT = "access";
 
-    if(!code){
+
+export async function checkAccessCode(code) {
+
+    if (!code?.trim()) {
         return false;
     }
 
 
-    const snapshot =
-        await getDoc(
-            doc(
-                db,
-                "settings",
-                "access"
-            )
-        );
+    const snapshot = await getDoc(
+        doc(
+            db,
+            SETTINGS_COLLECTION,
+            ACCESS_DOCUMENT
+        )
+    );
 
 
-    if(!snapshot.exists()){
+    if (!snapshot.exists()) {
         return false;
     }
 
 
     const savedCode =
-        snapshot.data().code;
+        snapshot.data()?.code;
+
+
+    if (!savedCode) {
+        return false;
+    }
 
 
     return (
-        code.trim().toUpperCase()
-        ===
+        code.trim().toUpperCase() ===
         savedCode.trim().toUpperCase()
     );
 
