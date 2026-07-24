@@ -14,58 +14,145 @@ import { ORDER_STATUS } from "../utils/constants";
 import { sortByDateDesc } from "../utils/dateUtils";
 import { addLog } from "./logsService";
 
-const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
+const ADMIN_UID =
+    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
 
 function checkAdmin() {
-    const user = auth.currentUser;
 
-    if (!user || user.uid !== ADMIN_UID) {
-        throw new Error("Brak uprawnień administratora");
+    const user =
+        auth.currentUser;
+
+
+    if (
+        !user ||
+        user.uid !== ADMIN_UID
+    ) {
+        throw new Error(
+            "Brak uprawnień administratora"
+        );
     }
+
 }
 
-export async function createOrder(data) {
-    const order = {
-        requestedBy: data.requestedBy.trim(),
-        product: data.product.trim(),
-        quantity: Number(data.quantity),
-        unit: data.unit,
 
-        status: ORDER_STATUS.PENDING,
+
+function cleanText(value = "") {
+
+    return String(value).trim();
+
+}
+
+
+
+function validateOrder(data) {
+
+    const quantity =
+        Number(data.quantity);
+
+
+    if (
+        !cleanText(data.requestedBy) ||
+        !cleanText(data.product)
+    ) {
+        throw new Error(
+            "Brak wymaganych danych"
+        );
+    }
+
+
+    if (
+        !quantity ||
+        quantity <= 0
+    ) {
+        throw new Error(
+            "Nieprawidłowa ilość"
+        );
+    }
+
+
+    return quantity;
+
+}
+
+
+
+export async function createOrder(data) {
+
+    const quantity =
+        validateOrder(data);
+
+
+    const order = {
+
+        requestedBy:
+            cleanText(data.requestedBy),
+
+        product:
+            cleanText(data.product),
+
+        quantity,
+
+        unit:
+            data.unit || "szt.",
+
+
+        status:
+            ORDER_STATUS.PENDING,
+
 
         adminComment: "",
 
+
         notificationRead: false,
+
         notificationReadAt: null,
 
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
+
+        createdAt:
+            serverTimestamp(),
+
+        updatedAt:
+            serverTimestamp(),
+
 
         acceptedAt: null,
+
         completedAt: null,
 
         orderedAt: null,
+
     };
+
 
     await addDoc(
         collection(db, "orders"),
         order
     );
 
+
     await addLog(
         `${order.requestedBy} dodał/a produkt: ${order.product}, ${order.quantity} ${order.unit}`,
         "created"
     );
+
 }
 
+
+
 export function listenToOrders(callback) {
+
     return onSnapshot(
         collection(db, "orders"),
         snapshot => {
-            const orders = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
+
+            const orders =
+                snapshot.docs.map(document => ({
+                    id: document.id,
+                    ...document.data(),
+                }));
+
 
             callback(
                 sortByDateDesc(
@@ -73,123 +160,213 @@ export function listenToOrders(callback) {
                     "createdAt"
                 )
             );
+
         }
     );
+
 }
 
-export async function updateOrder(orderId, data) {
+
+
+export async function updateOrder(
+    orderId,
+    data
+) {
+
     checkAdmin();
 
+
+    const quantity =
+        validateOrder(data);
+
+
     const updatedOrder = {
-        requestedBy: data.requestedBy.trim(),
-        product: data.product.trim(),
-        quantity: Number(data.quantity),
-        unit: data.unit,
-        adminComment: data.adminComment.trim(),
-        updatedAt: serverTimestamp(),
+
+        requestedBy:
+            cleanText(data.requestedBy),
+
+        product:
+            cleanText(data.product),
+
+        quantity,
+
+        unit:
+            data.unit || "szt.",
+
+        adminComment:
+            cleanText(data.adminComment),
+
+
+        updatedAt:
+            serverTimestamp(),
+
     };
+
 
     await updateDoc(
         doc(db, "orders", orderId),
         updatedOrder
     );
 
+
     await addLog(
         `Admin edytował zamówienie: ${updatedOrder.product}`,
         "edited"
     );
+
 }
 
+
+
 export async function markNotificationAsRead(order) {
-    if (order.notificationRead) return;
+
+    if (
+        order.notificationRead
+    ) {
+        return;
+    }
+
 
     checkAdmin();
+
 
     await updateDoc(
         doc(db, "orders", order.id),
         {
             notificationRead: true,
-            notificationReadAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
+
+            notificationReadAt:
+                serverTimestamp(),
+
+            updatedAt:
+                serverTimestamp(),
         }
     );
+
 
     await addLog(
         `Admin oznaczył powiadomienie jako przeczytane: ${order.product}`,
         "read"
     );
+
 }
+
+
 
 export async function markOrderAsAccepted(
     order,
     adminComment = ""
 ) {
-    if (order.status === ORDER_STATUS.ACCEPTED) {
+
+    if (
+        order.status === ORDER_STATUS.ACCEPTED
+    ) {
         return;
     }
 
+
     checkAdmin();
+
 
     await updateDoc(
         doc(db, "orders", order.id),
         {
-            status: ORDER_STATUS.ACCEPTED,
 
-            adminComment: adminComment.trim(),
+            status:
+                ORDER_STATUS.ACCEPTED,
 
-            acceptedAt: serverTimestamp(),
+
+            adminComment:
+                cleanText(adminComment),
+
+
+            acceptedAt:
+                serverTimestamp(),
+
 
             notificationRead: true,
-            notificationReadAt: serverTimestamp(),
 
-            updatedAt: serverTimestamp(),
+
+            notificationReadAt:
+                serverTimestamp(),
+
+
+            updatedAt:
+                serverTimestamp(),
+
         }
     );
+
 
     await addLog(
         `Admin przyjął do realizacji: ${order.product}`,
         "accepted"
     );
+
 }
+
+
 
 export async function markOrderAsCompleted(
     order,
     adminComment = ""
 ) {
-    if (order.status === ORDER_STATUS.COMPLETED) {
+
+    if (
+        order.status === ORDER_STATUS.COMPLETED
+    ) {
         return;
     }
 
+
     checkAdmin();
+
 
     await updateDoc(
         doc(db, "orders", order.id),
         {
-            status: ORDER_STATUS.COMPLETED,
 
-            adminComment: adminComment.trim(),
+            status:
+                ORDER_STATUS.COMPLETED,
 
-            completedAt: serverTimestamp(),
 
-            updatedAt: serverTimestamp(),
+            adminComment:
+                cleanText(adminComment),
+
+
+            completedAt:
+                serverTimestamp(),
+
+
+            updatedAt:
+                serverTimestamp(),
+
         }
     );
+
 
     await addLog(
         `Admin oznaczył jako zrealizowane: ${order.product}`,
         "completed"
     );
+
 }
 
+
+
 export async function deleteOrder(order) {
+
     checkAdmin();
+
 
     await deleteDoc(
         doc(db, "orders", order.id)
     );
 
+
     await addLog(
         `Admin usunął zamówienie: ${order.product}`,
         "deleted"
     );
+
 }
