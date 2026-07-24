@@ -2,6 +2,7 @@ import { POLISH_FIXED_HOLIDAYS } from "../data/polishHolidays";
 import { UNUSUAL_HOLIDAYS } from "../data/unusualHolidays";
 import { addDays, getEasterDate } from "./easter";
 
+
 function createEvent(
     date,
     title,
