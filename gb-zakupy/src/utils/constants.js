@@ -1,5 +1,3 @@
-
-
 export const ORDER_STATUS = Object.freeze({
 
     PENDING: "pending",
