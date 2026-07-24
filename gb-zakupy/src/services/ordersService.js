@@ -78,6 +78,31 @@ function validateOrder(data) {
 
 
 
+async function safeLog(
+    message,
+    type
+) {
+
+    try {
+
+        await addLog(
+            message,
+            type
+        );
+
+    } catch(error) {
+
+        console.error(
+            "Log error:",
+            error
+        );
+
+    }
+
+}
+
+
+
 export async function createOrder(data) {
 
     const quantity =
@@ -132,7 +157,7 @@ export async function createOrder(data) {
     );
 
 
-    await addLog(
+    await safeLog(
         `${order.requestedBy} dodał/a produkt: ${order.product}, ${order.quantity} ${order.unit}`,
         "created"
     );
@@ -193,6 +218,7 @@ export async function updateOrder(
         unit:
             data.unit || "szt.",
 
+
         adminComment:
             cleanText(data.adminComment),
 
@@ -209,7 +235,7 @@ export async function updateOrder(
     );
 
 
-    await addLog(
+    await safeLog(
         `Admin edytował zamówienie: ${updatedOrder.product}`,
         "edited"
     );
@@ -220,9 +246,7 @@ export async function updateOrder(
 
 export async function markNotificationAsRead(order) {
 
-    if (
-        order.notificationRead
-    ) {
+    if(order.notificationRead) {
         return;
     }
 
@@ -244,7 +268,7 @@ export async function markNotificationAsRead(order) {
     );
 
 
-    await addLog(
+    await safeLog(
         `Admin oznaczył powiadomienie jako przeczytane: ${order.product}`,
         "read"
     );
@@ -258,7 +282,7 @@ export async function markOrderAsAccepted(
     adminComment = ""
 ) {
 
-    if (
+    if(
         order.status === ORDER_STATUS.ACCEPTED
     ) {
         return;
@@ -298,7 +322,7 @@ export async function markOrderAsAccepted(
     );
 
 
-    await addLog(
+    await safeLog(
         `Admin przyjął do realizacji: ${order.product}`,
         "accepted"
     );
@@ -312,7 +336,7 @@ export async function markOrderAsCompleted(
     adminComment = ""
 ) {
 
-    if (
+    if(
         order.status === ORDER_STATUS.COMPLETED
     ) {
         return;
@@ -345,7 +369,7 @@ export async function markOrderAsCompleted(
     );
 
 
-    await addLog(
+    await safeLog(
         `Admin oznaczył jako zrealizowane: ${order.product}`,
         "completed"
     );
@@ -364,7 +388,7 @@ export async function deleteOrder(order) {
     );
 
 
-    await addLog(
+    await safeLog(
         `Admin usunął zamówienie: ${order.product}`,
         "deleted"
     );
