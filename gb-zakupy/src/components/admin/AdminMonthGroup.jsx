@@ -2,61 +2,75 @@ import { useEffect, useState } from "react";
 
 import AdminOrderCard from "./AdminOrderCard";
 
+
 export default function AdminMonthGroup({
     month,
     orders,
     autoOpen = false,
 }) {
 
-    const [isOpen, setIsOpen] = useState(autoOpen);
+    const [isOpen,setIsOpen] = useState(autoOpen);
+
 
     useEffect(() => {
 
-        if (autoOpen) {
-
+        if(autoOpen){
             setIsOpen(true);
-
         }
 
-    }, [autoOpen]);
+    },[autoOpen]);
+
+
 
     return (
 
         <section
-            className={`shopping-category ${isOpen ? "open" : "closed"}`}
+            className={
+                `shopping-category ${
+                    isOpen
+                        ? "open"
+                        : "closed"
+                }`
+            }
         >
 
             <button
                 type="button"
                 className="shopping-category-header"
-                onClick={() => setIsOpen(open => !open)}
+                onClick={() =>
+                    setIsOpen(
+                        value => !value
+                    )
+                }
             >
 
                 <div className="shopping-category-left">
 
                     <div className="shopping-chevron">
 
-                        {isOpen ? "▼" : "▶"}
+                        {
+                            isOpen
+                                ? "▼"
+                                : "▶"
+                        }
 
                     </div>
+
 
                     <div className="shopping-category-title">
 
                         <h2>
-
                             {month}
-
                         </h2>
 
                         <span>
-
                             {orders.length} zamówień
-
                         </span>
 
                     </div>
 
                 </div>
+
 
                 <div className="shopping-count">
 
@@ -64,7 +78,10 @@ export default function AdminMonthGroup({
 
                 </div>
 
+
             </button>
+
+
 
             {isOpen && (
 
@@ -73,9 +90,13 @@ export default function AdminMonthGroup({
                     {orders.map(order => (
 
                         <AdminOrderCard
+
                             key={order.id}
+
                             order={order}
+
                             canOrder={false}
+
                         />
 
                     ))}
@@ -83,6 +104,7 @@ export default function AdminMonthGroup({
                 </div>
 
             )}
+
 
         </section>
 
