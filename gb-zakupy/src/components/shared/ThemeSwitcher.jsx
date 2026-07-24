@@ -41,36 +41,73 @@ export default function ThemeSwitcher() {
     }, []);
 
     const themes = [
+
         {
             id: "navy",
             name: "Navy",
-            icon: "🌊"
+            colors: [
+                "#102A43",
+                "#1E4D8C",
+                "#4AA3FF",
+                "#D8ECFF"
+            ]
         },
+
         {
             id: "forest",
             name: "Forest",
-            icon: "🌿"
+            colors: [
+                "#163020",
+                "#2E7D32",
+                "#66BB6A",
+                "#D8F3DC"
+            ]
         },
+
         {
             id: "gold",
             name: "Gold",
-            icon: "🥇"
+            colors: [
+                "#7A5A00",
+                "#C69200",
+                "#FFD54F",
+                "#FFF4CC"
+            ]
         },
+
         {
             id: "crimson",
             name: "Crimson",
-            icon: "❤️"
+            colors: [
+                "#5B0A18",
+                "#A61E3C",
+                "#E84A5F",
+                "#FFD6DE"
+            ]
         },
+
         {
             id: "blossom",
             name: "Cherry Blossom",
-            icon: "🌸"
+            colors: [
+                "#B54E74",
+                "#E98DB0",
+                "#FFD5E5",
+                "#FFF3F8"
+            ]
         },
+
         {
             id: "violet",
             name: "Violet",
-            icon: "💜"
+            colors: [
+                "#41205F",
+                "#6F42C1",
+                "#A66CFF",
+                "#EFE2FF"
+            ]
         }
+
     ];
 
     return (
@@ -85,7 +122,9 @@ export default function ThemeSwitcher() {
                 title="Choose theme"
                 onClick={() => setOpen(!open)}
             >
-                🎨
+
+                <span>🎨</span>
+
             </button>
 
             {
@@ -109,9 +148,29 @@ export default function ThemeSwitcher() {
                                     }}
                                 >
 
-                                    <span>{item.icon}</span>
+                                    <div className="theme-preview">
 
-                                    {item.name}
+                                        {
+
+                                            item.colors.map((color, index) => (
+
+                                                <span
+                                                    key={index}
+                                                    className="theme-dot"
+                                                    style={{
+                                                        background: color
+                                                    }}
+                                                />
+
+                                            ))
+
+                                        }
+
+                                    </div>
+
+                                    <span className="theme-name">
+                                        {item.name}
+                                    </span>
 
                                 </button>
 
