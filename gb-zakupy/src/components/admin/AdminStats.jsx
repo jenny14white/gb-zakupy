@@ -1,30 +1,62 @@
 export default function AdminStats({
-  allCount,
-  pendingCount,
-  acceptedCount,
-  completedCount,
+    allCount,
+    pendingCount,
+    acceptedCount,
+    completedCount,
 }) {
-  return (
-    <div className="stats">
-      <div>
-        <strong>{allCount}</strong>
-        <span>📋 Wszystkie zgłoszenia</span>
-      </div>
 
-      <div>
-        <strong>{pendingCount}</strong>
-        <span>🟡 Oczekujące</span>
-      </div>
+    const stats = [
+        {
+            icon: "📋",
+            label: "Wszystkie zgłoszenia",
+            value: allCount,
+        },
+        {
+            icon: "🟡",
+            label: "Oczekujące",
+            value: pendingCount,
+        },
+        {
+            icon: "🟢",
+            label: "Przyjęte do realizacji",
+            value: acceptedCount,
+        },
+        {
+            icon: "🟣",
+            label: "Zrealizowane",
+            value: completedCount,
+        },
+    ];
 
-      <div>
-        <strong>{acceptedCount}</strong>
-        <span>🟢 Przyjęte do realizacji</span>
-      </div>
+    return (
 
-      <div>
-        <strong>{completedCount}</strong>
-        <span>🟣 Zrealizowane</span>
-      </div>
-    </div>
-  );
+        <section className="stats">
+
+            {stats.map(({ icon, label, value }) => (
+
+                <article
+                    key={label}
+                    className="stat-card"
+                >
+
+                    <strong>
+
+                        {value}
+
+                    </strong>
+
+                    <span>
+
+                        {icon} {label}
+
+                    </span>
+
+                </article>
+
+            ))}
+
+        </section>
+
+    );
+
 }
