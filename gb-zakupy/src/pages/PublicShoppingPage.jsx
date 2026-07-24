@@ -6,6 +6,8 @@ import CurrentShoppingList from "../components/public/CurrentShoppingList";
 
 import { usePublicOrders } from "../hooks/usePublicOrders";
 
+const PAPER_HOLES = 12;
+
 export default function PublicShoppingPage({
     goBack,
 }) {
@@ -17,8 +19,8 @@ export default function PublicShoppingPage({
         loading,
     } = usePublicOrders();
 
-    return (
 
+    return (
         <main className="public-page">
 
             <button
@@ -28,15 +30,20 @@ export default function PublicShoppingPage({
                 ← {t("shopping.page.back")}
             </button>
 
+
             <section className="paper">
 
                 <div className="holes">
-                    {Array.from({ length: 12 }).map((_, index) => (
+                    {Array.from({
+                        length: PAPER_HOLES,
+                    }).map((_, index) => (
                         <span key={index} />
                     ))}
                 </div>
 
+
                 <PublicHeader />
+
 
                 <div className="shopping-layout">
 
@@ -49,6 +56,7 @@ export default function PublicShoppingPage({
 
                 </div>
 
+
                 <p className="thanks">
                     {t("shopping.page.thanks")}
                 </p>
@@ -56,7 +64,6 @@ export default function PublicShoppingPage({
             </section>
 
         </main>
-
     );
 
 }
