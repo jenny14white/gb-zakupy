@@ -1052,3 +1052,52 @@
         0 28px 65px rgba(0,0,0,.20);
 
 }
+/* =====================================================
+   FIX GLASS DASHBOARD
+===================================================== */
+
+.dashboard{
+
+    min-height:0;
+
+}
+
+
+/* poprawka glass blur */
+
+.dashboard-card,
+.dashboard-panel,
+.glass-section,
+.dashboard-hero{
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+}
+
+
+/* wymuszenie przezroczystości zamiast papierowego tła */
+
+.dashboard-card,
+.dashboard-panel,
+.glass-section{
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.04)
+        );
+
+}
+
+
+/* żeby rodzic nie przykrywał szkła */
+
+.admin-page,
+.admin-layout,
+.dashboard{
+
+    background:transparent;
+
+}
