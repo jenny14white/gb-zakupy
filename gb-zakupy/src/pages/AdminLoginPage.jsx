@@ -12,6 +12,7 @@ const LIQUID_COLORS = [
     "#002855",
 ];
 
+
 export default function AdminLoginPage({
     goBack,
     onLogin,
