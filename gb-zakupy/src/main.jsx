@@ -14,6 +14,7 @@ import "./styles/global.css";
 import "./styles/admin-theme.css";
 import "./styles/admin.css";
 import "./styles/admin-dashboard.css";
+import "./styles/admin-calendar.css";
 
 import "./styles/publicPage.css";
 import "./styles/home.css";
