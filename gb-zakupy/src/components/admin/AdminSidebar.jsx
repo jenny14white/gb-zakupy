@@ -1,5 +1,5 @@
 import Logo from "../shared/Logo";
-
+import "../../styles/admin-sidebar.css";
 
 export default function AdminSidebar({
     activeTab,
