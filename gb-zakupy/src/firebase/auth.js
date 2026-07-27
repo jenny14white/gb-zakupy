@@ -6,7 +6,6 @@ import {
 
 import { auth } from "./firebase";
 
-
 const ADMIN_UID =
     "kRulgEcxNed8aYacTWq3j9GgP4J2";
 
