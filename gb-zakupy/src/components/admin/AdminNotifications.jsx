@@ -10,7 +10,6 @@ export default function AdminNotifications({ orders }) {
 
     const [view,setView] = useState("unread");
 
-
     const unreadOrders = useMemo(
         () =>
             orders.filter(
