@@ -20,13 +20,15 @@ import AdminCalendar from "../components/admin/AdminCalendar";
 
 import "../styles/admin-dashboard.css";
 
+
 const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
 
 export default function AdminDashboardPage({
     goBack,
     logout,
     goToEvents,
-}) {
+}){
 
     const { t } = useTranslation();
 
@@ -34,11 +36,13 @@ export default function AdminDashboardPage({
     const [authorized,setAuthorized] = useState(false);
     const [checking,setChecking] = useState(true);
 
+
     useEffect(()=>{
 
         const unsubscribe = onAuthStateChanged(
             auth,
-            user => {
+            user=>{
+
                 setAuthorized(
                     Boolean(
                         user &&
@@ -47,6 +51,7 @@ export default function AdminDashboardPage({
                 );
 
                 setChecking(false);
+
             }
         );
 
@@ -55,17 +60,20 @@ export default function AdminDashboardPage({
     },[]);
 
 
-    const { orders, loading } =
-        useAdminOrders(authorized);
+    const {
+        orders = [],
+        loading
+    } = useAdminOrders(authorized);
 
-    const logs =
-        useLogs(authorized);
+
+    const logs = useLogs(authorized);
+
 
     const {
-        events,
+        events = [],
         loading:eventsLoading
-    } =
-        useEvents(authorized);
+    } = useEvents(authorized);
+
 
 
     const {
@@ -76,67 +84,91 @@ export default function AdminDashboardPage({
         unreadNotifications
     } = useMemo(()=>{
 
-        const active = orders.filter(order =>
+        const activeOrders = orders.filter(order=>
             order.status === ORDER_STATUS.PENDING ||
             order.status === ORDER_STATUS.ACCEPTED
         );
 
-        const completed = orders.filter(order =>
+
+        const finishedOrders = orders.filter(order=>
             order.status === ORDER_STATUS.COMPLETED
         );
 
+
         return {
-            pendingOrders: active,
-            completedOrders: completed,
+
+            pendingOrders:activeOrders,
+
+            completedOrders:finishedOrders,
 
             pendingCount:
-                active.filter(order =>
+                activeOrders.filter(order=>
                     order.status === ORDER_STATUS.PENDING
                 ).length,
 
             acceptedCount:
-                active.filter(order =>
+                activeOrders.filter(order=>
                     order.status === ORDER_STATUS.ACCEPTED
                 ).length,
 
             unreadNotifications:
-                active.filter(order =>
+                activeOrders.filter(order=>
                     !order.notificationRead
                 )
+
         };
 
     },[orders]);
 
 
+
     if(checking){
 
         return (
+
             <main className="admin-page">
+
                 <section className="dashboard">
+
                     <div className="empty-admin-box">
-                        {t("admin.dashboard.checkingPermissions")}
+
+                        {t(
+                            "admin.dashboard.checkingPermissions"
+                        )}
+
                     </div>
+
                 </section>
+
             </main>
+
         );
 
     }
 
 
+
     if(!authorized){
 
         return (
+
             <main className="admin-page login-view">
 
                 <section className="login-card">
 
                     <h1>
-                        {t("admin.dashboard.accessDenied.title")}
+                        {t(
+                            "admin.dashboard.accessDenied.title"
+                        )}
                     </h1>
 
+
                     <p>
-                        {t("admin.dashboard.accessDenied.description")}
+                        {t(
+                            "admin.dashboard.accessDenied.description"
+                        )}
                     </p>
+
 
                     <button
                         className="admin-button"
@@ -145,12 +177,15 @@ export default function AdminDashboardPage({
                         {t("shopping.page.back")}
                     </button>
 
+
                 </section>
 
             </main>
+
         );
 
     }
+
 
 
     function renderContent(){
@@ -158,94 +193,174 @@ export default function AdminDashboardPage({
         if(loading || eventsLoading){
 
             return (
+
                 <div className="empty-admin-box">
-                    {t("admin.dashboard.loading")}
+
+                    {t(
+                        "admin.dashboard.loading"
+                    )}
+
                 </div>
+
             );
 
         }
 
+
         switch(activeTab){
 
             case "lista":
-                return <AdminShoppingList orders={pendingOrders}/>;
+
+                return (
+                    <AdminShoppingList
+                        orders={pendingOrders}
+                    />
+                );
+
 
             case "powiadomienia":
-                return <AdminNotifications orders={pendingOrders}/>;
+
+                return (
+                    <AdminNotifications
+                        orders={pendingOrders}
+                    />
+                );
+
 
             case "zrealizowane":
-                return <AdminCompletedList orders={completedOrders}/>;
+
+                return (
+                    <AdminCompletedList
+                        orders={completedOrders}
+                    />
+                );
+
 
             case "dziennik":
-                return <AdminEventLog logs={logs}/>;
+
+                return (
+                    <AdminEventLog
+                        logs={logs}
+                    />
+                );
+
 
             case "kalendarz":
+
                 return (
+
                     <AdminCalendar
                         events={events}
                         onEdit={()=>{}}
                         onDelete={()=>{}}
                     />
+
                 );
 
+
             default:
+
                 return null;
+
         }
 
     }
+
 
 
     return (
 
         <main className="admin-page">
 
+
             <AdminSidebar
+
                 activeTab={activeTab}
+
                 setActiveTab={setActiveTab}
+
                 pendingCount={pendingCount}
+
                 acceptedCount={acceptedCount}
+
                 completedCount={completedOrders.length}
-                unreadNotificationsCount={unreadNotifications.length}
+
+                unreadNotificationsCount={
+                    unreadNotifications.length
+                }
+
                 goBack={goBack}
+
                 logout={logout}
+
                 goToEvents={goToEvents}
+
             />
+
 
 
             <section className="dashboard">
 
+
                 <header className="dashboard-header">
+
 
                     <div>
 
+
                         <span className="dashboard-eyebrow">
+
                             GB PORTAL
+
                         </span>
 
+
+
                         <h1>
-                            {t("admin.dashboard.title")}
+
+                            {t(
+                                "admin.dashboard.title"
+                            )}
+
                         </h1>
 
+
+
                         <p className="dashboard-description">
+
                             Centrum zarządzania zakupami,
                             wydarzeniami i administracją.
+
                         </p>
 
+
                     </div>
+
 
                 </header>
 
 
+
                 <section className="dashboard-stats">
 
+
                     <AdminStats
+
                         allCount={orders.length}
+
                         pendingCount={pendingCount}
+
                         acceptedCount={acceptedCount}
-                        completedCount={completedOrders.length}
+
+                        completedCount={
+                            completedOrders.length
+                        }
+
                     />
 
+
                 </section>
+
 
 
                 <section className="dashboard-content">
@@ -255,7 +370,9 @@ export default function AdminDashboardPage({
                 </section>
 
 
+
             </section>
+
 
         </main>
 
