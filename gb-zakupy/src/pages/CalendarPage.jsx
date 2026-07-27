@@ -9,6 +9,7 @@ export default function CalendarPage({
 
     const { t } = useTranslation();
 
+    
     const year =
         new Date().getFullYear();
 
