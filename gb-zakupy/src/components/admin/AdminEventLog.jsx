@@ -1,5 +1,7 @@
 import { formatDate } from "../../utils/dateUtils";
 
+import "../../styles/admin-event-log.css";
+
 
 export default function AdminEventLog({
     logs=[]
