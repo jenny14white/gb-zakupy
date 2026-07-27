@@ -20,7 +20,6 @@ function normalize(text = "") {
 }
 
 
-
 export default function AdminCompletedList({ orders }) {
 
     const [search,setSearch] = useState("");
