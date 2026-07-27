@@ -19,7 +19,6 @@ export default function CalendarHeader({
         )
         .toUpperCase();
 
-
     return (
 
         <header className="calendar-header">
