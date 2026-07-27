@@ -7,7 +7,6 @@ import CurrentShoppingList from "../components/public/CurrentShoppingList";
 import { usePublicOrders } from "../hooks/usePublicOrders";
 
 const PAPER_HOLES = 12;
-
 export default function PublicShoppingPage({
     goBack,
 }) {
