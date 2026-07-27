@@ -12,7 +12,6 @@ export default function AdminSidebar({
     goToEvents,
 }) {
 
-
     function NavButton({
         tab,
         icon,
