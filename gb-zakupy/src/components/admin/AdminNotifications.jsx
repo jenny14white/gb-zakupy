@@ -6,34 +6,54 @@ import { formatDate } from "../../utils/dateUtils";
 import { markNotificationAsRead } from "../../services/ordersService";
 
 
-export default function AdminNotifications({ orders }) {
 
-    const [view,setView] = useState("unread");
+export default function AdminNotifications({
+    orders=[]
+}){
 
-    const unreadOrders = useMemo(
-        () =>
-            orders.filter(
-                order =>
-                    !order.notificationRead
-            ),
-        [orders]
+
+    const [view,setView]=useState(
+        "unread"
     );
 
 
-    const readOrders = useMemo(
-        () =>
-            orders.filter(
-                order =>
-                    order.notificationRead
-            ),
-        [orders]
-    );
+
+    const {
+        unreadOrders,
+        readOrders,
+    }=useMemo(()=>{
 
 
-    const visibleOrders =
-        view === "unread"
+        return {
+
+            unreadOrders:
+                orders.filter(
+                    order =>
+                        !order.notificationRead
+                ),
+
+
+            readOrders:
+                orders.filter(
+                    order =>
+                        order.notificationRead
+                ),
+
+        };
+
+
+    },[
+        orders
+    ]);
+
+
+
+    const visibleOrders=
+        view==="unread"
             ? unreadOrders
             : readOrders;
+
+
 
 
 
@@ -44,47 +64,64 @@ export default function AdminNotifications({ orders }) {
 
             <div className="section-header">
 
+
                 <div>
 
                     <h2>
                         🔔 Powiadomienia
                     </h2>
 
+
                     <p>
                         Nowe zgłoszenia od pracowników.
                     </p>
 
+
                 </div>
+
+
 
 
                 <div className="notification-tabs">
 
 
                     <button
+
                         className={
-                            view === "unread"
-                                ? "active"
-                                : ""
+                            view==="unread"
+                            ? "active"
+                            : ""
                         }
-                        onClick={() =>
+
+                        onClick={()=>
                             setView("unread")
                         }
+
                     >
+
                         Nowe ({unreadOrders.length})
+
                     </button>
 
 
+
+
                     <button
+
                         className={
-                            view === "read"
-                                ? "active"
-                                : ""
+                            view==="read"
+                            ? "active"
+                            : ""
                         }
-                        onClick={() =>
+
+                        onClick={()=>
                             setView("read")
                         }
+
                     >
+
                         Przeczytane ({readOrders.length})
+
                     </button>
 
 
@@ -95,35 +132,47 @@ export default function AdminNotifications({ orders }) {
 
 
 
-            {visibleOrders.length === 0 ? (
+
+
+            {!visibleOrders.length ? (
 
                 <EmptyState>
 
                     {
-                        view === "unread"
-                            ? "Brak nowych nieprzeczytanych powiadomień."
-                            : "Brak przeczytanych powiadomień."
+                        view==="unread"
+                        ? "Brak nowych nieprzeczytanych powiadomień."
+                        : "Brak przeczytanych powiadomień."
                     }
 
                 </EmptyState>
 
+
             ) : (
+
 
                 <div className="notifications">
 
-                    {visibleOrders.map(order => (
+
+                    {visibleOrders.map(order=>(
 
                         <NotificationCard
+
                             key={order.id}
+
                             order={order}
+
                             view={view}
+
                         />
 
                     ))}
 
+
                 </div>
 
+
             )}
+
 
 
         </section>
@@ -134,26 +183,36 @@ export default function AdminNotifications({ orders }) {
 
 
 
+
+
 function NotificationCard({
     order,
     view,
-}) {
+}){
 
-    const [loading,setLoading] = useState(false);
+
+    const [loading,setLoading]=useState(
+        false
+    );
+
 
 
     async function handleRead(){
 
-        if(loading){
+
+        if(loading)
             return;
-        }
+
 
 
         try{
 
             setLoading(true);
 
-            await markNotificationAsRead(order);
+            await markNotificationAsRead(
+                order
+            );
+
 
         }catch(error){
 
@@ -161,6 +220,7 @@ function NotificationCard({
                 "Notification update error:",
                 error
             );
+
 
         }finally{
 
@@ -172,36 +232,49 @@ function NotificationCard({
 
 
 
+
+
     return (
 
         <article
+
             className={
                 `notification-card ${
                     order.notificationRead
-                        ? "read"
-                        : "unread"
+                    ? "read"
+                    : "unread"
                 }`
             }
+
         >
 
+
             <div className="notification-top">
+
 
                 <strong>
 
                     {
                         order.notificationRead
-                            ? "Przeczytane"
-                            : "🟢 Nowe zgłoszenie"
+                        ? "Przeczytane"
+                        : "🟢 Nowe zgłoszenie"
                     }
 
                 </strong>
 
 
+
                 {!order.notificationRead && (
-                    <span className="dot" />
+
+                    <span className="dot"/>
+
                 )}
 
+
             </div>
+
+
+
 
 
             <p className="notification-product">
@@ -209,9 +282,13 @@ function NotificationCard({
             </p>
 
 
+
+
             <p className="notification-quantity">
                 {order.quantity} {order.unit}
             </p>
+
+
 
 
             <small>
@@ -219,38 +296,56 @@ function NotificationCard({
             </small>
 
 
+
+
             <small>
                 {formatDate(order.createdAt)}
             </small>
 
 
+
+
+
             {order.notificationReadAt && (
 
                 <small>
-                    Przeczytano: {formatDate(order.notificationReadAt)}
+                    Przeczytano:
+                    {" "}
+                    {formatDate(order.notificationReadAt)}
                 </small>
 
             )}
 
 
-            {view === "unread" &&
+
+
+
+
+            {view==="unread" &&
             !order.notificationRead && (
 
                 <button
+
                     className="admin-button"
+
                     onClick={handleRead}
+
                     disabled={loading}
+
                 >
 
                     {
                         loading
-                            ? "Zapisywanie..."
-                            : "Oznacz jako przeczytane"
+                        ? "Zapisywanie..."
+                        : "Oznacz jako przeczytane"
                     }
+
 
                 </button>
 
             )}
+
+
 
 
         </article>
