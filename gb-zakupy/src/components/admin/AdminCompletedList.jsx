@@ -9,7 +9,7 @@ import { formatDate } from "../../utils/dateUtils";
 import { ORDER_STATUS } from "../../utils/constants";
 
 
-function normalize(text = "") {
+function normalize(text=""){
 
     return text
         .toLowerCase()
@@ -20,59 +20,75 @@ function normalize(text = "") {
 }
 
 
-export default function AdminCompletedList({ orders }) {
 
-    const [search,setSearch] = useState("");
+export default function AdminCompletedList({
+    orders=[]
+}){
+
+    const [search,setSearch]=useState("");
 
 
-    const completedOrders = useMemo(
-        () =>
-            orders.filter(
-                order =>
-                    order.status === ORDER_STATUS.COMPLETED
-            ),
+
+    const completedOrders=useMemo(
+        ()=>orders.filter(
+            order =>
+                order.status===ORDER_STATUS.COMPLETED
+        ),
         [orders]
     );
 
 
 
-    const filteredGroups = useMemo(() => {
+    const filteredGroups=useMemo(()=>{
 
-        const groups =
+
+        const groups=
             groupOrdersByOrderedMonth(
                 completedOrders
             );
 
 
-        if(!search.trim()){
+        const phrase=
+            normalize(search.trim());
 
+
+        if(!phrase)
             return groups;
 
-        }
-
-
-        const phrase =
-            normalize(search);
 
 
         return groups
-            .map(group => ({
+
+            .map(group=>({
+
                 ...group,
+
                 items:
-                    group.items.filter(order =>
-                        normalize(order.product)
-                            .includes(phrase) ||
+                    group.items.filter(order=>
 
-                        normalize(order.requestedBy)
-                            .includes(phrase) ||
+                        normalize(
+                            order.product
+                        ).includes(phrase)
 
-                        normalize(order.adminComment || "")
-                            .includes(phrase)
-                    ),
+                        ||
+
+                        normalize(
+                            order.requestedBy
+                        ).includes(phrase)
+
+                        ||
+
+                        normalize(
+                            order.adminComment || ""
+                        ).includes(phrase)
+
+                    )
+
             }))
+
             .filter(
                 group =>
-                    group.items.length > 0
+                    group.items.length
             );
 
 
@@ -83,27 +99,57 @@ export default function AdminCompletedList({ orders }) {
 
 
 
+
+
     function exportToExcel(){
 
-        const rows =
-            filteredGroups.flatMap(group =>
-                group.items.map(order => ({
-                    Miesiąc: group.month,
-                    Produkt: order.product,
-                    Ilość: order.quantity,
-                    Jednostka: order.unit,
-                    Zgłaszający: order.requestedBy,
-                    Status: "Zrealizowane",
-                    "Data dodania":
-                        formatDate(order.createdAt),
-                    "Data zamówienia":
-                        formatDate(order.orderedAt),
-                    "Data realizacji":
-                        formatDate(order.completedAt),
-                    "Komentarz admina":
-                        order.adminComment || "",
-                }))
+
+        const rows=
+            filteredGroups.flatMap(
+                group=>
+
+                    group.items.map(order=>({
+
+                        Miesiąc:
+                            group.month,
+
+                        Produkt:
+                            order.product,
+
+                        Ilość:
+                            order.quantity,
+
+                        Jednostka:
+                            order.unit,
+
+                        Zgłaszający:
+                            order.requestedBy,
+
+                        Status:
+                            "Zrealizowane",
+
+                        "Data dodania":
+                            formatDate(
+                                order.createdAt
+                            ),
+
+                        "Data zamówienia":
+                            formatDate(
+                                order.orderedAt
+                            ),
+
+                        "Data realizacji":
+                            formatDate(
+                                order.completedAt
+                            ),
+
+                        "Komentarz admina":
+                            order.adminComment || "",
+
+                    }))
+
             );
+
 
 
         if(!rows.length){
@@ -117,8 +163,10 @@ export default function AdminCompletedList({ orders }) {
         }
 
 
-        const workbook =
+
+        const workbook=
             XLSX.utils.book_new();
+
 
 
         XLSX.utils.book_append_sheet(
@@ -128,18 +176,22 @@ export default function AdminCompletedList({ orders }) {
         );
 
 
-        const today =
+
+        const date=
             new Date()
                 .toISOString()
                 .split("T")[0];
 
 
+
         XLSX.writeFile(
             workbook,
-            `GB_Zrealizowane_${today}.xlsx`
+            `GB_Zrealizowane_${date}.xlsx`
         );
 
     }
+
+
 
 
 
@@ -162,6 +214,7 @@ export default function AdminCompletedList({ orders }) {
                         Łącznie zamówień: {completedOrders.length}
                     </p>
 
+
                 </div>
 
 
@@ -178,6 +231,7 @@ export default function AdminCompletedList({ orders }) {
 
 
 
+
             <input
 
                 className="search-input"
@@ -188,9 +242,9 @@ export default function AdminCompletedList({ orders }) {
 
                 value={search}
 
-                onChange={event =>
+                onChange={e=>
                     setSearch(
-                        event.target.value
+                        e.target.value
                     )
                 }
 
@@ -198,14 +252,15 @@ export default function AdminCompletedList({ orders }) {
 
 
 
-            {filteredGroups.length === 0 ? (
+
+            {!filteredGroups.length ? (
 
                 <EmptyState>
 
                     {
                         search
-                            ? "Nie znaleziono żadnych zrealizowanych zamówień."
-                            : "Nie ma jeszcze zrealizowanych zamówień."
+                        ? "Nie znaleziono żadnych zrealizowanych zamówień."
+                        : "Nie ma jeszcze zrealizowanych zamówień."
                     }
 
                 </EmptyState>
@@ -215,7 +270,8 @@ export default function AdminCompletedList({ orders }) {
 
                 <div className="completed-months">
 
-                    {filteredGroups.map(group => (
+
+                    {filteredGroups.map(group=>(
 
                         <AdminMonthGroup
 
@@ -232,6 +288,7 @@ export default function AdminCompletedList({ orders }) {
                         />
 
                     ))}
+
 
                 </div>
 
