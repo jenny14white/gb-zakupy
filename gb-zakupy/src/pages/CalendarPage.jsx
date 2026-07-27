@@ -12,7 +12,6 @@ export default function CalendarPage({
     const year =
         new Date().getFullYear();
 
-
     return (
 
         <main className="calendar-page">
