@@ -15,8 +15,8 @@ import {
 
 import "../styles/admin-events.css";
 
-const ADMIN_UID =
-    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
+const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
 
 
 const TYPES = [
@@ -44,7 +44,7 @@ const EMOJIS = [
 ];
 
 
-const EMPTY_FORM = {
+const createEmptyForm = ()=>({
     title:"",
     description:"",
     date:"",
@@ -53,30 +53,26 @@ const EMPTY_FORM = {
     type:"meeting",
     emoji:"📅",
     recurring:false,
-};
+});
 
 
 
 export default function AdminEventsPage({
     goBack,
-}) {
+}){
 
     const { t } = useTranslation();
 
-    const [authorized,setAuthorized] =
-        useState(false);
+    const [authorized,setAuthorized] = useState(false);
+    const [checking,setChecking] = useState(true);
 
-    const [checking,setChecking] =
-        useState(true);
+    const [events,setEvents] = useState([]);
 
-    const [events,setEvents] =
-        useState([]);
+    const [editingId,setEditingId] = useState(null);
 
-    const [editingId,setEditingId] =
-        useState(null);
-
-    const [form,setForm] =
-        useState(EMPTY_FORM);
+    const [form,setForm] = useState(
+        createEmptyForm()
+    );
 
 
 
@@ -99,6 +95,7 @@ export default function AdminEventsPage({
                 }
             );
 
+
         return unsubscribe;
 
     },[]);
@@ -110,6 +107,7 @@ export default function AdminEventsPage({
         if(!authorized)
             return;
 
+
         return listenToEvents(setEvents);
 
     },[authorized]);
@@ -120,14 +118,17 @@ export default function AdminEventsPage({
 
         const now = new Date();
 
+
         return {
 
             all:events.length,
+
 
             recurring:
                 events.filter(
                     event=>event.recurring
                 ).length,
+
 
             upcoming:
                 events.filter(event=>{
@@ -135,6 +136,7 @@ export default function AdminEventsPage({
                     const date =
                         event.date?.toDate?.() ??
                         new Date(event.date);
+
 
                     return date >= now;
 
@@ -146,14 +148,14 @@ export default function AdminEventsPage({
 
 
 
-    function handleChange(event){
+    function handleChange(e){
 
         const {
             name,
             value,
             checked,
             type,
-        } = event.target;
+        } = e.target;
 
 
         setForm(prev=>({
@@ -171,9 +173,9 @@ export default function AdminEventsPage({
 
 
 
-    async function handleSubmit(event){
+    async function handleSubmit(e){
 
-        event.preventDefault();
+        e.preventDefault();
 
 
         if(!form.title.trim()){
@@ -215,15 +217,16 @@ export default function AdminEventsPage({
 
             }else{
 
-                await createEvent(
-                    payload
-                );
+                await createEvent(payload);
 
             }
 
 
             setEditingId(null);
-            setForm(EMPTY_FORM);
+
+            setForm(
+                createEmptyForm()
+            );
 
 
         }catch(error){
@@ -259,8 +262,9 @@ export default function AdminEventsPage({
             location:event.location || "",
 
             date:
-                date.toISOString()
-                .split("T")[0],
+                date
+                    .toISOString()
+                    .split("T")[0],
 
             time:event.time || "",
 
@@ -286,13 +290,14 @@ export default function AdminEventsPage({
 
     async function removeEvent(id){
 
-        if(
-            !window.confirm(
+        const confirmed =
+            window.confirm(
                 t("admin.events.confirmDelete")
-            )
-        ){
+            );
+
+
+        if(!confirmed)
             return;
-        }
 
 
         try{
@@ -347,9 +352,11 @@ export default function AdminEventsPage({
                         🔒 {t("admin.events.noAccess.title")}
                     </h1>
 
+
                     <p>
                         {t("admin.events.noAccess.description")}
                     </p>
+
 
                     <button
                         className="back-button"
@@ -357,6 +364,7 @@ export default function AdminEventsPage({
                     >
                         ← {t("common.back")}
                     </button>
+
 
                 </section>
 
@@ -375,18 +383,23 @@ export default function AdminEventsPage({
 
             <header className="admin-events-header">
 
+
                 <div>
 
                     <p className="admin-events-eyebrow">
                         GB Portal
                     </p>
 
+
                     <h1>
                         📅 {t("admin.events.title")}
                     </h1>
 
+
                     <p className="admin-events-description">
+
                         {t("admin.events.description")}
+
                     </p>
 
                 </div>
@@ -396,8 +409,11 @@ export default function AdminEventsPage({
                     className="back-button"
                     onClick={goBack}
                 >
+
                     ← {t("common.back")}
+
                 </button>
+
 
             </header>
 
@@ -407,6 +423,7 @@ export default function AdminEventsPage({
 
 
                 <section className="admin-events-card form-card">
+
 
                     <h2>
 
@@ -423,10 +440,15 @@ export default function AdminEventsPage({
                         onSubmit={handleSubmit}
                     >
 
+
                         <input
                             name="title"
                             value={form.title}
-                            placeholder={t("admin.events.placeholders.title")}
+                            placeholder={
+                                t(
+                                    "admin.events.placeholders.title"
+                                )
+                            }
                             onChange={handleChange}
                         />
 
@@ -434,7 +456,11 @@ export default function AdminEventsPage({
                         <input
                             name="location"
                             value={form.location}
-                            placeholder={t("admin.events.placeholders.location")}
+                            placeholder={
+                                t(
+                                    "admin.events.placeholders.location"
+                                )
+                            }
                             onChange={handleChange}
                         />
 
@@ -442,7 +468,11 @@ export default function AdminEventsPage({
                         <textarea
                             name="description"
                             value={form.description}
-                            placeholder={t("admin.events.placeholders.description")}
+                            placeholder={
+                                t(
+                                    "admin.events.placeholders.description"
+                                )
+                            }
                             onChange={handleChange}
                         />
 
@@ -475,7 +505,13 @@ export default function AdminEventsPage({
                                     key={type}
                                     value={type}
                                 >
-                                    {t(`calendar.eventTypes.${type}`)}
+
+                                    {
+                                        t(
+                                            `calendar.eventTypes.${type}`
+                                        )
+                                    }
+
                                 </option>
 
                             ))}
@@ -543,32 +579,43 @@ export default function AdminEventsPage({
 
 
                     <div className="event-stat-card">
+
                         <span className="stat-number">
                             {stats.all}
                         </span>
+
                         <span className="stat-label">
                             {t("admin.events.stats.all")}
                         </span>
+
                     </div>
 
 
+
                     <div className="event-stat-card">
+
                         <span className="stat-number">
                             {stats.recurring}
                         </span>
+
                         <span className="stat-label">
                             {t("admin.events.stats.recurring")}
                         </span>
+
                     </div>
 
 
+
                     <div className="event-stat-card">
+
                         <span className="stat-number">
                             {stats.upcoming}
                         </span>
+
                         <span className="stat-label">
                             {t("admin.events.stats.upcoming")}
                         </span>
+
                     </div>
 
 
@@ -581,11 +628,17 @@ export default function AdminEventsPage({
 
             <section className="calendar-wrapper">
 
+
                 <AdminCalendar
+
                     events={events}
+
                     onEdit={editEvent}
+
                     onDelete={removeEvent}
+
                 />
+
 
             </section>
 
