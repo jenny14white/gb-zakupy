@@ -17,7 +17,6 @@ export default function CurrentShoppingList({
         ? items
         : items.slice(0,1);
 
-
     return (
 
         <section className="current-list-wrapper">
