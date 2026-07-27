@@ -13,7 +13,6 @@ const WEEK_DAYS = [
     "Nd",
 ];
 
-
 const MONTHS = [
     "Styczeń",
     "Luty",
