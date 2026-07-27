@@ -375,3 +375,74 @@ transition:none!important;
 transform:translateZ(0);
 will-change:transform;
 }
+.admin-page .sidebar{
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.12),
+rgba(255,255,255,.05)
+)!important;
+border-right:1px solid rgba(255,255,255,.14)!important;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.admin-page .sidebar-top h2{
+color:var(--admin-text)!important;
+font-size:1.35rem;
+font-weight:900;
+}
+.admin-page .sidebar-top p{
+color:var(--admin-muted)!important;
+}
+.admin-page .sidebar-button{
+height:54px;
+padding:0 16px;
+background:rgba(255,255,255,.06)!important;
+border:1px solid rgba(255,255,255,.12)!important;
+border-radius:18px;
+color:var(--admin-text)!important;
+box-shadow:none;
+}
+.admin-page .sidebar-button:hover,
+.admin-page .sidebar-button.active{
+background:rgba(255,255,255,.16)!important;
+border-color:var(--admin-accent)!important;
+box-shadow:
+0 12px 30px rgba(0,0,0,.18),
+0 0 20px color-mix(in srgb,var(--admin-accent) 20%,transparent);
+}
+.admin-page .sidebar-button-main strong{
+color:var(--admin-text)!important;
+}
+.admin-page .sidebar-button-main small{
+color:var(--admin-muted)!important;
+}
+.admin-page .sidebar-icon{
+background:rgba(255,255,255,.10)!important;
+color:var(--admin-text)!important;
+}
+.admin-page .sidebar-counter{
+background:rgba(255,255,255,.12)!important;
+border:1px solid rgba(255,255,255,.15)!important;
+color:var(--admin-text)!important;
+}
+.admin-page .sidebar-logo{
+width:84px;
+height:84px;
+}
+.admin-page .sidebar-top{
+gap:14px;
+padding-bottom:22px;
+}
+.admin-page .sidebar{
+gap:22px;
+padding:22px;
+}
+.admin-page .return-button{
+height:52px;
+background:rgba(255,255,255,.08)!important;
+border:1px solid rgba(255,255,255,.12)!important;
+color:var(--admin-text)!important;
+}
+.admin-page .logout-button{
+height:52px;
+}
