@@ -14,6 +14,7 @@ const ACTIVITY_EVENTS = [
 ];
 
 
+
 export default function SessionGuard({
     onLogout,
 }) {
