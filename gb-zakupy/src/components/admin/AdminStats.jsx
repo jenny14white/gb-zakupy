@@ -9,45 +9,45 @@ export default function AdminStats({
         {
             icon:"📋",
             label:"Wszystkie zgłoszenia",
-            value:allCount
+            value:allCount,
         },
         {
             icon:"🟡",
             label:"Oczekujące",
-            value:pendingCount
+            value:pendingCount,
         },
         {
             icon:"🟢",
             label:"Przyjęte do realizacji",
-            value:acceptedCount
+            value:acceptedCount,
         },
         {
             icon:"🟣",
             label:"Zrealizowane",
-            value:completedCount
-        }
+            value:completedCount,
+        },
     ];
 
     return(
         <section className="stats">
 
-            {stats.map(({icon,label,value})=>(
+            {stats.map(item=>(
 
                 <article
-                    key={label}
+                    key={item.label}
                     className="stat-card"
                 >
 
                     <div className="stat-icon">
-                        {icon}
+                        {item.icon}
                     </div>
 
                     <strong>
-                        {value}
+                        {item.value}
                     </strong>
 
                     <span>
-                        {label}
+                        {item.label}
                     </span>
 
                 </article>
