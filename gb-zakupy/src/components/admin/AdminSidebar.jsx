@@ -1,5 +1,6 @@
 import Logo from "../shared/Logo";
 
+
 export default function AdminSidebar({
     activeTab,
     setActiveTab,
@@ -12,6 +13,7 @@ export default function AdminSidebar({
     goToEvents,
 }){
 
+
     function NavButton({
         tab,
         icon,
@@ -21,10 +23,14 @@ export default function AdminSidebar({
         onClick,
     }){
 
-        const active =
-            tab && activeTab===tab;
 
-        return(
+        const active =
+            tab && activeTab === tab;
+
+
+
+        return (
+
             <button
                 className={
                     active
@@ -32,14 +38,19 @@ export default function AdminSidebar({
                     : ""
                 }
                 onClick={
-                    onClick ||
+                    onClick ??
                     (()=>setActiveTab(tab))
                 }
             >
 
-                {active && (
-                    <span className="menu-indicator"/>
-                )}
+
+                {
+                    active && (
+                        <span className="menu-indicator"/>
+                    )
+                }
+
+
 
                 <div>
 
@@ -47,34 +58,57 @@ export default function AdminSidebar({
                         {icon} {label}
                     </strong>
 
-                    {subtitle && (
-                        <small>
-                            {subtitle}
-                        </small>
-                    )}
+
+                    {
+                        subtitle && (
+                            <small>
+                                {subtitle}
+                            </small>
+                        )
+                    }
+
 
                 </div>
 
-                {counter>0 && (
-                    <span>
-                        {counter}
-                    </span>
-                )}
+
+
+                {
+                    counter > 0 && (
+                        <span>
+                            {counter}
+                        </span>
+                    )
+                }
+
+
 
             </button>
+
         );
+
     }
 
-    return(
+
+
+
+    return (
+
         <aside className="sidebar">
+
+
 
             <div className="sidebar-top">
 
-                <Logo className="sidebar-logo"/>
+
+                <Logo
+                    className="sidebar-logo"
+                />
+
 
                 <h2>
                     Panel administratora
                 </h2>
+
 
                 <p>
                     GB Zakupy
@@ -82,36 +116,56 @@ export default function AdminSidebar({
                     Management Center
                 </p>
 
+
             </div>
 
+
+
+
+
             <nav className="admin-nav">
+
 
                 <NavButton
                     tab="lista"
                     icon="🛒"
                     label="Zakupy"
-                    subtitle={`🟡 ${pendingCount} • 🟢 ${acceptedCount}`}
+                    subtitle={
+                        `🟡 ${pendingCount} • 🟢 ${acceptedCount}`
+                    }
                 />
+
+
 
                 <NavButton
                     tab="powiadomienia"
                     icon="🔔"
                     label="Powiadomienia"
-                    counter={unreadNotificationsCount}
+                    counter={
+                        unreadNotificationsCount
+                    }
                 />
+
+
 
                 <NavButton
                     tab="zrealizowane"
                     icon="✅"
                     label="Zrealizowane"
-                    counter={completedCount}
+                    counter={
+                        completedCount
+                    }
                 />
+
+
 
                 <NavButton
                     tab="dziennik"
                     icon="📜"
                     label="Dziennik"
                 />
+
+
 
                 <NavButton
                     tab="kalendarz"
@@ -120,9 +174,17 @@ export default function AdminSidebar({
                     onClick={goToEvents}
                 />
 
+
+
             </nav>
 
+
+
+
+
             <div className="sidebar-footer">
+
+
 
                 <button
                     className="return-button"
@@ -131,6 +193,8 @@ export default function AdminSidebar({
                     ← Wróć do aplikacji
                 </button>
 
+
+
                 <button
                     className="logout-button"
                     onClick={logout}
@@ -138,8 +202,16 @@ export default function AdminSidebar({
                     Wyloguj
                 </button>
 
+
+
             </div>
 
+
+
+
+
         </aside>
+
     );
+
 }
