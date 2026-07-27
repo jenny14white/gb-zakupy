@@ -576,3 +576,56 @@
     }
 
 }
+.stat-card{
+    position:relative;
+    overflow:hidden;
+    min-height:220px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:30px;
+    border-radius:30px;
+    background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    box-shadow:0 25px 70px rgba(0,0,0,.22);
+    transition:.35s ease;
+}
+
+.stat-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 35px 90px rgba(0,0,0,.3);
+}
+
+.stat-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 45%);
+    pointer-events:none;
+}
+
+.stat-icon{
+    position:relative;
+    z-index:2;
+    font-size:38px;
+}
+
+.stat-card strong{
+    position:relative;
+    z-index:2;
+    font-size:3rem;
+    font-weight:900;
+    color:var(--text-white);
+}
+
+.stat-card span{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    color:var(--text-on-primary);
+    font-weight:700;
+}
