@@ -19,7 +19,6 @@ function getEventClass(type = "") {
 }
 
 
-
 export default function CalendarDay({
     day,
     isCurrentMonth,
