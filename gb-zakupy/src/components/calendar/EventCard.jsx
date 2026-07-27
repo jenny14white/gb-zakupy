@@ -11,7 +11,6 @@ const EVENT_TYPES = {
     urlop:"vacation",
 };
 
-
 function safeText(value,language){
 
     if(value == null)
