@@ -5,6 +5,8 @@ import AdminOrderCard from "./AdminOrderCard";
 
 import { ORDER_STATUS } from "../../utils/constants";
 
+import "../../styles/admin-shopping.css";
+
 
 export default function AdminShoppingList({
     orders,
@@ -124,6 +126,7 @@ export default function AdminShoppingList({
 
 
             </div>
+
 
 
 
