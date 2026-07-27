@@ -3,6 +3,8 @@ import { useState } from "react";
 import { updateOrder } from "../../services/ordersService";
 import { UNITS } from "../../utils/constants";
 
+import "../../styles/admin-shopping.css";
+
 
 export default function AdminOrderEditForm({
     order,
