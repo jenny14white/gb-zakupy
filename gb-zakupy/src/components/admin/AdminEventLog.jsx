@@ -10,7 +10,6 @@ export default function AdminEventLog({ logs }) {
 
             <div className="event-log-header">
 
-
                 <div className="event-log-header-left">
 
                     <small>
