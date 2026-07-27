@@ -7,6 +7,7 @@ import GooeyCard from "../components/shared/effects/GooeyCard";
 import ThemeSwitcher from "../components/shared/ThemeSwitcher";
 import LanguageSwitcher from "../components/shared/LanguageSwitcher";
 
+
 export default function HomePage({
     goToShopping,
     goToCalendar,
