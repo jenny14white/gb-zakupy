@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 const EVENT_TYPES = {
     company:"company",
     firma:"company",
