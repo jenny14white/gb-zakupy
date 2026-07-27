@@ -562,3 +562,112 @@ transition:none!important;
 .admin-page .sidebar,.admin-page .sidebar-button,.admin-page .calendar-wrapper,.admin-page .react-calendar__tile,.admin-page .calendar-event-card,.admin-page .shopping-card,.admin-page .notification-card,.admin-page .event-card,.admin-page button{
 transform:translateZ(0);
 }
+.admin-page .sidebar{
+background:var(--admin-surface);
+border-right:1px solid var(--admin-border);
+backdrop-filter:blur(26px);
+-webkit-backdrop-filter:blur(26px);
+}
+
+.admin-page .sidebar-button{
+position:relative;
+overflow:hidden;
+width:100%;
+height:54px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:14px;
+padding:0 16px;
+border-radius:18px;
+background:var(--admin-surface);
+border:1px solid var(--admin-border);
+color:var(--admin-text);
+}
+
+.admin-page .sidebar-button:hover,
+.admin-page .sidebar-button.active{
+background:var(--admin-surface-hover);
+border-color:var(--admin-accent);
+transform:translateX(5px);
+}
+
+.admin-page .sidebar-button-main{
+display:flex;
+flex-direction:column;
+gap:4px;
+z-index:2;
+}
+
+.admin-page .sidebar-button-main strong{
+display:flex;
+align-items:center;
+gap:10px;
+color:var(--admin-text);
+font-weight:800;
+}
+
+.admin-page .sidebar-button-main small{
+color:var(--admin-muted);
+}
+
+.admin-page .sidebar-icon{
+width:30px;
+height:30px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+background:rgba(255,255,255,.08);
+}
+
+.admin-page .sidebar-counter{
+min-width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:0 10px;
+border-radius:999px;
+background:var(--admin-surface-hover);
+border:1px solid var(--admin-border);
+color:var(--admin-text);
+font-size:.75rem;
+font-weight:900;
+}
+
+.admin-page .sidebar-button.active .sidebar-counter{
+background:var(--admin-accent);
+color:var(--button-text,#fff);
+}
+
+.admin-page .menu-indicator{
+position:absolute;
+left:-6px;
+top:10px;
+bottom:10px;
+width:5px;
+border-radius:999px;
+background:var(--admin-accent);
+box-shadow:0 0 18px var(--admin-accent);
+}
+
+.admin-page .return-button,
+.admin-page .logout-button{
+width:100%;
+height:52px;
+border-radius:18px;
+font-weight:800;
+}
+
+.admin-page .return-button{
+background:var(--admin-surface);
+border:1px solid var(--admin-border);
+color:var(--admin-text);
+}
+
+.admin-page .logout-button{
+border:none;
+background:var(--admin-accent);
+color:var(--button-text,#fff);
+}
