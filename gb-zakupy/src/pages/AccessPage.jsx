@@ -8,7 +8,6 @@ import LiquidEther from "../components/shared/effects/LiquidEther";
 import { loginPortal } from "../firebase/auth";
 import { checkAccessCode } from "../services/accessService";
 
-
 const LIQUID_COLORS = [
     "#0353a4",
     "#023e7d",
