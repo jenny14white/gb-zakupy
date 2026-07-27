@@ -5,6 +5,7 @@ import EmptyState from "../shared/EmptyState";
 import { formatDate } from "../../utils/dateUtils";
 import { markNotificationAsRead } from "../../services/ordersService";
 
+import "../../styles/admin-notifications.css";
 
 
 export default function AdminNotifications({
