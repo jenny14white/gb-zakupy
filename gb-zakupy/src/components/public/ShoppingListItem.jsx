@@ -7,7 +7,6 @@ export default function ShoppingListItem({ item }) {
 
     const { t } = useTranslation();
 
-
     function getStatus(){
 
         switch(item.status){
