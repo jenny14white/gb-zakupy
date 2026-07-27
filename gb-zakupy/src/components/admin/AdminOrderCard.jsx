@@ -12,7 +12,6 @@ import { formatDate } from "../../utils/dateUtils";
 import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
 
-
 export default function AdminOrderCard({ order }) {
 
     const [expanded,setExpanded] = useState(false);
