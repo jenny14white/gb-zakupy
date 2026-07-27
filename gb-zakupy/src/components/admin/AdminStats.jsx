@@ -3,53 +3,51 @@ export default function AdminStats({
     pendingCount,
     acceptedCount,
     completedCount,
-}) {
+}){
 
-    
-    const stats = [
+    const stats=[
         {
-            icon: "📋",
-            label: "Wszystkie zgłoszenia",
-            value: allCount,
+            icon:"📋",
+            label:"Wszystkie zgłoszenia",
+            value:allCount
         },
         {
-            icon: "🟡",
-            label: "Oczekujące",
-            value: pendingCount,
+            icon:"🟡",
+            label:"Oczekujące",
+            value:pendingCount
         },
         {
-            icon: "🟢",
-            label: "Przyjęte do realizacji",
-            value: acceptedCount,
+            icon:"🟢",
+            label:"Przyjęte do realizacji",
+            value:acceptedCount
         },
         {
-            icon: "🟣",
-            label: "Zrealizowane",
-            value: completedCount,
-        },
+            icon:"🟣",
+            label:"Zrealizowane",
+            value:completedCount
+        }
     ];
 
-    return (
-
+    return(
         <section className="stats">
 
-            {stats.map(({ icon, label, value }) => (
+            {stats.map(({icon,label,value})=>(
 
                 <article
                     key={label}
                     className="stat-card"
                 >
 
+                    <div className="stat-icon">
+                        {icon}
+                    </div>
+
                     <strong>
-
                         {value}
-
                     </strong>
 
                     <span>
-
-                        {icon} {label}
-
+                        {label}
                     </span>
 
                 </article>
@@ -57,7 +55,5 @@ export default function AdminStats({
             ))}
 
         </section>
-
     );
-
 }
