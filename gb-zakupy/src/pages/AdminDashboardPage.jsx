@@ -1,15 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { onAuthStateChanged } from "firebase/auth";
-
-import { auth } from "../firebase/firebase";
-
-import { useAdminOrders } from "../hooks/useAdminOrders";
-import { useLogs } from "../hooks/useLogs";
-import { useEvents } from "../hooks/useEvents";
-
-import { ORDER_STATUS } from "../utils/constants";
-
+import {useEffect,useMemo,useState} from "react";
+import {useTranslation} from "react-i18next";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../firebase/firebase";
+import {useAdminOrders} from "../hooks/useAdminOrders";
+import {useLogs} from "../hooks/useLogs";
+import {useEvents} from "../hooks/useEvents";
+import {ORDER_STATUS} from "../utils/constants";
 import AdminSidebar from "../components/admin/AdminSidebar";
 import AdminStats from "../components/admin/AdminStats";
 import AdminShoppingList from "../components/admin/AdminShoppingList";
@@ -17,7 +13,6 @@ import AdminNotifications from "../components/admin/AdminNotifications";
 import AdminCompletedList from "../components/admin/AdminCompletedList";
 import AdminEventLog from "../components/admin/AdminEventLog";
 import AdminCalendar from "../components/admin/AdminCalendar";
-
 import "../styles/admin-dashboard.css";
 
 
