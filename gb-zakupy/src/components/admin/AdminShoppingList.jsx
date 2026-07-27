@@ -5,7 +5,6 @@ import AdminOrderCard from "./AdminOrderCard";
 
 import { ORDER_STATUS } from "../../utils/constants";
 
-
 export default function AdminShoppingList({ orders }) {
 
     const pendingOrders = useMemo(
