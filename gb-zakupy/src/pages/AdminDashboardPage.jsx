@@ -10,7 +10,6 @@ import { useEvents } from "../hooks/useEvents";
 
 import { ORDER_STATUS } from "../utils/constants";
 
-
 import AdminSidebar from "../components/admin/AdminSidebar";
 import AdminStats from "../components/admin/AdminStats";
 import AdminShoppingList from "../components/admin/AdminShoppingList";
@@ -35,12 +34,11 @@ export default function AdminDashboardPage({
     const [authorized,setAuthorized] = useState(false);
     const [checking,setChecking] = useState(true);
 
-    useEffect(() => {
+    useEffect(()=>{
 
         const unsubscribe = onAuthStateChanged(
             auth,
             user => {
-
                 setAuthorized(
                     Boolean(
                         user &&
@@ -65,8 +63,9 @@ export default function AdminDashboardPage({
 
     const {
         events,
-        loading:eventsLoading,
-    } = useEvents(authorized);
+        loading:eventsLoading
+    } =
+        useEvents(authorized);
 
 
     const {
@@ -74,19 +73,17 @@ export default function AdminDashboardPage({
         completedOrders,
         pendingCount,
         acceptedCount,
-        unreadNotifications,
-    } = useMemo(() => {
+        unreadNotifications
+    } = useMemo(()=>{
 
-        const active =
-            orders.filter(order =>
-                order.status === ORDER_STATUS.PENDING ||
-                order.status === ORDER_STATUS.ACCEPTED
-            );
+        const active = orders.filter(order =>
+            order.status === ORDER_STATUS.PENDING ||
+            order.status === ORDER_STATUS.ACCEPTED
+        );
 
-        const completed =
-            orders.filter(order =>
-                order.status === ORDER_STATUS.COMPLETED
-            );
+        const completed = orders.filter(order =>
+            order.status === ORDER_STATUS.COMPLETED
+        );
 
         return {
             pendingOrders: active,
@@ -105,7 +102,7 @@ export default function AdminDashboardPage({
             unreadNotifications:
                 active.filter(order =>
                     !order.notificationRead
-                ),
+                )
         };
 
     },[orders]);
@@ -116,7 +113,9 @@ export default function AdminDashboardPage({
         return (
             <main className="admin-page">
                 <section className="dashboard">
-                    {t("admin.dashboard.checkingPermissions")}
+                    <div className="empty-admin-box">
+                        {t("admin.dashboard.checkingPermissions")}
+                    </div>
                 </section>
             </main>
         );
@@ -128,6 +127,7 @@ export default function AdminDashboardPage({
 
         return (
             <main className="admin-page login-view">
+
                 <section className="login-card">
 
                     <h1>
@@ -146,6 +146,7 @@ export default function AdminDashboardPage({
                     </button>
 
                 </section>
+
             </main>
         );
 
@@ -164,49 +165,31 @@ export default function AdminDashboardPage({
 
         }
 
-
         switch(activeTab){
 
             case "lista":
-                return (
-                    <AdminShoppingList
-                        orders={pendingOrders}
-                    />
-                );
+                return <AdminShoppingList orders={pendingOrders}/>;
 
             case "powiadomienia":
-                return (
-                    <AdminNotifications
-                        orders={pendingOrders}
-                    />
-                );
+                return <AdminNotifications orders={pendingOrders}/>;
 
             case "zrealizowane":
-                return (
-                    <AdminCompletedList
-                        orders={completedOrders}
-                    />
-                );
+                return <AdminCompletedList orders={completedOrders}/>;
 
             case "dziennik":
-                return (
-                    <AdminEventLog
-                        logs={logs}
-                    />
-                );
+                return <AdminEventLog logs={logs}/>;
 
             case "kalendarz":
                 return (
                     <AdminCalendar
                         events={events}
-                        onEdit={() => {}}
-                        onDelete={() => {}}
+                        onEdit={()=>{}}
+                        onDelete={()=>{}}
                     />
                 );
 
             default:
                 return null;
-
         }
 
     }
@@ -228,24 +211,49 @@ export default function AdminDashboardPage({
                 goToEvents={goToEvents}
             />
 
+
             <section className="dashboard">
 
-                <p className="dashboard-eyebrow">
-                    GB Zakupy
-                </p>
+                <header className="dashboard-header">
 
-                <h1>
-                    {t("admin.dashboard.title")}
-                </h1>
+                    <div>
 
-                <AdminStats
-                    allCount={orders.length}
-                    pendingCount={pendingCount}
-                    acceptedCount={acceptedCount}
-                    completedCount={completedOrders.length}
-                />
+                        <span className="dashboard-eyebrow">
+                            GB PORTAL
+                        </span>
 
-                {renderContent()}
+                        <h1>
+                            {t("admin.dashboard.title")}
+                        </h1>
+
+                        <p className="dashboard-description">
+                            Centrum zarządzania zakupami,
+                            wydarzeniami i administracją.
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                <section className="dashboard-stats">
+
+                    <AdminStats
+                        allCount={orders.length}
+                        pendingCount={pendingCount}
+                        acceptedCount={acceptedCount}
+                        completedCount={completedOrders.length}
+                    />
+
+                </section>
+
+
+                <section className="dashboard-content">
+
+                    {renderContent()}
+
+                </section>
+
 
             </section>
 
