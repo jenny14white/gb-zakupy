@@ -28,8 +28,8 @@ export default function AdminSidebar({
             <button
                 className={
                     active
-                    ?"sidebar-button active"
-                    :"sidebar-button"
+                    ? "active"
+                    : ""
                 }
                 onClick={
                     onClick ||
@@ -41,14 +41,10 @@ export default function AdminSidebar({
                     <span className="menu-indicator"/>
                 )}
 
-                <div className="sidebar-button-main">
+                <div>
 
                     <strong>
-                        <span className="sidebar-icon">
-                            {icon}
-                        </span>
-
-                        {label}
+                        {icon} {label}
                     </strong>
 
                     {subtitle && (
@@ -60,7 +56,7 @@ export default function AdminSidebar({
                 </div>
 
                 {counter>0 && (
-                    <span className="sidebar-counter">
+                    <span>
                         {counter}
                     </span>
                 )}
@@ -68,7 +64,6 @@ export default function AdminSidebar({
             </button>
         );
     }
-
 
     return(
         <aside className="sidebar">
