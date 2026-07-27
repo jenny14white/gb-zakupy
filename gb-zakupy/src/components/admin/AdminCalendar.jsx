@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import "../../styles/admin-calendar.css";
 
 
-const WEEK_DAYS = [
+const WEEK_DAYS=[
     "Pn",
     "Wt",
     "Śr",
@@ -13,7 +13,8 @@ const WEEK_DAYS = [
     "Nd",
 ];
 
-const MONTHS = [
+
+const MONTHS=[
     "Styczeń",
     "Luty",
     "Marzec",
@@ -31,14 +32,15 @@ const MONTHS = [
 
 
 export default function AdminCalendar({
-    events = [],
+    events=[],
     onEdit,
     onDelete,
-}) {
+}){
 
-    const today = new Date();
+    const today=new Date();
 
-    const [currentMonth,setCurrentMonth] = useState(
+
+    const [currentMonth,setCurrentMonth]=useState(
         new Date(
             today.getFullYear(),
             today.getMonth(),
@@ -46,35 +48,44 @@ export default function AdminCalendar({
         )
     );
 
-    const [selectedDate,setSelectedDate] =
-        useState(today);
+
+    const [selectedDate,setSelectedDate]=useState(
+        today
+    );
 
 
-    const month = currentMonth.getMonth();
-    const year = currentMonth.getFullYear();
+    const month=currentMonth.getMonth();
+    const year=currentMonth.getFullYear();
 
 
 
-    const eventMap = useMemo(() => {
+    const eventMap=useMemo(()=>{
 
-        const map = {};
+        const map={};
 
-        events.forEach(event => {
 
-            const date =
+        events.forEach(event=>{
+
+            const date=
                 event.date?.toDate?.() ??
                 new Date(event.date);
 
-            const key =
-                date.toDateString();
 
-            if(!map[key]){
-                map[key] = [];
-            }
+            if(Number.isNaN(date.getTime()))
+                return;
+
+
+            const key=date.toDateString();
+
+
+            if(!map[key])
+                map[key]=[];
+
 
             map[key].push(event);
 
         });
+
 
         return map;
 
@@ -82,9 +93,9 @@ export default function AdminCalendar({
 
 
 
-    const calendarDays = useMemo(() => {
+    const calendarDays=useMemo(()=>{
 
-        const firstDay =
+        const firstDay=
             new Date(
                 year,
                 month,
@@ -92,36 +103,41 @@ export default function AdminCalendar({
             );
 
 
-        const offset =
-            firstDay.getDay() === 0
+        const offset=
+            firstDay.getDay()===0
                 ? 6
-                : firstDay.getDay() - 1;
+                : firstDay.getDay()-1;
 
 
-        const days =
+        const days=
             new Date(
                 year,
-                month + 1,
+                month+1,
                 0
             ).getDate();
 
 
         return [
+
             ...Array(offset).fill(null),
+
             ...Array.from(
-                {length: days},
-                (_,index) =>
+                {
+                    length:days,
+                },
+                (_,index)=>
                     new Date(
                         year,
                         month,
-                        index + 1
+                        index+1
                     )
             ),
+
         ];
 
     },[
         year,
-        month
+        month,
     ]);
 
 
@@ -131,7 +147,7 @@ export default function AdminCalendar({
         setCurrentMonth(
             new Date(
                 year,
-                month + step,
+                month+step,
                 1
             )
         );
@@ -140,9 +156,10 @@ export default function AdminCalendar({
 
 
 
-    function goToToday(){
+    function goToday(){
 
-        const now = new Date();
+        const now=new Date();
+
 
         setCurrentMonth(
             new Date(
@@ -152,13 +169,14 @@ export default function AdminCalendar({
             )
         );
 
+
         setSelectedDate(now);
 
     }
 
 
 
-    function getEventsForDay(date){
+    function getEvents(date){
 
         return eventMap[
             date.toDateString()
@@ -168,8 +186,8 @@ export default function AdminCalendar({
 
 
 
-    const selectedEvents =
-        getEventsForDay(selectedDate);
+    const selectedEvents=
+        getEvents(selectedDate);
 
 
 
@@ -180,13 +198,13 @@ export default function AdminCalendar({
 
             <div className="calendar-header">
 
+
                 <div className="calendar-navigation">
+
 
                     <button
                         className="calendar-nav"
-                        onClick={() =>
-                            changeMonth(-1)
-                        }
+                        onClick={()=>changeMonth(-1)}
                     >
                         ←
                     </button>
@@ -194,14 +212,14 @@ export default function AdminCalendar({
 
                     <button
                         className="calendar-nav"
-                        onClick={() =>
-                            changeMonth(1)
-                        }
+                        onClick={()=>changeMonth(1)}
                     >
                         →
                     </button>
 
+
                 </div>
+
 
 
                 <h2>
@@ -209,36 +227,43 @@ export default function AdminCalendar({
                 </h2>
 
 
+
                 <button
                     className="calendar-today"
-                    onClick={goToToday}
+                    onClick={goToday}
                 >
                     📅 Dzisiaj
                 </button>
+
 
             </div>
 
 
 
+
             <div className="react-calendar">
+
 
                 <div className="react-calendar__month-view">
 
 
                     <div className="react-calendar__month-view__weekdays">
 
-                        {WEEK_DAYS.map(day => (
+                        {WEEK_DAYS.map(day=>(
 
                             <div
                                 key={day}
                                 className="react-calendar__month-view__weekdays__weekday"
                             >
+
                                 <abbr>
                                     {day}
                                 </abbr>
+
                             </div>
 
                         ))}
+
 
                     </div>
 
@@ -246,14 +271,15 @@ export default function AdminCalendar({
 
                     <div className="react-calendar__month-view__days">
 
-                        {calendarDays.map((date,index) => (
+
+                        {calendarDays.map((date,index)=>(
 
                             <CalendarDay
 
                                 key={
                                     date
-                                        ? date.toISOString()
-                                        : `empty-${index}`
+                                    ? date.toISOString()
+                                    : `empty-${index}`
                                 }
 
                                 date={date}
@@ -266,20 +292,23 @@ export default function AdminCalendar({
 
                                 events={
                                     date
-                                        ? getEventsForDay(date)
-                                        : []
+                                    ? getEvents(date)
+                                    : []
                                 }
 
                             />
 
                         ))}
 
+
                     </div>
 
 
                 </div>
 
+
             </div>
+
 
 
 
@@ -288,7 +317,9 @@ export default function AdminCalendar({
 
                 <div className="calendar-events-header">
 
+
                     <div>
+
 
                         <h3>
 
@@ -303,17 +334,18 @@ export default function AdminCalendar({
 
                         </h3>
 
+
                         <p>
                             Wybrane wydarzenia
                         </p>
 
+
                     </div>
 
 
+
                     <span className="calendar-events-count">
-
                         {selectedEvents.length}
-
                     </span>
 
 
@@ -321,151 +353,156 @@ export default function AdminCalendar({
 
 
 
-                {
-                    selectedEvents.length === 0 ? (
 
-                        <div className="calendar-empty">
 
-                            <div className="calendar-empty-icon">
-                                📅
-                            </div>
+                {!selectedEvents.length ? (
 
-                            <h3>
-                                Brak wydarzeń
-                            </h3>
+                    <div className="calendar-empty">
 
-                            <p>
-                                Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
-                            </p>
-
+                        <div className="calendar-empty-icon">
+                            📅
                         </div>
 
+                        <h3>
+                            Brak wydarzeń
+                        </h3>
 
-                    ) : (
+                        <p>
+                            Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
+                        </p>
 
-
-                        selectedEvents.map(event => {
-
-
-                            const eventDate =
-                                event.date?.toDate?.() ??
-                                new Date(event.date);
-
+                    </div>
 
 
-                            return (
+                ) : (
 
-                                <article
-                                    key={event.id}
-                                    className="calendar-event-card"
-                                >
-
-                                    <div className="calendar-event-bar" />
+                    selectedEvents.map(event=>{
 
 
-                                    <div className="calendar-event-time">
-
-                                        <strong>
-                                            {event.time || "--:--"}
-                                        </strong>
-
-                                        <span>
-
-                                            {eventDate.toLocaleDateString(
-                                                "pl-PL",
-                                                {
-                                                    day:"numeric",
-                                                    month:"short",
-                                                }
-                                            )}
-
-                                        </span>
-
-                                    </div>
+                        const date=
+                            event.date?.toDate?.() ??
+                            new Date(event.date);
 
 
 
-                                    <div className="calendar-event-content">
+                        return (
+
+                            <article
+                                key={event.id}
+                                className="calendar-event-card"
+                            >
 
 
-                                        {event.type && (
-
-                                            <div className="calendar-event-category">
-                                                {event.type}
-                                            </div>
-
-                                        )}
-
-
-                                        <h4>
-                                            {event.emoji || "📅"} {event.title}
-                                        </h4>
+                                <div className="calendar-event-bar"/>
 
 
 
-                                        {event.location && (
-                                            <p>
-                                                📍 {event.location}
-                                            </p>
-                                        )}
+                                <div className="calendar-event-time">
 
+                                    <strong>
+                                        {event.time || "--:--"}
+                                    </strong>
 
-
-                                        {event.description && (
-                                            <p>
-                                                {event.description}
-                                            </p>
-                                        )}
-
-
-
-                                        {event.recurring && (
-                                            <div>
-                                                🔁 Powtarzające się wydarzenie
-                                            </div>
-                                        )}
-
-
-                                    </div>
-
-
-
-                                    <div className="calendar-event-actions">
-
-
-                                        <button
-                                            type="button"
-                                            className="calendar-event-action"
-                                            onClick={() =>
-                                                onEdit(event)
+                                    <span>
+                                        {date.toLocaleDateString(
+                                            "pl-PL",
+                                            {
+                                                day:"numeric",
+                                                month:"short",
                                             }
-                                        >
-                                            ✏️
-                                        </button>
+                                        )}
+                                    </span>
+
+                                </div>
 
 
-                                        <button
-                                            type="button"
-                                            className="calendar-event-action"
-                                            onClick={() =>
-                                                onDelete(event.id)
-                                            }
-                                        >
-                                            🗑️
-                                        </button>
 
 
-                                    </div>
+                                <div className="calendar-event-content">
 
 
-                                </article>
+                                    {event.type && (
 
-                            );
+                                        <div className="calendar-event-category">
+                                            {event.type}
+                                        </div>
 
-                        })
+                                    )}
 
-                    )
-                }
+
+
+                                    <h4>
+                                        {event.emoji || "📅"} {event.title}
+                                    </h4>
+
+
+
+                                    {event.location && (
+                                        <p>
+                                            📍 {event.location}
+                                        </p>
+                                    )}
+
+
+
+                                    {event.description && (
+                                        <p>
+                                            {event.description}
+                                        </p>
+                                    )}
+
+
+
+                                    {event.recurring && (
+
+                                        <div>
+                                            🔁 Powtarzające się wydarzenie
+                                        </div>
+
+                                    )}
+
+
+                                </div>
+
+
+
+
+                                <div className="calendar-event-actions">
+
+
+                                    <button
+                                        type="button"
+                                        className="calendar-event-action"
+                                        onClick={()=>
+                                            onEdit?.(event)
+                                        }
+                                    >
+                                        ✏️
+                                    </button>
+
+
+
+                                    <button
+                                        type="button"
+                                        className="calendar-event-action"
+                                        onClick={()=>
+                                            onDelete?.(event.id)
+                                        }
+                                    >
+                                        🗑️
+                                    </button>
+
+
+                                </div>
+
+
+                            </article>
+
+                        );
+
+                    })
+
+                )}
 
 
             </aside>
@@ -479,35 +516,36 @@ export default function AdminCalendar({
 
 
 
+
+
 function CalendarDay({
     date,
     today,
     selectedDate,
     onSelect,
     events,
-}) {
+}){
 
 
     if(!date){
 
         return (
-            <div
-                className="react-calendar__tile"
-                style={{
-                    visibility:"hidden"
-                }}
-            />
+            <div className="react-calendar__tile empty-day"/>
         );
 
     }
 
 
-    const isToday =
-        date.toDateString() === today.toDateString();
+
+    const isToday=
+        date.toDateString()===
+        today.toDateString();
 
 
-    const isSelected =
-        date.toDateString() === selectedDate.toDateString();
+
+    const isSelected=
+        date.toDateString()===
+        selectedDate.toDateString();
 
 
 
@@ -515,18 +553,12 @@ function CalendarDay({
 
         <button
             type="button"
-            className={
-                `react-calendar__tile ${
-                    isToday
-                        ? "react-calendar__tile--now"
-                        : ""
-                } ${
-                    isSelected
-                        ? "react-calendar__tile--active"
-                        : ""
-                }`
-            }
-            onClick={() =>
+            className={`
+                react-calendar__tile
+                ${isToday?"react-calendar__tile--now":""}
+                ${isSelected?"react-calendar__tile--active":""}
+            `}
+            onClick={()=>
                 onSelect(date)
             }
         >
@@ -537,18 +569,20 @@ function CalendarDay({
 
 
 
-            {events.length === 1 && (
-                <div className="calendar-event-dot" />
+            {events.length===1 && (
+
+                <div className="calendar-event-dot"/>
+
             )}
 
 
 
-            {events.length >= 2 &&
-            events.length <= 3 && (
+            {events.length>=2 &&
+            events.length<=3 && (
 
                 <div className="calendar-event-dots">
 
-                    {events.map((_,index) => (
+                    {events.map((_,index)=>(
 
                         <span key={index}/>
 
@@ -560,10 +594,12 @@ function CalendarDay({
 
 
 
-            {events.length > 3 && (
+            {events.length>3 && (
+
                 <div className="calendar-more-events">
                     +{events.length}
                 </div>
+
             )}
 
 
