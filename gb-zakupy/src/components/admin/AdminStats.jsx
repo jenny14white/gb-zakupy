@@ -1,3 +1,6 @@
+import "../../styles/admin-dashboard.css";
+
+
 export default function AdminStats({
     allCount,
     pendingCount,
