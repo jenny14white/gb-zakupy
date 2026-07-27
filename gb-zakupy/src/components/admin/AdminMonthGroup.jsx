@@ -11,7 +11,6 @@ export default function AdminMonthGroup({
 
     const [isOpen,setIsOpen] = useState(autoOpen);
 
-
     useEffect(() => {
 
         if(autoOpen){
