@@ -68,38 +68,56 @@
   },
 
   "shopping": {
+
     "header": {
+
       "title": "Lista zakupowa",
 
       "summary": "Informacje o liście zakupowej",
 
       "introTitle": "Brakuje czegoś w biurze?",
 
-      "intro1": "A może obawiasz się, że później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego aktualnie potrzebujesz.",
+      "intro1":
+      "A może obawiasz się, że później o tym zapomnisz? Wpisz poniżej swoje imię oraz to, czego aktualnie potrzebujesz.",
 
-      "intro2": "☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy? 🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest akurat nieobecna? To idealne miejsce, aby zostawić taką informację.",
+      "intro2":
+      "☕ Kończy się Twoja ulubiona herbata? 🥛 Brakuje mleka do kawy? 🖊️ Przydałyby się nowe długopisy lub przy ostatnim zamówieniu coś zostało przeoczone? A może osoba odpowiedzialna za zamówienia jest akurat nieobecna? To idealne miejsce, aby zostawić taką informację.",
 
-      "intro3": "Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.",
+      "intro3":
+      "Zajmie Ci to dosłownie chwilę, a dzięki temu nic nie umknie. Twoje zgłoszenie trafi tam, gdzie trzeba i będzie czekało na realizację.",
 
-      "currentListTitle": "Aktualna lista zakupowa",
+      "currentListTitle":
+      "Aktualna lista zakupowa",
 
-      "intro4": "poniżej pokazuje wszystkie produkty oczekujące na zamówienie. Jeżeli produktu nie ma już na liście, oznacza to, że został zamówiony.",
+      "intro4":
+      "Poniżej znajduje się lista produktów oczekujących na zamówienie. Jeżeli produktu nie ma już na liście, oznacza to, że został zamówiony.",
 
-      "footer": "Dziękujemy za pomoc w utrzymaniu naszego biura!"
+      "footer":
+      "Dziękujemy za pomoc w utrzymaniu naszego biura!"
     },
+
 
     "page": {
+
       "back": "Menu główne",
+
       "thanks": "Dziękujemy! ♡"
+
     },
 
+
     "form": {
+
       "name": "Imię",
+
       "product": "Co potrzeba zamówić?",
+
       "quantity": "Ilość",
+
       "unit": "Jednostka",
 
       "submit": "Dodaj do listy",
+
       "loading": "Dodawanie...",
 
       "success": "Pomyślnie dodano:",
@@ -107,282 +125,542 @@
       "saveChanges": "Zapisz edycję",
 
       "placeholders": {
+
         "name": "Wpisz swoje imię",
+
         "product": "Np. mleko, kawa, długopisy..."
+
       },
 
       "errors": {
-        "required": "Uzupełnij imię, produkt oraz ilość.",
-        "addFailed": "Nie udało się dodać produktu."
+
+        "required":
+        "Uzupełnij imię, produkt oraz ilość.",
+
+        "addFailed":
+        "Nie udało się dodać produktu."
+
       }
+
     },
 
+
     "currentList": {
+
       "title": "Aktualna lista zakupowa",
 
       "expand": "Rozwiń całą listę ↓",
+
       "collapse": "Zwiń listę ↑",
 
       "loading": "Ładowanie listy...",
 
-      "empty": "Aktualna lista zakupowa jest pusta."
+      "empty":
+      "Aktualna lista zakupowa jest pusta."
+
     },
+
 
     "status": {
+
       "pending": "Oczekujące",
+
       "accepted": "Przyjęte do realizacji",
+
       "completed": "Zrealizowane"
+
     },
+
 
     "products": {
+
       "one": "produkt",
+
       "many": "produktów"
+
     },
+
 
     "history": {
+
       "added": "Dodano",
+
       "accepted": "Przyjęto do realizacji",
-          "completed": "Zrealizowano"
+
+      "completed": "Zrealizowano"
+
     },
+
 
     "actions": {
+
       "accept": "Przyjmij do realizacji",
-      "markCompleted": "Oznacz jako zrealizowane"
+
+      "markCompleted":
+      "Oznacz jako zrealizowane"
+
     },
+
 
     "adminComment": {
-      "title": "Komentarz admina",
-      "placeholder": "Dodaj komentarz..."
-    },
 
-    "completed": {
+      "title": "Komentarz admina",
+
+      "placeholder":
+      "Dodaj komentarz..."
+
+    }
+        "completed": {
+
       "title": "Zrealizowane",
 
-      "searchPlaceholder": "Szukaj produktu...",
+      "searchPlaceholder":
+      "Szukaj produktu...",
 
-      "exportExcel": "Eksportuj do Excel",
+      "exportExcel":
+      "Eksportuj do Excel",
 
-      "noDataExport": "Brak danych do eksportu.",
+      "noDataExport":
+      "Brak danych do eksportu.",
 
-      "empty": "Brak zrealizowanych produktów.",
+      "empty":
+      "Brak zrealizowanych produktów.",
 
-      "emptySearch": "Nie znaleziono produktów."
+      "emptySearch":
+      "Nie znaleziono produktów."
+
     },
+
 
     "empty": {
-      "pending": "Brak oczekujących zgłoszeń.",
-      "accepted": "Brak produktów przyjętych do realizacji."
+
+      "pending":
+      "Brak oczekujących zgłoszeń.",
+
+      "accepted":
+      "Brak produktów przyjętych do realizacji."
+
     },
+
 
     "deleteDialog": {
-      "title": "Usuń produkt",
-      "message": "Czy na pewno chcesz usunąć produkt „{{product}}”?"
+
+      "title":
+      "Usuń produkt",
+
+      "message":
+      "Czy na pewno chcesz usunąć produkt „{{product}}”?"
+
     },
+
 
     "errors": {
-      "acceptFailed": "Nie udało się przyjąć produktu do realizacji.",
-      "completeFailed": "Nie udało się oznaczyć produktu jako zrealizowanego.",
-      "deleteFailed": "Nie udało się usunąć produktu."
+
+      "acceptFailed":
+      "Nie udało się przyjąć produktu do realizacji.",
+
+      "completeFailed":
+      "Nie udało się oznaczyć produktu jako zrealizowanego.",
+
+      "deleteFailed":
+      "Nie udało się usunąć produktu."
+
     },
+
 
     "excel": {
-      "sheetName": "Zakupy",
 
-      "filePrefix": "zakupy",
+      "sheetName":
+      "Zakupy",
+
+      "filePrefix":
+      "zakupy",
 
       "columns": {
-        "month": "Miesiąc",
-        "product": "Produkt",
-        "quantity": "Ilość",
-        "unit": "Jednostka",
-        "requestedBy": "Osoba zgłaszająca",
-        "status": "Status",
-        "createdAt": "Dodano",
-        "orderedAt": "Przyjęto",
-        "completedAt": "Zrealizowano",
-        "adminComment": "Komentarz admina"
+
+        "month":
+        "Miesiąc",
+
+        "product":
+        "Produkt",
+
+        "quantity":
+        "Ilość",
+
+        "unit":
+        "Jednostka",
+
+        "requestedBy":
+        "Osoba zgłaszająca",
+
+        "status":
+        "Status",
+
+        "createdAt":
+        "Dodano",
+
+        "orderedAt":
+        "Przyjęto",
+
+        "completedAt":
+        "Zrealizowano",
+
+        "adminComment":
+        "Komentarz admina"
+
       }
+
     }
+
   },
+
 
   "calendar": {
+
     "page": {
-      "title": "Kalendarz firmowy",
-      "description": "Święta, wydarzenia oraz spotkania firmowe.",
-      "back": "Menu główne"
+
+      "title":
+      "Kalendarz firmowy",
+
+      "description":
+      "Święta, wydarzenia oraz spotkania firmowe.",
+
+      "back":
+      "Menu główne"
+
     },
+
 
     "navigation": {
-      "today": "Dzisiaj",
-      "previousMonth": "Poprzedni miesiąc",
-      "nextMonth": "Następny miesiąc"
+
+      "today":
+      "Dzisiaj",
+
+      "previousMonth":
+      "Poprzedni miesiąc",
+
+      "nextMonth":
+      "Następny miesiąc"
+
     },
+
 
     "weekdays": {
-      "mon": "Pon",
-      "tue": "Wt",
-      "wed": "Śr",
-      "thu": "Czw",
-      "fri": "Pt",
-      "sat": "Sob",
-      "sun": "Ndz"
+
+      "mon":
+      "Pon",
+
+      "tue":
+      "Wt",
+
+      "wed":
+      "Śr",
+
+      "thu":
+      "Czw",
+
+      "fri":
+      "Pt",
+
+      "sat":
+      "Sob",
+
+      "sun":
+      "Ndz"
+
     },
+
 
     "eventTypes": {
-      "company": "FIRMA",
-      "holiday": "ŚWIĘTO",
-      "birthday": "URODZINY",
-      "meeting": "SPOTKANIE",
-      "vacation": "URLOP",
-      "other": "INNE"
+
+      "company":
+      "FIRMA",
+
+      "holiday":
+      "ŚWIĘTO",
+
+      "birthday":
+      "URODZINY",
+
+      "meeting":
+      "SPOTKANIE",
+
+      "vacation":
+      "URLOP",
+
+      "other":
+      "INNE"
+
     },
+
 
     "empty": {
-      "title": "Brak wydarzeń",
-      "description": "W wybranym dniu nie ma zaplanowanych wydarzeń."
-    },
 
-    "form": {
-      "title": "Tytuł",
-      "location": "Lokalizacja",
-      "description": "Opis",
-      "date": "Data",
-      "time": "Godzina",
-      "type": "Typ wydarzenia",
-      "icon": "Ikona",
-      "recurring": "Wydarzenie cykliczne",
+      "title":
+      "Brak wydarzeń",
 
-      "placeholders": {
-        "title": "Np. Spotkanie Zarządu",
-        "location": "Sala konferencyjna",
-        "description": "Opis wydarzenia..."
-      }
-    },
+      "description":
+      "W wybranym dniu nie ma zaplanowanych wydarzeń."
 
-    "admin": {
-      "title": "Zarządzanie wydarzeniami",
-
-      "description": "Dodawaj, edytuj oraz zarządzaj wydarzeniami firmowymi.",
-
-      "loadingAccess": "Sprawdzanie dostępu...",
-
-      "accessDenied": {
-        "title": "Brak dostępu",
-        "description": "Panel wydarzeń jest dostępny wyłącznie dla administratora."
-      },
-
-      "new": "Nowe wydarzenie",
-      "edit": "Edycja wydarzenia",
-
-      "fillForm": "Wypełnij formularz i zapisz wydarzenie.",
-
-      "save": "Zapisz zmiany",
-      "create": "Dodaj wydarzenie",
-
-      "stats": {
-        "all": "Wszystkie",
-        "recurring": "Cykliczne",
-        "upcoming": "Nadchodzące"
-      },
-
-      "validation": {
-        "titleRequired": "Podaj tytuł wydarzenia.",
-        "dateRequired": "Wybierz datę wydarzenia."
-      },
-
-      "errors": {
-        "save": "Nie udało się zapisać wydarzenia.",
-        "delete": "Nie udało się usunąć wydarzenia."
-      },
-
-      "deleteDialog": {
-        "title": "Usuń wydarzenie",
-        "message": "Czy na pewno usunąć wydarzenie?"
-      }
     }
-  },
-  "notifications": {
-    "title": "Powiadomienia",
 
-    "description": "Nowe zgłoszenia oczekujące na odczyt.",
+  },
+
+
+  "notifications": {
+
+    "title":
+    "Powiadomienia",
+
+    "description":
+    "Nowe zgłoszenia oczekujące na odczyt.",
 
     "tabs": {
-      "new": "Nowe",
-      "read": "Przeczytane"
+
+      "new":
+      "Nowe",
+
+      "read":
+      "Przeczytane"
+
     },
+
 
     "empty": {
-      "unread": "Brak nowych powiadomień.",
-      "read": "Brak przeczytanych powiadomień."
+
+      "unread":
+      "Brak nowych powiadomień.",
+
+      "read":
+      "Brak przeczytanych powiadomień."
+
     },
+
 
     "card": {
-      "newRequest": "Nowe zgłoszenie",
-      "read": "Przeczytano",
-      "addedBy": "Dodał",
-      "readAt": "Odczytano",
-      "markAsRead": "Oznacz jako przeczytane"
-    },
 
-    "browser": {
-      "title": "📦 GB Zakupy",
-      "body": "{{user}} dodał(a): {{product}}"
+      "newRequest":
+      "Nowe zgłoszenie",
+
+      "read":
+      "Przeczytano",
+
+      "addedBy":
+      "Dodał",
+
+      "readAt":
+      "Odczytano",
+
+      "markAsRead":
+      "Oznacz jako przeczytane"
+
     }
+
   },
 
+
   "admin": {
-    "title": "Panel administratora",
+
+    "title":
+    "Panel administratora",
+
 
     "login": {
-      "title": "Panel admina",
 
-      "description": "Zaloguj się jako administrator.",
+      "title":
+      "Panel admina",
 
-      "email": "Adres e-mail",
+      "description":
+      "Zaloguj się jako administrator.",
 
-      "password": "Hasło",
+      "email":
+      "Adres e-mail",
 
-      "login": "Zaloguj",
+      "password":
+      "Hasło",
 
-      "loggingIn": "Logowanie...",
+      "login":
+      "Zaloguj",
 
-      "back": "Wróć do listy",
+      "loggingIn":
+      "Logowanie...",
+
+      "back":
+      "Wróć do listy",
 
       "errors": {
-        "invalidCredentials": "Nieprawidłowe dane lub brak uprawnień administratora."
+
+        "invalidCredentials":
+        "Nieprawidłowe dane lub brak uprawnień administratora."
+
       }
+
     },
+
 
     "dashboard": {
-      "title": "Dashboard",
 
-      "loading": "Ładowanie danych...",
+      "title":
+      "Dashboard",
 
-      "checkingPermissions": "Sprawdzanie uprawnień...",
+      "loading":
+      "Ładowanie danych...",
+
+      "checkingPermissions":
+      "Sprawdzanie uprawnień...",
+
 
       "accessDenied": {
-        "title": "Brak dostępu",
-        "description": "Konto administratora jest wymagane."
+
+        "title":
+        "Brak dostępu",
+
+        "description":
+        "Konto administratora jest wymagane."
+
       }
+
     },
+
+
+    "events": {
+
+      "title":
+      "Kalendarz wydarzeń",
+
+      "description":
+      "Dodawaj, edytuj oraz zarządzaj wydarzeniami firmowymi.",
+
+      "checkingAccess":
+      "Sprawdzanie dostępu...",
+
+
+      "noAccess": {
+
+        "title":
+        "Brak dostępu",
+
+        "description":
+        "Panel wydarzeń jest dostępny wyłącznie dla administratora."
+
+      },
+
+
+      "newEvent":
+      "Nowe wydarzenie",
+
+      "editEvent":
+      "Edytuj wydarzenie",
+
+      "saveChanges":
+      "Zapisz zmiany",
+
+      "addEvent":
+      "Dodaj wydarzenie",
+
+      "confirmDelete":
+      "Czy na pewno chcesz usunąć wydarzenie?",
+
+
+      "placeholders": {
+
+        "title":
+        "Tytuł wydarzenia",
+
+        "location":
+        "Miejsce wydarzenia",
+
+        "description":
+        "Opis wydarzenia"
+
+      },
+
+
+      "fields": {
+
+        "recurring":
+        "Wydarzenie cykliczne"
+
+      },
+
+
+      "stats": {
+
+        "all":
+        "Wszystkie",
+
+        "recurring":
+        "Cykliczne",
+
+        "upcoming":
+        "Nadchodzące"
+
+      },
+
+
+      "errors": {
+
+        "titleRequired":
+        "Podaj tytuł wydarzenia.",
+
+        "dateRequired":
+        "Wybierz datę wydarzenia.",
+
+        "saveFailed":
+        "Nie udało się zapisać wydarzenia.",
+
+        "deleteFailed":
+        "Nie udało się usunąć wydarzenia."
+
+      }
+
+    },
+
 
     "sidebar": {
-      "shopping": "Lista zakupowa",
-      "notifications": "Powiadomienia",
-      "completed": "Zrealizowane",
-      "eventLog": "Dziennik zdarzeń",
-      "companyCalendar": "Kalendarz firmowy",
-      "backToApp": "Powrót do aplikacji",
-      "logout": "Wyloguj"
+
+      "shopping":
+      "Lista zakupowa",
+
+      "notifications":
+      "Powiadomienia",
+
+      "completed":
+      "Zrealizowane",
+
+      "eventLog":
+      "Dziennik zdarzeń",
+
+      "companyCalendar":
+      "Kalendarz firmowy",
+
+      "backToApp":
+      "Powrót do aplikacji",
+
+      "logout":
+      "Wyloguj"
+
     },
+
 
     "stats": {
-      "all": "Wszystkie"
+
+      "all":
+      "Wszystkie"
+
     },
 
+
     "eventLog": {
-      "title": "Dziennik zdarzeń",
-      "empty": "Brak wpisów."
+
+      "title":
+      "Dziennik zdarzeń",
+
+      "empty":
+      "Brak wpisów."
+
     }
+
   }
+
 }
