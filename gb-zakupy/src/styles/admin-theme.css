@@ -446,3 +446,93 @@ color:var(--admin-text)!important;
 .admin-page .logout-button{
 height:52px;
 }
+.admin-page .calendar-wrapper{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+box-shadow:var(--admin-shadow)!important;
+}
+
+.admin-page .calendar-wrapper::before{
+background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 45%);
+}
+
+.admin-page .calendar-header h2{
+color:var(--admin-text)!important;
+}
+
+.admin-page .calendar-nav,
+.admin-page .calendar-event-action{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+color:var(--admin-text)!important;
+}
+
+.admin-page .calendar-nav:hover,
+.admin-page .calendar-event-action:hover{
+background:var(--admin-surface-hover)!important;
+}
+
+.admin-page .calendar-today{
+background:var(--admin-accent)!important;
+color:var(--button-text,#fff)!important;
+}
+
+.admin-page .react-calendar__tile{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+color:var(--admin-text)!important;
+}
+
+.admin-page .react-calendar__tile:hover{
+background:var(--admin-surface-hover)!important;
+}
+
+.admin-page .react-calendar__tile--active{
+background:var(--admin-accent)!important;
+color:var(--button-text,#fff)!important;
+}
+
+.admin-page .react-calendar__tile--now{
+border-color:var(--admin-accent)!important;
+}
+
+.admin-page .calendar-event-card{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+}
+
+.admin-page .calendar-event-card:hover{
+background:var(--admin-surface-hover)!important;
+border-color:var(--admin-accent)!important;
+}
+
+.admin-page .calendar-event-time,
+.admin-page .calendar-event-category,
+.admin-page .calendar-events-count,
+.admin-page .calendar-day-chip,
+.admin-page .calendar-more-events{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+color:var(--admin-text)!important;
+}
+
+.admin-page .calendar-event-content h4,
+.admin-page .calendar-events-header h3{
+color:var(--admin-text)!important;
+}
+
+.admin-page .calendar-event-content p,
+.admin-page .calendar-events-header p,
+.admin-page .calendar-empty p{
+color:var(--admin-muted)!important;
+}
+
+.admin-page .calendar-empty{
+background:var(--admin-surface)!important;
+border-color:var(--admin-border)!important;
+}
+
+.admin-page .calendar-empty-icon{
+background:var(--admin-surface-hover)!important;
+border-color:var(--admin-border)!important;
+}
