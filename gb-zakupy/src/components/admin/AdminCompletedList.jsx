@@ -8,6 +8,7 @@ import { groupOrdersByOrderedMonth } from "../../utils/orderUtils";
 import { formatDate } from "../../utils/dateUtils";
 import { ORDER_STATUS } from "../../utils/constants";
 
+import "../../styles/admin-completed.css";
 
 function normalize(text=""){
 
