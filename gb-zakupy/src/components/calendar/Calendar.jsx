@@ -12,7 +12,6 @@ import {
     getEventsForDate,
 } from "../../utils/calendarUtils";
 
-
 export default function Calendar() {
 
     const { t, i18n } = useTranslation();
