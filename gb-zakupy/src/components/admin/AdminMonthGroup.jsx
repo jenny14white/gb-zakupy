@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import AdminOrderCard from "./AdminOrderCard";
 
+import "../../styles/admin-shopping.css";
+
 
 export default function AdminMonthGroup({
     month,
