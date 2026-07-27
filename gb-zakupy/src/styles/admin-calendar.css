@@ -1,6 +1,4 @@
-/* GB PORTAL | PREMIUM CALENDAR | PART 1 */
-
-/* Calendar */
+/* GB PORTAL PREMIUM CALENDAR */
 
 .calendar-wrapper{
     position:relative;
@@ -9,32 +7,20 @@
     gap:30px;
     overflow:hidden;
     padding:34px;
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:36px;
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.10),
-        rgba(255,255,255,.04)
-    );
+    background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
     backdrop-filter:blur(24px);
     -webkit-backdrop-filter:blur(24px);
     box-shadow:0 26px 70px rgba(0,0,0,.18);
 }
 
-.calendar-wrapper::before,
-.calendar-nav::before{
+.calendar-wrapper::before{
     content:"";
     position:absolute;
     inset:0;
     pointer-events:none;
-}
-
-.calendar-wrapper::before{
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.10),
-        transparent 45%
-    );
+    background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 45%);
 }
 
 .calendar-wrapper::after{
@@ -45,15 +31,9 @@
     width:260px;
     height:260px;
     border-radius:50%;
-    background:radial-gradient(
-        rgba(255,255,255,.12),
-        transparent 70%
-    );
+    background:radial-gradient(rgba(255,255,255,.12),transparent 70%);
     filter:blur(45px);
-    pointer-events:none;
 }
-
-/* Header */
 
 .calendar-header{
     position:relative;
@@ -74,8 +54,6 @@
     letter-spacing:-2px;
     line-height:1;
 }
-
-/* Navigation */
 
 .calendar-navigation{
     display:flex;
@@ -100,33 +78,27 @@
     border-radius:20px;
     color:var(--text-white);
     background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     backdrop-filter:blur(20px);
-    transition:
-        transform .3s,
-        background .3s,
-        box-shadow .3s;
+    transition:.3s;
 }
 
 .calendar-nav::before{
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.12),
-        transparent 40%
-    );
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 40%);
 }
 
 .calendar-nav:hover{
     transform:translateY(-4px) scale(1.05);
     background:rgba(255,255,255,.14);
-    box-shadow:0 18px 40px rgba(0,0,0,.20);
+    box-shadow:0 18px 40px rgba(0,0,0,.2);
 }
 
 .calendar-nav:active{
     transform:scale(.94);
 }
-
-/* Today */
 
 .calendar-today{
     gap:10px;
@@ -135,11 +107,7 @@
     border-radius:18px;
     color:#fff;
     font-weight:700;
-    background:linear-gradient(
-        135deg,
-        var(--accent),
-        color-mix(in srgb,var(--accent) 80%,white)
-    );
+    background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 80%,white));
     transition:.3s;
 }
 
@@ -148,12 +116,11 @@
     box-shadow:0 18px 36px rgba(0,0,0,.18);
 }
 
-/* Month Badge */
-
 .calendar-month-chip{
     display:inline-flex;
     align-items:center;
     gap:10px;
+    width:max-content;
     padding:10px 18px;
     border:1px solid rgba(255,255,255,.08);
     border-radius:999px;
@@ -162,8 +129,6 @@
     font-weight:700;
     letter-spacing:1px;
 }
-
-/* React Calendar */
 
 .react-calendar{
     position:relative;
@@ -179,8 +144,6 @@
     flex-direction:column;
     gap:18px;
 }
-
-/* Weekdays */
 
 .react-calendar__month-view__weekdays{
     display:grid;
@@ -202,19 +165,15 @@
 }
 
 .react-calendar__month-view__weekdays__weekday abbr{
-    border:none;
+    border:0;
     text-decoration:none;
 }
 
-/* Days */
-
 .react-calendar__month-view__days{
-    display:grid !important;
+    display:grid!important;
     grid-template-columns:repeat(7,1fr);
     gap:14px;
 }
-
-/* Tiles */
 
 .react-calendar__tile{
     position:relative;
@@ -226,46 +185,30 @@
     padding:16px;
     border:1px solid rgba(255,255,255,.08);
     border-radius:22px;
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.06),
-        rgba(255,255,255,.02)
-    );
+    background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
     color:var(--text-white);
     font-size:1rem;
     font-weight:700;
-    transition:
-        transform .3s,
-        background .3s,
-        border-color .3s,
-        box-shadow .3s;
+    transition:.3s;
 }
-/* Tile */
-
 .react-calendar__tile::before{
     content:"";
     position:absolute;
     inset:0;
     opacity:0;
     pointer-events:none;
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.10),
-        transparent 45%
-    );
+    background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 45%);
     transition:.3s;
 }
 
-.react-calendar__tile > *{
+.react-calendar__tile>*{
     position:relative;
     z-index:2;
 }
 
-/* Tile States */
-
 .react-calendar__tile:hover{
     transform:translateY(-5px) scale(1.03);
-    background:rgba(255,255,255,.10);
+    background:rgba(255,255,255,.1);
     border-color:rgba(255,255,255,.18);
     box-shadow:0 18px 36px rgba(0,0,0,.18);
 }
@@ -275,7 +218,7 @@
 }
 
 .react-calendar__tile--now{
-    border:1px solid rgba(255,255,255,.20);
+    border-color:rgba(255,255,255,.2);
     background:rgba(255,255,255,.12);
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
 }
@@ -295,13 +238,8 @@
 .react-calendar__tile--active{
     border:none;
     color:#fff;
-    background:linear-gradient(
-        135deg,
-        var(--accent),
-        color-mix(in srgb,var(--accent) 78%,white)
-    ) !important;
-    box-shadow:0 16px 40px
-        color-mix(in srgb,var(--accent) 35%,transparent);
+    background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 78%,white))!important;
+    box-shadow:0 16px 40px color-mix(in srgb,var(--accent) 35%,transparent);
 }
 
 .react-calendar__tile--active:hover{
@@ -320,8 +258,6 @@
     box-shadow:none;
 }
 
-/* Calendar Days */
-
 .react-calendar__month-view__days__day--weekend{
     color:#ffb6b6;
 }
@@ -329,8 +265,6 @@
 .react-calendar__month-view__days__day--neighboringMonth{
     opacity:.3;
 }
-
-/* Event Dots */
 
 .calendar-event-dot,
 .calendar-event-dots{
@@ -346,9 +280,7 @@
     border-radius:50%;
     background:var(--accent);
     box-shadow:0 0 14px color-mix(in srgb,var(--accent) 70%,transparent);
-    transition:
-        transform .3s,
-        box-shadow .3s;
+    transition:.3s;
 }
 
 .react-calendar__tile:hover .calendar-event-dot{
@@ -369,8 +301,6 @@
     box-shadow:0 0 10px color-mix(in srgb,var(--accent) 70%,transparent);
 }
 
-/* More Events */
-
 .calendar-more-events{
     position:absolute;
     right:10px;
@@ -381,16 +311,14 @@
     min-width:22px;
     height:22px;
     padding:0 6px;
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:999px;
-    background:rgba(255,255,255,.10);
+    background:rgba(255,255,255,.1);
     color:var(--text-white);
     font-size:.7rem;
     font-weight:700;
     backdrop-filter:blur(12px);
 }
-
-/* Tile Glow */
 
 .react-calendar__tile::after{
     content:"";
@@ -402,10 +330,7 @@
     transform:translateX(-50%);
     opacity:0;
     filter:blur(24px);
-    background:radial-gradient(
-        rgba(255,255,255,.18),
-        transparent 70%
-    );
+    background:radial-gradient(rgba(255,255,255,.18),transparent 70%);
     transition:.35s;
 }
 
@@ -413,22 +338,9 @@
     opacity:1;
 }
 
-/* Tile Animation */
-
 .react-calendar__tile{
     animation:calendarTileAppear .45s ease both;
 }
-
-/* Usuń cały blok nth-child jeśli nie zależy Ci na kaskadowym wejściu */
-/*
-.react-calendar__tile:nth-child(7n+1){animation-delay:.02s;}
-.react-calendar__tile:nth-child(7n+2){animation-delay:.04s;}
-.react-calendar__tile:nth-child(7n+3){animation-delay:.06s;}
-.react-calendar__tile:nth-child(7n+4){animation-delay:.08s;}
-.react-calendar__tile:nth-child(7n+5){animation-delay:.10s;}
-.react-calendar__tile:nth-child(7n+6){animation-delay:.12s;}
-.react-calendar__tile:nth-child(7n){animation-delay:.14s;}
-*/
 
 @keyframes calendarTileAppear{
     from{
@@ -441,37 +353,44 @@
     }
 }
 
-/* Active Tile */
-
-.react-calendar__tile--active::before{opacity:.18;}
-.react-calendar__tile--active::after{opacity:1;}
+.react-calendar__tile--active::before{
+    opacity:.18;
+}
 
 .react-calendar__tile abbr{
-    transition:
-        transform .25s,
-        color .25s;
+    transition:.25s;
 }
 
 .react-calendar__tile:hover abbr{
     transform:scale(1.08);
 }
 
-/* Event Colors */
+.calendar-event-dot.success{
+    background:#4ade80;
+}
 
-.calendar-event-dot.success{background:#4ade80;}
-.calendar-event-dot.warning{background:#facc15;}
-.calendar-event-dot.error{background:#fb7185;}
-.calendar-event-dot.info{background:#60a5fa;}
-.calendar-event-dot.purple{background:#a78bfa;}
+.calendar-event-dot.warning{
+    background:#facc15;
+}
 
-/* Event Chip */
+.calendar-event-dot.error{
+    background:#fb7185;
+}
+
+.calendar-event-dot.info{
+    background:#60a5fa;
+}
+
+.calendar-event-dot.purple{
+    background:#a78bfa;
+}
 
 .calendar-day-chip{
     position:absolute;
     left:10px;
     bottom:10px;
     padding:4px 8px;
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:999px;
     background:rgba(255,255,255,.08);
     color:var(--text-on-primary);
@@ -479,8 +398,6 @@
     font-weight:600;
     backdrop-filter:blur(12px);
 }
-
-/* Events */
 
 .calendar-events{
     display:flex;
@@ -513,9 +430,6 @@
     font-size:.78rem;
     font-weight:700;
 }
-
-/* Event Card */
-
 .calendar-event-card{
     position:relative;
     display:flex;
@@ -523,17 +437,11 @@
     gap:20px;
     overflow:hidden;
     padding:22px 24px;
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:24px;
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.08),
-        rgba(255,255,255,.04)
-    );
-    transition:
-        transform .3s,
-        border-color .3s,
-        box-shadow .3s;
+    background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+    transition:.3s;
+    animation:calendarEventIn .45s ease both;
 }
 
 .calendar-event-card:hover{
@@ -542,14 +450,17 @@
     box-shadow:0 20px 50px rgba(0,0,0,.18);
 }
 
-/* Event */
-
 .calendar-event-bar{
     align-self:stretch;
     width:6px;
     border-radius:999px;
     background:var(--accent);
     box-shadow:0 0 18px color-mix(in srgb,var(--accent) 40%,transparent);
+    transition:.3s;
+}
+
+.calendar-event-card:hover .calendar-event-bar{
+    transform:scaleY(1.08);
 }
 
 .calendar-event-time{
@@ -577,8 +488,6 @@
     text-transform:uppercase;
 }
 
-/* Event Content */
-
 .calendar-event-content{
     flex:1;
     display:flex;
@@ -599,8 +508,6 @@
     line-height:1.6;
 }
 
-/* Event Category */
-
 .calendar-event-category{
     width:max-content;
     padding:7px 12px;
@@ -611,13 +518,14 @@
     font-size:.72rem;
     font-weight:700;
     letter-spacing:1px;
-    transition:
-        background .3s,
-        border-color .3s,
-        transform .3s;
+    transition:.3s;
 }
 
-/* Event Action */
+.calendar-event-card:hover .calendar-event-category{
+    background:color-mix(in srgb,var(--accent) 16%,transparent);
+    border-color:color-mix(in srgb,var(--accent) 35%,transparent);
+    transform:translateX(4px);
+}
 
 .calendar-event-action{
     display:flex;
@@ -638,16 +546,14 @@
     background:rgba(255,255,255,.14);
 }
 
-/* Empty */
-
 .calendar-empty{
     display:flex;
-    flex-direction:column;
+    flex-direction,column;
     align-items:center;
     justify-content:center;
     gap:18px;
     padding:70px 30px;
-    border:2px dashed rgba(255,255,255,.10);
+    border:2px dashed rgba(255,255,255,.1);
     border-radius:26px;
     background:rgba(255,255,255,.04);
     text-align:center;
@@ -659,7 +565,7 @@
     justify-content:center;
     width:82px;
     height:82px;
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:50%;
     background:rgba(255,255,255,.08);
     font-size:2rem;
@@ -677,9 +583,72 @@
     line-height:1.7;
 }
 
-/* Responsive */
+.calendar-wrapper{
+    animation:calendarFade .55s ease;
+}
 
-@media (max-width:1200px){
+@keyframes calendarFade{
+    from{
+        opacity:0;
+        transform:translateY(16px) scale(.985);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+@keyframes calendarEventIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.calendar-event-card:nth-child(2){
+    animation-delay:.05s;
+}
+
+.calendar-event-card:nth-child(3){
+    animation-delay:.1s;
+}
+
+.calendar-event-card:nth-child(4){
+    animation-delay:.15s;
+}
+
+.calendar-event-card:nth-child(5){
+    animation-delay:.2s;
+}
+
+.calendar-event-category{
+    will-change:transform;
+}
+
+.react-calendar__tile:focus-visible,
+.calendar-nav:focus-visible,
+.calendar-event-action:focus-visible,
+.calendar-today:focus-visible{
+    outline:none;
+    box-shadow:
+        0 0 0 3px rgba(255,255,255,.18),
+        0 0 0 6px rgba(255,255,255,.08);
+}
+
+.calendar-wrapper,
+.react-calendar__tile,
+.calendar-nav,
+.calendar-event-card,
+.calendar-event-action,
+.calendar-event-bar{
+    transform:translateZ(0);
+    will-change:transform;
+}
+@media(max-width:1200px){
 
     .calendar-wrapper{
         padding:28px;
@@ -690,9 +659,10 @@
         min-height:92px;
         padding:14px;
     }
+
 }
 
-@media (max-width:992px){
+@media(max-width:992px){
 
     .calendar-header{
         flex-wrap:wrap;
@@ -706,8 +676,13 @@
         font-size:2rem;
     }
 
-    .calendar-navigation{order:2;}
-    .calendar-today{order:3;}
+    .calendar-navigation{
+        order:2;
+    }
+
+    .calendar-today{
+        order:3;
+    }
 
     .calendar-events{
         margin-top:26px;
@@ -721,9 +696,10 @@
     .calendar-event-action{
         margin-left:auto;
     }
+
 }
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     .calendar-wrapper{
         padding:22px;
@@ -755,9 +731,10 @@
     .calendar-event-time{
         min-width:72px;
     }
+
 }
 
-@media (max-width:600px){
+@media(max-width:600px){
 
     .calendar-header h2{
         font-size:1.65rem;
@@ -789,9 +766,10 @@
         width:42px;
         height:42px;
     }
+
 }
 
-@media (max-width:480px){
+@media(max-width:480px){
 
     .calendar-wrapper{
         padding:18px;
@@ -818,81 +796,17 @@
         width:6px;
         height:6px;
     }
-}
 
-/* Accessibility */
-
-.react-calendar__tile:focus-visible,
-.calendar-nav:focus-visible,
-.calendar-event-action:focus-visible,
-.calendar-today:focus-visible{
-    outline:none;
-    box-shadow:
-        0 0 0 3px rgba(255,255,255,.18),
-        0 0 0 6px rgba(255,255,255,.08);
-}
-
-/* Animations */
-
-.calendar-wrapper{
-    animation:calendarFade .55s ease;
-}
-
-@keyframes calendarFade{
-    from{
-        opacity:0;
-        transform:translateY(16px) scale(.985);
+    .calendar-month-chip{
+        padding:8px 12px;
+        font-size:.75rem;
     }
-    to{
-        opacity:1;
-        transform:none;
-    }
+
 }
 
-.calendar-event-card{
-    animation:calendarEventIn .45s ease both;
-}
+/* Reduced motion */
 
-/* Usuń cały blok poniżej jeśli nie zależy Ci na kaskadowym wejściu */
-/*
-.calendar-event-card:nth-child(2){animation-delay:.05s;}
-.calendar-event-card:nth-child(3){animation-delay:.10s;}
-.calendar-event-card:nth-child(4){animation-delay:.15s;}
-.calendar-event-card:nth-child(5){animation-delay:.20s;}
-*/
-
-@keyframes calendarEventIn{
-    from{
-        opacity:0;
-        transform:translateY(12px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-/* Hover */
-
-.calendar-event-bar{
-    transition:
-        transform .3s,
-        box-shadow .3s;
-}
-
-.calendar-event-card:hover .calendar-event-bar{
-    transform:scaleY(1.08);
-}
-
-.calendar-event-card:hover .calendar-event-category{
-    background:color-mix(in srgb,var(--accent) 16%,transparent);
-    border-color:color-mix(in srgb,var(--accent) 35%,transparent);
-    transform:translateX(4px);
-}
-
-/* Reduced Motion */
-
-@media (prefers-reduced-motion:reduce){
+@media(prefers-reduced-motion:reduce){
 
     .calendar-wrapper,
     .react-calendar__tile,
@@ -900,12 +814,15 @@
     .calendar-nav,
     .calendar-event-action,
     .calendar-today{
+
         animation:none;
         transition:none;
+
     }
+
 }
 
-/* GPU */
+/* Performance */
 
 .calendar-wrapper,
 .react-calendar__tile,
@@ -913,6 +830,8 @@
 .calendar-event-card,
 .calendar-event-action,
 .calendar-event-bar{
+
     transform:translateZ(0);
     will-change:transform;
+
 }
