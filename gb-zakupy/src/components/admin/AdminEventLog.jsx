@@ -1,7 +1,10 @@
 import { formatDate } from "../../utils/dateUtils";
 
 
-export default function AdminEventLog({ logs }) {
+export default function AdminEventLog({
+    logs=[]
+}){
+
 
     return (
 
@@ -10,25 +13,32 @@ export default function AdminEventLog({ logs }) {
 
             <div className="event-log-header">
 
+
                 <div className="event-log-header-left">
+
 
                     <small>
                         EVENT LOG
                     </small>
 
+
                     <h1>
                         Dziennik zdarzeń
                     </h1>
+
 
                     <p>
                         Łącznie wpisów: {logs.length}
                     </p>
 
+
                 </div>
 
 
 
+
                 <div className="event-log-toolbar">
+
 
                     <button
                         type="button"
@@ -37,6 +47,7 @@ export default function AdminEventLog({ logs }) {
                         Odśwież
                     </button>
 
+
                 </div>
 
 
@@ -44,42 +55,56 @@ export default function AdminEventLog({ logs }) {
 
 
 
-            {logs.length === 0 ? (
+
+
+            {!logs.length ? (
 
                 <div className="event-empty">
+
 
                     <div className="event-empty-icon">
                         📜
                     </div>
 
+
                     <h3>
                         Brak zdarzeń
                     </h3>
 
+
                     <p>
                         Nie znaleziono żadnych wpisów.
                     </p>
+
 
                 </div>
 
 
             ) : (
 
+
                 <div className="event-timeline">
 
 
-                    {logs.map(log => (
+                    {logs.map(log=>(
+
 
                         <article
+
                             key={log.id}
+
                             className={
                                 `event-item ${
                                     log.type || "system"
                                 }`
                             }
+
                         >
 
-                            <div className="event-node" />
+
+                            <div className="event-node"/>
+
+
 
 
                             <div className="event-card">
@@ -96,7 +121,9 @@ export default function AdminEventLog({ logs }) {
                                         </div>
 
 
+
                                         <div>
+
 
                                             <h3>
                                                 Zdarzenie
@@ -107,6 +134,7 @@ export default function AdminEventLog({ logs }) {
                                                 {log.message}
                                             </p>
 
+
                                         </div>
 
 
@@ -114,7 +142,10 @@ export default function AdminEventLog({ logs }) {
 
 
 
+
+
                                     <div className="event-time">
+
 
                                         <strong>
 
@@ -125,6 +156,7 @@ export default function AdminEventLog({ logs }) {
 
                                         </strong>
 
+
                                     </div>
 
 
@@ -132,7 +164,10 @@ export default function AdminEventLog({ logs }) {
 
 
 
+
+
                                 <div className="event-meta">
+
 
                                     <div className="event-meta-item">
 
@@ -140,7 +175,10 @@ export default function AdminEventLog({ logs }) {
 
                                     </div>
 
+
                                 </div>
+
+
 
 
                             </div>
@@ -148,10 +186,12 @@ export default function AdminEventLog({ logs }) {
 
                         </article>
 
+
                     ))}
 
 
                 </div>
+
 
             )}
 
