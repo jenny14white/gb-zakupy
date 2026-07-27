@@ -3,22 +3,38 @@ import { useState } from "react";
 import { updateOrder } from "../../services/ordersService";
 import { UNITS } from "../../utils/constants";
 
+
 export default function AdminOrderEditForm({
     order,
     onCancel,
     onSaved,
-}) {
+}){
 
-    const [product,setProduct] = useState(order.product);
-    const [quantity,setQuantity] = useState(order.quantity);
-    const [unit,setUnit] = useState(order.unit);
-    const [requestedBy,setRequestedBy] = useState(order.requestedBy);
 
-    const [adminComment,setAdminComment] = useState(
+    const [product,setProduct]=useState(
+        order.product || ""
+    );
+
+    const [quantity,setQuantity]=useState(
+        order.quantity || ""
+    );
+
+    const [unit,setUnit]=useState(
+        order.unit || UNITS[0]
+    );
+
+    const [requestedBy,setRequestedBy]=useState(
+        order.requestedBy || ""
+    );
+
+    const [adminComment,setAdminComment]=useState(
         order.adminComment || ""
     );
 
-    const [loading,setLoading] = useState(false);
+    const [loading,setLoading]=useState(false);
+
+
+
 
 
     async function handleSave(){
@@ -41,10 +57,10 @@ export default function AdminOrderEditForm({
             await updateOrder(
                 order.id,
                 {
-                    product,
+                    product:product.trim(),
                     quantity,
                     unit,
-                    requestedBy,
+                    requestedBy:requestedBy.trim(),
                     adminComment,
                 }
             );
@@ -59,6 +75,7 @@ export default function AdminOrderEditForm({
                 "Order update error:",
                 error
             );
+
 
             alert(
                 "Nie udało się zapisać zmian."
@@ -75,12 +92,16 @@ export default function AdminOrderEditForm({
 
 
 
+
+
     return (
 
         <article className="admin-order editing">
 
 
+
             <div className="edit-grid">
+
 
 
                 <label>
@@ -91,14 +112,16 @@ export default function AdminOrderEditForm({
 
                     <input
                         value={product}
-                        onChange={event =>
+                        onChange={e=>
                             setProduct(
-                                event.target.value
+                                e.target.value
                             )
                         }
                     />
 
                 </label>
+
+
 
 
 
@@ -110,14 +133,16 @@ export default function AdminOrderEditForm({
 
                     <input
                         value={requestedBy}
-                        onChange={event =>
+                        onChange={e=>
                             setRequestedBy(
-                                event.target.value
+                                e.target.value
                             )
                         }
                     />
 
                 </label>
+
+
 
 
 
@@ -131,14 +156,16 @@ export default function AdminOrderEditForm({
                         type="number"
                         min="1"
                         value={quantity}
-                        onChange={event =>
+                        onChange={e=>
                             setQuantity(
-                                event.target.value
+                                e.target.value
                             )
                         }
                     />
 
                 </label>
+
+
 
 
 
@@ -148,16 +175,17 @@ export default function AdminOrderEditForm({
                         Jednostka
                     </span>
 
+
                     <select
                         value={unit}
-                        onChange={event =>
+                        onChange={e=>
                             setUnit(
-                                event.target.value
+                                e.target.value
                             )
                         }
                     >
 
-                        {UNITS.map(item => (
+                        {UNITS.map(item=>(
 
                             <option
                                 key={item}
@@ -170,7 +198,11 @@ export default function AdminOrderEditForm({
 
                     </select>
 
+
                 </label>
+
+
+
 
 
 
@@ -180,52 +212,81 @@ export default function AdminOrderEditForm({
                         Komentarz administratora
                     </span>
 
+
                     <textarea
+
                         rows={3}
+
                         value={adminComment}
-                        onChange={event =>
+
+                        onChange={e=>
                             setAdminComment(
-                                event.target.value
+                                e.target.value
                             )
                         }
+
                     />
 
                 </label>
 
 
+
+
             </div>
+
+
+
+
 
 
 
             <div className="admin-actions">
 
 
+
                 <button
+
                     className="admin-button success"
+
                     onClick={handleSave}
+
                     disabled={loading}
+
                 >
 
                     {
                         loading
-                            ? "Zapisywanie..."
-                            : "💾 Zapisz zmiany"
+                        ? "Zapisywanie..."
+                        : "💾 Zapisz zmiany"
                     }
 
                 </button>
 
 
 
+
+
                 <button
+
                     className="admin-button secondary"
+
                     onClick={onCancel}
+
                     disabled={loading}
+
                 >
+
                     Anuluj
+
                 </button>
 
 
+
+
             </div>
+
+
+
 
 
         </article>
