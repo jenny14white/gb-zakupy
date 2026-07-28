@@ -1,9 +1,5 @@
 import {useEffect,useState} from "react";
-
 import AdminOrderCard from "./AdminOrderCard";
-
-import "../../styles/admin-shopping.css";
-
 
 export default function AdminMonthGroup({
 month,
@@ -14,23 +10,12 @@ onToggleOrder,
 onToggleMonth
 }){
 
-
-const [isOpen,setIsOpen]=useState(
-autoOpen
-);
-
+const [isOpen,setIsOpen]=useState(autoOpen);
 
 
 useEffect(()=>{
-
-if(autoOpen){
-setIsOpen(true);
-}
-
-},[
-autoOpen
-]);
-
+if(autoOpen)setIsOpen(true);
+},[autoOpen]);
 
 
 const orderIds=orders.map(
@@ -38,18 +23,19 @@ order=>order.id
 );
 
 
-
-const selectedCount=
-orderIds.filter(
+const selectedCount=orderIds.filter(
 id=>selectedOrders.includes(id)
 ).length;
-
 
 
 const monthSelected=
 orders.length>0 &&
 selectedCount===orders.length;
 
+
+const monthPartial=
+selectedCount>0 &&
+selectedCount<orders.length;
 
 
 function handleCheckbox(e){
@@ -66,67 +52,43 @@ orders
 
 return(
 
-<section
-className={
-`shopping-category ${
-isOpen
-?"open"
-:"closed"
-}`
-}
->
-
+<section className={`shopping-category ${isOpen?"open":"closed"}`}>
 
 
 <button
-
 type="button"
-
 className="shopping-category-header"
-
 onClick={()=>
-setIsOpen(
-value=>!value
-)
+setIsOpen(v=>!v)
 }
-
 >
-
 
 
 <div className="shopping-category-left">
 
 
-
 <div className="shopping-chevron">
 
-{
-isOpen
-?"▼"
-:"▶"
-}
+{isOpen?"▼":"▶"}
 
 </div>
 
 
-
-
 <input
-
 type="checkbox"
-
-checked={
+className={`month-select ${
 monthSelected
-}
-
+?"checked"
+:""
+} ${
+monthPartial
+?"partial"
+:""
+}`}
+checked={monthSelected}
 onChange={handleCheckbox}
-
-onClick={e=>
-e.stopPropagation()
-}
-
+onClick={e=>e.stopPropagation()}
 />
-
 
 
 
@@ -140,14 +102,10 @@ e.stopPropagation()
 
 <span>
 
-{
-orders.length
-}
- zamówień
+{orders.length} zamówień
 
-{
-selectedCount>0 &&
-` • wybrane ${selectedCount}`
+{selectedCount>0&&
+` • wybrane ${selectedCount}/${orders.length}`
 }
 
 </span>
@@ -156,37 +114,27 @@ selectedCount>0 &&
 </div>
 
 
-
 </div>
-
-
 
 
 
 <div className="shopping-count">
 
-{
-orders.length
-}
+{orders.length}
 
 </div>
-
 
 
 </button>
 
 
 
-
-
-{
-isOpen && (
+{isOpen&&(
 
 <div className="shopping-category-body">
 
 
-{
-orders.map(order=>(
+{orders.map(order=>(
 
 <AdminOrderCard
 
@@ -202,7 +150,7 @@ order.id
 )
 }
 
-onSelect={()=> 
+onSelect={()=>
 onToggleOrder(
 order.id
 )
@@ -210,17 +158,12 @@ order.id
 
 />
 
-))
-}
-
+))}
 
 
 </div>
 
-)
-
-}
-
+)}
 
 
 </section>
