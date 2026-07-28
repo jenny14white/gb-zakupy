@@ -7,7 +7,6 @@ export default function AdminStats({
     acceptedCount,
     completedCount,
 }){
-
     const stats=[
         {
             icon:"📋",
