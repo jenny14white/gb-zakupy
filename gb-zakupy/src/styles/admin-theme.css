@@ -946,3 +946,13 @@ width:100%;
 }
 
 }
+.admin-page .month-select{
+width:18px;
+height:18px;
+accent-color:var(--admin-accent);
+cursor:pointer;
+}
+
+.admin-page .month-select.partial{
+opacity:.7;
+}
