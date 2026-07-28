@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect,useState} from "react";
 
 import AdminOrderCard from "./AdminOrderCard";
 
@@ -6,137 +6,225 @@ import "../../styles/admin-shopping.css";
 
 
 export default function AdminMonthGroup({
-    month,
-    orders=[],
-    autoOpen=false,
+month,
+orders=[],
+autoOpen=false,
+selectedOrders=[],
+onToggleOrder,
+onToggleMonth
 }){
 
 
-    const [isOpen,setIsOpen]=useState(
-        autoOpen
-    );
+const [isOpen,setIsOpen]=useState(
+autoOpen
+);
 
 
 
-    useEffect(()=>{
+useEffect(()=>{
 
-        if(autoOpen){
-            setIsOpen(true);
-        }
+if(autoOpen){
+setIsOpen(true);
+}
 
-    },[
-        autoOpen
-    ]);
+},[
+autoOpen
+]);
 
 
 
+const orderIds=orders.map(
+order=>order.id
+);
 
-    return (
 
-        <section
-            className={
-                `shopping-category ${
-                    isOpen
-                    ? "open"
-                    : "closed"
-                }`
-            }
-        >
 
+const selectedCount=
+orderIds.filter(
+id=>selectedOrders.includes(id)
+).length;
 
-            <button
 
-                type="button"
 
-                className="shopping-category-header"
+const monthSelected=
+orders.length>0 &&
+selectedCount===orders.length;
 
-                onClick={()=>
-                    setIsOpen(
-                        value=>!value
-                    )
-                }
 
-            >
 
+function handleCheckbox(e){
 
-                <div className="shopping-category-left">
+e.stopPropagation();
 
+onToggleMonth(
+orders
+);
 
-                    <div className="shopping-chevron">
+}
 
-                        {isOpen
-                            ? "▼"
-                            : "▶"
-                        }
 
-                    </div>
 
+return(
 
+<section
+className={
+`shopping-category ${
+isOpen
+?"open"
+:"closed"
+}`
+}
+>
 
 
-                    <div className="shopping-category-title">
 
+<button
 
-                        <h2>
-                            {month}
-                        </h2>
+type="button"
 
+className="shopping-category-header"
 
-                        <span>
-                            {orders.length} zamówień
-                        </span>
+onClick={()=>
+setIsOpen(
+value=>!value
+)
+}
 
+>
 
-                    </div>
 
 
-                </div>
+<div className="shopping-category-left">
 
 
 
+<div className="shopping-chevron">
 
-                <div className="shopping-count">
+{
+isOpen
+?"▼"
+:"▶"
+}
 
-                    {orders.length}
+</div>
 
-                </div>
 
 
 
-            </button>
+<input
 
+type="checkbox"
 
+checked={
+monthSelected
+}
 
+onChange={handleCheckbox}
 
+onClick={e=>
+e.stopPropagation()
+}
 
-            {isOpen && (
+/>
 
-                <div className="shopping-category-body">
 
 
-                    {orders.map(order=>(
 
-                        <AdminOrderCard
+<div className="shopping-category-title">
 
-                            key={order.id}
 
-                            order={order}
+<h2>
+{month}
+</h2>
 
-                            canOrder={false}
 
-                        />
+<span>
 
-                    ))}
+{
+orders.length
+}
+ zamówień
 
+{
+selectedCount>0 &&
+` • wybrane ${selectedCount}`
+}
 
-                </div>
+</span>
 
-            )}
 
+</div>
 
 
-        </section>
 
-    );
+</div>
+
+
+
+
+
+<div className="shopping-count">
+
+{
+orders.length
+}
+
+</div>
+
+
+
+</button>
+
+
+
+
+
+{
+isOpen && (
+
+<div className="shopping-category-body">
+
+
+{
+orders.map(order=>(
+
+<AdminOrderCard
+
+key={order.id}
+
+order={order}
+
+canOrder={false}
+
+selected={
+selectedOrders.includes(
+order.id
+)
+}
+
+onSelect={()=> 
+onToggleOrder(
+order.id
+)
+}
+
+/>
+
+))
+}
+
+
+
+</div>
+
+)
+
+}
+
+
+
+</section>
+
+);
 
 }
