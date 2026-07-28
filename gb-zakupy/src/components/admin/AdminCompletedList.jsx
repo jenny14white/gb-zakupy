@@ -1,361 +1,256 @@
-import {useMemo,useState} from "react";
-import * as XLSX from "xlsx";
-
-import EmptyState from "../shared/EmptyState";
-import AdminMonthGroup from "./AdminMonthGroup";
-
-import {groupOrdersByOrderedMonth} from "../../utils/orderUtils";
-import {formatDate} from "../../utils/dateUtils";
+import {useEffect,useState} from "react";
+import {deleteOrder,markOrderAsAccepted,markOrderAsCompleted} from "../../services/ordersService";
 import {ORDER_STATUS} from "../../utils/constants";
+import {formatDate} from "../../utils/dateUtils";
+import AdminOrderEditForm from "./AdminOrderEditForm";
+import ConfirmDialog from "../shared/ConfirmDialog";
+
+export default function AdminOrderCard({
+order,
+selected=false,
+onSelect,
+canOrder=true
+}){
+
+const [expanded,setExpanded]=useState(false);
+const [isEditing,setIsEditing]=useState(false);
+const [loading,setLoading]=useState(false);
+const [adminComment,setAdminComment]=useState(order.adminComment||"");
+const [showDeleteDialog,setShowDeleteDialog]=useState(false);
+
+useEffect(()=>{
+setAdminComment(order.adminComment||"");
+},[order]);
 
 
-function normalize(text=""){
-return text
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.replace(/ł/g,"l");
+const isPending=order.status===ORDER_STATUS.PENDING;
+const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
+const isCompleted=order.status===ORDER_STATUS.COMPLETED;
+
+const statusClass=isPending?"pending":isAccepted?"progress":"done";
+const statusText=isPending?"🟡 Oczekujące":isAccepted?"🟢 Przyjęte":"🟣 Zrealizowane";
+
+
+async function action(fn){
+if(loading)return;
+try{
+setLoading(true);
+await fn();
+}catch(e){
+console.error(e);
+alert("Nie udało się wykonać operacji.");
+}finally{
+setLoading(false);
+}
 }
 
 
-export default function AdminCompletedList({orders=[]}){
-
-const [search,setSearch]=useState("");
-const [selectedOrders,setSelectedOrders]=useState([]);
-
-
-const completedOrders=useMemo(
-()=>orders.filter(
-order=>order.status===ORDER_STATUS.COMPLETED
-),
-[orders]
+if(isEditing){
+return(
+<AdminOrderEditForm
+order={order}
+onCancel={()=>setIsEditing(false)}
+onSaved={()=>setIsEditing(false)}
+/>
 );
-
-
-const filteredGroups=useMemo(()=>{
-
-const groups=groupOrdersByOrderedMonth(
-completedOrders
-);
-
-const phrase=normalize(
-search.trim()
-);
-
-if(!phrase)
-return groups;
-
-return groups
-.map(group=>({
-...group,
-items:group.items.filter(order=>
-normalize(order.product).includes(phrase)||
-normalize(order.requestedBy).includes(phrase)||
-normalize(order.adminComment||"").includes(phrase)
-)
-}))
-.filter(group=>group.items.length);
-
-},[completedOrders,search]);
-
-
-const visibleOrders=useMemo(
-()=>filteredGroups.flatMap(
-group=>group.items
-),
-[filteredGroups]
-);
-
-
-
-function toggleOrder(id){
-
-setSelectedOrders(prev=>
-prev.includes(id)
-?
-prev.filter(item=>item!==id)
-:
-[...prev,id]
-);
-
 }
-
-
-
-function toggleMonth(items){
-
-const ids=items.map(
-item=>item.id
-);
-
-const checked=ids.every(
-id=>selectedOrders.includes(id)
-);
-
-setSelectedOrders(prev=>
-
-checked
-
-?
-prev.filter(
-id=>!ids.includes(id)
-)
-
-:
-[...new Set([
-...prev,
-...ids
-])]
-
-);
-
-}
-
-
-
-function toggleAll(){
-
-const ids=visibleOrders.map(
-order=>order.id
-);
-
-const checked=ids.every(
-id=>selectedOrders.includes(id)
-);
-
-setSelectedOrders(prev=>
-
-checked
-
-?
-prev.filter(
-id=>!ids.includes(id)
-)
-
-:
-[...new Set([
-...prev,
-...ids
-])]
-
-);
-
-}
-
-
-
-function exportToExcel(){
-
-const source=
-
-selectedOrders.length
-
-?
-
-completedOrders.filter(
-order=>selectedOrders.includes(order.id)
-)
-
-:
-
-visibleOrders;
-
-
-if(!source.length){
-alert("Brak danych do eksportu.");
-return;
-}
-
-
-const rows=source.map(order=>({
-
-Produkt:order.product,
-
-Ilość:order.quantity,
-
-Jednostka:order.unit,
-
-Zgłaszający:order.requestedBy,
-
-Status:"Zrealizowane",
-
-Miesiąc:
-new Date(order.orderedAt)
-.toLocaleDateString(
-"pl-PL",
-{
-month:"long",
-year:"numeric"
-}
-),
-
-"Data dodania":
-formatDate(order.createdAt),
-
-"Data zamówienia":
-formatDate(order.orderedAt),
-
-"Data realizacji":
-formatDate(order.completedAt),
-
-"Komentarz admina":
-order.adminComment||""
-
-}));
-
-
-const workbook=XLSX.utils.book_new();
-
-
-XLSX.utils.book_append_sheet(
-workbook,
-XLSX.utils.json_to_sheet(rows),
-"Zrealizowane"
-);
-
-
-XLSX.writeFile(
-workbook,
-`GB_Zrealizowane_${
-new Date()
-.toISOString()
-.split("T")[0]
-}.xlsx`
-);
-
-}
-
 
 
 return(
+<>
 
-<section className="admin-completed-list">
+<ConfirmDialog
+open={showDeleteDialog}
+danger
+title="Usunąć zamówienie?"
+message={`Czy na pewno chcesz usunąć "${order.product}"?\n\nTej operacji nie można cofnąć.`}
+confirmText="Usuń"
+cancelText="Anuluj"
+onConfirm={()=>action(async()=>{
+await deleteOrder(order);
+setShowDeleteDialog(false);
+})}
+onCancel={()=>setShowDeleteDialog(false)}
+/>
 
-<div className="admin-list-header">
 
-<div>
+<article className={`shopping-card ${selected?"selected":""}`}>
 
-<h2>
-✅ Zrealizowane
-</h2>
+<div className="shopping-card-bar"/>
+
+
+<div
+className="shopping-card-content"
+onClick={()=>setExpanded(v=>!v)}
+>
+
+
+<div className="shopping-card-top">
+
+<div className="shopping-product">
+
+{onSelect&&(
+<input
+type="checkbox"
+className="shopping-select"
+checked={selected}
+onChange={()=>onSelect(order.id)}
+onClick={e=>e.stopPropagation()}
+/>
+)}
+
+<h3>{order.product}</h3>
 
 <p>
-Łącznie: {completedOrders.length}
-&nbsp;|&nbsp;
-Wybrane: {selectedOrders.length}
+{order.quantity} {order.unit}
 </p>
 
 </div>
 
-
-<div className="completed-actions">
-
-<button
-className="admin-button secondary"
-onClick={toggleAll}
->
-
-{
-visibleOrders.length &&
-visibleOrders.every(
-order=>selectedOrders.includes(order.id)
-)
-
-?
-"☑ Odznacz wszystko"
-:
-"☐ Zaznacz wszystko"
-
-}
-
-</button>
+</div>
 
 
-<button
-className="admin-button"
-disabled={!visibleOrders.length}
-onClick={exportToExcel}
->
+{expanded&&(
 
-📊 Eksport Excel
+<div className="shopping-card-footer">
 
-{
-selectedOrders.length
-?
-` (${selectedOrders.length})`
-:""
-}
 
-</button>
+<div className="shopping-card-footer-left">
 
+
+<div className="shopping-meta">
+
+<div className="shopping-chip">
+📅 Dodano: {formatDate(order.createdAt)}
+</div>
+
+<div className="shopping-chip">
+✅ Przyjęto: {order.acceptedAt?formatDate(order.acceptedAt):"—"}
+</div>
+
+<div className="shopping-chip">
+📦 Zrealizowano: {order.completedAt?formatDate(order.completedAt):"—"}
+</div>
+
+<div className="shopping-chip">
+👤 {order.requestedBy}
 </div>
 
 </div>
 
 
-
-<input
-className="search-input"
-type="text"
-placeholder="🔍 Szukaj produktu, osoby lub komentarza..."
-value={search}
-onChange={e=>setSearch(e.target.value)}
+<textarea
+className="shopping-comment"
+rows={3}
+value={adminComment}
+placeholder="Komentarz administratora..."
+disabled={loading||isCompleted}
+onChange={e=>setAdminComment(e.target.value)}
 />
 
 
-
-{
-!filteredGroups.length
-
-?
-
-<EmptyState>
-
-{
-search
-?
-"Nie znaleziono żadnych zrealizowanych zamówień."
-:
-"Nie ma jeszcze zrealizowanych zamówień."
-}
-
-</EmptyState>
-
-
-:
-
-<div className="completed-months">
-
-{
-filteredGroups.map(group=>(
-
-<AdminMonthGroup
-
-key={group.month}
-
-month={group.month}
-
-orders={group.items}
-
-selectedOrders={selectedOrders}
-
-onToggleOrder={toggleOrder}
-
-onToggleMonth={toggleMonth}
-
-autoOpen={Boolean(search)}
-
-/>
-
-))
-
-}
+{order.adminComment&&(
+<div className="shopping-request-info">
+<strong>Komentarz administratora</strong>
+<p>{order.adminComment}</p>
+</div>
+)}
 
 </div>
 
-}
 
-</section>
+
+<div className="shopping-actions">
+
+{isPending&&(
+<button
+className="shopping-icon-btn success"
+onClick={e=>{
+e.stopPropagation();
+action(()=>markOrderAsAccepted(order,adminComment));
+}}
+disabled={loading}
+>
+✔
+</button>
+)}
+
+
+{isAccepted&&(
+<button
+className="shopping-icon-btn success"
+onClick={e=>{
+e.stopPropagation();
+action(()=>markOrderAsCompleted(order,adminComment));
+}}
+disabled={loading}
+>
+✓
+</button>
+)}
+
+
+{!isCompleted&&(
+<button
+className="shopping-icon-btn info"
+onClick={e=>{
+e.stopPropagation();
+setIsEditing(true);
+}}
+disabled={loading}
+>
+✏️
+</button>
+)}
+
+
+<button
+className="shopping-icon-btn danger"
+onClick={e=>{
+e.stopPropagation();
+setShowDeleteDialog(true);
+}}
+disabled={loading}
+>
+🗑
+</button>
+
+
+</div>
+
+
+</div>
+
+)}
+
+</div>
+
+
+
+<div className="shopping-card-right">
+
+<div className={`shopping-status ${statusClass}`}>
+{statusText}
+</div>
+
+
+<button
+className="shopping-icon-btn"
+onClick={e=>{
+e.stopPropagation();
+setExpanded(v=>!v);
+}}
+>
+{expanded?"▲":"▼"}
+</button>
+
+
+</div>
+
+
+</article>
+
+</>
 
 );
 
