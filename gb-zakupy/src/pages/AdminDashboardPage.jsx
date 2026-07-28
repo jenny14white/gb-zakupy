@@ -13,7 +13,7 @@ import AdminNotifications from "../components/admin/AdminNotifications";
 import AdminCompletedList from "../components/admin/AdminCompletedList";
 import AdminEventLog from "../components/admin/AdminEventLog";
 import AdminCalendar from "../components/admin/AdminCalendar";
-import "../styles/admin-dashboard.css";
+
 
 
 const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
