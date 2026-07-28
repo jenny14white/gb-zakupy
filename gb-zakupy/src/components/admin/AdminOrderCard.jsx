@@ -4,6 +4,7 @@ import {ORDER_STATUS} from "../../utils/constants";
 import {formatDate} from "../../utils/dateUtils";
 import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
+import "../../styles/admin-shopping.css";
 
 
 export default function AdminOrderCard({order,selected=false,onSelect,canOrder=true}){
