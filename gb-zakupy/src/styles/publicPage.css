@@ -1244,71 +1244,56 @@
    PRZYCISK POWROTU - DESKTOP
 ======================================================= */
 
-@media (min-width:1400px){
+.back-home-button{
 
-    .back-home-button{
+    position:fixed;
 
-        position:fixed;
+    top:24px;
+    left:24px;
 
-        top:24px;
+    z-index:2000;
 
-        left:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        z-index:1000;
+    padding:12px 24px;
 
-        display:flex;
+    border-radius:999px;
 
-        align-items:center;
+    border:1px solid rgba(255,255,255,.25);
 
-        gap:8px;
+    background:rgba(255,255,255,.16);
 
-        padding:12px 22px;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
 
-        border:1px solid var(--glass-border);
+    color:#fff;
 
-        border-radius:999px;
+    font-size:15px;
+    font-weight:800;
 
-        background:var(--glass-background);
+    cursor:pointer;
 
-        backdrop-filter:blur(var(--glass-blur));
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
 
-        -webkit-backdrop-filter:blur(var(--glass-blur));
+    transition:.25s ease;
+}
 
-        color:var(--text);
 
-        font-size:15px;
+.back-home-button:hover{
 
-        font-weight:700;
+    transform:translateY(-3px);
 
-        cursor:pointer;
+    background:rgba(255,255,255,.25);
 
-        box-shadow:var(--shadow-medium);
+}
 
-        transition:
 
-            transform .25s,
+.back-home-button:active{
 
-            box-shadow .25s,
-
-            background .25s;
-
-    }
-
-    .back-home-button:hover{
-
-        transform:translateY(-2px);
-
-        background:var(--glass-hover);
-
-        box-shadow:var(--shadow-theme);
-
-    }
-
-    .back-home-button:active{
-
-        transform:scale(.98);
-
-    }
+    transform:scale(.96);
 
 }
 
