@@ -1,301 +1,372 @@
-import { useMemo, useState } from "react";
+import {useMemo,useState} from "react";
 import * as XLSX from "xlsx";
 
 import EmptyState from "../shared/EmptyState";
 import AdminMonthGroup from "./AdminMonthGroup";
 
-import { groupOrdersByOrderedMonth } from "../../utils/orderUtils";
-import { formatDate } from "../../utils/dateUtils";
-import { ORDER_STATUS } from "../../utils/constants";
+import {groupOrdersByOrderedMonth} from "../../utils/orderUtils";
+import {formatDate} from "../../utils/dateUtils";
+import {ORDER_STATUS} from "../../utils/constants";
+
 
 function normalize(text=""){
+return text
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.replace(/ł/g,"l");
+}
 
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/ł/g,"l");
+
+export default function AdminCompletedList({
+orders=[]
+}){
+
+const [search,setSearch]=useState("");
+const [selectedOrders,setSelectedOrders]=useState([]);
+
+
+
+const completedOrders=useMemo(
+()=>orders.filter(
+order=>order.status===ORDER_STATUS.COMPLETED
+),
+[orders]
+);
+
+
+
+const filteredGroups=useMemo(()=>{
+
+const groups=groupOrdersByOrderedMonth(
+completedOrders
+);
+
+const phrase=normalize(
+search.trim()
+);
+
+
+if(!phrase){
+return groups;
+}
+
+
+return groups
+.map(group=>({
+
+...group,
+
+items:group.items.filter(order=>
+
+normalize(order.product).includes(phrase)
+
+||
+
+normalize(order.requestedBy).includes(phrase)
+
+||
+
+normalize(
+order.adminComment||""
+).includes(phrase)
+
+)
+
+}))
+
+.filter(
+group=>group.items.length
+);
+
+
+},[
+completedOrders,
+search
+]);
+
+
+
+function toggleOrder(id){
+
+setSelectedOrders(prev=>
+
+prev.includes(id)
+
+?
+
+prev.filter(
+item=>item!==id
+)
+
+:
+
+[
+...prev,
+id
+]
+
+);
 
 }
 
 
 
-export default function AdminCompletedList({
-    orders=[]
-}){
+function toggleMonth(items){
 
-    const [search,setSearch]=useState("");
+const ids=items.map(
+item=>item.id
+);
 
 
+const allSelected=
+ids.every(
+id=>selectedOrders.includes(id)
+);
 
-    const completedOrders=useMemo(
-        ()=>orders.filter(
-            order =>
-                order.status===ORDER_STATUS.COMPLETED
-        ),
-        [orders]
-    );
 
 
+if(allSelected){
 
-    const filteredGroups=useMemo(()=>{
+setSelectedOrders(prev=>
+prev.filter(
+id=>!ids.includes(id)
+)
+);
 
+}else{
 
-        const groups=
-            groupOrdersByOrderedMonth(
-                completedOrders
-            );
+setSelectedOrders(prev=>[
+...new Set([
+...prev,
+...ids
+])
+]);
 
+}
 
-        const phrase=
-            normalize(search.trim());
+}
 
 
-        if(!phrase)
-            return groups;
 
+function exportToExcel(){
 
 
-        return groups
+const selected=completedOrders.filter(
+order=>
+selectedOrders.includes(order.id)
+);
 
-            .map(group=>({
 
-                ...group,
+if(!selected.length){
 
-                items:
-                    group.items.filter(order=>
+alert(
+"Zaznacz dane do eksportu."
+);
 
-                        normalize(
-                            order.product
-                        ).includes(phrase)
+return;
 
-                        ||
+}
 
-                        normalize(
-                            order.requestedBy
-                        ).includes(phrase)
 
-                        ||
 
-                        normalize(
-                            order.adminComment || ""
-                        ).includes(phrase)
+const rows=selected.map(order=>({
 
-                    )
+Produkt:
+order.product,
 
-            }))
+Ilość:
+order.quantity,
 
-            .filter(
-                group =>
-                    group.items.length
-            );
+Jednostka:
+order.unit,
 
+Zgłaszający:
+order.requestedBy,
 
-    },[
-        completedOrders,
-        search
-    ]);
+Status:
+"Zrealizowane",
 
+"Data dodania":
+formatDate(
+order.createdAt
+),
 
+"Data zamówienia":
+formatDate(
+order.orderedAt
+),
 
+"Data realizacji":
+formatDate(
+order.completedAt
+),
 
+"Miesiąc":
+new Date(
+order.orderedAt
+).toLocaleDateString(
+"pl-PL",
+{
+month:"long",
+year:"numeric"
+}
+),
 
-    function exportToExcel(){
+"Komentarz admina":
+order.adminComment||""
 
+}));
 
-        const rows=
-            filteredGroups.flatMap(
-                group=>
 
-                    group.items.map(order=>({
 
-                        Miesiąc:
-                            group.month,
+const workbook=
+XLSX.utils.book_new();
 
-                        Produkt:
-                            order.product,
 
-                        Ilość:
-                            order.quantity,
+XLSX.utils.book_append_sheet(
+workbook,
+XLSX.utils.json_to_sheet(rows),
+"Zrealizowane"
+);
 
-                        Jednostka:
-                            order.unit,
 
-                        Zgłaszający:
-                            order.requestedBy,
 
-                        Status:
-                            "Zrealizowane",
+const date=
+new Date()
+.toISOString()
+.split("T")[0];
 
-                        "Data dodania":
-                            formatDate(
-                                order.createdAt
-                            ),
 
-                        "Data zamówienia":
-                            formatDate(
-                                order.orderedAt
-                            ),
 
-                        "Data realizacji":
-                            formatDate(
-                                order.completedAt
-                            ),
+XLSX.writeFile(
+workbook,
+`GB_Zrealizowane_${date}.xlsx`
+);
 
-                        "Komentarz admina":
-                            order.adminComment || "",
+}
 
-                    }))
 
-            );
 
+return(
 
+<section className="admin-completed-list">
 
-        if(!rows.length){
 
-            alert(
-                "Brak danych do eksportu."
-            );
+<div className="admin-list-header">
 
-            return;
+<div>
 
-        }
+<h2>
+✅ Zrealizowane
+</h2>
 
+<p>
+Łącznie:
+{completedOrders.length}
+&nbsp;|&nbsp;
+Wybrane:
+{selectedOrders.length}
+</p>
 
+</div>
 
-        const workbook=
-            XLSX.utils.book_new();
 
+<button
+className="admin-button"
+disabled={!selectedOrders.length}
+onClick={exportToExcel}
+>
 
+📊 Eksport Excel
+{selectedOrders.length>0 &&
+` (${selectedOrders.length})`
+}
 
-        XLSX.utils.book_append_sheet(
-            workbook,
-            XLSX.utils.json_to_sheet(rows),
-            "Zrealizowane"
-        );
+</button>
 
 
+</div>
 
-        const date=
-            new Date()
-                .toISOString()
-                .split("T")[0];
 
 
+<input
 
-        XLSX.writeFile(
-            workbook,
-            `GB_Zrealizowane_${date}.xlsx`
-        );
+className="search-input"
 
-    }
+type="text"
 
+placeholder="🔍 Szukaj produktu, osoby lub komentarza..."
 
+value={search}
 
+onChange={e=>
+setSearch(
+e.target.value
+)
+}
 
+/>
 
-    return (
 
-        <section className="admin-completed-list">
 
+{
+!filteredGroups.length
 
-            <div className="admin-list-header">
+?
 
+<EmptyState>
 
-                <div>
+{
+search
+?
+"Nie znaleziono żadnych zrealizowanych zamówień."
 
-                    <h2>
-                        ✅ Zrealizowane
-                    </h2>
+:
 
+"Nie ma jeszcze zrealizowanych zamówień."
+}
 
-                    <p>
-                        Łącznie zamówień: {completedOrders.length}
-                    </p>
+</EmptyState>
 
 
-                </div>
+:
 
+<div className="completed-months">
 
+{
+filteredGroups.map(group=>(
 
-                <button
-                    className="admin-button"
-                    onClick={exportToExcel}
-                >
-                    📊 Eksport Excel
-                </button>
+<AdminMonthGroup
 
+key={group.month}
 
-            </div>
+month={group.month}
 
+orders={group.items}
 
+selectedOrders={selectedOrders}
 
+onToggleOrder={toggleOrder}
 
-            <input
+onToggleMonth={toggleMonth}
 
-                className="search-input"
+autoOpen={
+Boolean(search)
+}
 
-                type="text"
+/>
 
-                placeholder="🔍 Szukaj produktu, osoby lub komentarza..."
+))
+}
 
-                value={search}
+</div>
 
-                onChange={e=>
-                    setSearch(
-                        e.target.value
-                    )
-                }
+}
 
-            />
 
+</section>
 
-
-
-            {!filteredGroups.length ? (
-
-                <EmptyState>
-
-                    {
-                        search
-                        ? "Nie znaleziono żadnych zrealizowanych zamówień."
-                        : "Nie ma jeszcze zrealizowanych zamówień."
-                    }
-
-                </EmptyState>
-
-
-            ) : (
-
-                <div className="completed-months">
-
-
-                    {filteredGroups.map(group=>(
-
-                        <AdminMonthGroup
-
-                            key={group.month}
-
-                            month={group.month}
-
-                            orders={group.items}
-
-                            autoOpen={
-                                Boolean(search)
-                            }
-
-                        />
-
-                    ))}
-
-
-                </div>
-
-            )}
-
-
-        </section>
-
-    );
+);
 
 }
