@@ -13,11 +13,16 @@ onSelect,
 canOrder=true
 }){
 
+if(!order){
+return null;
+}
+
 const [expanded,setExpanded]=useState(false);
 const [isEditing,setIsEditing]=useState(false);
 const [loading,setLoading]=useState(false);
 const [adminComment,setAdminComment]=useState(order.adminComment||"");
 const [showDeleteDialog,setShowDeleteDialog]=useState(false);
+
 
 useEffect(()=>{
 setAdminComment(order.adminComment||"");
@@ -28,25 +33,53 @@ const isPending=order.status===ORDER_STATUS.PENDING;
 const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
 const isCompleted=order.status===ORDER_STATUS.COMPLETED;
 
-const statusClass=isPending?"pending":isAccepted?"progress":"done";
-const statusText=isPending?"🟡 Oczekujące":isAccepted?"🟢 Przyjęte":"🟣 Zrealizowane";
+
+const statusClass=
+isPending
+?"pending"
+:isAccepted
+?"progress"
+:"done";
+
+
+const statusText=
+isPending
+?"🟡 Oczekujące"
+:isAccepted
+?"🟢 Przyjęte"
+:"🟣 Zrealizowane";
 
 
 async function action(fn){
-if(loading)return;
+
+if(loading)
+return;
+
 try{
+
 setLoading(true);
 await fn();
+
 }catch(e){
+
 console.error(e);
-alert("Nie udało się wykonać operacji.");
+
+alert(
+"Nie udało się wykonać operacji."
+);
+
 }finally{
+
 setLoading(false);
+
 }
+
 }
+
 
 
 if(isEditing){
+
 return(
 <AdminOrderEditForm
 order={order}
@@ -54,7 +87,9 @@ onCancel={()=>setIsEditing(false)}
 onSaved={()=>setIsEditing(false)}
 />
 );
+
 }
+
 
 
 return(
@@ -64,12 +99,15 @@ return(
 open={showDeleteDialog}
 danger
 title="Usunąć zamówienie?"
-message={`Czy na pewno chcesz usunąć "${order.product}"?\n\nTej operacji nie można cofnąć.`}
+message={`Czy na pewno chcesz usunąć "${order.product||""}"?\n\nTej operacji nie można cofnąć.`}
 confirmText="Usuń"
 cancelText="Anuluj"
 onConfirm={()=>action(async()=>{
+
 await deleteOrder(order);
+
 setShowDeleteDialog(false);
+
 })}
 onCancel={()=>setShowDeleteDialog(false)}
 />
@@ -88,27 +126,46 @@ onClick={()=>setExpanded(v=>!v)}
 
 <div className="shopping-card-top">
 
+
 <div className="shopping-product">
 
+
 {onSelect&&(
+
 <input
 type="checkbox"
 className="shopping-select"
 checked={selected}
-onChange={()=>onSelect(order.id)}
-onClick={e=>e.stopPropagation()}
+onChange={e=>{
+
+e.stopPropagation();
+
+onSelect(order.id);
+
+}}
+onClick={e=>
+e.stopPropagation()
+}
 />
+
 )}
 
-<h3>{order.product}</h3>
+
+<h3>
+{order.product||"Brak nazwy"}
+</h3>
+
 
 <p>
-{order.quantity} {order.unit}
+{order.quantity||0} {order.unit||""}
 </p>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 
 {expanded&&(
@@ -121,23 +178,29 @@ onClick={e=>e.stopPropagation()}
 
 <div className="shopping-meta">
 
+
 <div className="shopping-chip">
 📅 Dodano: {formatDate(order.createdAt)}
 </div>
+
 
 <div className="shopping-chip">
 ✅ Przyjęto: {order.acceptedAt?formatDate(order.acceptedAt):"—"}
 </div>
 
+
 <div className="shopping-chip">
 📦 Zrealizowano: {order.completedAt?formatDate(order.completedAt):"—"}
 </div>
 
+
 <div className="shopping-chip">
-👤 {order.requestedBy}
+👤 {order.requestedBy||"—"}
 </div>
 
+
 </div>
+
 
 
 <textarea
@@ -146,77 +209,131 @@ rows={3}
 value={adminComment}
 placeholder="Komentarz administratora..."
 disabled={loading||isCompleted}
-onChange={e=>setAdminComment(e.target.value)}
+onChange={e=>
+setAdminComment(
+e.target.value
+)
+}
 />
 
 
+
 {order.adminComment&&(
+
 <div className="shopping-request-info">
-<strong>Komentarz administratora</strong>
-<p>{order.adminComment}</p>
-</div>
-)}
+
+<strong>
+Komentarz administratora
+</strong>
+
+<p>
+{order.adminComment}
+</p>
 
 </div>
+
+)}
+
+
+</div>
+
 
 
 
 <div className="shopping-actions">
 
+
+
 {isPending&&(
+
 <button
+type="button"
 className="shopping-icon-btn success"
-onClick={e=>{
-e.stopPropagation();
-action(()=>markOrderAsAccepted(order,adminComment));
-}}
 disabled={loading}
+onClick={e=>{
+
+e.stopPropagation();
+
+action(()=>
+markOrderAsAccepted(
+order,
+adminComment
+)
+);
+
+}}
 >
 ✔
 </button>
+
 )}
+
 
 
 {isAccepted&&(
+
 <button
+type="button"
 className="shopping-icon-btn success"
-onClick={e=>{
-e.stopPropagation();
-action(()=>markOrderAsCompleted(order,adminComment));
-}}
 disabled={loading}
+onClick={e=>{
+
+e.stopPropagation();
+
+action(()=>
+markOrderAsCompleted(
+order,
+adminComment
+)
+);
+
+}}
 >
 ✓
 </button>
+
 )}
+
 
 
 {!isCompleted&&(
+
 <button
+type="button"
 className="shopping-icon-btn info"
-onClick={e=>{
-e.stopPropagation();
-setIsEditing(true);
-}}
 disabled={loading}
+onClick={e=>{
+
+e.stopPropagation();
+
+setIsEditing(true);
+
+}}
 >
 ✏️
 </button>
+
 )}
 
 
+
 <button
+type="button"
 className="shopping-icon-btn danger"
-onClick={e=>{
-e.stopPropagation();
-setShowDeleteDialog(true);
-}}
 disabled={loading}
+onClick={e=>{
+
+e.stopPropagation();
+
+setShowDeleteDialog(true);
+
+}}
 >
 🗑
 </button>
 
 
+
 </div>
 
 
@@ -224,22 +341,30 @@ disabled={loading}
 
 )}
 
+
 </div>
 
 
 
+
 <div className="shopping-card-right">
+
 
 <div className={`shopping-status ${statusClass}`}>
 {statusText}
 </div>
 
 
+
 <button
+type="button"
 className="shopping-icon-btn"
 onClick={e=>{
+
 e.stopPropagation();
+
 setExpanded(v=>!v);
+
 }}
 >
 {expanded?"▲":"▼"}
@@ -249,7 +374,9 @@ setExpanded(v=>!v);
 </div>
 
 
+
 </article>
+
 
 </>
 
