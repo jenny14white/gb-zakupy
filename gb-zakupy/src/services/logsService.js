@@ -8,7 +8,6 @@ import {
     serverTimestamp,
 } from "firebase/firestore";
 
-
 import {
     auth,
     db,
