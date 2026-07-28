@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import logoGB from "../assets/logo.png";
 
 import LiquidEther from "../components/shared/effects/LiquidEther";
-
 import { loginPortal } from "../firebase/auth";
 import { checkAccessCode } from "../services/accessService";
 
