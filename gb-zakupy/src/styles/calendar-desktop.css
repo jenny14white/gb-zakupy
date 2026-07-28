@@ -820,3 +820,103 @@
 }
 
 }
+/* =====================================================
+   ADD TO CALENDAR
+===================================================== */
+
+.event-card-header{
+
+    position:relative;
+
+}
+
+.event-card-actions{
+
+    position:relative;
+
+    margin-left:auto;
+
+}
+
+.calendar-add-button{
+
+    width:34px;
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    transition:.2s;
+
+}
+
+.calendar-add-button:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:var(--shadow-small);
+
+}
+
+.calendar-add-menu{
+
+    position:absolute;
+
+    top:42px;
+
+    right:0;
+
+    min-width:220px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    border:1px solid var(--border-light);
+
+    box-shadow:var(--shadow-medium);
+
+    z-index:999;
+
+}
+
+.calendar-add-menu button{
+
+    border:none;
+
+    background:none;
+
+    padding:12px 14px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.2s;
+
+}
+
+.calendar-add-menu button:hover{
+
+    background:var(--surface-hover);
+
+}
