@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import "./i18n";
 
 import App from "./App.jsx";
@@ -24,14 +25,15 @@ import "./styles/home.css";
 import "./styles/access.css";
 import "./styles/switchers.css";
 
+
 ReactDOM.createRoot(
-document.getElementById("root")
+    document.getElementById("root")
 ).render(
-<React.StrictMode>
-<ThemeProvider>
-<LanguageProvider>
-<App/>
-</LanguageProvider>
-</ThemeProvider>
-</React.StrictMode>
+    <React.StrictMode>
+        <ThemeProvider>
+            <LanguageProvider>
+                <App/>
+            </LanguageProvider>
+        </ThemeProvider>
+    </React.StrictMode>
 );
