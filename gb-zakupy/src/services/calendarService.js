@@ -9,7 +9,6 @@ import {
     updateDoc,
 } from "firebase/firestore";
 
-
 import {
     auth,
     db,
