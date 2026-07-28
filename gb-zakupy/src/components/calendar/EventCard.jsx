@@ -162,81 +162,83 @@ export default function EventCard({
 
                 </h3>
 
-                <div
-                    className="event-card-actions"
-                    ref={menuRef}
+                <div className="event-card-right">
+
+    <span
+        className={`event-badge ${type}`}
+    >
+
+        {badge}
+
+    </span>
+
+    <div
+        className="event-card-actions"
+        ref={menuRef}
+    >
+
+        <button
+            type="button"
+            className="calendar-add-button"
+            onClick={()=>
+                setShowMenu(
+                    !showMenu
+                )
+            }
+            title="Dodaj do kalendarza"
+        >
+
+            +
+
+        </button>
+
+        {showMenu&&(
+
+            <div className="calendar-add-menu">
+
+                <button
+                    type="button"
+                    onClick={()=>{
+                        addToGoogle(event);
+                        setShowMenu(false);
+                    }}
                 >
 
-                    <button
-                        type="button"
-                        className="calendar-add-button"
-                        onClick={()=>
-                            setShowMenu(
-                                !showMenu
-                            )
-                        }
-                        title="Dodaj do kalendarza"
-                    >
+                    Google Calendar
 
-                        📅+
+                </button>
 
-                    </button>
-
-                    {showMenu&&(
-
-                        <div className="calendar-add-menu">
-
-                            <button
-                                type="button"
-                                onClick={()=>{
-                                    addToGoogle(event);
-                                    setShowMenu(false);
-                                }}
-                            >
-
-                                📅 Google Calendar
-
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={()=>{
-                                    addToApple(event);
-                                    setShowMenu(false);
-                                }}
-                            >
-
-                                🍎 Apple Calendar
-
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={()=>{
-                                    addToOutlook(event);
-                                    setShowMenu(false);
-                                }}
-                            >
-
-                                💼 Outlook
-
-                            </button>
-
-                        </div>
-
-                    )}
-
-                </div>
-
-                <span
-                    className={
-                        `event-badge ${type}`
-                    }
+                <button
+                    type="button"
+                    onClick={()=>{
+                        addToApple(event);
+                        setShowMenu(false);
+                    }}
                 >
 
-                    {badge}
+                    Apple Calendar
 
-                </span>
+                </button>
+
+                <button
+                    type="button"
+                    onClick={()=>{
+                        addToOutlook(event);
+                        setShowMenu(false);
+                    }}
+                >
+
+                    Outlook
+
+                </button>
+
+            </div>
+
+        )}
+
+    </div>
+
+</div>
 
             </div>
 
