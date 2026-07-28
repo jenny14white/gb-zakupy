@@ -16,7 +16,6 @@ const LIQUID_COLORS = [
 
 const CODE_LENGTH = 5;
 
-
 export default function AccessPage({
     onSuccess,
 }){
