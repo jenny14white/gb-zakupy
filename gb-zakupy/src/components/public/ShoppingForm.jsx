@@ -8,7 +8,6 @@ export default function ShoppingForm() {
 
     const { t } = useTranslation();
 
-    
     const [requestedBy,setRequestedBy] = useState("");
     const [product,setProduct] = useState("");
     const [quantity,setQuantity] = useState("1");
