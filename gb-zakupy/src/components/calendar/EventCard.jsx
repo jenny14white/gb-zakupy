@@ -1,5 +1,12 @@
-import { useTranslation } from "react-i18next";
-const EVENT_TYPES = {
+import {useState,useRef,useEffect} from "react";
+import {useTranslation} from "react-i18next";
+import{
+    addToGoogle,
+    addToApple,
+    addToOutlook,
+}from "../utils/calendarExport";
+
+const EVENT_TYPES={
     company:"company",
     firma:"company",
     holiday:"holiday",
@@ -14,19 +21,19 @@ const EVENT_TYPES = {
 
 function safeText(value,language){
 
-    if(value == null)
+    if(value==null)
         return "";
 
-    if(typeof value === "string")
+    if(typeof value==="string")
         return value;
 
-    if(typeof value === "number")
+    if(typeof value==="number")
         return String(value);
 
     if(value instanceof Date)
         return value.toLocaleDateString(language);
 
-    if(typeof value?.toDate === "function")
+    if(typeof value?.toDate==="function")
         return value
             .toDate()
             .toLocaleDateString(language);
@@ -35,79 +42,101 @@ function safeText(value,language){
 
 }
 
-
-
 export default function EventCard({
     event,
-}) {
+}){
 
-    const { t,i18n } = useTranslation();
+    const {t,i18n}=useTranslation();
 
-
-    const language =
+    const language=
         i18n.language;
 
+    const menuRef=
+        useRef(null);
 
-    const title =
+    const[
+        showMenu,
+        setShowMenu,
+    ]=useState(false);
+
+    useEffect(()=>{
+
+        function handleClick(e){
+
+            if(
+                menuRef.current &&
+                !menuRef.current.contains(
+                    e.target
+                )
+            ){
+
+                setShowMenu(false);
+
+            }
+
+        }
+
+        document.addEventListener(
+            "mousedown",
+            handleClick
+        );
+
+        return()=>document.removeEventListener(
+            "mousedown",
+            handleClick
+        );
+
+    },[]);
+
+    const title=
         safeText(
             event.title,
             language
         );
 
-
-    const type =
+    const type=
         EVENT_TYPES[
             safeText(
                 event.type,
                 language
             ).toLowerCase()
-        ] || "other";
+        ]||"other";
 
-
-    const emoji =
+    const emoji=
         safeText(
             event.emoji,
             language
         );
 
-
-    const time =
+    const time=
         safeText(
             event.time,
             language
         );
 
-
-    const location =
+    const location=
         safeText(
             event.location,
             language
         );
 
-
-    const description =
+    const description=
         safeText(
             event.description,
             language
         );
 
-
-    const formattedDate =
+    const formattedDate=
         safeText(
             event.date,
             language
         );
 
-
-
-    const badge =
+    const badge=
         t(
             `calendar.eventTypes.${type}`
         );
-
-
-
-    return (
+        return(
 
         <article
             className={
@@ -115,14 +144,11 @@ export default function EventCard({
             }
         >
 
-
             <div className="event-card-header">
-
 
                 <h3 className="event-title">
 
-
-                    {emoji && (
+                    {emoji&&(
 
                         <span className="event-emoji">
 
@@ -132,13 +158,75 @@ export default function EventCard({
 
                     )}
 
-
                     {title}
-
 
                 </h3>
 
+                <div
+                    className="event-card-actions"
+                    ref={menuRef}
+                >
 
+                    <button
+                        type="button"
+                        className="calendar-add-button"
+                        onClick={()=>
+                            setShowMenu(
+                                !showMenu
+                            )
+                        }
+                        title="Dodaj do kalendarza"
+                    >
+
+                        📅+
+
+                    </button>
+
+                    {showMenu&&(
+
+                        <div className="calendar-add-menu">
+
+                            <button
+                                type="button"
+                                onClick={()=>{
+                                    addToGoogle(event);
+                                    setShowMenu(false);
+                                }}
+                            >
+
+                                📅 Google Calendar
+
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={()=>{
+                                    addToApple(event);
+                                    setShowMenu(false);
+                                }}
+                            >
+
+                                🍎 Apple Calendar
+
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={()=>{
+                                    addToOutlook(event);
+                                    setShowMenu(false);
+                                }}
+                            >
+
+                                💼 Outlook
+
+                            </button>
+
+                        </div>
+
+                    )}
+
+                </div>
 
                 <span
                     className={
@@ -150,73 +238,73 @@ export default function EventCard({
 
                 </span>
 
-
             </div>
 
-
-
-            <div className="event-divider" />
-
-
+            <div className="event-divider"/>
 
             <div className="event-card-body">
 
-
-                {formattedDate && (
+                {formattedDate&&(
 
                     <div className="event-row date">
 
                         <span className="event-icon">
+
                             📅
+
                         </span>
 
                         <span className="event-text">
+
                             {formattedDate}
+
                         </span>
 
                     </div>
 
                 )}
 
-
-
-                {time && (
+                {time&&(
 
                     <div className="event-row">
 
                         <span className="event-icon">
+
                             🕒
+
                         </span>
 
                         <span className="event-text">
+
                             {time}
+
                         </span>
 
                     </div>
 
                 )}
 
-
-
-                {location && (
+                {location&&(
 
                     <div className="event-row">
 
                         <span className="event-icon">
+
                             📍
+
                         </span>
 
                         <span className="event-text">
+
                             {location}
+
                         </span>
 
                     </div>
 
                 )}
 
-
-
-                {description && (
+                {description&&(
 
                     <div className="event-description">
 
@@ -226,11 +314,8 @@ export default function EventCard({
 
                 )}
 
-
             </div>
-
-
-        </article>
+                </article>
 
     );
 
