@@ -18,13 +18,10 @@ return text
 }
 
 
-export default function AdminCompletedList({
-orders=[]
-}){
+export default function AdminCompletedList({orders=[]}){
 
 const [search,setSearch]=useState("");
 const [selectedOrders,setSelectedOrders]=useState([]);
-
 
 
 const completedOrders=useMemo(
@@ -33,7 +30,6 @@ order=>order.status===ORDER_STATUS.COMPLETED
 ),
 [orders]
 );
-
 
 
 const filteredGroups=useMemo(()=>{
@@ -46,66 +42,40 @@ const phrase=normalize(
 search.trim()
 );
 
-
-if(!phrase){
+if(!phrase)
 return groups;
-}
-
 
 return groups
 .map(group=>({
-
 ...group,
-
 items:group.items.filter(order=>
-
-normalize(order.product).includes(phrase)
-
-||
-
-normalize(order.requestedBy).includes(phrase)
-
-||
-
-normalize(
-order.adminComment||""
-).includes(phrase)
-
+normalize(order.product).includes(phrase)||
+normalize(order.requestedBy).includes(phrase)||
+normalize(order.adminComment||"").includes(phrase)
 )
-
 }))
+.filter(group=>group.items.length);
 
-.filter(
-group=>group.items.length
+},[completedOrders,search]);
+
+
+const visibleOrders=useMemo(
+()=>filteredGroups.flatMap(
+group=>group.items
+),
+[filteredGroups]
 );
-
-
-},[
-completedOrders,
-search
-]);
 
 
 
 function toggleOrder(id){
 
 setSelectedOrders(prev=>
-
 prev.includes(id)
-
 ?
-
-prev.filter(
-item=>item!==id
-)
-
+prev.filter(item=>item!==id)
 :
-
-[
-...prev,
-id
-]
-
+[...prev,id]
 );
 
 }
@@ -118,32 +88,57 @@ const ids=items.map(
 item=>item.id
 );
 
-
-const allSelected=
-ids.every(
+const checked=ids.every(
 id=>selectedOrders.includes(id)
 );
 
-
-
-if(allSelected){
-
 setSelectedOrders(prev=>
+
+checked
+
+?
 prev.filter(
 id=>!ids.includes(id)
 )
-);
 
-}else{
-
-setSelectedOrders(prev=>[
-...new Set([
+:
+[...new Set([
 ...prev,
 ...ids
-])
-]);
+])]
+
+);
 
 }
+
+
+
+function toggleAll(){
+
+const ids=visibleOrders.map(
+order=>order.id
+);
+
+const checked=ids.every(
+id=>selectedOrders.includes(id)
+);
+
+setSelectedOrders(prev=>
+
+checked
+
+?
+prev.filter(
+id=>!ids.includes(id)
+)
+
+:
+[...new Set([
+...prev,
+...ids
+])]
+
+);
 
 }
 
@@ -151,61 +146,42 @@ setSelectedOrders(prev=>[
 
 function exportToExcel(){
 
+const source=
 
-const selected=completedOrders.filter(
-order=>
-selectedOrders.includes(order.id)
-);
+selectedOrders.length
+
+?
+
+completedOrders.filter(
+order=>selectedOrders.includes(order.id)
+)
+
+:
+
+visibleOrders;
 
 
-if(!selected.length){
-
-alert(
-"Zaznacz dane do eksportu."
-);
-
+if(!source.length){
+alert("Brak danych do eksportu.");
 return;
-
 }
 
 
+const rows=source.map(order=>({
 
-const rows=selected.map(order=>({
+Produkt:order.product,
 
-Produkt:
-order.product,
+Ilość:order.quantity,
 
-Ilość:
-order.quantity,
+Jednostka:order.unit,
 
-Jednostka:
-order.unit,
+Zgłaszający:order.requestedBy,
 
-Zgłaszający:
-order.requestedBy,
+Status:"Zrealizowane",
 
-Status:
-"Zrealizowane",
-
-"Data dodania":
-formatDate(
-order.createdAt
-),
-
-"Data zamówienia":
-formatDate(
-order.orderedAt
-),
-
-"Data realizacji":
-formatDate(
-order.completedAt
-),
-
-"Miesiąc":
-new Date(
-order.orderedAt
-).toLocaleDateString(
+Miesiąc:
+new Date(order.orderedAt)
+.toLocaleDateString(
 "pl-PL",
 {
 month:"long",
@@ -213,15 +189,22 @@ year:"numeric"
 }
 ),
 
+"Data dodania":
+formatDate(order.createdAt),
+
+"Data zamówienia":
+formatDate(order.orderedAt),
+
+"Data realizacji":
+formatDate(order.completedAt),
+
 "Komentarz admina":
 order.adminComment||""
 
 }));
 
 
-
-const workbook=
-XLSX.utils.book_new();
+const workbook=XLSX.utils.book_new();
 
 
 XLSX.utils.book_append_sheet(
@@ -231,17 +214,13 @@ XLSX.utils.json_to_sheet(rows),
 );
 
 
-
-const date=
-new Date()
-.toISOString()
-.split("T")[0];
-
-
-
 XLSX.writeFile(
 workbook,
-`GB_Zrealizowane_${date}.xlsx`
+`GB_Zrealizowane_${
+new Date()
+.toISOString()
+.split("T")[0]
+}.xlsx`
 );
 
 }
@@ -252,7 +231,6 @@ return(
 
 <section className="admin-completed-list">
 
-
 <div className="admin-list-header">
 
 <div>
@@ -262,50 +240,66 @@ return(
 </h2>
 
 <p>
-Łącznie:
-{completedOrders.length}
+Łącznie: {completedOrders.length}
 &nbsp;|&nbsp;
-Wybrane:
-{selectedOrders.length}
+Wybrane: {selectedOrders.length}
 </p>
 
 </div>
 
 
+<div className="completed-actions">
+
 <button
-className="admin-button"
-disabled={!selectedOrders.length}
-onClick={exportToExcel}
+className="admin-button secondary"
+onClick={toggleAll}
 >
 
-📊 Eksport Excel
-{selectedOrders.length>0 &&
-` (${selectedOrders.length})`
+{
+visibleOrders.length &&
+visibleOrders.every(
+order=>selectedOrders.includes(order.id)
+)
+
+?
+"☑ Odznacz wszystko"
+:
+"☐ Zaznacz wszystko"
+
 }
 
 </button>
 
+
+<button
+className="admin-button"
+disabled={!visibleOrders.length}
+onClick={exportToExcel}
+>
+
+📊 Eksport Excel
+
+{
+selectedOrders.length
+?
+` (${selectedOrders.length})`
+:""
+}
+
+</button>
+
+</div>
 
 </div>
 
 
 
 <input
-
 className="search-input"
-
 type="text"
-
 placeholder="🔍 Szukaj produktu, osoby lub komentarza..."
-
 value={search}
-
-onChange={e=>
-setSearch(
-e.target.value
-)
-}
-
+onChange={e=>setSearch(e.target.value)}
 />
 
 
@@ -321,9 +315,7 @@ e.target.value
 search
 ?
 "Nie znaleziono żadnych zrealizowanych zamówień."
-
 :
-
 "Nie ma jeszcze zrealizowanych zamówień."
 }
 
@@ -351,19 +343,17 @@ onToggleOrder={toggleOrder}
 
 onToggleMonth={toggleMonth}
 
-autoOpen={
-Boolean(search)
-}
+autoOpen={Boolean(search)}
 
 />
 
 ))
+
 }
 
 </div>
 
 }
-
 
 </section>
 
