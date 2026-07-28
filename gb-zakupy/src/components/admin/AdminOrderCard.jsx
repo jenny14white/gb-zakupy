@@ -6,15 +6,22 @@ import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import "../../styles/admin-shopping.css";
 
+export default function AdminOrderCard({
+order,
+selected=false,
+onSelect,
+canOrder=true
+}){
 
-export default function AdminOrderCard({order,selected=false,onSelect,canOrder=true}){
+if(!order){
+return null;
+}
 
 const [expanded,setExpanded]=useState(false);
 const [isEditing,setIsEditing]=useState(false);
 const [loading,setLoading]=useState(false);
 const [adminComment,setAdminComment]=useState(order.adminComment||"");
 const [showDeleteDialog,setShowDeleteDialog]=useState(false);
-
 
 useEffect(()=>{
 setAdminComment(order.adminComment||"");
@@ -26,7 +33,12 @@ const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
 const isCompleted=order.status===ORDER_STATUS.COMPLETED;
 
 const statusClass=isPending?"pending":isAccepted?"progress":"done";
-const statusText=isPending?"🟡 Oczekujące":isAccepted?"🟢 Przyjęte":"🟣 Zrealizowane";
+
+const statusText=isPending
+?"🟡 Oczekujące"
+:isAccepted
+?"🟢 Przyjęte"
+:"🟣 Zrealizowane";
 
 
 async function handleAction(action){
@@ -51,8 +63,7 @@ handleAction(()=>
 markOrderAsAccepted(
 order,
 adminComment
-)
-);
+));
 }
 
 
@@ -61,8 +72,7 @@ handleAction(()=>
 markOrderAsCompleted(
 order,
 adminComment
-)
-);
+));
 }
 
 
@@ -92,7 +102,6 @@ onSaved={()=>setIsEditing(false)}
 }
 
 
-
 return(
 <>
 
@@ -100,7 +109,7 @@ return(
 open={showDeleteDialog}
 danger
 title="Usunąć zamówienie?"
-message={`Czy na pewno chcesz usunąć "${order.product}"?\n\nTej operacji nie można cofnąć.`}
+message={`Czy na pewno chcesz usunąć "${order.product||""}"?\n\nTej operacji nie można cofnąć.`}
 confirmText="Usuń"
 cancelText="Anuluj"
 onConfirm={confirmDelete}
@@ -112,7 +121,6 @@ onCancel={()=>setShowDeleteDialog(false)}
 
 <div className="shopping-card-bar"/>
 
-
 <div
 className="shopping-card-content"
 onClick={()=>setExpanded(v=>!v)}
@@ -121,77 +129,59 @@ onClick={()=>setExpanded(v=>!v)}
 
 <div className="shopping-card-top">
 
-
 <div className="shopping-product">
 
-
 {onSelect&&(
-
 <input
 type="checkbox"
 className="shopping-select"
 checked={selected}
-onChange={()=>
-onSelect(order.id)
-}
-onClick={e=>
-e.stopPropagation()
-}
+onChange={e=>{
+e.stopPropagation();
+onSelect(order.id);
+}}
+onClick={e=>e.stopPropagation()}
 />
-
 )}
 
-
 <h3>
-{order.product}
+{order.product||"Brak nazwy"}
 </h3>
 
-
 <p>
-{order.quantity} {order.unit}
+{order.quantity||0} {order.unit||""}
 </p>
 
-
 </div>
 
-
 </div>
-
 
 
 {expanded&&(
 
 <div className="shopping-card-footer">
 
-
 <div className="shopping-card-footer-left">
 
-
 <div className="shopping-meta">
-
 
 <div className="shopping-chip">
 📅 Dodano: {formatDate(order.createdAt)}
 </div>
 
-
 <div className="shopping-chip">
 ✅ Przyjęto: {order.acceptedAt?formatDate(order.acceptedAt):"—"}
 </div>
-
 
 <div className="shopping-chip">
 📦 Zrealizowano: {order.completedAt?formatDate(order.completedAt):"—"}
 </div>
 
-
 <div className="shopping-chip">
-👤 {order.requestedBy}
+👤 {order.requestedBy||"—"}
 </div>
 
-
 </div>
-
 
 
 <textarea
@@ -200,17 +190,11 @@ rows={3}
 value={adminComment}
 placeholder="Komentarz administratora..."
 disabled={loading||isCompleted}
-onChange={e=>
-setAdminComment(
-e.target.value
-)
-}
+onChange={e=>setAdminComment(e.target.value)}
 />
 
 
-
 {order.adminComment&&(
-
 <div className="shopping-request-info">
 
 <strong>
@@ -222,19 +206,15 @@ Komentarz administratora
 </p>
 
 </div>
-
 )}
 
-
 </div>
-
 
 
 <div className="shopping-actions">
 
 
 {isPending&&(
-
 <button
 type="button"
 className="shopping-icon-btn success"
@@ -247,13 +227,10 @@ handleAccept();
 >
 ✔
 </button>
-
 )}
 
 
-
 {isAccepted&&(
-
 <button
 type="button"
 className="shopping-icon-btn success"
@@ -266,13 +243,10 @@ handleCompleted();
 >
 ✓
 </button>
-
 )}
 
 
-
 {!isCompleted&&(
-
 <button
 type="button"
 className="shopping-icon-btn info"
@@ -285,9 +259,7 @@ setIsEditing(true);
 >
 ✏️
 </button>
-
 )}
-
 
 
 <button
@@ -306,18 +278,14 @@ setShowDeleteDialog(true);
 
 </div>
 
-
 </div>
 
 )}
 
-
 </div>
 
 
-
 <div className="shopping-card-right">
-
 
 <div className={`shopping-status ${statusClass}`}>
 {statusText}
@@ -338,9 +306,7 @@ setExpanded(v=>!v);
 
 </div>
 
-
 </article>
-
 
 </>
 
