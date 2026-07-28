@@ -23,7 +23,6 @@ export function usePublicOrders(){
 
             });
 
-
         return unsubscribe;
 
     },[]);
