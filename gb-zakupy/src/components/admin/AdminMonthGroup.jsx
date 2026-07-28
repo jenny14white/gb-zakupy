@@ -1,4 +1,4 @@
-import {useEffect,useState} from "react";
+import {useEffect,useMemo,useState} from "react";
 import AdminOrderCard from "./AdminOrderCard";
 
 export default function AdminMonthGroup({
@@ -13,12 +13,23 @@ onToggleMonth
 const [isOpen,setIsOpen]=useState(autoOpen);
 
 
+const safeOrders=useMemo(
+()=>orders.filter(Boolean),
+[orders]
+);
+
+
 useEffect(()=>{
-if(autoOpen)setIsOpen(true);
+
+if(autoOpen){
+setIsOpen(true);
+}
+
 },[autoOpen]);
 
 
-const orderIds=orders.map(
+
+const orderIds=safeOrders.map(
 order=>order.id
 );
 
@@ -29,22 +40,25 @@ id=>selectedOrders.includes(id)
 
 
 const monthSelected=
-orders.length>0 &&
-selectedCount===orders.length;
+safeOrders.length>0 &&
+selectedCount===safeOrders.length;
 
 
 const monthPartial=
 selectedCount>0 &&
-selectedCount<orders.length;
+selectedCount<safeOrders.length;
+
 
 
 function handleCheckbox(e){
 
 e.stopPropagation();
 
+if(onToggleMonth){
 onToggleMonth(
-orders
+safeOrders
 );
+}
 
 }
 
@@ -52,14 +66,24 @@ orders
 
 return(
 
-<section className={`shopping-category ${isOpen?"open":"closed"}`}>
+<section
+className={
+`shopping-category ${
+isOpen
+?"open"
+:"closed"
+}`
+}
+>
 
 
 <button
 type="button"
 className="shopping-category-header"
 onClick={()=>
-setIsOpen(v=>!v)
+setIsOpen(
+v=>!v
+)
 }
 >
 
@@ -69,14 +93,20 @@ setIsOpen(v=>!v)
 
 <div className="shopping-chevron">
 
-{isOpen?"▼":"▶"}
+{
+isOpen
+?"▼"
+:"▶"
+}
 
 </div>
 
 
+
 <input
 type="checkbox"
-className={`month-select ${
+className={
+`month-select ${
 monthSelected
 ?"checked"
 :""
@@ -84,10 +114,13 @@ monthSelected
 monthPartial
 ?"partial"
 :""
-}`}
+}`
+}
 checked={monthSelected}
 onChange={handleCheckbox}
-onClick={e=>e.stopPropagation()}
+onClick={e=>
+e.stopPropagation()
+}
 />
 
 
@@ -102,10 +135,11 @@ onClick={e=>e.stopPropagation()}
 
 <span>
 
-{orders.length} zamówień
+{safeOrders.length} zamówień
 
-{selectedCount>0&&
-` • wybrane ${selectedCount}/${orders.length}`
+{
+selectedCount>0 &&
+` • wybrane ${selectedCount}/${safeOrders.length}`
 }
 
 </span>
@@ -120,7 +154,7 @@ onClick={e=>e.stopPropagation()}
 
 <div className="shopping-count">
 
-{orders.length}
+{safeOrders.length}
 
 </div>
 
@@ -129,12 +163,14 @@ onClick={e=>e.stopPropagation()}
 
 
 
-{isOpen&&(
+{
+isOpen&&(
 
 <div className="shopping-category-body">
 
 
-{orders.map(order=>(
+{
+safeOrders.map(order=>(
 
 <AdminOrderCard
 
@@ -151,6 +187,7 @@ order.id
 }
 
 onSelect={()=>
+onToggleOrder &&
 onToggleOrder(
 order.id
 )
@@ -158,12 +195,15 @@ order.id
 
 />
 
-))}
+))
+}
 
 
 </div>
 
-)}
+)
+
+}
 
 
 </section>
