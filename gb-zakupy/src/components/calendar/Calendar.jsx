@@ -53,10 +53,22 @@ export default function Calendar() {
     const events = useMemo(()=>{
 
         return [
+
             ...getAllCalendarEvents(
                 currentDate.getFullYear()
             ),
-            ...companyEvents,
+
+            ...companyEvents.map(event=>({
+
+                ...event,
+
+                date:
+                    event.date?.toDate
+                    ? event.date.toDate()
+                    : new Date(event.date)
+
+            }))
+
         ];
 
     },[
@@ -267,7 +279,7 @@ export default function Calendar() {
                             <CalendarDay
 
                                 key={
-                                    item.date.toISOString()
+                                    `${item.date.getFullYear()}-${item.date.getMonth()}-${item.date.getDate()}`
                                 }
 
                                 day={item.date}
