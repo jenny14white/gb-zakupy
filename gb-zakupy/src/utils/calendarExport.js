@@ -10,7 +10,6 @@ function toDate(value){
         return value.toDate();
 
     return new Date(value);
-
 }
 
 function pad(value){
