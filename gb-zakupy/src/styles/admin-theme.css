@@ -236,7 +236,8 @@ font-size:.75rem;
 font-weight:900;
 }
 .admin-page .sidebar-button.active .sidebar-counter{
-background:var(--admin-accent);
+background:rgba(255,255,255,.14);
+border-color:rgba(255,255,255,.25);
 color:#fff;
 }
 .admin-page .menu-indicator{
@@ -250,8 +251,9 @@ background:var(--admin-accent);
 box-shadow:0 0 18px var(--admin-accent);
 }
 .admin-page .sidebar-button.active .sidebar-icon{
-background:color-mix(in srgb,var(--admin-accent) 20%,transparent);
-color:var(--admin-accent);
+background:color-mix(in srgb,var(--admin-accent) 22%,transparent);
+color:#fff;
+box-shadow:0 0 15px color-mix(in srgb,var(--admin-accent) 35%,transparent);
 }
 .admin-page .sidebar-footer{
 margin-top:auto;
