@@ -173,12 +173,23 @@ border:1px solid var(--admin-border);
 color:var(--admin-text);
 cursor:pointer;
 }
-.admin-page .sidebar-button:hover,
+.admin-page .sidebar-button:hover{
+background:rgba(255,255,255,.10);
+border-color:rgba(255,255,255,.25);
+transform:translateX(4px);
+}
+
 .admin-page .sidebar-button.active{
-background:var(--admin-surface-hover);
-border-color:var(--admin-accent);
-transform:translateX(5px);
-box-shadow:0 12px 30px rgba(0,0,0,.18);
+background:linear-gradient(
+135deg,
+rgba(255,255,255,.16),
+rgba(255,255,255,.06)
+)!important;
+border-color:var(--admin-accent)!important;
+transform:translateX(4px);
+box-shadow:
+0 10px 25px rgba(0,0,0,.18),
+0 0 18px color-mix(in srgb,var(--admin-accent) 25%,transparent);
 }
 .admin-page .sidebar-button-main{
 display:flex;
