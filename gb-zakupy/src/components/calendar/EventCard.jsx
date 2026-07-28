@@ -4,7 +4,7 @@ import{
     addToGoogle,
     addToApple,
     addToOutlook,
-}from "../utils/calendarExport";
+}from "../../utils/calendarExport";
 
 const EVENT_TYPES={
     company:"company",
