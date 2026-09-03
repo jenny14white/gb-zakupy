@@ -16,7 +16,10 @@ import {
 import "../styles/admin-events.css";
 
 
-const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 const TYPES = [
@@ -56,7 +59,6 @@ const createEmptyForm = ()=>({
 });
 
 
-
 export default function AdminEventsPage({
     goBack,
 }){
@@ -75,7 +77,6 @@ export default function AdminEventsPage({
     );
 
 
-
     useEffect(()=>{
 
         const unsubscribe =
@@ -86,7 +87,7 @@ export default function AdminEventsPage({
                     setAuthorized(
                         Boolean(
                             user &&
-                            user.uid === ADMIN_UID
+                            ADMIN_UIDS.includes(user.uid)
                         )
                     );
 
@@ -101,7 +102,6 @@ export default function AdminEventsPage({
     },[]);
 
 
-
     useEffect(()=>{
 
         if(!authorized)
@@ -111,7 +111,6 @@ export default function AdminEventsPage({
         return listenToEvents(setEvents);
 
     },[authorized]);
-
 
 
     const stats = useMemo(()=>{
@@ -147,7 +146,6 @@ export default function AdminEventsPage({
     },[events]);
 
 
-
     function handleChange(e){
 
         const {
@@ -170,7 +168,6 @@ export default function AdminEventsPage({
         }));
 
     }
-
 
 
     async function handleSubmit(e){
@@ -242,7 +239,6 @@ export default function AdminEventsPage({
     }
 
 
-
     function editEvent(event){
 
         const date =
@@ -287,7 +283,6 @@ export default function AdminEventsPage({
     }
 
 
-
     async function removeEvent(id){
 
         const confirmed =
@@ -317,7 +312,6 @@ export default function AdminEventsPage({
     }
 
 
-
     if(checking){
 
         return (
@@ -337,7 +331,6 @@ export default function AdminEventsPage({
         );
 
     }
-
 
 
     if(!authorized){
@@ -373,7 +366,6 @@ export default function AdminEventsPage({
         );
 
     }
-
 
 
     return (
@@ -418,7 +410,6 @@ export default function AdminEventsPage({
             </header>
 
 
-
             <section className="events-top">
 
 
@@ -432,7 +423,6 @@ export default function AdminEventsPage({
                             : `➕ ${t("admin.events.newEvent")}`}
 
                     </h2>
-
 
 
                     <form
@@ -519,7 +509,6 @@ export default function AdminEventsPage({
                         </select>
 
 
-
                         <select
                             name="emoji"
                             value={form.emoji}
@@ -540,7 +529,6 @@ export default function AdminEventsPage({
                         </select>
 
 
-
                         <label className="checkbox-row">
 
                             <input
@@ -553,7 +541,6 @@ export default function AdminEventsPage({
                             {t("admin.events.fields.recurring")}
 
                         </label>
-
 
 
                         <button
@@ -574,7 +561,6 @@ export default function AdminEventsPage({
                 </section>
 
 
-
                 <aside className="events-stats">
 
 
@@ -591,7 +577,6 @@ export default function AdminEventsPage({
                     </div>
 
 
-
                     <div className="event-stat-card">
 
                         <span className="stat-number">
@@ -603,7 +588,6 @@ export default function AdminEventsPage({
                         </span>
 
                     </div>
-
 
 
                     <div className="event-stat-card">
@@ -623,7 +607,6 @@ export default function AdminEventsPage({
 
 
             </section>
-
 
 
             <section className="calendar-wrapper">
