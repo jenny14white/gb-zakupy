@@ -8,7 +8,6 @@ import {
     updateDoc,
 } from "firebase/firestore";
 
-
 import { auth, db } from "../firebase/firebase";
 
 import { ORDER_STATUS } from "../utils/constants";
@@ -16,8 +15,10 @@ import { sortByDateDesc } from "../utils/dateUtils";
 import { addLog } from "./logsService";
 
 
-const ADMIN_UID =
-    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 function checkAdmin() {
@@ -28,15 +29,16 @@ function checkAdmin() {
 
     if (
         !user ||
-        user.uid !== ADMIN_UID
+        !ADMIN_UIDS.includes(user.uid)
     ) {
+
         throw new Error(
             "Brak uprawnień administratora"
         );
+
     }
 
 }
-
 
 
 function cleanText(value = "") {
@@ -44,7 +46,6 @@ function cleanText(value = "") {
     return String(value).trim();
 
 }
-
 
 
 function validateOrder(data) {
@@ -57,9 +58,11 @@ function validateOrder(data) {
         !cleanText(data.requestedBy) ||
         !cleanText(data.product)
     ) {
+
         throw new Error(
             "Brak wymaganych danych"
         );
+
     }
 
 
@@ -67,16 +70,17 @@ function validateOrder(data) {
         !quantity ||
         quantity <= 0
     ) {
+
         throw new Error(
             "Nieprawidłowa ilość"
         );
+
     }
 
 
     return quantity;
 
 }
-
 
 
 async function safeLog(
@@ -101,7 +105,6 @@ async function safeLog(
     }
 
 }
-
 
 
 export async function createOrder(data) {
@@ -166,7 +169,6 @@ export async function createOrder(data) {
 }
 
 
-
 export function listenToOrders(callback) {
 
     return onSnapshot(
@@ -191,7 +193,6 @@ export function listenToOrders(callback) {
     );
 
 }
-
 
 
 export async function updateOrder(
@@ -244,7 +245,6 @@ export async function updateOrder(
 }
 
 
-
 export async function markNotificationAsRead(order) {
 
     if(order.notificationRead) {
@@ -258,6 +258,7 @@ export async function markNotificationAsRead(order) {
     await updateDoc(
         doc(db, "orders", order.id),
         {
+
             notificationRead: true,
 
             notificationReadAt:
@@ -265,6 +266,7 @@ export async function markNotificationAsRead(order) {
 
             updatedAt:
                 serverTimestamp(),
+
         }
     );
 
@@ -275,7 +277,6 @@ export async function markNotificationAsRead(order) {
     );
 
 }
-
 
 
 export async function markOrderAsAccepted(
@@ -309,7 +310,8 @@ export async function markOrderAsAccepted(
                 serverTimestamp(),
 
 
-            notificationRead: true,
+            notificationRead:
+                true,
 
 
             notificationReadAt:
@@ -329,7 +331,6 @@ export async function markOrderAsAccepted(
     );
 
 }
-
 
 
 export async function markOrderAsCompleted(
@@ -376,7 +377,6 @@ export async function markOrderAsCompleted(
     );
 
 }
-
 
 
 export async function deleteOrder(order) {
