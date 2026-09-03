@@ -1,9 +1,10 @@
 import Logo from "../shared/Logo";
+import SpotlightCard from "../shared/SpotlightCard";
 
+import "../../styles/admin-sidebar.css";
 
 const ADMIN_UID =
     "kRulgEcxNed8aYacTWq3j9GgP4J2";
-
 
 const SECRETARIAT_UID =
     "474lDJntS0agRKyLcnHTXfEf58n1";
@@ -14,10 +15,10 @@ export default function AdminSidebar({
     activeTab,
     setActiveTab,
 
-    pendingCount,
-    acceptedCount,
-    completedCount,
-    unreadNotificationsCount,
+    pendingCount = 0,
+    acceptedCount = 0,
+    completedCount = 0,
+    unreadNotificationsCount = 0,
 
     goBack,
     logout,
@@ -25,16 +26,13 @@ export default function AdminSidebar({
 
     userUid,
 
-}){
-
+}) {
 
     const isAdmin =
         userUid === ADMIN_UID;
 
-
     const isSecretariat =
         userUid === SECRETARIAT_UID;
-
 
 
     function NavButton({
@@ -42,11 +40,11 @@ export default function AdminSidebar({
         tab,
         icon,
         label,
-        counter=0,
+        counter = 0,
         subtitle,
         onClick,
 
-    }){
+    }) {
 
         const active =
             tab &&
@@ -54,69 +52,89 @@ export default function AdminSidebar({
 
 
         return (
-
-            <button
-
-                className={
-                    `sidebar-button ${
-                        active ? "active" : ""
-                    }`
-                }
-
-                onClick={
-                    onClick ??
-                    (()=>setActiveTab(tab))
-                }
-
+            <SpotlightCard
+                className={`sidebar-card ${
+                    active ? "active" : ""
+                }`}
+                spotlightColor="var(--accent)"
             >
 
-                {active && (
-                    <span
-                        className="menu-indicator"
-                    />
-                )}
+                <button
+                    type="button"
+                    className={`sidebar-button ${
+                        active ? "active" : ""
+                    }`}
+                    onClick={
+                        onClick ??
+                        (() => setActiveTab(tab))
+                    }
+                    aria-current={
+                        active
+                            ? "page"
+                            : undefined
+                    }
+                >
 
-
-                <div className="sidebar-button-main">
-
-                    <strong>
-
-                        <span className="sidebar-icon">
-                            {icon}
-                        </span>
-
-                        {label}
-
-                    </strong>
-
-
-                    {subtitle && (
-                        <small>
-                            {subtitle}
-                        </small>
+                    {active && (
+                        <span
+                            className="menu-indicator"
+                            aria-hidden="true"
+                        />
                     )}
 
-                </div>
+
+                    <div className="sidebar-button-main">
+
+                        <strong>
+
+                            <span
+                                className="sidebar-icon"
+                                aria-hidden="true"
+                            >
+                                {icon}
+                            </span>
+
+                            <span>
+                                {label}
+                            </span>
+
+                        </strong>
 
 
-                {counter > 0 && (
-                    <span className="sidebar-counter">
-                        {counter}
-                    </span>
-                )}
+                        {subtitle && (
+                            <small>
+                                {subtitle}
+                            </small>
+                        )}
 
-            </button>
+                    </div>
 
+
+                    {counter > 0 && (
+                        <span
+                            className={`sidebar-counter ${
+                                tab === "powiadomienia"
+                                    ? "notification-counter"
+                                    : ""
+                            }`}
+                        >
+                            {counter}
+                        </span>
+                    )}
+
+                </button>
+
+            </SpotlightCard>
         );
-
     }
-
 
 
     return (
 
         <aside className="sidebar">
 
+
+            {/* HEADER */}
 
             <div className="sidebar-top">
 
@@ -130,16 +148,19 @@ export default function AdminSidebar({
 
                 <p>
                     GB Zakupy
-                    <br/>
+                    <br />
                     Management Center
                 </p>
 
             </div>
 
 
+            {/* MENU */}
 
-            <nav className="admin-nav">
-
+            <nav
+                className="admin-nav"
+                aria-label="Nawigacja administratora"
+            >
 
                 <NavButton
                     tab="lista"
@@ -165,20 +186,17 @@ export default function AdminSidebar({
                     tab="zrealizowane"
                     icon="✅"
                     label="Zrealizowane"
-                    counter={
-                        completedCount
-                    }
                 />
 
 
-                {isAdmin && (
+                {/* TYLKO LILIANA */}
 
+                {isAdmin && (
                     <NavButton
                         tab="dziennik"
                         icon="📜"
                         label="Dziennik"
                     />
-
                 )}
 
 
@@ -190,24 +208,25 @@ export default function AdminSidebar({
                 />
 
 
-                {isAdmin && (
+                {/* TYLKO LILIANA */}
 
+                {isAdmin && (
                     <NavButton
                         tab="uzytkownicy"
                         icon="👥"
                         label="Użytkownicy"
                     />
-
                 )}
 
             </nav>
 
 
+            {/* FOOTER */}
 
             <div className="sidebar-footer">
 
-
                 <button
+                    type="button"
                     className="return-button"
                     onClick={goBack}
                 >
@@ -216,18 +235,16 @@ export default function AdminSidebar({
 
 
                 <button
+                    type="button"
                     className="logout-button"
                     onClick={logout}
                 >
                     Wyloguj
                 </button>
 
-
             </div>
 
 
         </aside>
-
     );
-
 }
