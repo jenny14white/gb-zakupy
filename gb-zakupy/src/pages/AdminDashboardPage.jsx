@@ -2,10 +2,13 @@ import {useEffect,useMemo,useState} from "react";
 import {useTranslation} from "react-i18next";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../firebase/firebase";
+
 import {useAdminOrders} from "../hooks/useAdminOrders";
 import {useLogs} from "../hooks/useLogs";
 import {useEvents} from "../hooks/useEvents";
+
 import {ORDER_STATUS} from "../utils/constants";
+
 import AdminSidebar from "../components/admin/AdminSidebar";
 import AdminStats from "../components/admin/AdminStats";
 import AdminShoppingList from "../components/admin/AdminShoppingList";
@@ -15,9 +18,17 @@ import AdminEventLog from "../components/admin/AdminEventLog";
 import AdminCalendar from "../components/admin/AdminCalendar";
 
 
+const ADMIN_UID =
+    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+
+
+const SECRETARIAT_UID =
+    "474lDJntS0agRKyLcnHTXfEf58n1";
+
+
 const ADMIN_UIDS = [
-    "kRulgEcxNed8aYacTWq3j9GgP4J2",
-    "474lDJntS0agRKyLcnHTXfEf58n1",
+    ADMIN_UID,
+    SECRETARIAT_UID,
 ];
 
 
@@ -27,34 +38,70 @@ export default function AdminDashboardPage({
     goToEvents,
 }){
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
-    const [activeTab,setActiveTab] = useState("lista");
-    const [authorized,setAuthorized] = useState(false);
-    const [checking,setChecking] = useState(true);
+
+    const [activeTab,setActiveTab] =
+        useState("lista");
+
+
+    const [authorized,setAuthorized] =
+        useState(false);
+
+
+    const [checking,setChecking] =
+        useState(true);
+
+
+    const [userUid,setUserUid] =
+        useState(null);
+
 
 
     useEffect(()=>{
 
-        const unsubscribe = onAuthStateChanged(
-            auth,
-            user=>{
+        const unsubscribe =
+            onAuthStateChanged(
+                auth,
+                user=>{
 
-                setAuthorized(
-                    Boolean(
-                        user &&
-                        ADMIN_UIDS.includes(user.uid)
-                    )
-                );
+                    const uid =
+                        user?.uid ?? null;
 
-                setChecking(false);
 
-            }
-        );
+                    setUserUid(uid);
+
+
+                    setAuthorized(
+                        Boolean(
+                            user &&
+                            ADMIN_UIDS.includes(
+                                user.uid
+                            )
+                        )
+                    );
+
+
+                    setChecking(false);
+
+                }
+            );
+
 
         return unsubscribe;
 
     },[]);
+
+
+
+    const isAdmin =
+        userUid === ADMIN_UID;
+
+
+
+    const isSecretariat =
+        userUid === SECRETARIAT_UID;
+
 
 
     const {
@@ -63,13 +110,20 @@ export default function AdminDashboardPage({
     } = useAdminOrders(authorized);
 
 
-    const logs = useLogs(authorized);
+
+    const logs =
+        useLogs(
+            authorized &&
+            isAdmin
+        );
+
 
 
     const {
         events = [],
         loading:eventsLoading
     } = useEvents(authorized);
+
 
 
     const {
@@ -80,41 +134,56 @@ export default function AdminDashboardPage({
         unreadNotifications
     } = useMemo(()=>{
 
-        const activeOrders = orders.filter(order=>
-            order.status === ORDER_STATUS.PENDING ||
-            order.status === ORDER_STATUS.ACCEPTED
-        );
+        const activeOrders =
+            orders.filter(order=>
+                order.status ===
+                    ORDER_STATUS.PENDING
+                ||
+                order.status ===
+                    ORDER_STATUS.ACCEPTED
+            );
 
 
-        const finishedOrders = orders.filter(order=>
-            order.status === ORDER_STATUS.COMPLETED
-        );
+        const finishedOrders =
+            orders.filter(order=>
+                order.status ===
+                    ORDER_STATUS.COMPLETED
+            );
 
 
         return {
 
-            pendingOrders:activeOrders,
+            pendingOrders:
+                activeOrders,
 
-            completedOrders:finishedOrders,
+
+            completedOrders:
+                finishedOrders,
+
 
             pendingCount:
                 activeOrders.filter(order=>
-                    order.status === ORDER_STATUS.PENDING
+                    order.status ===
+                        ORDER_STATUS.PENDING
                 ).length,
+
 
             acceptedCount:
                 activeOrders.filter(order=>
-                    order.status === ORDER_STATUS.ACCEPTED
+                    order.status ===
+                        ORDER_STATUS.ACCEPTED
                 ).length,
+
 
             unreadNotifications:
                 activeOrders.filter(order=>
                     !order.notificationRead
-                )
+                ),
 
         };
 
     },[orders]);
+
 
 
     if(checking){
@@ -140,6 +209,7 @@ export default function AdminDashboardPage({
         );
 
     }
+
 
 
     if(!authorized){
@@ -171,7 +241,6 @@ export default function AdminDashboardPage({
                         {t("shopping.page.back")}
                     </button>
 
-
                 </section>
 
             </main>
@@ -181,9 +250,31 @@ export default function AdminDashboardPage({
     }
 
 
+
+    function handleSetActiveTab(tab){
+
+        if(
+            tab === "dziennik" &&
+            !isAdmin
+        ){
+
+            return;
+
+        }
+
+
+        setActiveTab(tab);
+
+    }
+
+
+
     function renderContent(){
 
-        if(loading || eventsLoading){
+        if(
+            loading ||
+            eventsLoading
+        ){
 
             return (
 
@@ -200,6 +291,7 @@ export default function AdminDashboardPage({
         }
 
 
+
         switch(activeTab){
 
             case "lista":
@@ -211,6 +303,7 @@ export default function AdminDashboardPage({
                 );
 
 
+
             case "powiadomienia":
 
                 return (
@@ -218,6 +311,7 @@ export default function AdminDashboardPage({
                         orders={pendingOrders}
                     />
                 );
+
 
 
             case "zrealizowane":
@@ -229,13 +323,26 @@ export default function AdminDashboardPage({
                 );
 
 
+
             case "dziennik":
+
+                if(!isAdmin){
+
+                    return (
+                        <AdminShoppingList
+                            orders={pendingOrders}
+                        />
+                    );
+
+                }
+
 
                 return (
                     <AdminEventLog
                         logs={logs}
                     />
                 );
+
 
 
             case "kalendarz":
@@ -251,6 +358,7 @@ export default function AdminDashboardPage({
                 );
 
 
+
             default:
 
                 return null;
@@ -258,6 +366,7 @@ export default function AdminDashboardPage({
         }
 
     }
+
 
 
     return (
@@ -269,13 +378,21 @@ export default function AdminDashboardPage({
 
                 activeTab={activeTab}
 
-                setActiveTab={setActiveTab}
+                setActiveTab={
+                    handleSetActiveTab
+                }
 
-                pendingCount={pendingCount}
+                pendingCount={
+                    pendingCount
+                }
 
-                acceptedCount={acceptedCount}
+                acceptedCount={
+                    acceptedCount
+                }
 
-                completedCount={completedOrders.length}
+                completedCount={
+                    completedOrders.length
+                }
 
                 unreadNotificationsCount={
                     unreadNotifications.length
@@ -287,7 +404,10 @@ export default function AdminDashboardPage({
 
                 goToEvents={goToEvents}
 
+                userUid={userUid}
+
             />
+
 
 
             <section className="dashboard">
@@ -329,16 +449,23 @@ export default function AdminDashboardPage({
                 </header>
 
 
+
                 <section className="dashboard-stats">
 
 
                     <AdminStats
 
-                        allCount={orders.length}
+                        allCount={
+                            orders.length
+                        }
 
-                        pendingCount={pendingCount}
+                        pendingCount={
+                            pendingCount
+                        }
 
-                        acceptedCount={acceptedCount}
+                        acceptedCount={
+                            acceptedCount
+                        }
 
                         completedCount={
                             completedOrders.length
@@ -348,6 +475,7 @@ export default function AdminDashboardPage({
 
 
                 </section>
+
 
 
                 <section className="dashboard-content">
