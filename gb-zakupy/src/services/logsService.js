@@ -14,12 +14,13 @@ import {
 } from "../firebase/firebase";
 
 
-const ADMIN_UID =
-    "kRulgEcxNed8aYacTWq3j9GgP4J2";
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 const LOG_LIMIT = 200;
-
 
 
 function checkAdmin() {
@@ -30,15 +31,16 @@ function checkAdmin() {
 
     if(
         !user ||
-        user.uid !== ADMIN_UID
+        !ADMIN_UIDS.includes(user.uid)
     ) {
+
         throw new Error(
             "Brak uprawnień administratora"
         );
+
     }
 
 }
-
 
 
 function cleanText(value = "") {
@@ -46,7 +48,6 @@ function cleanText(value = "") {
     return String(value).trim();
 
 }
-
 
 
 export async function addLog(
@@ -71,6 +72,7 @@ export async function addLog(
                 "logs"
             ),
             {
+
                 message:
                     cleanMessage,
 
@@ -79,6 +81,7 @@ export async function addLog(
 
                 createdAt:
                     serverTimestamp(),
+
             }
         );
 
@@ -94,7 +97,6 @@ export async function addLog(
 }
 
 
-
 export function listenToLogs(callback) {
 
     checkAdmin();
@@ -106,11 +108,15 @@ export function listenToLogs(callback) {
                 db,
                 "logs"
             ),
+
             orderBy(
                 "createdAt",
                 "desc"
             ),
-            limit(LOG_LIMIT)
+
+            limit(
+                LOG_LIMIT
+            )
         );
 
 
@@ -121,8 +127,12 @@ export function listenToLogs(callback) {
             const logs =
                 snapshot.docs.map(
                     document => ({
-                        id: document.id,
+
+                        id:
+                            document.id,
+
                         ...document.data(),
+
                     })
                 );
 
