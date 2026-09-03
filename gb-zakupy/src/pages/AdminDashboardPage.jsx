@@ -15,8 +15,10 @@ import AdminEventLog from "../components/admin/AdminEventLog";
 import AdminCalendar from "../components/admin/AdminCalendar";
 
 
-
-const ADMIN_UID = "kRulgEcxNed8aYacTWq3j9GgP4J2";
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 export default function AdminDashboardPage({
@@ -41,7 +43,7 @@ export default function AdminDashboardPage({
                 setAuthorized(
                     Boolean(
                         user &&
-                        user.uid === ADMIN_UID
+                        ADMIN_UIDS.includes(user.uid)
                     )
                 );
 
@@ -68,7 +70,6 @@ export default function AdminDashboardPage({
         events = [],
         loading:eventsLoading
     } = useEvents(authorized);
-
 
 
     const {
@@ -116,7 +117,6 @@ export default function AdminDashboardPage({
     },[orders]);
 
 
-
     if(checking){
 
         return (
@@ -140,7 +140,6 @@ export default function AdminDashboardPage({
         );
 
     }
-
 
 
     if(!authorized){
@@ -180,7 +179,6 @@ export default function AdminDashboardPage({
         );
 
     }
-
 
 
     function renderContent(){
@@ -262,7 +260,6 @@ export default function AdminDashboardPage({
     }
 
 
-
     return (
 
         <main className="admin-page">
@@ -293,7 +290,6 @@ export default function AdminDashboardPage({
             />
 
 
-
             <section className="dashboard">
 
 
@@ -310,7 +306,6 @@ export default function AdminDashboardPage({
                         </span>
 
 
-
                         <h1>
 
                             {t(
@@ -318,7 +313,6 @@ export default function AdminDashboardPage({
                             )}
 
                         </h1>
-
 
 
                         <p className="dashboard-description">
@@ -333,7 +327,6 @@ export default function AdminDashboardPage({
 
 
                 </header>
-
 
 
                 <section className="dashboard-stats">
@@ -357,13 +350,11 @@ export default function AdminDashboardPage({
                 </section>
 
 
-
                 <section className="dashboard-content">
 
                     {renderContent()}
 
                 </section>
-
 
 
             </section>
