@@ -2,7 +2,6 @@ import AdminOrderCard from "./AdminOrderCard";
 import EmptyState from "../shared/EmptyState";
 
 import "../../styles/admin-shopping.css";
-import "../../styles/admin-completed.css";
 
 
 export default function AdminCompletedList({
