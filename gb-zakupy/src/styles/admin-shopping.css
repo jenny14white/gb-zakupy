@@ -1,4 +1,3 @@
-```css
 /* =========================================================
    ADMIN SHOPPING
    KARTY ZAMÓWIEŃ
@@ -6,19 +5,31 @@
 
 
 /* =========================================================
-   ODSTĘPY MIĘDZY KARTAMI
+   GŁÓWNY KONTENER
    ========================================================= */
 
 .shopping-category-body {
     display: flex;
     flex-direction: column;
 
-    gap: 16px;
-
     width: 100%;
+    min-width: 0;
+
     box-sizing: border-box;
 
+    gap: 20px;
+
     padding: 0 24px 24px;
+}
+
+
+/* =========================================================
+   LISTA KART
+   ========================================================= */
+
+.shopping-category-body > * {
+    width: 100%;
+    min-width: 0;
 }
 
 
@@ -27,7 +38,7 @@
    ========================================================= */
 
 .shopping-card {
-    --notification-color: var(--accent);
+    --shopping-status-color: var(--accent);
 
     position: relative;
 
@@ -66,26 +77,30 @@
    ========================================================= */
 
 /* 🟡 OCZEKUJĄCE */
+
 .shopping-card.pending {
-    --notification-color: var(--warning);
+    --shopping-status-color: var(--warning);
 }
 
 
 /* 🟢 PRZYJĘTE DO REALIZACJI */
+
 .shopping-card.progress {
-    --notification-color: var(--success);
+    --shopping-status-color: var(--success);
 }
 
 
 /* 🟣 ZREALIZOWANE */
+
 .shopping-card.done {
-    --notification-color: #a855f7;
+    --shopping-status-color: #a855f7;
 }
 
 
 /* 🔴 ANULOWANE */
+
 .shopping-card.cancelled {
-    --notification-color: var(--danger);
+    --shopping-status-color: var(--danger);
 }
 
 
@@ -104,16 +119,18 @@
 
     width: 4px;
 
-    background: var(--notification-color);
+    background: var(--shopping-status-color);
 
     opacity: .95;
+
+    pointer-events: none;
 
     z-index: 3;
 }
 
 
 /* =========================================================
-   DELIKATNY GLASS HIGHLIGHT
+   GLASS HIGHLIGHT
    ========================================================= */
 
 .shopping-card::after {
@@ -158,7 +175,7 @@
 
 
 /* =========================================================
-   WYBRANA KARTA
+   SELECTED
    ========================================================= */
 
 .shopping-card.selected {
@@ -173,7 +190,7 @@
 
 
 /* =========================================================
-   ROZWINIĘTA KARTA
+   EXPANDED
    ========================================================= */
 
 .shopping-card.expanded {
@@ -186,7 +203,7 @@
 
 
 /* =========================================================
-   GŁÓWNA CZĘŚĆ KARTY
+   GŁÓWNY WIERSZ
    ========================================================= */
 
 .shopping-main {
@@ -203,7 +220,7 @@
 
     align-items: center;
 
-    gap: 22px;
+    gap: 24px;
 
     min-height: 86px;
 
@@ -231,6 +248,7 @@
     min-width: 0;
 }
 
+
 .shopping-status-summary strong {
     overflow: hidden;
 
@@ -257,11 +275,11 @@
 
     border-radius: 50%;
 
-    background: var(--notification-color);
+    background: var(--shopping-status-color);
 }
 
 
-/* 🟡 Oczekujące */
+/* 🟡 */
 
 .shopping-card.pending .shopping-status-dot {
     background: var(--warning);
@@ -271,7 +289,7 @@
 }
 
 
-/* 🟢 Przyjęte */
+/* 🟢 */
 
 .shopping-card.progress .shopping-status-dot {
     background: var(--success);
@@ -281,7 +299,7 @@
 }
 
 
-/* 🟣 Zrealizowane */
+/* 🟣 */
 
 .shopping-card.done .shopping-status-dot {
     background: #a855f7;
@@ -291,7 +309,7 @@
 }
 
 
-/* 🔴 Anulowane */
+/* 🔴 */
 
 .shopping-card.cancelled .shopping-status-dot {
     background: var(--danger);
@@ -310,10 +328,11 @@
 
     align-items: center;
 
-    gap: 18px;
+    gap: 20px;
 
     min-width: 0;
 }
+
 
 .shopping-summary-product {
     display: flex;
@@ -331,6 +350,7 @@
     font-size: .95rem;
     font-weight: 800;
 }
+
 
 .shopping-summary-product > span {
     min-width: 0;
@@ -355,7 +375,7 @@
 
     margin: 0;
 
-    accent-color: var(--notification-color);
+    accent-color: var(--shopping-status-color);
 
     cursor: pointer;
 }
@@ -377,6 +397,7 @@
     min-width: 0;
 }
 
+
 .shopping-summary-meta span {
     display: inline-flex;
 
@@ -384,7 +405,9 @@
 
     min-height: 30px;
 
-    padding: 6px 10px;
+    padding:
+        6px
+        10px;
 
     border-radius: 10px;
 
@@ -403,9 +426,9 @@
 
     transition:
         background .25s ease,
-        border-color .25s ease,
-        color .25s ease;
+        border-color .25s ease;
 }
+
 
 .shopping-card:hover .shopping-summary-meta span {
     background: rgba(255, 255, 255, .16);
@@ -413,10 +436,14 @@
 
 
 /* =========================================================
-   ROZWIJANIE
+   PRZYCISK ROZWIJANIA
    ========================================================= */
 
 .shopping-expand {
+    position: relative;
+
+    z-index: 5;
+
     display: flex;
 
     align-items: center;
@@ -432,7 +459,14 @@
     font-weight: 900;
 
     user-select: none;
+
+    cursor: pointer;
 }
+
+
+/* =========================================================
+   CHEVRON
+   ========================================================= */
 
 .shopping-chevron {
     display: flex;
@@ -461,35 +495,46 @@
         transform .35s cubic-bezier(.4, 0, .2, 1),
         background .25s ease,
         border-color .25s ease,
-        color .25s ease,
         box-shadow .25s ease;
 }
 
-.shopping-card:hover .shopping-chevron {
-    color: #fff;
 
+.shopping-card:hover .shopping-chevron {
     background:
         color-mix(
             in srgb,
-            var(--accent) 55%,
+            var(--shopping-status-color) 45%,
             transparent
         );
 
-    border-color: rgba(255, 255, 255, .45);
+    border-color:
+        color-mix(
+            in srgb,
+            var(--shopping-status-color) 70%,
+            rgba(255, 255, 255, .35)
+        );
 }
+
 
 .shopping-card.expanded .shopping-chevron {
-    color: #fff;
-
-    border-color: rgba(255, 255, 255, .45);
-
     background:
         color-mix(
             in srgb,
-            var(--accent) 55%,
+            var(--shopping-status-color) 50%,
+            transparent
+        );
+
+    border-color: var(--shopping-status-color);
+
+    box-shadow:
+        0 0 12px
+        color-mix(
+            in srgb,
+            var(--shopping-status-color) 25%,
             transparent
         );
 }
+
 
 .shopping-chevron.open {
     transform: rotate(180deg);
@@ -527,6 +572,8 @@
         shoppingDetailsExpand .28s ease;
 
     box-sizing: border-box;
+
+    cursor: default;
 }
 
 
@@ -544,6 +591,11 @@
 
     width: 100%;
 }
+
+
+/* =========================================================
+   DETAIL
+   ========================================================= */
 
 .shopping-detail {
     display: flex;
@@ -573,15 +625,17 @@
         box-shadow .25s ease;
 }
 
+
 .shopping-detail:hover {
     background: rgba(255, 255, 255, .12);
 
-    border-color: var(--accent);
+    border-color: var(--shopping-status-color);
 
     transform: translateY(-1px);
 
     box-shadow: var(--shadow-medium);
 }
+
 
 .shopping-detail-label {
     color: rgba(255, 255, 255, .62);
@@ -593,6 +647,7 @@
 
     letter-spacing: .7px;
 }
+
 
 .shopping-detail strong {
     overflow: hidden;
@@ -625,10 +680,13 @@
     margin-top: 14px;
     padding-top: 14px;
 
-    border-top: 1px solid rgba(255, 255, 255, .16);
+    border-top:
+        1px solid
+        rgba(255, 255, 255, .16);
 
     flex-wrap: wrap;
 }
+
 
 .shopping-card-footer-left {
     flex: 1;
@@ -642,11 +700,15 @@
    ========================================================= */
 
 .shopping-comment {
+    display: block;
+
     width: 100%;
 
     min-height: 80px;
 
-    padding: 13px 15px;
+    padding:
+        13px
+        15px;
 
     border-radius: 14px;
 
@@ -658,7 +720,9 @@
 
     background: rgba(255, 255, 255, .08);
 
-    border: 1px solid rgba(255, 255, 255, .22);
+    border:
+        1px solid
+        rgba(255, 255, 255, .22);
 
     box-sizing: border-box;
 
@@ -668,14 +732,16 @@
         box-shadow .25s ease;
 }
 
+
 .shopping-comment::placeholder {
     color: rgba(255, 255, 255, .58);
 }
 
+
 .shopping-comment:focus {
     outline: none;
 
-    border-color: var(--accent);
+    border-color: var(--shopping-status-color);
 
     background: rgba(255, 255, 255, .13);
 
@@ -683,10 +749,11 @@
         0 0 0 3px
         color-mix(
             in srgb,
-            var(--accent) 18%,
+            var(--shopping-status-color) 18%,
             transparent
         );
 }
+
 
 .shopping-comment:disabled {
     opacity: .7;
@@ -696,7 +763,7 @@
 
 
 /* =========================================================
-   ACTIONS
+   AKCJE
    ========================================================= */
 
 .shopping-actions {
@@ -709,16 +776,21 @@
     flex-wrap: wrap;
 }
 
+
+/* =========================================================
+   PRZYCISKI
+   ========================================================= */
+
 .shopping-icon-btn {
     position: relative;
-
-    width: 42px;
-    height: 42px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
+
+    width: 42px;
+    height: 42px;
 
     flex-shrink: 0;
 
@@ -726,9 +798,12 @@
 
     border-radius: 13px;
 
-    border: 1px solid rgba(255, 255, 255, .24);
+    border:
+        1px solid
+        rgba(255, 255, 255, .24);
 
-    background: rgba(255, 255, 255, .10);
+    background:
+        rgba(255, 255, 255, .10);
 
     color: #fff;
 
@@ -743,11 +818,13 @@
         box-shadow .25s ease;
 }
 
+
 .shopping-icon-btn:hover:not(:disabled) {
     transform: translateY(-2px);
 
     box-shadow: var(--shadow-medium);
 }
+
 
 .shopping-icon-btn.success:hover:not(:disabled) {
     background:
@@ -762,6 +839,7 @@
     border-color: var(--success);
 }
 
+
 .shopping-icon-btn.info:hover:not(:disabled) {
     background:
         color-mix(
@@ -775,6 +853,7 @@
     border-color: var(--info);
 }
 
+
 .shopping-icon-btn.danger:hover:not(:disabled) {
     background:
         color-mix(
@@ -787,6 +866,7 @@
 
     border-color: var(--danger);
 }
+
 
 .shopping-icon-btn:disabled {
     opacity: .6;
@@ -817,13 +897,18 @@
 
     white-space: nowrap;
 
-    padding: 8px 12px;
+    padding:
+        8px
+        12px;
 
     border-radius: 10px;
 
-    background: rgba(20, 20, 20, .96);
+    background:
+        rgba(20, 20, 20, .96);
 
-    border: 1px solid rgba(255, 255, 255, .22);
+    border:
+        1px solid
+        rgba(255, 255, 255, .22);
 
     color: #fff;
 
@@ -838,6 +923,7 @@
     z-index: 20;
 }
 
+
 .shopping-icon-btn:hover::after {
     opacity: 1;
 
@@ -848,7 +934,7 @@
 
 
 /* =========================================================
-   ANIMATIONS
+   ANIMACJA KARTY
    ========================================================= */
 
 @keyframes shoppingCardEnter {
@@ -856,16 +942,23 @@
     from {
         opacity: 0;
 
-        transform: translateY(10px);
+        transform:
+            translateY(10px);
     }
 
     to {
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
 }
+
+
+/* =========================================================
+   ANIMACJA ROZWIJANIA
+   ========================================================= */
 
 @keyframes shoppingDetailsExpand {
 
@@ -889,10 +982,15 @@
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
    ========================================================= */
 
 @media (max-width: 1100px) {
+
+    .shopping-category-body {
+        gap: 18px;
+    }
+
 
     .shopping-main {
         grid-template-columns:
@@ -903,6 +1001,7 @@
         gap: 16px;
     }
 
+
     .shopping-summary {
         flex-direction: column;
 
@@ -911,9 +1010,11 @@
         gap: 7px;
     }
 
+
     .shopping-summary-meta {
         flex-wrap: wrap;
     }
+
 
     .shopping-details-grid {
         grid-template-columns:
@@ -922,6 +1023,10 @@
 
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 768px) {
 
@@ -934,6 +1039,12 @@
             18px;
     }
 
+
+    .shopping-card {
+        border-radius: 18px;
+    }
+
+
     .shopping-main {
         display: flex;
 
@@ -943,6 +1054,8 @@
 
         gap: 10px;
 
+        min-height: auto;
+
         padding:
             17px
             18px
@@ -950,9 +1063,11 @@
             22px;
     }
 
+
     .shopping-status-summary {
         justify-content: flex-start;
     }
+
 
     .shopping-summary {
         display: flex;
@@ -962,7 +1077,10 @@
         align-items: flex-start;
 
         gap: 8px;
+
+        width: 100%;
     }
+
 
     .shopping-summary-product {
         width: 100%;
@@ -974,6 +1092,7 @@
         line-height: 1.4;
     }
 
+
     .shopping-summary-product > span {
         white-space: normal;
 
@@ -982,19 +1101,24 @@
         text-overflow: unset;
     }
 
+
     .shopping-summary-meta {
         width: 100%;
 
         flex-wrap: wrap;
     }
 
+
     .shopping-expand {
         justify-content: space-between;
 
         width: 100%;
 
+        min-width: 0;
+
         margin-top: 3px;
     }
+
 
     .shopping-details {
         margin:
@@ -1006,9 +1130,11 @@
         padding: 14px;
     }
 
+
     .shopping-details-grid {
         grid-template-columns: 1fr;
     }
+
 
     .shopping-details-bottom {
         flex-direction: column;
@@ -1016,15 +1142,18 @@
         align-items: stretch;
     }
 
+
     .shopping-card-footer-left {
         width: 100%;
 
         min-width: 0;
     }
 
+
     .shopping-actions {
         width: 100%;
     }
+
 
     .shopping-actions .shopping-icon-btn {
         flex: 1;
@@ -1032,6 +1161,10 @@
 
 }
 
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
 
 @media (max-width: 520px) {
 
@@ -1044,9 +1177,11 @@
             12px;
     }
 
+
     .shopping-card {
-        border-radius: 18px;
+        border-radius: 17px;
     }
+
 
     .shopping-summary-meta {
         display: grid;
@@ -1057,13 +1192,16 @@
         width: 100%;
     }
 
+
     .shopping-summary-meta span:last-child {
         grid-column: 1 / -1;
     }
 
+
     .shopping-detail {
         padding: 12px;
     }
+
 
     .shopping-detail strong {
         white-space: normal;
@@ -1075,6 +1213,7 @@
         word-break: break-word;
     }
 
+
     .shopping-actions {
         display: grid;
 
@@ -1083,6 +1222,7 @@
 
         width: 100%;
     }
+
 
     .shopping-actions .shopping-icon-btn {
         width: 100%;
@@ -1100,20 +1240,11 @@
     .shopping-card,
     .shopping-chevron,
     .shopping-details,
-    .shopping-category,
-    .shopping-icon-btn,
-    .shopping-button,
-    .shopping-button-secondary,
     .shopping-category-body,
-    .shopping-edit-field,
-    .shopping-edit-field input,
-    .shopping-edit-field select,
-    .shopping-edit-field textarea,
-    .shopping-spinner {
+    .shopping-icon-btn {
         animation: none;
 
         transition: none;
     }
 
 }
-```
