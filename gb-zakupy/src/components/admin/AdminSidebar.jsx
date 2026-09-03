@@ -148,7 +148,7 @@ export default function AdminSidebar({
                 <p>
                    
                     <br />
-                    Management Center
+                   
                 </p>
 
             </div>
