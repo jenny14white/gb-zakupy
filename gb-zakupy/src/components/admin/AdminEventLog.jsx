@@ -1,14 +1,164 @@
-import {formatDate} from "../../utils/dateUtils";
+import { useMemo, useState } from "react";
+import { formatDate } from "../../utils/dateUtils";
 
 import "../../styles/admin-event-log.css";
 
 
 export default function AdminEventLog({
-    logs=[],
+    logs = [],
     onRefresh
-}){
+}) {
 
-    return(
+    const [userFilter, setUserFilter] = useState("");
+    const [orderFilter, setOrderFilter] = useState("");
+    const [dateFilter, setDateFilter] = useState("");
+
+
+    /* =====================================================
+       FILTROWANIE
+       ===================================================== */
+
+    const filteredLogs = useMemo(() => {
+
+        return logs.filter(log => {
+
+            const userName =
+                String(
+                    log.userName ||
+                    log.user ||
+                    log.userDisplayName ||
+                    ""
+                ).toLowerCase();
+
+
+            const orderName =
+                String(
+                    log.orderName ||
+                    log.order?.name ||
+                    log.name ||
+                    ""
+                ).toLowerCase();
+
+
+            const createdAt =
+                log.createdAt?.toDate?.() ??
+                log.createdAt;
+
+
+            const normalizedUser =
+                userFilter
+                    .trim()
+                    .toLowerCase();
+
+
+            const normalizedOrder =
+                orderFilter
+                    .trim()
+                    .toLowerCase();
+
+
+            /* -------------------------------------------------
+               UŻYTKOWNIK
+               ------------------------------------------------- */
+
+            if (
+                normalizedUser &&
+                !userName.includes(normalizedUser)
+            ) {
+                return false;
+            }
+
+
+            /* -------------------------------------------------
+               NAZWA ZAMÓWIENIA
+               ------------------------------------------------- */
+
+            if (
+                normalizedOrder &&
+                !orderName.includes(normalizedOrder)
+            ) {
+                return false;
+            }
+
+
+            /* -------------------------------------------------
+               DATA WYKONANIA OPERACJI
+               ------------------------------------------------- */
+
+            if (dateFilter && createdAt) {
+
+                const date =
+                    createdAt instanceof Date
+                        ? createdAt
+                        : new Date(createdAt);
+
+
+                if (Number.isNaN(date.getTime())) {
+                    return false;
+                }
+
+
+                const year =
+                    date.getFullYear();
+
+
+                const month =
+                    String(
+                        date.getMonth() + 1
+                    ).padStart(2, "0");
+
+
+                const day =
+                    String(
+                        date.getDate()
+                    ).padStart(2, "0");
+
+
+                const formattedDate =
+                    `${year}-${month}-${day}`;
+
+
+                if (
+                    formattedDate !== dateFilter
+                ) {
+                    return false;
+                }
+
+            }
+
+
+            return true;
+
+        });
+
+    }, [
+        logs,
+        userFilter,
+        orderFilter,
+        dateFilter
+    ]);
+
+
+    /* =====================================================
+       WYCZYŚĆ FILTRY
+       ===================================================== */
+
+    const clearFilters = () => {
+
+        setUserFilter("");
+        setOrderFilter("");
+        setDateFilter("");
+
+    };
+
+
+    const hasFilters =
+        userFilter ||
+        orderFilter ||
+        dateFilter;
+
+
+    return (
 
         <section className="event-log-page">
 
@@ -19,12 +169,11 @@ export default function AdminEventLog({
 
             <div className="event-log-header">
 
-
                 <div className="event-log-header-left">
 
-                    <small>
+                    <span className="event-log-eyebrow">
                         EVENT LOG
-                    </small>
+                    </span>
 
 
                     <h1>
@@ -41,25 +190,17 @@ export default function AdminEventLog({
 
                 <div className="event-log-toolbar">
 
-                    <div className="event-log-count">
-                        <span>
-                            Łącznie wpisów
-                        </span>
+                    {onRefresh && (
 
-                        <strong>
-                            {logs.length}
-                        </strong>
-                    </div>
+                        <button
+                            type="button"
+                            className="event-log-button-secondary"
+                            onClick={onRefresh}
+                        >
+                            ↻ Odśwież
+                        </button>
 
-
-                    <button
-                        type="button"
-                        className="event-log-button-secondary"
-                        onClick={onRefresh}
-                        disabled={!onRefresh}
-                    >
-                        ↻ Odśwież
-                    </button>
+                    )}
 
                 </div>
 
@@ -67,22 +208,93 @@ export default function AdminEventLog({
 
 
             {/* =====================================================
-                EMPTY STATE
+                FILTRY
+               ===================================================== */}
+
+            <div className="event-log-filters">
+
+                <div className="event-log-filter">
+
+                    <label htmlFor="event-user-filter">
+                        Użytkownik
+                    </label>
+
+                    <input
+                        id="event-user-filter"
+                        type="text"
+                        value={userFilter}
+                        onChange={e =>
+                            setUserFilter(e.target.value)
+                        }
+                        placeholder="np. Natalia"
+                    />
+
+                </div>
+
+
+                <div className="event-log-filter">
+
+                    <label htmlFor="event-order-filter">
+                        Nazwa zamówienia
+                    </label>
+
+                    <input
+                        id="event-order-filter"
+                        type="text"
+                        value={orderFilter}
+                        onChange={e =>
+                            setOrderFilter(e.target.value)
+                        }
+                        placeholder="np. TEST"
+                    />
+
+                </div>
+
+
+                <div className="event-log-filter">
+
+                    <label htmlFor="event-date-filter">
+                        Data wykonania
+                    </label>
+
+                    <input
+                        id="event-date-filter"
+                        type="date"
+                        value={dateFilter}
+                        onChange={e =>
+                            setDateFilter(e.target.value)
+                        }
+                    />
+
+                </div>
+
+
+                {hasFilters && (
+
+                    <button
+                        type="button"
+                        className="event-log-clear"
+                        onClick={clearFilters}
+                    >
+                        Wyczyść
+                    </button>
+
+                )}
+
+            </div>
+
+
+            {/* =====================================================
+                LISTA
                ===================================================== */}
 
             {!logs.length ? (
 
                 <div className="event-empty">
 
-                    <div className="event-empty-icon">
-                        📜
-                    </div>
-
-
                     <h3>
                         Brak zdarzeń
                     </h3>
-
 
                     <p>
                         Nie znaleziono żadnych wpisów w dzienniku zdarzeń.
@@ -90,176 +302,116 @@ export default function AdminEventLog({
 
                 </div>
 
+            ) : !filteredLogs.length ? (
+
+                <div className="event-empty">
+
+                    <h3>
+                        Brak wyników
+                    </h3>
+
+                    <p>
+                        Nie znaleziono zdarzeń pasujących do wybranych filtrów.
+                    </p>
+
+                    <button
+                        type="button"
+                        className="event-log-clear"
+                        onClick={clearFilters}
+                    >
+                        Wyczyść filtry
+                    </button>
+
+                </div>
+
             ) : (
 
+                <div className="event-list">
 
-                /* =================================================
-                   TIMELINE
-                   ================================================= */
+                    {filteredLogs.map((log, index) => {
 
-                <div className="event-timeline">
-
-
-                    {logs.map((log,index)=>{
-
-                        const eventType =
-                            log.type || "system";
+                        const createdAt =
+                            log.createdAt?.toDate?.() ??
+                            log.createdAt;
 
 
-                        return(
+                        return (
 
                             <article
-
                                 key={
                                     log.id ||
-                                    `${eventType}-${index}`
+                                    `event-${index}`
                                 }
-
-                                className={
-                                    `event-item ${eventType}`
-                                }
-
+                                className="event-card"
                             >
 
-
-                                {/* =================================================
-                                    NODE
-                                   ================================================= */}
-
-                                <div className="event-node">
-
-                                    <span>
-                                        {eventType==="error"
-                                            ? "!"
-                                            : eventType==="warning"
-                                                ? "!"
-                                                : eventType==="success"
-                                                    ? "✓"
-                                                    : "•"
-                                        }
-                                    </span>
-
-                                </div>
-
-
-                                {/* =================================================
-                                    CARD
-                                   ================================================= */}
-
-                                <div className="event-card">
+                                <div className="event-card-main">
 
 
                                     {/* =================================================
-                                        CARD HEADER
+                                        OPIS
                                        ================================================= */}
 
-                                    <div className="event-header">
+                                    <div className="event-message">
 
+                                        <strong>
+                                            {log.userName ||
+                                                log.user ||
+                                                log.userDisplayName ||
+                                                "Użytkownik"}
+                                        </strong>
 
-                                        <div className="event-title">
+                                        <span>
+                                            {" "}edytował zamówienie:{" "}
+                                        </span>
 
+                                        <strong>
+                                            {log.orderName ||
+                                                log.order?.name ||
+                                                log.name ||
+                                                "Nieznane zamówienie"}
+                                        </strong>
 
-                                            <div className="event-icon">
+                                        {log.orderDate && (
 
-                                                {eventType==="error"
-                                                    ? "⚠️"
-                                                    : eventType==="warning"
-                                                        ? "⚠️"
-                                                        : eventType==="success"
-                                                            ? "✓"
-                                                            : "📜"
-                                                }
+                                            <>
 
-                                            </div>
+                                                <span>
+                                                    {" "}z dnia{" "}
+                                                </span>
 
+                                                <strong>
+                                                    {formatDate(
+                                                        log.orderDate?.toDate?.() ??
+                                                        log.orderDate
+                                                    )}
+                                                </strong>
 
-                                            <div className="event-title-content">
+                                            </>
 
-                                                <div className="event-title-top">
-
-                                                    <span className="event-type">
-                                                        {eventType}
-                                                    </span>
-
-                                                </div>
-
-
-                                                <h3>
-                                                    Zdarzenie systemowe
-                                                </h3>
-
-
-                                                <p>
-                                                    {log.message || "Brak opisu zdarzenia."}
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        {/* =================================================
-                                            TIME
-                                           ================================================= */}
-
-                                        <div className="event-time">
-
-                                            <span>
-                                                CZAS
-                                            </span>
-
-
-                                            <strong>
-                                                {formatDate(
-                                                    log.createdAt?.toDate?.() ??
-                                                    log.createdAt
-                                                )}
-                                            </strong>
-
-                                        </div>
-
+                                        )}
 
                                     </div>
 
 
                                     {/* =================================================
-                                        META
+                                        CZAS WYKONANIA
                                        ================================================= */}
 
-                                    <div className="event-meta">
+                                    <div className="event-executed">
 
+                                        <span>
+                                            Wykonano
+                                        </span>
 
-                                        <div className="event-meta-item">
-
-                                            <span>
-                                                ID
-                                            </span>
-
-                                            <strong>
-                                                {log.id || "—"}
-                                            </strong>
-
-                                        </div>
-
-
-                                        <div className="event-meta-item">
-
-                                            <span>
-                                                TYP
-                                            </span>
-
-                                            <strong>
-                                                {eventType}
-                                            </strong>
-
-                                        </div>
-
+                                        <strong>
+                                            {formatDate(createdAt)}
+                                        </strong>
 
                                     </div>
 
 
                                 </div>
-
 
                             </article>
 
@@ -267,11 +419,9 @@ export default function AdminEventLog({
 
                     })}
 
-
                 </div>
 
             )}
-
 
         </section>
 
