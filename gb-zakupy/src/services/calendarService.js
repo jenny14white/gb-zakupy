@@ -19,9 +19,10 @@ const EVENTS_COLLECTION =
     "events";
 
 
-const ADMIN_UID =
-    "kRulgEcxNed8aYacTWq3j9GgP4J2";
-
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 function checkAdmin() {
@@ -32,7 +33,7 @@ function checkAdmin() {
 
     if (
         !user ||
-        user.uid !== ADMIN_UID
+        !ADMIN_UIDS.includes(user.uid)
     ) {
         throw new Error(
             "Brak uprawnień administratora"
@@ -42,13 +43,11 @@ function checkAdmin() {
 }
 
 
-
 function cleanText(value = "") {
 
     return String(value).trim();
 
 }
-
 
 
 function normalizeEvent(event) {
@@ -58,42 +57,32 @@ function normalizeEvent(event) {
         id:
             event.id,
 
-
         title:
             event.title || "",
-
 
         description:
             event.description || "",
 
-
         type:
             event.type || "inne",
-
 
         date:
             event.date || null,
 
-
         time:
             event.time || "",
-
 
         location:
             event.location || "",
 
-
         emoji:
             event.emoji || "📅",
-
 
         recurring:
             Boolean(event.recurring),
 
-
         createdAt:
             event.createdAt || null,
-
 
         updatedAt:
             event.updatedAt || null,
@@ -101,7 +90,6 @@ function normalizeEvent(event) {
     };
 
 }
-
 
 
 function getEventDate(event) {
@@ -119,7 +107,6 @@ function getEventDate(event) {
 }
 
 
-
 function sortEvents(events) {
 
     return events.sort(
@@ -129,7 +116,6 @@ function sortEvents(events) {
     );
 
 }
-
 
 
 function prepareEvent(data) {
@@ -157,30 +143,23 @@ function prepareEvent(data) {
         title:
             cleanText(data.title),
 
-
         description:
             cleanText(data.description),
-
 
         type:
             cleanText(data.type) || "inne",
 
-
         date:
             data.date,
-
 
         time:
             cleanText(data.time),
 
-
         location:
             cleanText(data.location),
 
-
         emoji:
             cleanText(data.emoji) || "📅",
-
 
         recurring:
             Boolean(data.recurring),
@@ -188,7 +167,6 @@ function prepareEvent(data) {
     };
 
 }
-
 
 
 export function listenToEvents(callback) {
@@ -220,7 +198,6 @@ export function listenToEvents(callback) {
 }
 
 
-
 export async function getAllCalendarEvents() {
 
     const snapshot =
@@ -245,7 +222,6 @@ export async function getAllCalendarEvents() {
     return sortEvents(events);
 
 }
-
 
 
 export function getEventsForDate(
@@ -284,7 +260,6 @@ export function getEventsForDate(
 }
 
 
-
 export async function createEvent(data) {
 
     checkAdmin();
@@ -313,7 +288,6 @@ export async function createEvent(data) {
     );
 
 }
-
 
 
 export async function updateEvent(
@@ -345,7 +319,6 @@ export async function updateEvent(
     );
 
 }
-
 
 
 export async function deleteEvent(id) {
