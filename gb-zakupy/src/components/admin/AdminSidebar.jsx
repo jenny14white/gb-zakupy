@@ -142,11 +142,11 @@ export default function AdminSidebar({
                 />
 
                 <h2>
-                    Panel administratora
+                    Panel zarządzający
                 </h2>
 
                 <p>
-                    GB Zakupy
+                   
                     <br />
                     Management Center
                 </p>
