@@ -99,7 +99,6 @@ export default function AdminDashboardPage({
         userUid === ADMIN_UID;
 
 
-
     const isSecretariat =
         userUid === SECRETARIAT_UID;
 
@@ -308,9 +307,72 @@ export default function AdminDashboardPage({
             case "lista":
 
                 return (
-                    <AdminShoppingList
-                        orders={pendingOrders}
-                    />
+
+                    <>
+
+                        <header className="dashboard-header">
+
+                            <div>
+
+                                <span className="dashboard-eyebrow">
+                                    SEKRETARIAT
+                                </span>
+
+
+                                <h1>
+                                    {t(
+                                        "admin.dashboard.title"
+                                    )}
+                                </h1>
+
+
+                                <p className="dashboard-description">
+                                    Centrum zarządzania zakupami,
+                                    wydarzeniami i administracją.
+                                </p>
+
+                            </div>
+
+                        </header>
+
+
+
+                        <section className="dashboard-stats">
+
+                            <AdminStats
+
+                                allCount={
+                                    orders.length
+                                }
+
+                                pendingCount={
+                                    pendingCount
+                                }
+
+                                acceptedCount={
+                                    acceptedCount
+                                }
+
+                                completedCount={
+                                    completedOrders.length
+                                }
+
+                            />
+
+                        </section>
+
+
+
+                        <section className="dashboard-content">
+
+                            <AdminShoppingList
+                                orders={pendingOrders}
+                            />
+
+                        </section>
+
+                    </>
+
                 );
 
 
@@ -318,9 +380,15 @@ export default function AdminDashboardPage({
             case "powiadomienia":
 
                 return (
-                    <AdminNotifications
-                        orders={pendingOrders}
-                    />
+
+                    <section className="dashboard-content">
+
+                        <AdminNotifications
+                            orders={pendingOrders}
+                        />
+
+                    </section>
+
                 );
 
 
@@ -328,9 +396,15 @@ export default function AdminDashboardPage({
             case "zrealizowane":
 
                 return (
-                    <AdminCompletedList
-                        orders={completedOrders}
-                    />
+
+                    <section className="dashboard-content">
+
+                        <AdminCompletedList
+                            orders={completedOrders}
+                        />
+
+                    </section>
+
                 );
 
 
@@ -339,19 +413,21 @@ export default function AdminDashboardPage({
 
                 if(!isAdmin){
 
-                    return (
-                        <AdminShoppingList
-                            orders={pendingOrders}
-                        />
-                    );
+                    return null;
 
                 }
 
 
                 return (
-                    <AdminEventLog
-                        logs={logs}
-                    />
+
+                    <section className="dashboard-content">
+
+                        <AdminEventLog
+                            logs={logs}
+                        />
+
+                    </section>
+
                 );
 
 
@@ -360,11 +436,15 @@ export default function AdminDashboardPage({
 
                 return (
 
-                    <AdminCalendar
-                        events={events}
-                        onEdit={()=>{}}
-                        onDelete={()=>{}}
-                    />
+                    <section className="dashboard-content">
+
+                        <AdminCalendar
+                            events={events}
+                            onEdit={()=>{}}
+                            onDelete={()=>{}}
+                        />
+
+                    </section>
 
                 );
 
@@ -380,7 +460,13 @@ export default function AdminDashboardPage({
 
 
                 return (
-                    <UsersPage />
+
+                    <section className="dashboard-content">
+
+                        <UsersPage />
+
+                    </section>
+
                 );
 
 
@@ -438,78 +524,7 @@ export default function AdminDashboardPage({
 
             <section className="dashboard">
 
-
-                <header className="dashboard-header">
-
-
-                    <div>
-
-
-                        <span className="dashboard-eyebrow">
-
-                            GB PORTAL
-
-                        </span>
-
-
-                        <h1>
-
-                            {t(
-                                "admin.dashboard.title"
-                            )}
-
-                        </h1>
-
-
-                        <p className="dashboard-description">
-
-                            Centrum zarządzania zakupami,
-                            wydarzeniami i administracją.
-
-                        </p>
-
-
-                    </div>
-
-
-                </header>
-
-
-
-                <section className="dashboard-stats">
-
-
-                    <AdminStats
-
-                        allCount={
-                            orders.length
-                        }
-
-                        pendingCount={
-                            pendingCount
-                        }
-
-                        acceptedCount={
-                            acceptedCount
-                        }
-
-                        completedCount={
-                            completedOrders.length
-                        }
-
-                    />
-
-
-                </section>
-
-
-
-                <section className="dashboard-content">
-
-                    {renderContent()}
-
-                </section>
-
+                {renderContent()}
 
             </section>
 
