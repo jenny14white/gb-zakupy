@@ -12,33 +12,42 @@ export default function AdminNotifications({
     orders = []
 }){
 
-    const [view, setView] = useState("unread");
+    const [view, setView] =
+        useState("unread");
 
-    const [expandedId, setExpandedId] = useState(null);
+    const [expandedId, setExpandedId] =
+        useState(null);
 
+
+    /*
+     * =====================================================
+     * POWIADOMIENIA
+     * =====================================================
+     */
 
     const {
         unreadOrders,
         readOrders,
-    } = useMemo(()=>{
+    } = useMemo(() => {
+
+        const unread =
+            orders.filter(
+                order =>
+                    !order.notificationRead
+            );
+
+        const read =
+            orders.filter(
+                order =>
+                    order.notificationRead
+            );
 
         return {
-
-            unreadOrders:
-                orders.filter(
-                    order =>
-                        !order.notificationRead
-                ),
-
-            readOrders:
-                orders.filter(
-                    order =>
-                        order.notificationRead
-                ),
-
+            unreadOrders: unread,
+            readOrders: read,
         };
 
-    },[orders]);
+    }, [orders]);
 
 
     const visibleOrders =
@@ -46,6 +55,12 @@ export default function AdminNotifications({
             ? unreadOrders
             : readOrders;
 
+
+    /*
+     * =====================================================
+     * ZMIANA WIDOKU
+     * =====================================================
+     */
 
     function handleViewChange(nextView){
 
@@ -55,6 +70,12 @@ export default function AdminNotifications({
 
     }
 
+
+    /*
+     * =====================================================
+     * ROZWIJANIE KARTY
+     * =====================================================
+     */
 
     function toggleNotification(id){
 
@@ -68,120 +89,225 @@ export default function AdminNotifications({
     }
 
 
+    /*
+     * =====================================================
+     * RENDER
+     * =====================================================
+     */
+
     return (
 
         <section className="admin-notifications">
 
 
-            <div className="section-header">
+            {/* =================================================
+                BANER
+               ================================================= */}
 
+            <header className="dashboard-header">
 
                 <div>
 
-                    <h2>
-                        🔔 Powiadomienia
-                    </h2>
+                    <span className="dashboard-eyebrow">
+                        SEKRETARIAT
+                    </span>
 
-                    <p>
-                        Nowe zgłoszenia od pracowników.
+
+                    <h1>
+                        Powiadomienia
+                    </h1>
+
+
+                    <p className="dashboard-description">
+                        Centrum zarządzania powiadomieniami
+                        i nowymi zgłoszeniami od pracowników.
                     </p>
 
                 </div>
 
+            </header>
 
-                <div className="notification-tabs">
+
+            {/* =================================================
+                STATYSTYKI
+               ================================================= */}
+
+            <section className="dashboard-stats notification-stats">
+
+                <div className="stats notification-stats-grid">
 
 
-                    <button
+                    {/* NIEPRZECZYTANE */}
 
-                        className={
-                            view === "unread"
-                                ? "active"
+                    <article
+                        className={`
+                            stat-card
+                            notification-stat-card
+                            ${view === "unread"
+                                ? "selected"
                                 : ""
-                        }
-
+                            }
+                        `}
                         onClick={() =>
                             handleViewChange("unread")
                         }
-
                     >
 
-                        Nowe ({unreadOrders.length})
+                        <div className="stat-icon">
+                            🔔
+                        </div>
 
-                    </button>
+
+                        <strong>
+                            {unreadOrders.length}
+                        </strong>
 
 
-                    <button
+                        <span>
+                            Nieprzeczytane
+                        </span>
 
-                        className={
-                            view === "read"
-                                ? "active"
+
+                        <small>
+                            Nowe zgłoszenia
+                        </small>
+
+                    </article>
+
+
+                    {/* PRZECZYTANE */}
+
+                    <article
+                        className={`
+                            stat-card
+                            notification-stat-card
+                            ${view === "read"
+                                ? "selected"
                                 : ""
-                        }
-
+                            }
+                        `}
                         onClick={() =>
                             handleViewChange("read")
                         }
-
                     >
 
-                        Przeczytane ({readOrders.length})
-
-                    </button>
-
-
-                </div>
+                        <div className="stat-icon">
+                            ✓
+                        </div>
 
 
-            </div>
+                        <strong>
+                            {readOrders.length}
+                        </strong>
 
 
-            {!visibleOrders.length ? (
-
-                <EmptyState>
-
-                    {
-                        view === "unread"
-                            ? "Brak nowych nieprzeczytanych powiadomień."
-                            : "Brak przeczytanych powiadomień."
-                    }
-
-                </EmptyState>
-
-            ) : (
-
-                <div className="notifications">
+                        <span>
+                            Przeczytane
+                        </span>
 
 
-                    {visibleOrders.map(order => (
+                        <small>
+                            Obsłużone powiadomienia
+                        </small>
 
-                        <NotificationCard
-
-                            key={order.id}
-
-                            order={order}
-
-                            expanded={
-                                expandedId === order.id
-                            }
-
-                            onToggle={() =>
-                                toggleNotification(
-                                    order.id
-                                )
-                            }
-
-                            view={view}
-
-                        />
-
-                    ))}
+                    </article>
 
 
                 </div>
 
-            )}
+            </section>
 
+
+            {/* =================================================
+                LISTA
+               ================================================= */}
+
+            <section className="dashboard-content">
+
+
+                <div className="admin-notifications-list">
+
+
+                    {/* NAGŁÓWEK LISTY */}
+
+                    <div className="section-header">
+
+                        <div>
+
+                            <h2>
+                                {view === "unread"
+                                    ? "🔔 Nieprzeczytane"
+                                    : "✓ Przeczytane"
+                                }
+                            </h2>
+
+
+                            <p>
+                                {view === "unread"
+                                    ? "Nowe zgłoszenia wymagające uwagi."
+                                    : "Historia przeczytanych powiadomień."
+                                }
+                            </p>
+
+                        </div>
+
+
+                        <div className="section-count">
+                            {visibleOrders.length}
+                        </div>
+
+                    </div>
+
+
+                    {/* LISTA */}
+
+                    {!visibleOrders.length ? (
+
+                        <EmptyState>
+
+                            {
+                                view === "unread"
+                                    ? "Brak nowych nieprzeczytanych powiadomień."
+                                    : "Brak przeczytanych powiadomień."
+                            }
+
+                        </EmptyState>
+
+                    ) : (
+
+                        <div className="notifications">
+
+                            {visibleOrders.map(order => (
+
+                                <NotificationCard
+
+                                    key={order.id}
+
+                                    order={order}
+
+                                    expanded={
+                                        expandedId === order.id
+                                    }
+
+                                    onToggle={() =>
+                                        toggleNotification(
+                                            order.id
+                                        )
+                                    }
+
+                                    view={view}
+
+                                />
+
+                            ))}
+
+                        </div>
+
+                    )}
+
+                </div>
+
+            </section>
 
         </section>
 
@@ -189,6 +315,12 @@ export default function AdminNotifications({
 
 }
 
+
+/*
+ * =========================================================
+ * NOTIFICATION CARD
+ * =========================================================
+ */
 
 function NotificationCard({
     order,
@@ -200,6 +332,12 @@ function NotificationCard({
     const [loading, setLoading] =
         useState(false);
 
+
+    /*
+     * =====================================================
+     * OZNACZENIE JAKO PRZECZYTANE
+     * =====================================================
+     */
 
     async function handleRead(event){
 
@@ -213,6 +351,7 @@ function NotificationCard({
         try{
 
             setLoading(true);
+
 
             await markNotificationAsRead(
                 order
@@ -255,11 +394,16 @@ function NotificationCard({
         >
 
 
+            {/* =================================================
+                GŁÓWNA CZĘŚĆ KARTY
+               ================================================= */}
+
             <div className="notification-main">
 
 
-                <div className="notification-status">
+                {/* STATUS */}
 
+                <div className="notification-status">
 
                     <span
                         className={
@@ -282,9 +426,10 @@ function NotificationCard({
 
                     </strong>
 
-
                 </div>
 
+
+                {/* INFORMACJE */}
 
                 <div className="notification-summary">
 
@@ -302,9 +447,11 @@ function NotificationCard({
                             📦 {order.quantity} {order.unit}
                         </span>
 
+
                         <span>
                             👤 {order.requestedBy}
                         </span>
+
 
                         <span>
                             🕐 {formatDate(order.createdAt)}
@@ -312,18 +459,21 @@ function NotificationCard({
 
                     </div>
 
-
                 </div>
 
+
+                {/* ROZWIJANIE */}
 
                 <div className="notification-expand">
 
 
                     <span>
+
                         {expanded
                             ? "Zwiń"
                             : "Szczegóły"
                         }
+
                     </span>
 
 
@@ -339,17 +489,20 @@ function NotificationCard({
                         ↓
                     </span>
 
-
                 </div>
-
 
             </div>
 
+
+            {/* =================================================
+                SZCZEGÓŁY
+               ================================================= */}
 
             {expanded && (
 
                 <div
                     className="notification-details"
+
                     onClick={event =>
                         event.stopPropagation()
                     }
@@ -359,8 +512,9 @@ function NotificationCard({
                     <div className="notification-details-grid">
 
 
-                        <div className="notification-detail">
+                        {/* PRODUKT */}
 
+                        <div className="notification-detail">
 
                             <span className="notification-detail-label">
                                 Produkt
@@ -371,12 +525,12 @@ function NotificationCard({
                                 {order.product}
                             </strong>
 
-
                         </div>
 
 
-                        <div className="notification-detail">
+                        {/* ILOŚĆ */}
 
+                        <div className="notification-detail">
 
                             <span className="notification-detail-label">
                                 Ilość
@@ -387,12 +541,12 @@ function NotificationCard({
                                 {order.quantity} {order.unit}
                             </strong>
 
-
                         </div>
 
 
-                        <div className="notification-detail">
+                        {/* DODANE PRZEZ */}
 
+                        <div className="notification-detail">
 
                             <span className="notification-detail-label">
                                 Dodane przez
@@ -403,12 +557,12 @@ function NotificationCard({
                                 {order.requestedBy}
                             </strong>
 
-
                         </div>
 
 
-                        <div className="notification-detail">
+                        {/* DATA */}
 
+                        <div className="notification-detail">
 
                             <span className="notification-detail-label">
                                 Data zgłoszenia
@@ -419,14 +573,14 @@ function NotificationCard({
                                 {formatDate(order.createdAt)}
                             </strong>
 
-
                         </div>
 
+
+                        {/* PRZECZYTANO */}
 
                         {order.notificationReadAt && (
 
                             <div className="notification-detail">
-
 
                                 <span className="notification-detail-label">
                                     Przeczytano
@@ -439,14 +593,16 @@ function NotificationCard({
                                     )}
                                 </strong>
 
-
                             </div>
 
                         )}
 
-
                     </div>
 
+
+                    {/* =================================================
+                        AKCJE
+                       ================================================= */}
 
                     {view === "unread" &&
                     !order.notificationRead && (
@@ -455,6 +611,8 @@ function NotificationCard({
 
 
                             <button
+
+                                type="button"
 
                                 className="admin-button"
 
@@ -477,11 +635,9 @@ function NotificationCard({
 
                     )}
 
-
                 </div>
 
             )}
-
 
         </article>
 
