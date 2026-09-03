@@ -9,27 +9,27 @@ import "../../styles/admin-shopping.css";
 
 
 export default function AdminShoppingList({
-    orders,
+    orders = [],
 }){
 
-
     const pendingOrders = useMemo(
-        ()=>orders.filter(
-            order =>
-                order.status === ORDER_STATUS.PENDING
-        ),
+        () =>
+            orders.filter(
+                order =>
+                    order.status === ORDER_STATUS.PENDING
+            ),
         [orders]
     );
 
 
     const acceptedOrders = useMemo(
-        ()=>orders.filter(
-            order =>
-                order.status === ORDER_STATUS.ACCEPTED
-        ),
+        () =>
+            orders.filter(
+                order =>
+                    order.status === ORDER_STATUS.ACCEPTED
+            ),
         [orders]
     );
-
 
 
     function renderSection(
@@ -43,7 +43,6 @@ export default function AdminShoppingList({
 
             <section className="admin-section">
 
-
                 <div className="section-header">
 
                     <h3>
@@ -54,7 +53,6 @@ export default function AdminShoppingList({
                     </h3>
 
                 </div>
-
 
 
                 {
@@ -69,7 +67,7 @@ export default function AdminShoppingList({
                         <div className="admin-orders">
 
                             {
-                                items.map(order=>(
+                                items.map(order => (
 
                                     <AdminOrderCard
                                         key={order.id}
@@ -84,8 +82,6 @@ export default function AdminShoppingList({
                     )
                 }
 
-
-
             </section>
 
         );
@@ -93,19 +89,14 @@ export default function AdminShoppingList({
     }
 
 
-
-
     const totalActive =
         pendingOrders.length +
         acceptedOrders.length;
 
 
-
     return (
 
         <section className="admin-shopping-list">
-
-
 
             <div className="admin-list-header">
 
@@ -115,20 +106,14 @@ export default function AdminShoppingList({
                         🛒 Zakupy
                     </h2>
 
-
                     <p>
                         Łącznie aktywnych zgłoszeń:{" "}
                         {totalActive}
                     </p>
 
-
                 </div>
 
-
             </div>
-
-
-
 
 
             {
@@ -141,7 +126,6 @@ export default function AdminShoppingList({
             }
 
 
-
             {
                 renderSection(
                     "Przyjęte do realizacji",
@@ -150,8 +134,6 @@ export default function AdminShoppingList({
                     "Brak produktów przyjętych do realizacji."
                 )
             }
-
-
 
         </section>
 
