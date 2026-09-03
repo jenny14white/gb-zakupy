@@ -1481,3 +1481,94 @@
     }
 
 }
+/* =========================================================
+   OPIS SEKCJI SHOPPING
+   ========================================================= */
+
+.admin-completed-list .dashboard-description,
+.completed-list-panel .section-header p {
+    color: rgba(255, 255, 255, .72);
+}
+
+
+/* =========================================================
+   LISTA ZAMÓWIEŃ — ODSTĘPY
+   ========================================================= */
+
+.completed-orders {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+
+/* =========================================================
+   ROZWIJANIE — ZAWSZE NA KOŃCU KARTY
+   ========================================================= */
+
+.shopping-main {
+    grid-template-columns:
+        180px
+        minmax(0, 1fr)
+        120px;
+}
+
+
+/* prawa kolumna */
+
+.shopping-expand {
+    width: 120px;
+    min-width: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-left: auto;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .shopping-main {
+        grid-template-columns:
+            150px
+            minmax(0, 1fr)
+            110px;
+    }
+
+    .shopping-expand {
+        width: 110px;
+        min-width: 110px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .shopping-main {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .shopping-expand {
+        width: 100%;
+        min-width: 0;
+
+        justify-content: space-between;
+
+        margin-left: 0;
+    }
+
+}
