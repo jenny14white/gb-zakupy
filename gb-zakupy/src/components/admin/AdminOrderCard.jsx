@@ -18,6 +18,7 @@ export default function AdminOrderCard({order,selected=false,onSelect,canOrder=t
     const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
     const isCompleted=order.status===ORDER_STATUS.COMPLETED;
     const statusClass=isPending?"pending":isAccepted?"progress":isCompleted?"done":"cancelled";
+    const statusLabel=isPending?"Oczekujące":isAccepted?"Przyjęte":isCompleted?"Zrealizowane":"Anulowane";
     async function handleAction(action){
         if(loading)return;
         try{
@@ -67,15 +68,13 @@ export default function AdminOrderCard({order,selected=false,onSelect,canOrder=t
                 onCancel={()=>setShowDeleteDialog(false)}
             />
             <article
-                className={`shopping-card ${selected?"selected":""} ${expanded?"expanded":""}`}
+                className={`shopping-card ${statusClass} ${selected?"selected":""} ${expanded?"expanded":""}`}
                 onClick={handleToggle}
             >
-                <div className="shopping-card-bar"/>
                 <div className="shopping-main">
                     <div className="shopping-status-summary">
-                        <span className={`shopping-status ${statusClass}`}>
-                            {isPending?"Oczekujące":isAccepted?"Przyjęte":isCompleted?"Zrealizowane":"Anulowane"}
-                        </span>
+                        <span className={`shopping-status-dot ${statusClass}`}/>
+                        <strong>{statusLabel}</strong>
                     </div>
                     <div className="shopping-summary">
                         <div className="shopping-summary-product">
@@ -134,6 +133,12 @@ export default function AdminOrderCard({order,selected=false,onSelect,canOrder=t
                                 <span className="shopping-detail-label">Zrealizowano</span>
                                 <strong>{order.completedAt?formatDate(order.completedAt):"—"}</strong>
                             </div>
+                            {order.adminComment&&(
+                                <div className="shopping-detail">
+                                    <span className="shopping-detail-label">Komentarz administratora</span>
+                                    <strong>{order.adminComment}</strong>
+                                </div>
+                            )}
                         </div>
                         <div className="shopping-details-bottom">
                             <div className="shopping-card-footer-left">
@@ -146,12 +151,6 @@ export default function AdminOrderCard({order,selected=false,onSelect,canOrder=t
                                     onChange={e=>setAdminComment(e.target.value)}
                                     onClick={e=>e.stopPropagation()}
                                 />
-                                {order.adminComment&&(
-                                    <div className="shopping-request-info">
-                                        <strong>Komentarz administratora</strong>
-                                        <p>{order.adminComment}</p>
-                                    </div>
-                                )}
                             </div>
                             <div className="shopping-actions">
                                 {isPending&&(
