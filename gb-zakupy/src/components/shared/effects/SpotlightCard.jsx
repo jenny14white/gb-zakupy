@@ -6,11 +6,9 @@ const SpotlightCard = ({
     className = "",
     spotlightColor = "var(--accent)",
 }) => {
-
     const divRef = useRef(null);
 
     const handleMouseMove = (event) => {
-
         if (!divRef.current) {
             return;
         }
@@ -41,7 +39,6 @@ const SpotlightCard = ({
     };
 
     const handleMouseLeave = () => {
-
         if (!divRef.current) {
             return;
         }
