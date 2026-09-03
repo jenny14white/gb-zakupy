@@ -1,7 +1,7 @@
 import Logo from "../shared/Logo";
 import SpotlightCard from "../shared/SpotlightCard";
 
-import "../../styles/admin-sidebar.css";
+import SpotlightCard from "../shared/effects/SpotlightCard";
 
 const ADMIN_UID =
     "kRulgEcxNed8aYacTWq3j9GgP4J2";
