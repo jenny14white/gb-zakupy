@@ -16,6 +16,7 @@ import AdminNotifications from "../components/admin/AdminNotifications";
 import AdminCompletedList from "../components/admin/AdminCompletedList";
 import AdminEventLog from "../components/admin/AdminEventLog";
 import AdminCalendar from "../components/admin/AdminCalendar";
+import UsersPage from "./UsersPage";
 
 
 const ADMIN_UID =
@@ -263,6 +264,16 @@ export default function AdminDashboardPage({
         }
 
 
+        if(
+            tab === "uzytkownicy" &&
+            !isAdmin
+        ){
+
+            return;
+
+        }
+
+
         setActiveTab(tab);
 
     }
@@ -355,6 +366,21 @@ export default function AdminDashboardPage({
                         onDelete={()=>{}}
                     />
 
+                );
+
+
+
+            case "uzytkownicy":
+
+                if(!isAdmin){
+
+                    return null;
+
+                }
+
+
+                return (
+                    <UsersPage />
                 );
 
 
