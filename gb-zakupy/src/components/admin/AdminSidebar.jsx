@@ -10,17 +10,22 @@ const SECRETARIAT_UID =
 
 
 export default function AdminSidebar({
+
     activeTab,
     setActiveTab,
+
     pendingCount,
     acceptedCount,
     completedCount,
     unreadNotificationsCount,
+
     goBack,
     logout,
     goToEvents,
+
     userUid,
-}) {
+
+}){
 
 
     const isAdmin =
@@ -33,13 +38,15 @@ export default function AdminSidebar({
 
 
     function NavButton({
+
         tab,
         icon,
         label,
-        counter = 0,
+        counter=0,
         subtitle,
-        onClick
-    }) {
+        onClick,
+
+    }){
 
         const active =
             tab &&
@@ -49,17 +56,24 @@ export default function AdminSidebar({
         return (
 
             <button
-                className={`sidebar-button ${
-                    active ? "active" : ""
-                }`}
+
+                className={
+                    `sidebar-button ${
+                        active ? "active" : ""
+                    }`
+                }
+
                 onClick={
                     onClick ??
-                    (() => setActiveTab(tab))
+                    (()=>setActiveTab(tab))
                 }
+
             >
 
                 {active && (
-                    <span className="menu-indicator"/>
+                    <span
+                        className="menu-indicator"
+                    />
                 )}
 
 
@@ -110,11 +124,9 @@ export default function AdminSidebar({
                     className="sidebar-logo"
                 />
 
-
                 <h2>
                     Panel administratora
                 </h2>
-
 
                 <p>
                     GB Zakupy
@@ -139,7 +151,6 @@ export default function AdminSidebar({
                 />
 
 
-
                 <NavButton
                     tab="powiadomienia"
                     icon="🔔"
@@ -150,7 +161,6 @@ export default function AdminSidebar({
                 />
 
 
-
                 <NavButton
                     tab="zrealizowane"
                     icon="✅"
@@ -159,7 +169,6 @@ export default function AdminSidebar({
                         completedCount
                     }
                 />
-
 
 
                 {isAdmin && (
@@ -173,7 +182,6 @@ export default function AdminSidebar({
                 )}
 
 
-
                 <NavButton
                     tab="kalendarz"
                     icon="📅"
@@ -181,6 +189,16 @@ export default function AdminSidebar({
                     onClick={goToEvents}
                 />
 
+
+                {isAdmin && (
+
+                    <NavButton
+                        tab="uzytkownicy"
+                        icon="👥"
+                        label="Użytkownicy"
+                    />
+
+                )}
 
             </nav>
 
