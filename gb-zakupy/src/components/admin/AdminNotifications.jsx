@@ -9,21 +9,18 @@ import "../../styles/admin-notifications.css";
 
 
 export default function AdminNotifications({
-    orders=[]
+    orders = []
 }){
 
+    const [view, setView] = useState("unread");
 
-    const [view,setView]=useState(
-        "unread"
-    );
-
+    const [expandedId, setExpandedId] = useState(null);
 
 
     const {
         unreadOrders,
         readOrders,
-    }=useMemo(()=>{
-
+    } = useMemo(()=>{
 
         return {
 
@@ -33,7 +30,6 @@ export default function AdminNotifications({
                         !order.notificationRead
                 ),
 
-
             readOrders:
                 orders.filter(
                     order =>
@@ -42,20 +38,34 @@ export default function AdminNotifications({
 
         };
 
-
-    },[
-        orders
-    ]);
+    },[orders]);
 
 
-
-    const visibleOrders=
-        view==="unread"
+    const visibleOrders =
+        view === "unread"
             ? unreadOrders
             : readOrders;
 
 
+    function handleViewChange(nextView){
 
+        setView(nextView);
+
+        setExpandedId(null);
+
+    }
+
+
+    function toggleNotification(id){
+
+        setExpandedId(
+            current =>
+                current === id
+                    ? null
+                    : id
+        );
+
+    }
 
 
     return (
@@ -72,15 +82,11 @@ export default function AdminNotifications({
                         🔔 Powiadomienia
                     </h2>
 
-
                     <p>
                         Nowe zgłoszenia od pracowników.
                     </p>
 
-
                 </div>
-
-
 
 
                 <div className="notification-tabs">
@@ -89,13 +95,13 @@ export default function AdminNotifications({
                     <button
 
                         className={
-                            view==="unread"
-                            ? "active"
-                            : ""
+                            view === "unread"
+                                ? "active"
+                                : ""
                         }
 
-                        onClick={()=>
-                            setView("unread")
+                        onClick={() =>
+                            handleViewChange("unread")
                         }
 
                     >
@@ -105,18 +111,16 @@ export default function AdminNotifications({
                     </button>
 
 
-
-
                     <button
 
                         className={
-                            view==="read"
-                            ? "active"
-                            : ""
+                            view === "read"
+                                ? "active"
+                                : ""
                         }
 
-                        onClick={()=>
-                            setView("read")
+                        onClick={() =>
+                            handleViewChange("read")
                         }
 
                     >
@@ -132,35 +136,40 @@ export default function AdminNotifications({
             </div>
 
 
-
-
-
             {!visibleOrders.length ? (
 
                 <EmptyState>
 
                     {
-                        view==="unread"
-                        ? "Brak nowych nieprzeczytanych powiadomień."
-                        : "Brak przeczytanych powiadomień."
+                        view === "unread"
+                            ? "Brak nowych nieprzeczytanych powiadomień."
+                            : "Brak przeczytanych powiadomień."
                     }
 
                 </EmptyState>
 
-
             ) : (
-
 
                 <div className="notifications">
 
 
-                    {visibleOrders.map(order=>(
+                    {visibleOrders.map(order => (
 
                         <NotificationCard
 
                             key={order.id}
 
                             order={order}
+
+                            expanded={
+                                expandedId === order.id
+                            }
+
+                            onToggle={() =>
+                                toggleNotification(
+                                    order.id
+                                )
+                            }
 
                             view={view}
 
@@ -171,9 +180,7 @@ export default function AdminNotifications({
 
                 </div>
 
-
             )}
-
 
 
         </section>
@@ -183,27 +190,24 @@ export default function AdminNotifications({
 }
 
 
-
-
-
 function NotificationCard({
     order,
     view,
+    expanded,
+    onToggle,
 }){
 
-
-    const [loading,setLoading]=useState(
-        false
-    );
+    const [loading, setLoading] =
+        useState(false);
 
 
+    async function handleRead(event){
 
-    async function handleRead(){
+        event.stopPropagation();
 
 
         if(loading)
             return;
-
 
 
         try{
@@ -214,14 +218,12 @@ function NotificationCard({
                 order
             );
 
-
         }catch(error){
 
             console.error(
                 "Notification update error:",
                 error
             );
-
 
         }finally{
 
@@ -232,121 +234,253 @@ function NotificationCard({
     }
 
 
-
-
-
     return (
 
         <article
 
-            className={
-                `notification-card ${
-                    order.notificationRead
+            className={`
+                notification-card
+                ${order.notificationRead
                     ? "read"
                     : "unread"
-                }`
-            }
+                }
+                ${expanded
+                    ? "expanded"
+                    : ""
+                }
+            `}
+
+            onClick={onToggle}
 
         >
 
 
-            <div className="notification-top">
+            <div className="notification-main">
 
 
-                <strong>
-
-                    {
-                        order.notificationRead
-                        ? "Przeczytane"
-                        : "🟢 Nowe zgłoszenie"
-                    }
-
-                </strong>
+                <div className="notification-status">
 
 
+                    <span
+                        className={
+                            `notification-status-dot ${
+                                order.notificationRead
+                                    ? "read-dot"
+                                    : "new-dot"
+                            }`
+                        }
+                    />
 
-                {!order.notificationRead && (
 
-                    <span className="dot"/>
+                    <strong>
 
-                )}
+                        {
+                            order.notificationRead
+                                ? "Przeczytane"
+                                : "Nowe zgłoszenie"
+                        }
+
+                    </strong>
+
+
+                </div>
+
+
+                <div className="notification-summary">
+
+
+                    <div className="notification-summary-product">
+
+                        {order.product}
+
+                    </div>
+
+
+                    <div className="notification-summary-meta">
+
+                        <span>
+                            📦 {order.quantity} {order.unit}
+                        </span>
+
+                        <span>
+                            👤 {order.requestedBy}
+                        </span>
+
+                        <span>
+                            🕐 {formatDate(order.createdAt)}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div className="notification-expand">
+
+
+                    <span>
+                        {expanded
+                            ? "Zwiń"
+                            : "Szczegóły"
+                        }
+                    </span>
+
+
+                    <span
+                        className={
+                            `notification-chevron ${
+                                expanded
+                                    ? "open"
+                                    : ""
+                            }`
+                        }
+                    >
+                        ↓
+                    </span>
+
+
+                </div>
 
 
             </div>
 
 
+            {expanded && (
 
-
-
-            <p className="notification-product">
-                {order.product}
-            </p>
-
-
-
-
-            <p className="notification-quantity">
-                {order.quantity} {order.unit}
-            </p>
-
-
-
-
-            <small>
-                Dodane przez <strong>{order.requestedBy}</strong>
-            </small>
-
-
-
-
-            <small>
-                {formatDate(order.createdAt)}
-            </small>
-
-
-
-
-
-            {order.notificationReadAt && (
-
-                <small>
-                    Przeczytano:
-                    {" "}
-                    {formatDate(order.notificationReadAt)}
-                </small>
-
-            )}
-
-
-
-
-
-
-            {view==="unread" &&
-            !order.notificationRead && (
-
-                <button
-
-                    className="admin-button"
-
-                    onClick={handleRead}
-
-                    disabled={loading}
-
+                <div
+                    className="notification-details"
+                    onClick={event =>
+                        event.stopPropagation()
+                    }
                 >
 
-                    {
-                        loading
-                        ? "Zapisywanie..."
-                        : "Oznacz jako przeczytane"
-                    }
+
+                    <div className="notification-details-grid">
 
 
-                </button>
+                        <div className="notification-detail">
+
+
+                            <span className="notification-detail-label">
+                                Produkt
+                            </span>
+
+
+                            <strong>
+                                {order.product}
+                            </strong>
+
+
+                        </div>
+
+
+                        <div className="notification-detail">
+
+
+                            <span className="notification-detail-label">
+                                Ilość
+                            </span>
+
+
+                            <strong>
+                                {order.quantity} {order.unit}
+                            </strong>
+
+
+                        </div>
+
+
+                        <div className="notification-detail">
+
+
+                            <span className="notification-detail-label">
+                                Dodane przez
+                            </span>
+
+
+                            <strong>
+                                {order.requestedBy}
+                            </strong>
+
+
+                        </div>
+
+
+                        <div className="notification-detail">
+
+
+                            <span className="notification-detail-label">
+                                Data zgłoszenia
+                            </span>
+
+
+                            <strong>
+                                {formatDate(order.createdAt)}
+                            </strong>
+
+
+                        </div>
+
+
+                        {order.notificationReadAt && (
+
+                            <div className="notification-detail">
+
+
+                                <span className="notification-detail-label">
+                                    Przeczytano
+                                </span>
+
+
+                                <strong>
+                                    {formatDate(
+                                        order.notificationReadAt
+                                    )}
+                                </strong>
+
+
+                            </div>
+
+                        )}
+
+
+                    </div>
+
+
+                    {view === "unread" &&
+                    !order.notificationRead && (
+
+                        <div className="notification-details-actions">
+
+
+                            <button
+
+                                className="admin-button"
+
+                                onClick={handleRead}
+
+                                disabled={loading}
+
+                            >
+
+                                {
+                                    loading
+                                        ? "Zapisywanie..."
+                                        : "✓ Oznacz jako przeczytane"
+                                }
+
+                            </button>
+
+
+                        </div>
+
+                    )}
+
+
+                </div>
 
             )}
-
-
 
 
         </article>
