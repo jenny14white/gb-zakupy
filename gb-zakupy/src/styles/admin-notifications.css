@@ -1205,3 +1205,159 @@
     }
 
 }
+/* =========================================================
+   KONTRAST TEKSTU — POWIADOMIENIA
+   ========================================================= */
+
+/* Nagłówki sekcji */
+.admin-notifications-list .section-header h2{
+    color:#ffffff;
+    font-weight:900;
+}
+
+.admin-notifications-list .section-header p{
+    color:rgba(255,255,255,.72);
+    font-weight:600;
+}
+
+
+/* Licznik po prawej */
+.admin-notifications-list .section-count{
+    color:#ffffff;
+    background:rgba(255,255,255,.10);
+    border-color:rgba(255,255,255,.24);
+    font-weight:900;
+}
+
+
+/* Główna karta */
+.notification-card{
+    color:#ffffff;
+}
+
+
+/* Status: Nowe zgłoszenie / Przeczytane */
+.notification-status strong{
+    color:#ffffff;
+    font-weight:900;
+}
+
+
+/* Nazwa produktu */
+.notification-summary-product{
+    color:#ffffff;
+    font-weight:800;
+}
+
+
+/* Małe informacje: ilość / osoba / data */
+.notification-summary-meta span{
+    color:rgba(255,255,255,.92);
+
+    background:rgba(255,255,255,.10);
+
+    border-color:rgba(255,255,255,.22);
+
+    font-weight:800;
+}
+
+
+/* Szczegóły */
+.notification-expand{
+    color:rgba(255,255,255,.85);
+    font-weight:900;
+}
+
+
+/* Strzałka */
+.notification-chevron{
+    color:#ffffff;
+
+    background:rgba(255,255,255,.10);
+
+    border-color:rgba(255,255,255,.24);
+}
+
+
+/* Po najechaniu */
+.notification-card:hover .notification-chevron,
+.notification-card.expanded .notification-chevron{
+    color:#ffffff;
+
+    background:color-mix(
+        in srgb,
+        var(--accent) 55%,
+        transparent
+    );
+
+    border-color:rgba(255,255,255,.45);
+}
+
+
+/* Panel szczegółów */
+.notification-details{
+    color:#ffffff;
+
+    background:rgba(0,0,0,.08);
+
+    border-color:rgba(255,255,255,.18);
+}
+
+
+/* Pojedyncze pola szczegółów */
+.notification-detail{
+    background:rgba(255,255,255,.08);
+
+    border-color:rgba(255,255,255,.16);
+}
+
+
+.notification-detail-label{
+    color:rgba(255,255,255,.62);
+
+    font-weight:800;
+}
+
+
+.notification-detail strong{
+    color:#ffffff;
+
+    font-weight:800;
+}
+
+
+/* Kafelki statystyk */
+.notification-stat-card strong,
+.notification-stat-card span,
+.notification-stat-card small{
+    color:#ffffff;
+}
+
+
+.notification-stat-card small{
+    opacity:.78;
+}
+
+
+/* Aktywny kafelek */
+.notification-stat-card.selected{
+    color:#ffffff;
+
+    border-color:rgba(255,255,255,.55);
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.20),
+        var(--shadow-medium);
+}
+
+
+/* Empty state */
+.admin-notifications .empty-state{
+    color:#ffffff;
+}
+
+
+/* Przycisk oznaczania jako przeczytane */
+.notification-details-actions .admin-button{
+    font-weight:900;
+}
