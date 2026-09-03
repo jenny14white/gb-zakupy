@@ -16,7 +16,10 @@ import SessionGuard from "./components/shared/SessionGuard";
 import ScrollTopButton from "./components/shared/ScrollTopButton";
 
 
-const ADMIN_UID="kRulgEcxNed8aYacTWq3j9GgP4J2";
+const ADMIN_UIDS=[
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 
 function hasPortalAccess(){
@@ -55,7 +58,7 @@ export default function App(){
                 setIsAdmin(
                     Boolean(
                         user &&
-                        user.uid===ADMIN_UID
+                        ADMIN_UIDS.includes(user.uid)
                     )
                 );
 
@@ -104,7 +107,10 @@ export default function App(){
 
     function handleLogin(user){
 
-        if(user?.uid!==ADMIN_UID){
+        if(
+            !user ||
+            !ADMIN_UIDS.includes(user.uid)
+        ){
             return;
         }
 
@@ -203,8 +209,16 @@ export default function App(){
                     <AdminLoginPage
                         goBack={goHome}
                         onLogin={(user)=>{
+
                             handleLogin(user);
-                            setPage("admin-events");
+
+                            if(
+                                user &&
+                                ADMIN_UIDS.includes(user.uid)
+                            ){
+                                setPage("admin-events");
+                            }
+
                         }}
                     />
 
