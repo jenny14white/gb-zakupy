@@ -1,1 +1,89 @@
+.card-spotlight {
+    position: relative;
 
+    overflow: hidden;
+
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-large);
+
+    background: var(--glass-gradient);
+
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    --spotlight-color: var(--accent);
+}
+
+/* Spotlight */
+.card-spotlight::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle 180px at var(--mouse-x) var(--mouse-y),
+            var(--spotlight-color),
+            transparent 80%
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+/* Lekki efekt na hover */
+.card-spotlight:hover {
+    border-color: var(--glass-border-hover);
+
+    background: var(--glass-gradient-hover);
+
+    box-shadow: var(--shadow-medium);
+}
+
+/* Włączenie spotlightu */
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+    opacity: 0.18;
+}
+
+/* Cała zawartość nad efektem */
+.card-spotlight > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dostępność — klawiatura */
+.card-spotlight:focus-within {
+    border-color: var(--accent);
+}
+
+/* Mobile / urządzenia bez hover */
+@media (hover: none) {
+    .card-spotlight::before {
+        display: none;
+    }
+
+    .card-spotlight:hover {
+        box-shadow: none;
+    }
+}
+
+/* Redukcja animacji */
+@media (prefers-reduced-motion: reduce) {
+    .card-spotlight,
+    .card-spotlight::before {
+        transition: none;
+    }
+}
