@@ -47,42 +47,42 @@ const EMOJIS = [
 ];
 
 
-const createEmptyForm = ()=>({
-    title:"",
-    description:"",
-    date:"",
-    time:"",
-    location:"",
-    type:"meeting",
-    emoji:"📅",
-    recurring:false,
+const createEmptyForm = () => ({
+    title: "",
+    description: "",
+    date: "",
+    time: "",
+    location: "",
+    type: "meeting",
+    emoji: "📅",
+    recurring: false,
 });
 
 
 export default function AdminEventsPage({
     goBack,
-}){
+}) {
 
     const { t } = useTranslation();
 
-    const [authorized,setAuthorized] = useState(false);
-    const [checking,setChecking] = useState(true);
+    const [authorized, setAuthorized] = useState(false);
+    const [checking, setChecking] = useState(true);
 
-    const [events,setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
 
-    const [editingId,setEditingId] = useState(null);
+    const [editingId, setEditingId] = useState(null);
 
-    const [form,setForm] = useState(
+    const [form, setForm] = useState(
         createEmptyForm()
     );
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         const unsubscribe =
             onAuthStateChanged(
                 auth,
-                user=>{
+                user => {
 
                     setAuthorized(
                         Boolean(
@@ -99,38 +99,38 @@ export default function AdminEventsPage({
 
         return unsubscribe;
 
-    },[]);
+    }, []);
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(!authorized)
+        if (!authorized)
             return;
 
 
         return listenToEvents(setEvents);
 
-    },[authorized]);
+    }, [authorized]);
 
 
-    const stats = useMemo(()=>{
+    const stats = useMemo(() => {
 
         const now = new Date();
 
 
         return {
 
-            all:events.length,
+            all: events.length,
 
 
             recurring:
                 events.filter(
-                    event=>event.recurring
+                    event => event.recurring
                 ).length,
 
 
             upcoming:
-                events.filter(event=>{
+                events.filter(event => {
 
                     const date =
                         event.date?.toDate?.() ??
@@ -143,10 +143,10 @@ export default function AdminEventsPage({
 
         };
 
-    },[events]);
+    }, [events]);
 
 
-    function handleChange(e){
+    function handleChange(e) {
 
         const {
             name,
@@ -156,7 +156,7 @@ export default function AdminEventsPage({
         } = e.target;
 
 
-        setForm(prev=>({
+        setForm(prev => ({
 
             ...prev,
 
@@ -170,12 +170,12 @@ export default function AdminEventsPage({
     }
 
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
 
         e.preventDefault();
 
 
-        if(!form.title.trim()){
+        if (!form.title.trim()) {
 
             alert(
                 t("admin.events.errors.titleRequired")
@@ -186,7 +186,7 @@ export default function AdminEventsPage({
         }
 
 
-        if(!form.date){
+        if (!form.date) {
 
             alert(
                 t("admin.events.errors.dateRequired")
@@ -197,22 +197,22 @@ export default function AdminEventsPage({
         }
 
 
-        try{
+        try {
 
             const payload = {
                 ...form,
-                date:new Date(form.date),
+                date: new Date(form.date),
             };
 
 
-            if(editingId){
+            if (editingId) {
 
                 await updateEvent(
                     editingId,
                     payload
                 );
 
-            }else{
+            } else {
 
                 await createEvent(payload);
 
@@ -226,7 +226,7 @@ export default function AdminEventsPage({
             );
 
 
-        }catch(error){
+        } catch (error) {
 
             console.error(error);
 
@@ -239,7 +239,7 @@ export default function AdminEventsPage({
     }
 
 
-    function editEvent(event){
+    function editEvent(event) {
 
         const date =
             event.date?.toDate?.() ??
@@ -251,24 +251,24 @@ export default function AdminEventsPage({
 
         setForm({
 
-            title:event.title || "",
+            title: event.title || "",
 
-            description:event.description || "",
+            description: event.description || "",
 
-            location:event.location || "",
+            location: event.location || "",
 
             date:
                 date
                     .toISOString()
                     .split("T")[0],
 
-            time:event.time || "",
+            time: event.time || "",
 
-            type:event.type || "meeting",
+            type: event.type || "meeting",
 
-            emoji:event.emoji || "📅",
+            emoji: event.emoji || "📅",
 
-            recurring:Boolean(
+            recurring: Boolean(
                 event.recurring
             ),
 
@@ -276,14 +276,14 @@ export default function AdminEventsPage({
 
 
         window.scrollTo({
-            top:0,
-            behavior:"smooth",
+            top: 0,
+            behavior: "smooth",
         });
 
     }
 
 
-    async function removeEvent(id){
+    async function removeEvent(id) {
 
         const confirmed =
             window.confirm(
@@ -291,15 +291,15 @@ export default function AdminEventsPage({
             );
 
 
-        if(!confirmed)
+        if (!confirmed)
             return;
 
 
-        try{
+        try {
 
             await deleteEvent(id);
 
-        }catch(error){
+        } catch (error) {
 
             console.error(error);
 
@@ -312,7 +312,7 @@ export default function AdminEventsPage({
     }
 
 
-    if(checking){
+    if (checking) {
 
         return (
 
@@ -333,7 +333,7 @@ export default function AdminEventsPage({
     }
 
 
-    if(!authorized){
+    if (!authorized) {
 
         return (
 
@@ -489,7 +489,7 @@ export default function AdminEventsPage({
                             onChange={handleChange}
                         >
 
-                            {TYPES.map(type=>(
+                            {TYPES.map(type => (
 
                                 <option
                                     key={type}
@@ -515,7 +515,7 @@ export default function AdminEventsPage({
                             onChange={handleChange}
                         >
 
-                            {EMOJIS.map(icon=>(
+                            {EMOJIS.map(icon => (
 
                                 <option
                                     key={icon}
