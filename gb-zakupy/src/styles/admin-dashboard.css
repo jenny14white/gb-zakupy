@@ -925,3 +925,259 @@
     }
 
 }
+/* =========================
+   ZREALIZOWANE
+   ========================= */
+
+.admin-completed-list{
+    width:100%;
+    min-width:0;
+}
+
+
+.admin-completed-list .shopping-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+
+    width:100%;
+}
+
+
+.admin-completed-list .shopping-card{
+    position:relative;
+
+    width:100%;
+    min-height:110px;
+    height:auto;
+
+    border-radius:22px;
+
+    background:var(--surface-soft);
+    border:1px solid var(--border-color);
+
+    overflow:hidden;
+
+    box-sizing:border-box;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+}
+
+
+.admin-completed-list .shopping-card:hover{
+    transform:translateY(-2px);
+    background:var(--surface-hover);
+}
+
+
+/* lewy pasek */
+
+.admin-completed-list .shopping-card-bar{
+    width:5px;
+
+    position:absolute;
+    left:0;
+    top:22px;
+    bottom:22px;
+
+    border-radius:0 999px 999px 0;
+
+    background:var(--accent);
+}
+
+
+/* zawartość karty */
+
+.admin-completed-list .shopping-card-content{
+    min-height:110px;
+
+    padding:20px 180px 20px 30px;
+
+    box-sizing:border-box;
+}
+
+
+/* produkt */
+
+.admin-completed-list .shopping-product h3{
+    margin:0;
+
+    font-size:1.15rem;
+    line-height:1.3;
+
+    color:var(--text-primary);
+}
+
+
+.admin-completed-list .shopping-product p{
+    margin:7px 0 0;
+
+    font-size:.9rem;
+
+    color:var(--text-secondary);
+}
+
+
+/* prawa część */
+
+.admin-completed-list .shopping-card-right{
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+
+/* status */
+
+.admin-completed-list .shopping-status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    min-height:36px;
+
+    padding:0 14px;
+
+    border-radius:999px;
+
+    font-size:.8rem;
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* zielony status NIECH zostanie czytelny,
+   mimo że karta jest zrealizowana */
+
+.admin-completed-list .shopping-status.done{
+    background:rgba(34,197,94,.12);
+    color:#22c55e;
+    border:1px solid rgba(34,197,94,.2);
+}
+
+
+/* strzałka */
+
+.admin-completed-list .shopping-card-right button{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:0;
+    border-radius:15px;
+
+    background:rgba(255,255,255,.08);
+
+    color:var(--text-primary);
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+
+.admin-completed-list .shopping-card-right button:hover{
+    background:rgba(255,255,255,.14);
+    transform:scale(1.04);
+}
+
+
+/* =========================
+   ROZWINIĘTE ZREALIZOWANE
+   ========================= */
+
+.admin-completed-list .shopping-card-footer{
+    margin:0 20px 20px 30px;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.045);
+
+    border:1px solid var(--border-color);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:768px){
+
+    .admin-completed-list .shopping-card-content{
+        padding:
+            18px
+            130px
+            18px
+            25px;
+    }
+
+
+    .admin-completed-list .shopping-card-right{
+        top:16px;
+        right:16px;
+    }
+
+
+    .admin-completed-list .shopping-status{
+        padding:0 10px;
+
+        font-size:.72rem;
+    }
+
+
+    .admin-completed-list .shopping-card-right button{
+        width:40px;
+        height:40px;
+    }
+
+}
+
+
+@media(max-width:520px){
+
+    .admin-completed-list .shopping-card{
+        min-height:96px;
+    }
+
+
+    .admin-completed-list .shopping-card-content{
+        min-height:96px;
+
+        padding:
+            16px
+            105px
+            16px
+            25px;
+    }
+
+
+    .admin-completed-list .shopping-product h3{
+        font-size:1rem;
+    }
+
+
+    .admin-completed-list .shopping-product p{
+        font-size:.82rem;
+    }
+
+
+    .admin-completed-list .shopping-status{
+        display:none;
+    }
+
+}
