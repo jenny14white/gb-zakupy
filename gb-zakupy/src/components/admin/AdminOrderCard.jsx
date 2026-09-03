@@ -5,14 +5,7 @@ import {formatDate} from "../../utils/dateUtils";
 import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import "../../styles/admin-shopping.css";
-export default function AdminOrderCard({
-    order,
-    selected=false,
-    onSelect,
-    canOrder=true,
-    expanded=false,
-    onToggle
-}){
+export default function AdminOrderCard({order,selected=false,onSelect,canOrder=true,expanded=false,onToggle}){
     const [isEditing,setIsEditing]=useState(false);
     const [loading,setLoading]=useState(false);
     const [adminComment,setAdminComment]=useState(order?.adminComment||"");
@@ -20,12 +13,11 @@ export default function AdminOrderCard({
     useEffect(()=>{
         setAdminComment(order?.adminComment||"");
     },[order]);
-    if(!order){
-        return null;
-    }
+    if(!order)return null;
     const isPending=order.status===ORDER_STATUS.PENDING;
     const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
     const isCompleted=order.status===ORDER_STATUS.COMPLETED;
+    const statusClass=isPending?"pending":isAccepted?"progress":isCompleted?"done":"cancelled";
     async function handleAction(action){
         if(loading)return;
         try{
@@ -51,9 +43,7 @@ export default function AdminOrderCard({
         });
     }
     function handleToggle(){
-        if(onToggle){
-            onToggle();
-        }
+        if(onToggle)onToggle();
     }
     if(isEditing){
         return(
@@ -81,9 +71,14 @@ export default function AdminOrderCard({
                 onClick={handleToggle}
             >
                 <div className="shopping-card-bar"/>
-                <div className="shopping-card-content">
-                    <div className="shopping-card-top">
-                        <div className="shopping-product">
+                <div className="shopping-main">
+                    <div className="shopping-status-summary">
+                        <span className={`shopping-status ${statusClass}`}>
+                            {isPending?"Oczekujące":isAccepted?"Przyjęte":isCompleted?"Zrealizowane":"Anulowane"}
+                        </span>
+                    </div>
+                    <div className="shopping-summary">
+                        <div className="shopping-summary-product">
                             {onSelect&&(
                                 <input
                                     type="checkbox"
@@ -96,22 +91,52 @@ export default function AdminOrderCard({
                                     onClick={e=>e.stopPropagation()}
                                 />
                             )}
-                            <h3>{order.product||"Brak nazwy"}</h3>
-                            <p>{order.quantity||0} {order.unit||""}</p>
+                            <span>{order.product||"Brak nazwy"}</span>
+                        </div>
+                        <div className="shopping-summary-meta">
+                            <span>📦 {order.quantity||0} {order.unit||""}</span>
+                            <span>👤 {order.requestedBy||"—"}</span>
+                            <span>🕐 {formatDate(order.createdAt)}</span>
                         </div>
                     </div>
-                    {expanded&&(
-                        <div
-                            className="shopping-card-footer"
-                            onClick={e=>e.stopPropagation()}
-                        >
+                    <div className="shopping-expand">
+                        <span>{expanded?"Zwiń":"Szczegóły"}</span>
+                        <span className={`shopping-chevron ${expanded?"open":""}`}>↓</span>
+                    </div>
+                </div>
+                {expanded&&(
+                    <div
+                        className="shopping-details"
+                        onClick={e=>e.stopPropagation()}
+                    >
+                        <div className="shopping-details-grid">
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Produkt</span>
+                                <strong>{order.product||"Brak nazwy"}</strong>
+                            </div>
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Ilość</span>
+                                <strong>{order.quantity||0} {order.unit||""}</strong>
+                            </div>
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Dodane przez</span>
+                                <strong>{order.requestedBy||"—"}</strong>
+                            </div>
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Data zgłoszenia</span>
+                                <strong>{formatDate(order.createdAt)}</strong>
+                            </div>
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Przyjęto</span>
+                                <strong>{order.acceptedAt?formatDate(order.acceptedAt):"—"}</strong>
+                            </div>
+                            <div className="shopping-detail">
+                                <span className="shopping-detail-label">Zrealizowano</span>
+                                <strong>{order.completedAt?formatDate(order.completedAt):"—"}</strong>
+                            </div>
+                        </div>
+                        <div className="shopping-details-bottom">
                             <div className="shopping-card-footer-left">
-                                <div className="shopping-meta">
-                                    <div className="shopping-chip">📅 Dodano: {formatDate(order.createdAt)}</div>
-                                    <div className="shopping-chip">✅ Przyjęto: {order.acceptedAt?formatDate(order.acceptedAt):"—"}</div>
-                                    <div className="shopping-chip">📦 Zrealizowano: {order.completedAt?formatDate(order.completedAt):"—"}</div>
-                                    <div className="shopping-chip">👤 {order.requestedBy||"—"}</div>
-                                </div>
                                 <textarea
                                     className="shopping-comment"
                                     rows={3}
@@ -185,21 +210,8 @@ export default function AdminOrderCard({
                                 </button>
                             </div>
                         </div>
-                    )}
-                </div>
-                <div className="shopping-card-right">
-                    <button
-                        type="button"
-                        aria-expanded={expanded}
-                        aria-label={expanded?"Zwiń szczegóły":"Rozwiń szczegóły"}
-                        onClick={e=>{
-                            e.stopPropagation();
-                            handleToggle();
-                        }}
-                    >
-                        {expanded?"▲":"▼"}
-                    </button>
-                </div>
+                    </div>
+                )}
             </article>
         </>
     );
