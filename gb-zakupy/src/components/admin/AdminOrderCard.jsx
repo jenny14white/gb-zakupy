@@ -12,7 +12,7 @@ import {formatDate} from "../../utils/dateUtils";
 import AdminOrderEditForm from "./AdminOrderEditForm";
 import ConfirmDialog from "../shared/ConfirmDialog";
 
-import "../../styles/admin-notifications.css";
+import "../../styles/admin-shopping.css";
 
 
 export default function AdminOrderCard({
@@ -33,15 +33,12 @@ export default function AdminOrderCard({
 
     const [showDeleteDialog,setShowDeleteDialog]=useState(false);
 
-    /*
-     * Własny stan rozwinięcia.
-     * Jeżeli rodzic przekazuje onToggle + expanded,
-     * używamy stanu kontrolowanego przez rodzica.
-     *
-     * Jeżeli nie — karta rozwija się samodzielnie.
-     */
     const [internalExpanded,setInternalExpanded]=useState(false);
 
+
+    /* =========================================================
+       AKTUALIZACJA KOMENTARZA
+       ========================================================= */
 
     useEffect(()=>{
 
@@ -52,9 +49,10 @@ export default function AdminOrderCard({
     },[order]);
 
 
-    /*
-     * Jeżeli zmieni się zamówienie, zamykamy jego lokalne rozwinięcie.
-     */
+    /* =========================================================
+       RESET ROZWINIĘCIA PO ZMIANIE ZAMÓWIENIA
+       ========================================================= */
+
     useEffect(()=>{
 
         setInternalExpanded(false);
@@ -65,6 +63,10 @@ export default function AdminOrderCard({
     if(!order)
         return null;
 
+
+    /* =========================================================
+       STATUS
+       ========================================================= */
 
     const isPending =
         order.status===ORDER_STATUS.PENDING;
@@ -96,17 +98,19 @@ export default function AdminOrderCard({
                     : "Anulowane";
 
 
-    /*
-     * Jeżeli rodzic obsługuje expanded/onToggle,
-     * używamy jego wartości.
-     *
-     * W przeciwnym przypadku używamy local state.
-     */
+    /* =========================================================
+       ROZWINIĘCIE
+       ========================================================= */
+
     const isExpanded =
         typeof onToggle==="function"
             ? expanded
             : internalExpanded;
 
+
+    /* =========================================================
+       AKCJE
+       ========================================================= */
 
     async function handleAction(action){
 
@@ -174,15 +178,18 @@ export default function AdminOrderCard({
     }
 
 
+    /* =========================================================
+       ROZWIJANIE KARTY
+       ========================================================= */
+
     function handleToggle(e){
 
         if(e)
             e.stopPropagation();
 
 
-        /*
-         * Rodzic kontroluje rozwinięcie.
-         */
+        /* Rodzic kontroluje rozwinięcie */
+
         if(typeof onToggle==="function"){
 
             onToggle(order.id);
@@ -192,15 +199,18 @@ export default function AdminOrderCard({
         }
 
 
-        /*
-         * Fallback — karta sama się rozwija.
-         */
+        /* Fallback — lokalny stan */
+
         setInternalExpanded(
             prev=>!prev
         );
 
     }
 
+
+    /* =========================================================
+       EDYCJA
+       ========================================================= */
 
     if(isEditing){
 
@@ -229,6 +239,10 @@ export default function AdminOrderCard({
 
         <>
 
+            {/* =====================================================
+                DELETE DIALOG
+               ===================================================== */}
+
             <ConfirmDialog
 
                 open={showDeleteDialog}
@@ -255,23 +269,17 @@ export default function AdminOrderCard({
             />
 
 
+            {/* =====================================================
+                SHOPPING CARD
+               ===================================================== */}
+
             <article
 
                 className={`
-                    notification-card
-                    ${isCompleted
-                        ? "read"
-                        : "unread"
-                    }
+                    shopping-card
                     ${statusClass}
-                    ${selected
-                        ? "selected"
-                        : ""
-                    }
-                    ${isExpanded
-                        ? "expanded"
-                        : ""
-                    }
+                    ${selected ? "selected" : ""}
+                    ${isExpanded ? "expanded" : ""}
                 `}
 
                 onClick={handleToggle}
@@ -279,29 +287,20 @@ export default function AdminOrderCard({
             >
 
 
-                {/* =====================================================
-                    GŁÓWNA CZĘŚĆ KARTY
-                   ===================================================== */}
+                {/* =================================================
+                    GŁÓWNY WIERSZ
+                   ================================================= */}
 
-                <div className="notification-main">
+                <div className="shopping-main">
 
 
-                    {/* STATUS */}
+                    {/* =================================================
+                        STATUS
+                       ================================================= */}
 
-                    <div className="notification-status">
+                    <div className="shopping-status-summary">
 
-                        <span
-
-                            className={
-                                `notification-status-dot ${
-                                    isCompleted
-                                        ? "read-dot"
-                                        : "new-dot"
-                                }`
-                            }
-
-                        />
-
+                        <span className="shopping-status-dot"/>
 
                         <strong>
                             {statusLabel}
@@ -310,14 +309,16 @@ export default function AdminOrderCard({
                     </div>
 
 
-                    {/* PODSUMOWANIE */}
+                    {/* =================================================
+                        PODSUMOWANIE
+                       ================================================= */}
 
-                    <div className="notification-summary">
+                    <div className="shopping-summary">
 
 
-                        <div className="notification-summary-product">
+                        <div className="shopping-summary-product">
 
-                            {onSelect&&(
+                            {onSelect && (
 
                                 <input
 
@@ -351,7 +352,7 @@ export default function AdminOrderCard({
                         </div>
 
 
-                        <div className="notification-summary-meta">
+                        <div className="shopping-summary-meta">
 
                             <span>
                                 📦 {order.quantity||0} {order.unit||""}
@@ -373,12 +374,12 @@ export default function AdminOrderCard({
 
 
                     {/* =================================================
-                        PRZYCISK ROZWIJANIA
+                        ROZWIJANIE
                        ================================================= */}
 
                     <div
 
-                        className="notification-expand"
+                        className="shopping-expand"
 
                         onClick={handleToggle}
 
@@ -413,18 +414,13 @@ export default function AdminOrderCard({
 
                         <span
 
-                            className={
-                                `notification-chevron ${
-                                    isExpanded
-                                        ? "open"
-                                        : ""
-                                }`
-                            }
+                            className={`
+                                shopping-chevron
+                                ${isExpanded ? "open" : ""}
+                            `}
 
                         >
-
                             ↓
-
                         </span>
 
                     </div>
@@ -432,16 +428,15 @@ export default function AdminOrderCard({
                 </div>
 
 
-                {/* =====================================================
+                {/* =================================================
                     SZCZEGÓŁY
-                   ===================================================== */}
+                   ================================================= */}
 
-                {isExpanded&&(
-
+                {isExpanded && (
 
                     <div
 
-                        className="notification-details"
+                        className="shopping-details"
 
                         onClick={e=>
                             e.stopPropagation()
@@ -450,17 +445,16 @@ export default function AdminOrderCard({
                     >
 
 
-                        <div className="notification-details-grid">
+                        <div className="shopping-details-grid">
 
 
                             {/* PRODUKT */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Produkt
                                 </span>
-
 
                                 <strong>
                                     {order.product||"Brak nazwy"}
@@ -471,12 +465,11 @@ export default function AdminOrderCard({
 
                             {/* ILOŚĆ */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Ilość
                                 </span>
-
 
                                 <strong>
                                     {order.quantity||0} {order.unit||""}
@@ -487,12 +480,11 @@ export default function AdminOrderCard({
 
                             {/* DODANE PRZEZ */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Dodane przez
                                 </span>
-
 
                                 <strong>
                                     {order.requestedBy||"—"}
@@ -503,12 +495,11 @@ export default function AdminOrderCard({
 
                             {/* DATA */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Data zgłoszenia
                                 </span>
-
 
                                 <strong>
                                     {formatDate(order.createdAt)}
@@ -519,20 +510,17 @@ export default function AdminOrderCard({
 
                             {/* PRZYJĘTO */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Przyjęto
                                 </span>
 
-
                                 <strong>
-
                                     {order.acceptedAt
                                         ? formatDate(order.acceptedAt)
                                         : "—"
                                     }
-
                                 </strong>
 
                             </div>
@@ -540,20 +528,17 @@ export default function AdminOrderCard({
 
                             {/* ZREALIZOWANO */}
 
-                            <div className="notification-detail">
+                            <div className="shopping-detail">
 
-                                <span className="notification-detail-label">
+                                <span className="shopping-detail-label">
                                     Zrealizowano
                                 </span>
 
-
                                 <strong>
-
                                     {order.completedAt
                                         ? formatDate(order.completedAt)
                                         : "—"
                                     }
-
                                 </strong>
 
                             </div>
@@ -561,14 +546,13 @@ export default function AdminOrderCard({
 
                             {/* KOMENTARZ */}
 
-                            {order.adminComment&&(
+                            {order.adminComment && (
 
-                                <div className="notification-detail">
+                                <div className="shopping-detail">
 
-                                    <span className="notification-detail-label">
+                                    <span className="shopping-detail-label">
                                         Komentarz administratora
                                     </span>
-
 
                                     <strong>
                                         {order.adminComment}
@@ -585,49 +569,57 @@ export default function AdminOrderCard({
                             AKCJE
                            ================================================= */}
 
-                        <div className="notification-details-actions">
+                        <div className="shopping-details-bottom">
 
 
-                            <textarea
+                            {/* KOMENTARZ */}
 
-                                className="shopping-comment"
+                            <div className="shopping-card-footer-left">
 
-                                rows={3}
+                                <textarea
 
-                                value={adminComment}
+                                    className="shopping-comment"
 
-                                placeholder="Komentarz administratora..."
+                                    rows={3}
 
-                                disabled={
-                                    loading ||
-                                    isCompleted
-                                }
+                                    value={adminComment}
 
-                                onChange={e=>
-                                    setAdminComment(
-                                        e.target.value
-                                    )
-                                }
+                                    placeholder="Komentarz administratora..."
 
-                                onClick={e=>
-                                    e.stopPropagation()
-                                }
+                                    disabled={
+                                        loading ||
+                                        isCompleted
+                                    }
 
-                            />
+                                    onChange={e=>
+                                        setAdminComment(
+                                            e.target.value
+                                        )
+                                    }
 
+                                    onClick={e=>
+                                        e.stopPropagation()
+                                    }
+
+                                />
+
+                            </div>
+
+
+                            {/* PRZYCISKI */}
 
                             <div className="shopping-actions">
 
 
                                 {/* PRZYJMIJ */}
 
-                                {isPending&&(
+                                {isPending && (
 
                                     <button
 
                                         type="button"
 
-                                        className="admin-button"
+                                        className="admin-button success"
 
                                         disabled={loading}
 
@@ -650,13 +642,13 @@ export default function AdminOrderCard({
 
                                 {/* ZREALIZUJ */}
 
-                                {isAccepted&&(
+                                {isAccepted && (
 
                                     <button
 
                                         type="button"
 
-                                        className="admin-button"
+                                        className="admin-button success"
 
                                         disabled={loading}
 
@@ -679,13 +671,13 @@ export default function AdminOrderCard({
 
                                 {/* EDYTUJ */}
 
-                                {!isCompleted&&(
+                                {!isCompleted && (
 
                                     <button
 
                                         type="button"
 
-                                        className="admin-button"
+                                        className="admin-button info"
 
                                         disabled={loading}
 
@@ -712,7 +704,7 @@ export default function AdminOrderCard({
 
                                     type="button"
 
-                                    className="admin-button"
+                                    className="admin-button danger"
 
                                     disabled={loading}
 
