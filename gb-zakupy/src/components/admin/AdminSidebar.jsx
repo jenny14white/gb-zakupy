@@ -1,5 +1,4 @@
 import Logo from "../shared/Logo";
-import SpotlightCard from "../shared/SpotlightCard";
 
 import SpotlightCard from "../shared/effects/SpotlightCard";
 
