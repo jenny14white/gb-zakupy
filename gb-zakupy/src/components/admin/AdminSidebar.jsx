@@ -142,7 +142,7 @@ export default function AdminSidebar({
                 />
 
                 <h2>
-                    Panel zarządzający
+                    Panel Zarządzania
                 </h2>
 
                 <p>
