@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from "react";
 import {useTranslation} from "react-i18next";
 import {onAuthStateChanged} from "firebase/auth";
+
 import {auth} from "../firebase/firebase";
 
 import {useAdminOrders} from "../hooks/useAdminOrders";
@@ -59,6 +60,12 @@ export default function AdminDashboardPage({
 
 
 
+    /*
+     * =========================
+     * AUTH
+     * =========================
+     */
+
     useEffect(()=>{
 
         const unsubscribe =
@@ -104,11 +111,18 @@ export default function AdminDashboardPage({
 
 
 
-    const {
-        orders = [],
-        loading
-    } = useAdminOrders(authorized);
+    /*
+     * =========================
+     * DATA
+     * =========================
+     */
 
+    const {
+        orders=[],
+        loading:ordersLoading
+    } = useAdminOrders(
+        authorized
+    );
 
 
     const logs =
@@ -118,13 +132,20 @@ export default function AdminDashboardPage({
         );
 
 
-
     const {
-        events = [],
+        events=[],
         loading:eventsLoading
-    } = useEvents(authorized);
+    } = useEvents(
+        authorized
+    );
 
 
+
+    /*
+     * =========================
+     * ORDERS
+     * =========================
+     */
 
     const {
         pendingOrders,
@@ -186,9 +207,15 @@ export default function AdminDashboardPage({
 
 
 
+    /*
+     * =========================
+     * LOADING
+     * =========================
+     */
+
     if(checking){
 
-        return (
+        return(
 
             <main className="admin-page">
 
@@ -212,9 +239,15 @@ export default function AdminDashboardPage({
 
 
 
+    /*
+     * =========================
+     * ACCESS DENIED
+     * =========================
+     */
+
     if(!authorized){
 
-        return (
+        return(
 
             <main className="admin-page login-view">
 
@@ -251,7 +284,18 @@ export default function AdminDashboardPage({
 
 
 
+    /*
+     * =========================
+     * TAB CHANGE
+     * =========================
+     */
+
     function handleSetActiveTab(tab){
+
+        /*
+         * Sekretariat nie ma dostępu
+         * do dziennika.
+         */
 
         if(
             tab === "dziennik" &&
@@ -262,6 +306,11 @@ export default function AdminDashboardPage({
 
         }
 
+
+        /*
+         * Użytkownicy tylko dla
+         * głównego administratora.
+         */
 
         if(
             tab === "uzytkownicy" &&
@@ -279,22 +328,108 @@ export default function AdminDashboardPage({
 
 
 
+    /*
+     * =========================
+     * CONTENT
+     * =========================
+     */
+
     function renderContent(){
 
-        if(
-            loading ||
-            eventsLoading
-        ){
 
-            return (
+        /*
+         * ZAKUPY
+         *
+         * Tutaj są kafelki.
+         * W żadnej innej zakładce
+         * ich nie renderujemy.
+         */
 
-                <div className="empty-admin-box">
+        if(activeTab === "lista"){
 
-                    {t(
-                        "admin.dashboard.loading"
-                    )}
+            if(ordersLoading){
 
-                </div>
+                return(
+
+                    <div className="empty-admin-box">
+
+                        {t(
+                            "admin.dashboard.loading"
+                        )}
+
+                    </div>
+
+                );
+
+            }
+
+
+            return(
+
+                <>
+
+                    <header className="dashboard-header">
+
+                        <div>
+
+                            <span className="dashboard-eyebrow">
+                                SEKRETARIAT
+                            </span>
+
+
+                            <h1>
+                                {t(
+                                    "admin.dashboard.title"
+                                )}
+                            </h1>
+
+
+                            <p className="dashboard-description">
+                                Centrum zarządzania zakupami,
+                                wydarzeniami i administracją.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+
+                    <section className="dashboard-stats">
+
+                        <AdminStats
+
+                            allCount={
+                                orders.length
+                            }
+
+                            pendingCount={
+                                pendingCount
+                            }
+
+                            acceptedCount={
+                                acceptedCount
+                            }
+
+                            completedCount={
+                                completedOrders.length
+                            }
+
+                        />
+
+                    </section>
+
+
+
+                    <section className="dashboard-content">
+
+                        <AdminShoppingList
+                            orders={pendingOrders}
+                        />
+
+                    </section>
+
+                </>
 
             );
 
@@ -302,186 +437,209 @@ export default function AdminDashboardPage({
 
 
 
-        switch(activeTab){
+        /*
+         * POWIADOMIENIA
+         */
 
-            case "lista":
+        if(activeTab === "powiadomienia"){
 
-                return (
+            if(ordersLoading){
 
-                    <>
+                return(
 
-                        <header className="dashboard-header">
+                    <div className="empty-admin-box">
 
-                            <div>
+                        {t(
+                            "admin.dashboard.loading"
+                        )}
 
-                                <span className="dashboard-eyebrow">
-                                    SEKRETARIAT
-                                </span>
-
-
-                                <h1>
-                                    {t(
-                                        "admin.dashboard.title"
-                                    )}
-                                </h1>
-
-
-                                <p className="dashboard-description">
-                                    Centrum zarządzania zakupami,
-                                    wydarzeniami i administracją.
-                                </p>
-
-                            </div>
-
-                        </header>
-
-
-
-                        <section className="dashboard-stats">
-
-                            <AdminStats
-
-                                allCount={
-                                    orders.length
-                                }
-
-                                pendingCount={
-                                    pendingCount
-                                }
-
-                                acceptedCount={
-                                    acceptedCount
-                                }
-
-                                completedCount={
-                                    completedOrders.length
-                                }
-
-                            />
-
-                        </section>
-
-
-
-                        <section className="dashboard-content">
-
-                            <AdminShoppingList
-                                orders={pendingOrders}
-                            />
-
-                        </section>
-
-                    </>
+                    </div>
 
                 );
 
+            }
 
 
-            case "powiadomienia":
+            return(
 
-                return (
+                <section className="dashboard-content">
 
-                    <section className="dashboard-content">
+                    <AdminNotifications
+                        orders={pendingOrders}
+                    />
 
-                        <AdminNotifications
-                            orders={pendingOrders}
-                        />
+                </section>
 
-                    </section>
+            );
 
-                );
-
-
-
-            case "zrealizowane":
-
-                return (
-
-                    <section className="dashboard-content">
-
-                        <AdminCompletedList
-                            orders={completedOrders}
-                        />
-
-                    </section>
-
-                );
+        }
 
 
 
-            case "dziennik":
+        /*
+         * ZREALIZOWANE
+         */
 
-                if(!isAdmin){
+        if(activeTab === "zrealizowane"){
 
-                    return null;
+            if(ordersLoading){
 
-                }
+                return(
 
+                    <div className="empty-admin-box">
 
-                return (
+                        {t(
+                            "admin.dashboard.loading"
+                        )}
 
-                    <section className="dashboard-content">
-
-                        <AdminEventLog
-                            logs={logs}
-                        />
-
-                    </section>
+                    </div>
 
                 );
 
+            }
 
 
-            case "kalendarz":
+            return(
 
-                return (
+                <section className="dashboard-content">
 
-                    <section className="dashboard-content">
+                    <AdminCompletedList
+                        orders={completedOrders}
+                    />
 
-                        <AdminCalendar
-                            events={events}
-                            onEdit={()=>{}}
-                            onDelete={()=>{}}
-                        />
+                </section>
 
-                    </section>
+            );
 
-                );
-
-
-
-            case "uzytkownicy":
-
-                if(!isAdmin){
-
-                    return null;
-
-                }
-
-
-                return (
-
-                    <section className="dashboard-content">
-
-                        <UsersPage />
-
-                    </section>
-
-                );
+        }
 
 
 
-            default:
+        /*
+         * DZIENNIK
+         */
+
+        if(activeTab === "dziennik"){
+
+            if(!isAdmin){
 
                 return null;
 
+            }
+
+
+            if(ordersLoading){
+
+                return(
+
+                    <div className="empty-admin-box">
+
+                        {t(
+                            "admin.dashboard.loading"
+                        )}
+
+                    </div>
+
+                );
+
+            }
+
+
+            return(
+
+                <section className="dashboard-content">
+
+                    <AdminEventLog
+                        logs={logs}
+                    />
+
+                </section>
+
+            );
+
         }
+
+
+
+        /*
+         * KALENDARZ
+         */
+
+        if(activeTab === "kalendarz"){
+
+            if(eventsLoading){
+
+                return(
+
+                    <div className="empty-admin-box">
+
+                        Ładowanie kalendarza...
+
+                    </div>
+
+                );
+
+            }
+
+
+            return(
+
+                <section className="dashboard-content">
+
+                    <AdminCalendar
+                        events={events}
+                        onEdit={()=>{}}
+                        onDelete={()=>{}}
+                    />
+
+                </section>
+
+            );
+
+        }
+
+
+
+        /*
+         * UŻYTKOWNICY
+         */
+
+        if(activeTab === "uzytkownicy"){
+
+            if(!isAdmin){
+
+                return null;
+
+            }
+
+
+            return(
+
+                <section className="dashboard-content">
+
+                    <UsersPage />
+
+                </section>
+
+            );
+
+        }
+
+
+
+        return null;
 
     }
 
 
 
-    return (
+    /*
+     * =========================
+     * PAGE
+     * =========================
+     */
+
+    return(
 
         <main className="admin-page">
 
@@ -519,7 +677,6 @@ export default function AdminDashboardPage({
                 userUid={userUid}
 
             />
-
 
 
             <section className="dashboard">
