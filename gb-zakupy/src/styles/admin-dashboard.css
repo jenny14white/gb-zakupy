@@ -1,17 +1,38 @@
+/* =========================================================
+   ADMIN DASHBOARD
+   DOPASOWANE DO GLOBALNEGO SYSTEMU ZMIENNYCH
+   ========================================================= */
+
 :root{
-    --dashboard-gradient:var(--glass-bg);
-    --dashboard-border:1px solid var(--border-color);
-    --dashboard-shadow:var(--shadow-lg);
+    --dashboard-gradient:var(--glass-gradient);
+    --dashboard-gradient-hover:var(--glass-gradient-hover);
+
+    --dashboard-background:var(--glass-background);
+    --dashboard-background-hover:var(--glass-hover);
+
+    --dashboard-border:1px solid var(--glass-border);
+
+    --dashboard-shadow:var(--shadow-medium);
+
     --dashboard-blur:blur(20px);
+
+    --dashboard-text:var(--text);
+    --dashboard-text-secondary:var(--text-secondary);
+    --dashboard-text-muted:var(--text-muted);
+
+    --dashboard-radius:var(--radius-large);
+
+    --dashboard-accent:var(--accent);
 }
 
 
-/* =========================
+/* =========================================================
    ADMIN PAGE
-   ========================= */
+   ========================================================= */
 
 .admin-page{
     position:relative;
+
     width:100%;
     height:100vh;
     min-height:100vh;
@@ -21,21 +42,25 @@
     overflow:hidden;
 
     background:transparent;
+
+    box-sizing:border-box;
 }
 
 
-/* =========================
+/* =========================================================
    DASHBOARD
-   ========================= */
+   ========================================================= */
 
 .dashboard{
     position:relative;
     z-index:2;
 
     flex:1;
+
     min-width:0;
     min-height:0;
 
+    width:100%;
     height:100vh;
 
     overflow-y:auto;
@@ -51,6 +76,9 @@
     background:transparent;
 
     box-sizing:border-box;
+
+    scrollbar-width:thin;
+    scrollbar-color:var(--glass-border) transparent;
 }
 
 
@@ -65,24 +93,31 @@
 
 
 .dashboard::-webkit-scrollbar-thumb{
-    background:var(--border-color);
+    background:var(--glass-border);
+
     border-radius:999px;
 }
 
 
-/* =========================
+.dashboard::-webkit-scrollbar-thumb:hover{
+    background:var(--accent);
+}
+
+
+/* =========================================================
    DASHBOARD HEADER
-   ========================= */
+   ========================================================= */
 
 .dashboard-header{
     position:relative;
+
     overflow:hidden;
 
     padding:30px;
 
-    border-radius:30px;
+    border-radius:var(--dashboard-radius);
 
-    background:var(--glass-bg);
+    background:var(--dashboard-gradient);
 
     border:var(--dashboard-border);
 
@@ -92,6 +127,8 @@
     box-shadow:var(--dashboard-shadow);
 
     flex-shrink:0;
+
+    box-sizing:border-box;
 }
 
 
@@ -108,23 +145,33 @@
 
     border-radius:50%;
 
-    background:radial-gradient(
-        var(--accent-soft),
-        transparent 70%
-    );
+    background:
+        radial-gradient(
+            circle,
+            color-mix(
+                in srgb,
+                var(--accent) 22%,
+                transparent
+            ),
+            transparent 70%
+        );
 
     filter:blur(35px);
+
+    pointer-events:none;
 }
 
 
-.dashboard-header>div{
+.dashboard-header > div{
     position:relative;
+
     z-index:2;
 }
 
 
 .dashboard-eyebrow{
     display:inline-flex;
+
     align-items:center;
 
     width:max-content;
@@ -133,9 +180,9 @@
 
     border-radius:999px;
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
-    border:1px solid var(--border-color);
+    border:1px solid var(--glass-border);
 
     color:var(--accent);
 
@@ -158,7 +205,7 @@
 
     line-height:1.05;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -175,9 +222,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    STATISTICS
-   ========================= */
+   ========================================================= */
 
 .dashboard-stats{
     display:block;
@@ -200,18 +247,20 @@
 }
 
 
-/* =========================
+/* =========================================================
    STAT CARD
-   ========================= */
+   ========================================================= */
 
 .stat-card{
     position:relative;
+
     overflow:hidden;
 
     min-height:145px;
     height:145px;
 
     display:flex;
+
     flex-direction:column;
 
     align-items:center;
@@ -223,7 +272,7 @@
 
     border-radius:24px;
 
-    background:var(--surface-soft);
+    background:var(--glass-gradient);
 
     border:var(--dashboard-border);
 
@@ -234,6 +283,8 @@
 
     transition:
         transform .35s ease,
+        border-color .35s ease,
+        background .35s ease,
         box-shadow .35s ease;
 
     box-sizing:border-box;
@@ -244,13 +295,19 @@
     content:"";
 
     position:absolute;
+
     inset:0;
 
-    background:linear-gradient(
-        135deg,
-        var(--glass-highlight),
-        transparent 45%
-    );
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--text) 5%,
+                transparent
+            ),
+            transparent 45%
+        );
 
     pointer-events:none;
 }
@@ -269,10 +326,16 @@
 
     border-radius:50%;
 
-    background:radial-gradient(
-        var(--accent-soft),
-        transparent 70%
-    );
+    background:
+        radial-gradient(
+            circle,
+            color-mix(
+                in srgb,
+                var(--accent) 20%,
+                transparent
+            ),
+            transparent 70%
+        );
 
     filter:blur(25px);
 
@@ -283,12 +346,17 @@
 .stat-card:hover{
     transform:translateY(-5px);
 
-    box-shadow:var(--shadow-xl);
+    border-color:var(--accent);
+
+    background:var(--glass-gradient-hover);
+
+    box-shadow:var(--shadow-medium);
 }
 
 
 .stat-icon{
     position:relative;
+
     z-index:2;
 
     font-size:28px;
@@ -299,6 +367,7 @@
 
 .stat-card strong{
     position:relative;
+
     z-index:2;
 
     font-size:2.2rem;
@@ -306,12 +375,13 @@
 
     line-height:1;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
 .stat-card span{
     position:relative;
+
     z-index:2;
 
     text-align:center;
@@ -325,9 +395,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    DASHBOARD CONTENT
-   ========================= */
+   ========================================================= */
 
 .dashboard-content{
     display:flex;
@@ -347,9 +417,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    PANELS
-   ========================= */
+   ========================================================= */
 
 .dashboard-panel,
 .dashboard-card,
@@ -368,6 +438,8 @@
     box-shadow:var(--dashboard-shadow);
 
     overflow:visible;
+
+    box-sizing:border-box;
 }
 
 
@@ -375,6 +447,7 @@
     padding:30px;
 
     display:flex;
+
     flex-direction:column;
 
     gap:24px;
@@ -387,17 +460,34 @@
     content:"";
 
     position:absolute;
+
     inset:0;
 
     border-radius:inherit;
 
-    background:linear-gradient(
-        135deg,
-        var(--glass-highlight),
-        transparent 45%
-    );
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--text) 5%,
+                transparent
+            ),
+            transparent 45%
+        );
 
     pointer-events:none;
+
+    z-index:0;
+}
+
+
+.dashboard-panel > *,
+.dashboard-card > *,
+.glass-section > *{
+    position:relative;
+
+    z-index:1;
 }
 
 
@@ -408,7 +498,7 @@
 
     font-weight:800;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -419,9 +509,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    EMPTY
-   ========================= */
+   ========================================================= */
 
 .empty-admin-box{
     padding:60px 40px;
@@ -430,9 +520,9 @@
 
     text-align:center;
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
-    border:1px dashed var(--border-color);
+    border:1px dashed var(--glass-border);
 
     color:var(--text-secondary);
 
@@ -443,9 +533,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    ACTIONS
-   ========================= */
+   ========================================================= */
 
 .dashboard-action,
 .dashboard-mini-button,
@@ -461,14 +551,18 @@
 
     border:var(--dashboard-border);
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
-    color:var(--text-primary);
+    color:var(--text);
 
     backdrop-filter:var(--dashboard-blur);
     -webkit-backdrop-filter:var(--dashboard-blur);
 
-    transition:.3s ease;
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
 }
 
 
@@ -490,13 +584,17 @@
 .workspace-icon:hover{
     transform:translateY(-4px) scale(1.04);
 
-    background:var(--surface-hover);
+    background:var(--glass-hover);
+
+    border-color:var(--accent);
+
+    box-shadow:var(--shadow-medium);
 }
 
 
-/* =========================
+/* =========================================================
    SEARCH
-   ========================= */
+   ========================================================= */
 
 .search-input{
     width:340px;
@@ -508,9 +606,9 @@
 
     border:var(--dashboard-border);
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
-    color:var(--text-primary);
+    color:var(--text);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
@@ -518,6 +616,11 @@
     outline:none;
 
     box-sizing:border-box;
+
+    transition:
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
 }
 
 
@@ -529,14 +632,21 @@
 .search-input:focus{
     border-color:var(--accent);
 
+    background:var(--glass-hover);
+
     box-shadow:
-        0 0 20px var(--accent-shadow);
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--accent) 18%,
+            transparent
+        );
 }
 
 
-/* =========================
+/* =========================================================
    GRID
-   ========================= */
+   ========================================================= */
 
 .dashboard-grid{
     display:grid;
@@ -549,9 +659,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    SECTION HEADER
-   ========================= */
+   ========================================================= */
 
 .section-header,
 .section-title{
@@ -572,7 +682,7 @@
 
     font-weight:800;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -584,9 +694,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    COUNT
-   ========================= */
+   ========================================================= */
 
 .section-count{
     flex-shrink:0;
@@ -603,45 +713,49 @@
 
     border-radius:999px;
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
-    border:1px solid var(--border-color);
+    border:1px solid var(--glass-border);
 
-    color:var(--text-primary);
+    color:var(--text);
 
     font-weight:800;
 }
 
 
-/* =========================
+/* =========================================================
    FLOATING
-   ========================= */
+   ========================================================= */
 
 .dashboard-floating{
-    transition:.35s ease;
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
 }
 
 
 .dashboard-floating:hover{
     transform:translateY(-6px);
 
-    box-shadow:var(--shadow-xl);
+    box-shadow:var(--shadow-medium);
 }
 
 
-/* =========================
+/* =========================================================
    ANIMATION
-   ========================= */
+   ========================================================= */
 
 @keyframes dashboardEnter{
 
     from{
         opacity:0;
+
         transform:translateY(25px);
     }
 
     to{
         opacity:1;
+
         transform:none;
     }
 
@@ -682,7 +796,7 @@
 
     width:100%;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -714,7 +828,7 @@
 
     font-weight:900;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -727,9 +841,9 @@
 }
 
 
-/* =========================
-   LISTA
-   ========================= */
+/* =========================================================
+   LISTA ZREALIZOWANYCH
+   ========================================================= */
 
 .admin-completed-list .shopping-list{
     display:flex;
@@ -748,9 +862,9 @@
 }
 
 
-/* =========================
-   KARTA
-   ========================= */
+/* =========================================================
+   KARTA ZREALIZOWANA
+   ========================================================= */
 
 .admin-completed-list .shopping-card{
     position:relative;
@@ -764,7 +878,7 @@
 
     border-radius:20px;
 
-    background:var(--glass-bg);
+    background:var(--glass-gradient);
 
     border:1px solid var(--glass-border);
 
@@ -790,14 +904,15 @@
 
     border-color:var(--accent);
 
-    box-shadow:
-        0 16px 40px rgba(0,0,0,.18);
+    background:var(--glass-gradient-hover);
+
+    box-shadow:var(--shadow-medium);
 }
 
 
-/* =========================
+/* =========================================================
    LEWY PASEK
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-bar{
     position:absolute;
@@ -808,7 +923,7 @@
 
     width:4px;
 
-    background:#8b5cf6;
+    background:var(--success);
 
     opacity:.95;
 
@@ -816,12 +931,13 @@
 }
 
 
-/* =========================
+/* =========================================================
    GŁÓWNA CZĘŚĆ
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-content{
     position:relative;
+
     z-index:2;
 
     flex:1;
@@ -842,9 +958,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    TOP
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-top{
     min-width:0;
@@ -866,6 +982,7 @@
     overflow:hidden;
 
     white-space:nowrap;
+
     text-overflow:ellipsis;
 
     font-size:.95rem;
@@ -874,7 +991,7 @@
 
     line-height:1.35;
 
-    color:var(--text-primary);
+    color:var(--text);
 }
 
 
@@ -891,9 +1008,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    PRAWA CZĘŚĆ
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-right{
     position:absolute;
@@ -901,7 +1018,6 @@
     z-index:4;
 
     top:50%;
-
     right:16px;
 
     transform:translateY(-50%);
@@ -914,9 +1030,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    STATUS
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-status{
     display:flex;
@@ -940,17 +1056,27 @@
 
 
 .admin-completed-list .shopping-status.done{
-    background:rgba(34,197,94,.12);
+    background:
+        color-mix(
+            in srgb,
+            var(--success) 12%,
+            transparent
+        );
 
-    border:1px solid rgba(34,197,94,.20);
+    border:1px solid
+        color-mix(
+            in srgb,
+            var(--success) 20%,
+            transparent
+        );
 
-    color:#22c55e;
+    color:var(--success);
 }
 
 
-/* =========================
+/* =========================================================
    STRZAŁKA
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-right button{
     width:44px;
@@ -961,11 +1087,11 @@
     align-items:center;
     justify-content:center;
 
-    border:1px solid var(--border-color);
+    border:1px solid var(--glass-border);
 
     border-radius:12px;
 
-    background:var(--surface-soft);
+    background:var(--glass-background);
 
     color:var(--text-secondary);
 
@@ -973,13 +1099,16 @@
 
     transition:
         background .25s ease,
+        border-color .25s ease,
         color .25s ease,
         transform .25s ease;
 }
 
 
 .admin-completed-list .shopping-card-right button:hover{
-    background:var(--surface-hover);
+    background:var(--glass-hover);
+
+    border-color:var(--accent);
 
     color:var(--accent);
 
@@ -987,9 +1116,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    ROZWINIĘTE SZCZEGÓŁY
-   ========================= */
+   ========================================================= */
 
 .admin-completed-list .shopping-card-footer{
     position:relative;
@@ -1007,26 +1136,31 @@
     border-radius:16px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.045),
-            rgba(255,255,255,.018)
+        color-mix(
+            in srgb,
+            var(--glass-background) 70%,
+            transparent
         );
 
-    border:1px solid var(--border-color);
+    border:1px solid var(--glass-border);
 
-    color:var(--text-primary);
+    color:var(--text);
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.035);
+        inset 0 1px 0
+        color-mix(
+            in srgb,
+            var(--text) 4%,
+            transparent
+        );
 
     animation:completedExpand .28s ease;
 }
 
 
-/* =========================
+/* =========================================================
    ANIMACJE
-   ========================= */
+   ========================================================= */
 
 @keyframes completedCardEnter{
 
@@ -1062,9 +1196,380 @@
 }
 
 
-/* =========================
+/* =========================================================
+   SPOTLIGHT SIDEBAR
+   ========================================================= */
+
+/*
+ * SpotlightCard jest jedyną wizualną kartą.
+ * Sidebar button jest wyłącznie jej zawartością.
+ */
+
+.sidebar-card{
+    position:relative;
+
+    display:block;
+
+    width:100%;
+    height:58px;
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+    overflow:hidden;
+
+    border-radius:20px;
+}
+
+
+/* =========================================================
+   BUTTON SPOTLIGHT
+   ========================================================= */
+
+.sidebar-card .sidebar-button{
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    width:100%;
+    height:100%;
+
+    min-height:58px;
+
+    margin:0;
+
+    padding:0 14px;
+
+    box-sizing:border-box;
+
+    border:none !important;
+
+    border-radius:20px;
+
+    background:transparent !important;
+
+    box-shadow:none !important;
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    text-align:left;
+
+    z-index:5;
+
+    transition:
+        color .25s ease;
+}
+
+
+.sidebar-card .sidebar-button:hover,
+.sidebar-card .sidebar-button:focus,
+.sidebar-card .sidebar-button:active,
+.sidebar-card .sidebar-button.active{
+    background:transparent !important;
+
+    border:none !important;
+
+    box-shadow:none !important;
+
+    transform:none !important;
+}
+
+
+/* =========================================================
+   USUNIĘCIE STARYCH PSEUDO-EFEKTÓW
+   ========================================================= */
+
+.admin-nav > .sidebar-card > .sidebar-button::before,
+.admin-nav > .sidebar-card > .sidebar-button::after{
+    display:none !important;
+
+    content:none !important;
+}
+
+
+/* =========================================================
+   ZAWARTOŚĆ SIDEBAR
+   ========================================================= */
+
+.sidebar-card .sidebar-button-main{
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    flex:1 1 auto;
+
+    min-width:0;
+
+    gap:10px;
+
+    overflow:hidden;
+
+    z-index:6;
+}
+
+
+/* =========================================================
+   IKONA
+   ========================================================= */
+
+.sidebar-card .sidebar-icon{
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex:0 0 34px;
+
+    width:34px;
+    height:34px;
+
+    border-radius:11px;
+
+    background:var(--glass-background);
+
+    border:1px solid
+        color-mix(
+            in srgb,
+            var(--glass-border) 70%,
+            transparent
+        );
+
+    font-size:15px;
+
+    z-index:6;
+
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   NAZWA
+   ========================================================= */
+
+.sidebar-card .sidebar-button-main strong{
+    display:flex;
+
+    align-items:center;
+
+    min-width:0;
+
+    gap:10px;
+
+    color:var(--text);
+
+    font-size:.9rem;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+.sidebar-card .sidebar-button-main small{
+    display:flex;
+
+    align-items:center;
+
+    margin-left:auto;
+
+    color:var(--text-secondary);
+
+    font-size:.72rem;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   LICZNIK POWIADOMIEŃ
+   ========================================================= */
+
+.sidebar-card .sidebar-counter{
+    position:relative;
+
+    z-index:10;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex:0 0 auto;
+
+    width:32px;
+    min-width:32px;
+    height:32px;
+
+    margin-left:10px;
+
+    padding:0 7px;
+
+    border-radius:50%;
+
+    background:var(--text);
+
+    color:var(--accent);
+
+    font-size:.8rem;
+
+    font-weight:900;
+
+    box-sizing:border-box;
+
+    box-shadow:none;
+}
+
+
+/* =========================================================
+   AKTYWNA POZYCJA
+   ========================================================= */
+
+.admin-nav > .sidebar-card.active{
+    border-color:var(--accent);
+
+    box-shadow:
+        0 0 0 1px var(--accent);
+}
+
+
+.admin-nav > .sidebar-card.active > .sidebar-button{
+    background:transparent !important;
+
+    box-shadow:none !important;
+}
+
+
+.sidebar-card.active .sidebar-button{
+    color:var(--text);
+}
+
+
+/* =========================================================
+   MENU INDICATOR
+   ========================================================= */
+
+.sidebar-card .menu-indicator{
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:4px;
+    height:28px;
+
+    margin:0;
+
+    border-radius:0 8px 8px 0;
+
+    background:var(--accent);
+
+    transform:translateY(-50%);
+
+    z-index:20;
+}
+
+
+/* =========================================================
+   SPOTLIGHT
+   ========================================================= */
+
+.sidebar-card::before{
+    z-index:1 !important;
+
+    pointer-events:none;
+}
+
+
+.admin-nav > .sidebar-card.card-spotlight{
+    overflow:hidden;
+}
+
+
+.admin-nav > .sidebar-card.card-spotlight::before{
+    z-index:1;
+
+    pointer-events:none;
+}
+
+
+.admin-nav > .sidebar-card > .sidebar-button{
+    z-index:5;
+}
+
+
+/* =========================================================
+   BRAK DODATKOWEGO RUCHU SIDEBAR
+   ========================================================= */
+
+.admin-nav > .sidebar-card:hover{
+    transform:none !important;
+}
+
+
+.admin-nav > .sidebar-card.card-spotlight:hover{
+    transform:none !important;
+}
+
+
+/* =========================================================
+   ODSTĘPY MENU
+   ========================================================= */
+
+.admin-nav{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    width:100%;
+
+    box-sizing:border-box;
+}
+
+
+.admin-nav > .sidebar-card{
+    position:relative;
+
+    flex:0 0 auto;
+
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    height:58px;
+    min-height:58px;
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+    overflow:hidden;
+
+    border-radius:20px;
+}
+
+
+/* =========================================================
    TABLET
-   ========================= */
+   ========================================================= */
 
 @media(max-width:1200px){
 
@@ -1096,9 +1601,9 @@
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE
-   ========================= */
+   ========================================================= */
 
 @media(max-width:768px){
 
@@ -1113,6 +1618,8 @@
 
 
     .dashboard{
+        width:100%;
+
         height:auto;
 
         min-height:0;
@@ -1187,7 +1694,9 @@
     }
 
 
-    /* ZREALIZOWANE */
+    /* =====================================================
+       ZREALIZOWANE
+       ===================================================== */
 
     .admin-completed-list .shopping-card-content{
         padding:
@@ -1210,17 +1719,47 @@
     }
 
 
-    .admin-completed-list .shopping-card-right button{
-        width:40px;
-        height:40px;
+    /* =====================================================
+       SIDEBAR
+       ===================================================== */
+
+    .sidebar-card{
+        height:54px;
+    }
+
+
+    .admin-nav > .sidebar-card{
+        height:54px;
+        min-height:54px;
+
+        border-radius:18px;
+    }
+
+
+    .sidebar-card .sidebar-button,
+    .admin-nav > .sidebar-card > .sidebar-button{
+        min-height:54px;
+
+        padding:0 12px;
+
+        border-radius:18px;
+    }
+
+
+    .sidebar-card .sidebar-icon,
+    .admin-nav > .sidebar-card .sidebar-icon{
+        width:32px;
+        height:32px;
+
+        flex-basis:32px;
     }
 
 }
 
 
-/* =========================
+/* =========================================================
    SMALL MOBILE
-   ========================= */
+   ========================================================= */
 
 @media(max-width:520px){
 
@@ -1267,7 +1806,9 @@
     }
 
 
-    /* ZREALIZOWANE */
+    /* =====================================================
+       ZREALIZOWANE
+       ===================================================== */
 
     .admin-completed-list .shopping-card{
         min-height:82px;
@@ -1323,12 +1864,30 @@
         padding:13px;
     }
 
+
+    /* =====================================================
+       SIDEBAR
+       ===================================================== */
+
+    .sidebar-card .sidebar-button-main small{
+        font-size:.68rem;
+    }
+
+
+    .sidebar-card .sidebar-counter{
+        width:30px;
+        min-width:30px;
+        height:30px;
+
+        font-size:.76rem;
+    }
+
 }
 
 
-/* =========================
+/* =========================================================
    REDUCED MOTION
-   ========================= */
+   ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1344,624 +1903,12 @@
         transition:none;
     }
 
-}
-/* =========================================================
-   SPOTLIGHT SIDEBAR
-   ========================================================= */
 
-/*
- * SpotlightCard jest jedyną wizualną kartą.
- * Sidebar button jest tylko jej zawartością.
- */
+    .dashboard-action,
+    .dashboard-mini-button,
+    .workspace-icon,
+    .sidebar-button{
 
-.sidebar-card {
-    position: relative;
-
-    display: block;
-
-    width: 100%;
-    height: 58px;
-
-    margin: 0;
-    padding: 0;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-
-    border-radius: 20px;
-}
-
-
-/* Button zajmuje całą kartę */
-
-.sidebar-card .sidebar-button {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-
-    min-height: 58px;
-
-    margin: 0;
-    padding: 0 14px;
-
-    box-sizing: border-box;
-
-    border: none !important;
-    border-radius: 20px;
-
-    background: transparent !important;
-
-    box-shadow: none !important;
-
-    color: var(--text-primary);
-
-    cursor: pointer;
-
-    text-align: left;
-
-    z-index: 5;
-
-    transition:
-        color .25s ease,
-        transform .25s ease;
-}
-
-
-/* Usuwamy stare tło buttona */
-
-.sidebar-card .sidebar-button:hover,
-.sidebar-card .sidebar-button:focus,
-.sidebar-card .sidebar-button:active,
-.sidebar-card .sidebar-button.active {
-    background: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
-
-    transform: none;
-}
-
-
-/* Cała zawartość */
-
-.sidebar-card .sidebar-button-main {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    flex: 1;
-
-    min-width: 0;
-
-    gap: 12px;
-
-    z-index: 6;
-}
-
-
-/* Ikona */
-
-.sidebar-card .sidebar-icon {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 34px;
-
-    width: 34px;
-    height: 34px;
-
-    border-radius: 11px;
-
-    background: var(--surface-soft);
-
-    font-size: 15px;
-
-    z-index: 6;
-}
-
-
-/* Nazwa + ewentualny subtitle */
-
-.sidebar-card .sidebar-button-main strong {
-    display: flex;
-    align-items: center;
-
-    min-width: 0;
-
-    gap: 10px;
-
-    color: var(--text-primary);
-
-    font-size: .9rem;
-    font-weight: 800;
-
-    white-space: nowrap;
-}
-
-
-/* Subtitle */
-
-.sidebar-card .sidebar-button-main small {
-    display: flex;
-    align-items: center;
-
-    margin-left: auto;
-
-    color: var(--text-secondary);
-
-    font-size: .72rem;
-    font-weight: 700;
-
-    white-space: nowrap;
-}
-
-
-/* Licznik powiadomień */
-
-.sidebar-card .sidebar-counter {
-    position: relative;
-    z-index: 7;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 auto;
-
-    min-width: 32px;
-    height: 32px;
-
-    padding: 0 9px;
-
-    border-radius: 999px;
-
-    background: var(--accent);
-
-    color: var(--text-primary);
-
-    font-size: .78rem;
-    font-weight: 900;
-
-    box-sizing: border-box;
-
-    box-shadow:
-        0 6px 18px var(--accent-shadow);
-}
-
-
-/* Aktywny element */
-
-.sidebar-card.active {
-    border-color: var(--accent);
-}
-
-
-.sidebar-card.active .sidebar-button {
-    color: var(--text-primary);
-}
-
-
-/* Wskaźnik aktywnej pozycji */
-
-.sidebar-card .menu-indicator {
-    position: absolute;
-
-    left: 0;
-    top: 50%;
-
-    width: 4px;
-    height: 28px;
-
-    border-radius: 0 8px 8px 0;
-
-    background: var(--accent);
-
-    transform: translateY(-50%);
-
-    z-index: 8;
-}
-
-
-/* Spotlight musi być za zawartością */
-
-.sidebar-card::before {
-    z-index: 1 !important;
-}
-
-
-/* =========================================================
-   ODSTĘPY MENU
-   ========================================================= */
-
-.admin-nav {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-
-.admin-nav > .sidebar-card {
-    flex: 0 0 auto;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-    .sidebar-card {
-        height: 54px;
-    }
-
-    .sidebar-card .sidebar-button {
-        min-height: 54px;
-
-        padding: 0 12px;
-    }
-
-    .sidebar-card .sidebar-icon {
-        flex-basis: 32px;
-
-        width: 32px;
-        height: 32px;
-    }
-
-}
-/* =========================================================
-   FINAL SIDEBAR + SPOTLIGHT FIX
-   ========================================================= */
-
-/* Każda karta menu ma swój własny, zamknięty obszar */
-.admin-nav > .sidebar-card {
-    position: relative;
-
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-
-    height: 58px;
-    min-height: 58px;
-
-    margin: 0;
-    padding: 0;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-
-    border-radius: 20px;
-}
-
-
-/* =========================================================
-   BUTTON
-   ========================================================= */
-
-.admin-nav > .sidebar-card > .sidebar-button {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    min-height: 58px;
-
-    margin: 0;
-    padding: 0 14px;
-
-    box-sizing: border-box;
-
-    border: 0 !important;
-    outline: none;
-
-    border-radius: 20px;
-
-    background: transparent !important;
-
-    box-shadow: none !important;
-
-    transform: none !important;
-
-    overflow: hidden;
-
-    cursor: pointer;
-}
-
-
-/* Żadnego starego efektu buttona */
-
-.admin-nav > .sidebar-card > .sidebar-button:hover,
-.admin-nav > .sidebar-card > .sidebar-button:focus,
-.admin-nav > .sidebar-card > .sidebar-button:active,
-.admin-nav > .sidebar-card > .sidebar-button.active {
-    background: transparent !important;
-
-    border: 0 !important;
-
-    outline: none !important;
-
-    box-shadow: none !important;
-
-    transform: none !important;
-}
-
-
-/* =========================================================
-   USUNIĘCIE STARYCH PSEUDO-EFEKTÓW BUTTONA
-   ========================================================= */
-
-.admin-nav > .sidebar-card > .sidebar-button::before,
-.admin-nav > .sidebar-card > .sidebar-button::after {
-    display: none !important;
-
-    content: none !important;
-}
-
-
-/* =========================================================
-   ZAWARTOŚĆ
-   ========================================================= */
-
-.admin-nav > .sidebar-card .sidebar-button-main {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    flex: 1 1 auto;
-
-    min-width: 0;
-
-    gap: 10px;
-
-    overflow: hidden;
-}
-
-
-/* Ikona */
-
-.admin-nav > .sidebar-card .sidebar-icon {
-    flex: 0 0 34px;
-
-    width: 34px;
-    height: 34px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 11px;
-
-    background: var(--surface-soft);
-
-    box-sizing: border-box;
-}
-
-
-/* Nazwa */
-
-.admin-nav > .sidebar-card .sidebar-button-main strong {
-    min-width: 0;
-
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    color: var(--text-primary);
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    font-size: .9rem;
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   SUBTITLE ZAKUPÓW
-   ========================================================= */
-
-.admin-nav > .sidebar-card .sidebar-button-main small {
-    flex: 0 0 auto;
-
-    margin-left: auto;
-
-    color: var(--text-secondary);
-
-    font-size: .72rem;
-    font-weight: 800;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   LICZNIK POWIADOMIEŃ
-   ========================================================= */
-
-.admin-nav > .sidebar-card .sidebar-counter {
-    position: relative;
-
-    flex: 0 0 auto;
-
-    width: 32px;
-    min-width: 32px;
-    height: 32px;
-
-    margin-left: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: var(--text-primary);
-
-    color: var(--accent);
-
-    font-size: .8rem;
-    font-weight: 900;
-
-    box-sizing: border-box;
-
-    box-shadow: none;
-
-    z-index: 10;
-}
-
-
-/* =========================================================
-   AKTYWNY ELEMENT
-   ========================================================= */
-
-/*
- * Nie robimy drugiej obwódki.
- * SpotlightCard jest jedyną kartą.
- */
-
-.admin-nav > .sidebar-card.active {
-    border-color: var(--accent);
-
-    box-shadow:
-        0 0 0 1px var(--accent);
-}
-
-
-/* Nie pozwalamy buttonowi tworzyć własnego aktywnego tła */
-
-.admin-nav > .sidebar-card.active > .sidebar-button {
-    background: transparent !important;
-
-    box-shadow: none !important;
-}
-
-
-/* =========================================================
-   MENU INDICATOR
-   ========================================================= */
-
-.admin-nav > .sidebar-card .menu-indicator {
-    position: absolute;
-
-    left: 0;
-    top: 50%;
-
-    width: 4px;
-    height: 28px;
-
-    margin: 0;
-
-    border-radius: 0 8px 8px 0;
-
-    background: var(--accent);
-
-    transform: translateY(-50%);
-
-    z-index: 20;
-}
-
-
-/* =========================================================
-   SPOTLIGHT — NIE WYCHODZI POZA KARTĘ
-   ========================================================= */
-
-.admin-nav > .sidebar-card.card-spotlight {
-    overflow: hidden;
-}
-
-.admin-nav > .sidebar-card.card-spotlight::before {
-    z-index: 1;
-
-    pointer-events: none;
-}
-
-
-/* Wszystko nad spotlightem */
-
-.admin-nav > .sidebar-card > .sidebar-button {
-    z-index: 5;
-}
-
-
-/* =========================================================
-   USUNIĘCIE DODATKOWEGO GLOW Z HOVER
-   ========================================================= */
-
-.admin-nav > .sidebar-card:hover {
-    transform: none !important;
-}
-
-
-/* Spotlight może się świecić,
-   ale sama karta nie zmienia pozycji */
-
-.admin-nav > .sidebar-card.card-spotlight:hover {
-    transform: none !important;
-}
-
-
-/* =========================================================
-   ODSTĘPY
-   ========================================================= */
-
-.admin-nav {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    width: 100%;
-
-    box-sizing: border-box;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-    .admin-nav > .sidebar-card {
-        height: 54px;
-        min-height: 54px;
-
-        border-radius: 18px;
-    }
-
-    .admin-nav > .sidebar-card > .sidebar-button {
-        min-height: 54px;
-
-        padding: 0 12px;
-
-        border-radius: 18px;
-    }
-
-    .admin-nav > .sidebar-card .sidebar-icon {
-        width: 32px;
-        height: 32px;
-
-        flex-basis: 32px;
+        transition:none;
     }
 }
