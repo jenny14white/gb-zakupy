@@ -29,46 +29,91 @@ export default function AdminOrderEditForm({order,onCancel,onSaved}){
         }
     }
     return(
-        <article className="shopping-card shopping-edit-card">
-            <div className="shopping-card-bar"/>
-            <div className="shopping-edit">
-                <div className="shopping-edit-header">
-                    <div>
-                        <span className="shopping-edit-eyebrow">EDYCJA ZAMÓWIENIA</span>
-                        <h3>{order.product||"Brak nazwy"}</h3>
-                        <p>Zmień dane zgłoszenia i zapisz aktualizację.</p>
+        <article className="shopping-card shopping-edit-card expanded">
+            <div className="shopping-main shopping-edit-main">
+                <div className="shopping-status-summary">
+                    <span className="shopping-status-dot progress"/>
+                    <strong>Edycja zamówienia</strong>
+                </div>
+                <div className="shopping-summary">
+                    <div className="shopping-summary-product">
+                        <span>{order.product||"Brak nazwy"}</span>
+                    </div>
+                    <div className="shopping-summary-meta">
+                        <span>📦 {order.quantity||0} {order.unit||""}</span>
+                        <span>👤 {order.requestedBy||"—"}</span>
                     </div>
                 </div>
-                <div className="shopping-edit-grid">
-                    <label className="shopping-edit-field">
-                        <span>Produkt</span>
-                        <input value={product} onChange={e=>setProduct(e.target.value)} autoFocus/>
+                <div className="shopping-expand">
+                    <span>Edytowanie</span>
+                    <span className="shopping-chevron open">↓</span>
+                </div>
+            </div>
+            <div className="shopping-details shopping-edit-details">
+                <div className="shopping-details-grid">
+                    <label className="shopping-detail shopping-edit-detail">
+                        <span className="shopping-detail-label">Produkt</span>
+                        <input
+                            value={product}
+                            onChange={e=>setProduct(e.target.value)}
+                            autoFocus
+                        />
                     </label>
-                    <label className="shopping-edit-field">
-                        <span>Osoba zgłaszająca</span>
-                        <input value={requestedBy} onChange={e=>setRequestedBy(e.target.value)}/>
+                    <label className="shopping-detail shopping-edit-detail">
+                        <span className="shopping-detail-label">Osoba zgłaszająca</span>
+                        <input
+                            value={requestedBy}
+                            onChange={e=>setRequestedBy(e.target.value)}
+                        />
                     </label>
-                    <label className="shopping-edit-field">
-                        <span>Ilość</span>
-                        <input type="number" min="1" value={quantity} onChange={e=>setQuantity(e.target.value)}/>
+                    <label className="shopping-detail shopping-edit-detail">
+                        <span className="shopping-detail-label">Ilość</span>
+                        <input
+                            type="number"
+                            min="1"
+                            value={quantity}
+                            onChange={e=>setQuantity(e.target.value)}
+                        />
                     </label>
-                    <label className="shopping-edit-field">
-                        <span>Jednostka</span>
-                        <select value={unit} onChange={e=>setUnit(e.target.value)}>
-                            {UNITS.map(item=><option key={item} value={item}>{item}</option>)}
+                    <label className="shopping-detail shopping-edit-detail">
+                        <span className="shopping-detail-label">Jednostka</span>
+                        <select
+                            value={unit}
+                            onChange={e=>setUnit(e.target.value)}
+                        >
+                            {UNITS.map(item=>(
+                                <option key={item} value={item}>
+                                    {item}
+                                </option>
+                            ))}
                         </select>
                     </label>
-                    <label className="shopping-edit-field shopping-edit-full">
-                        <span>Komentarz administratora</span>
-                        <textarea rows={4} value={adminComment} onChange={e=>setAdminComment(e.target.value)} placeholder="Komentarz administratora..."/>
+                    <label className="shopping-detail shopping-edit-detail shopping-edit-comment">
+                        <span className="shopping-detail-label">Komentarz administratora</span>
+                        <textarea
+                            rows={4}
+                            value={adminComment}
+                            onChange={e=>setAdminComment(e.target.value)}
+                            placeholder="Komentarz administratora..."
+                        />
                     </label>
                 </div>
-                <div className="shopping-edit-actions">
-                    <button type="button" className="shopping-icon-btn success shopping-edit-save" data-tooltip="Zapisz zmiany" onClick={handleSave} disabled={loading}>
-                        {loading?"…":"✓"}
+                <div className="shopping-details-actions">
+                    <button
+                        type="button"
+                        className="admin-button"
+                        onClick={handleSave}
+                        disabled={loading}
+                    >
+                        {loading?"Zapisywanie...":"✓ Zapisz zmiany"}
                     </button>
-                    <button type="button" className="shopping-icon-btn danger" data-tooltip="Anuluj" onClick={onCancel} disabled={loading}>
-                        ✕
+                    <button
+                        type="button"
+                        className="admin-button secondary"
+                        onClick={onCancel}
+                        disabled={loading}
+                    >
+                        Anuluj
                     </button>
                 </div>
             </div>
