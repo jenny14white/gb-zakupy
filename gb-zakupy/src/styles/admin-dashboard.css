@@ -1621,3 +1621,347 @@
     }
 
 }
+/* =========================================================
+   FINAL SIDEBAR + SPOTLIGHT FIX
+   ========================================================= */
+
+/* Każda karta menu ma swój własny, zamknięty obszar */
+.admin-nav > .sidebar-card {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    height: 58px;
+    min-height: 58px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.admin-nav > .sidebar-card > .sidebar-button {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 58px;
+
+    margin: 0;
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 0 !important;
+    outline: none;
+
+    border-radius: 20px;
+
+    background: transparent !important;
+
+    box-shadow: none !important;
+
+    transform: none !important;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+
+/* Żadnego starego efektu buttona */
+
+.admin-nav > .sidebar-card > .sidebar-button:hover,
+.admin-nav > .sidebar-card > .sidebar-button:focus,
+.admin-nav > .sidebar-card > .sidebar-button:active,
+.admin-nav > .sidebar-card > .sidebar-button.active {
+    background: transparent !important;
+
+    border: 0 !important;
+
+    outline: none !important;
+
+    box-shadow: none !important;
+
+    transform: none !important;
+}
+
+
+/* =========================================================
+   USUNIĘCIE STARYCH PSEUDO-EFEKTÓW BUTTONA
+   ========================================================= */
+
+.admin-nav > .sidebar-card > .sidebar-button::before,
+.admin-nav > .sidebar-card > .sidebar-button::after {
+    display: none !important;
+
+    content: none !important;
+}
+
+
+/* =========================================================
+   ZAWARTOŚĆ
+   ========================================================= */
+
+.admin-nav > .sidebar-card .sidebar-button-main {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    gap: 10px;
+
+    overflow: hidden;
+}
+
+
+/* Ikona */
+
+.admin-nav > .sidebar-card .sidebar-icon {
+    flex: 0 0 34px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: var(--surface-soft);
+
+    box-sizing: border-box;
+}
+
+
+/* Nazwa */
+
+.admin-nav > .sidebar-card .sidebar-button-main strong {
+    min-width: 0;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--text-primary);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: .9rem;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   SUBTITLE ZAKUPÓW
+   ========================================================= */
+
+.admin-nav > .sidebar-card .sidebar-button-main small {
+    flex: 0 0 auto;
+
+    margin-left: auto;
+
+    color: var(--text-secondary);
+
+    font-size: .72rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LICZNIK POWIADOMIEŃ
+   ========================================================= */
+
+.admin-nav > .sidebar-card .sidebar-counter {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+
+    margin-left: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--text-primary);
+
+    color: var(--accent);
+
+    font-size: .8rem;
+    font-weight: 900;
+
+    box-sizing: border-box;
+
+    box-shadow: none;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   AKTYWNY ELEMENT
+   ========================================================= */
+
+/*
+ * Nie robimy drugiej obwódki.
+ * SpotlightCard jest jedyną kartą.
+ */
+
+.admin-nav > .sidebar-card.active {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 1px var(--accent);
+}
+
+
+/* Nie pozwalamy buttonowi tworzyć własnego aktywnego tła */
+
+.admin-nav > .sidebar-card.active > .sidebar-button {
+    background: transparent !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   MENU INDICATOR
+   ========================================================= */
+
+.admin-nav > .sidebar-card .menu-indicator {
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 4px;
+    height: 28px;
+
+    margin: 0;
+
+    border-radius: 0 8px 8px 0;
+
+    background: var(--accent);
+
+    transform: translateY(-50%);
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   SPOTLIGHT — NIE WYCHODZI POZA KARTĘ
+   ========================================================= */
+
+.admin-nav > .sidebar-card.card-spotlight {
+    overflow: hidden;
+}
+
+.admin-nav > .sidebar-card.card-spotlight::before {
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* Wszystko nad spotlightem */
+
+.admin-nav > .sidebar-card > .sidebar-button {
+    z-index: 5;
+}
+
+
+/* =========================================================
+   USUNIĘCIE DODATKOWEGO GLOW Z HOVER
+   ========================================================= */
+
+.admin-nav > .sidebar-card:hover {
+    transform: none !important;
+}
+
+
+/* Spotlight może się świecić,
+   ale sama karta nie zmienia pozycji */
+
+.admin-nav > .sidebar-card.card-spotlight:hover {
+    transform: none !important;
+}
+
+
+/* =========================================================
+   ODSTĘPY
+   ========================================================= */
+
+.admin-nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-nav > .sidebar-card {
+        height: 54px;
+        min-height: 54px;
+
+        border-radius: 18px;
+    }
+
+    .admin-nav > .sidebar-card > .sidebar-button {
+        min-height: 54px;
+
+        padding: 0 12px;
+
+        border-radius: 18px;
+    }
+
+    .admin-nav > .sidebar-card .sidebar-icon {
+        width: 32px;
+        height: 32px;
+
+        flex-basis: 32px;
+    }
+}
