@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import AdminOrderCard from "./AdminOrderCard";
 import EmptyState from "../shared/EmptyState";
 
@@ -6,10 +8,31 @@ import "../../styles/admin-shopping.css";
 
 export default function AdminCompletedList({
     orders = [],
-}) {
+}){
 
-    return (
+    const [expandedOrderId,setExpandedOrderId]=useState(null);
+
+
+    /* =========================================================
+       ROZWIJANIE / ZWIJANIE KARTY
+       ========================================================= */
+
+    function handleToggle(orderId){
+
+        setExpandedOrderId(
+            prev =>
+                prev===orderId
+                    ? null
+                    : orderId
+        );
+
+    }
+
+
+    return(
+
         <section className="admin-completed-list">
+
 
             {/* =================================================
                 BANER
@@ -23,9 +46,11 @@ export default function AdminCompletedList({
                         SEKRETARIAT
                     </span>
 
+
                     <h1>
                         Zrealizowane
                     </h1>
+
 
                     <p className="dashboard-description">
                         Historia wszystkich zrealizowanych
@@ -43,6 +68,7 @@ export default function AdminCompletedList({
 
             <section className="completed-list-panel">
 
+
                 <div className="section-header">
 
                     <div>
@@ -50,6 +76,7 @@ export default function AdminCompletedList({
                         <h2>
                             🟣 Zrealizowane
                         </h2>
+
 
                         <p>
                             Lista wszystkich zrealizowanych zamówień.
@@ -73,24 +100,42 @@ export default function AdminCompletedList({
 
                 ) : (
 
-                    <div className="shopping-list completed-orders">
+                    <div className="shopping-category-body completed-orders">
+
 
                         {orders.map(order => (
 
                             <AdminOrderCard
+
                                 key={order.id}
+
                                 order={order}
+
                                 canOrder={false}
+
+                                expanded={
+                                    expandedOrderId===order.id
+                                }
+
+                                onToggle={
+                                    handleToggle
+                                }
+
                             />
 
                         ))}
+
 
                     </div>
 
                 )}
 
+
             </section>
 
+
         </section>
+
     );
+
 }
