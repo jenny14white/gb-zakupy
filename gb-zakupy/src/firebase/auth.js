@@ -6,9 +6,10 @@ import {
 
 import { auth } from "./firebase";
 
-const ADMIN_UID =
-    "kRulgEcxNed8aYacTWq3j9GgP4J2";
-
+const ADMIN_UIDS = [
+    "kRulgEcxNed8aYacTWq3j9GgP4J2",
+    "474lDJntS0agRKyLcnHTXfEf58n1",
+];
 
 export async function loginAdmin(
     email,
@@ -22,17 +23,12 @@ export async function loginAdmin(
             password
         );
 
-
     const user =
         credential.user;
 
-
-    if(
-        user.uid !== ADMIN_UID
-    ){
+    if (!ADMIN_UIDS.includes(user.uid)) {
 
         await signOut(auth);
-
 
         throw new Error(
             "Brak uprawnień administratora"
@@ -40,36 +36,26 @@ export async function loginAdmin(
 
     }
 
-
     return user;
-
 }
 
-
-
-export async function loginPortal(){
+export async function loginPortal() {
 
     const credential =
         await signInAnonymously(
             auth
         );
 
-
     return credential.user;
-
 }
 
-
-
-export async function logoutAdmin(){
+export async function logoutAdmin() {
 
     await signOut(auth);
 
 }
 
-
-
-export async function logoutPortal(){
+export async function logoutPortal() {
 
     await signOut(auth);
 
