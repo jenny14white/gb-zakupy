@@ -905,3 +905,171 @@
 .shopping-empty p{
     color:rgba(255,255,255,.72);
 }
+.shopping-edit-card{
+    cursor:default;
+    overflow:hidden;
+}
+.shopping-edit-card:hover{
+    transform:none;
+}
+.shopping-edit{
+    position:relative;
+    z-index:2;
+    padding:22px 24px 20px;
+    box-sizing:border-box;
+}
+.shopping-edit-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:18px;
+}
+.shopping-edit-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    width:max-content;
+    min-height:28px;
+    padding:5px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.22);
+    color:rgba(255,255,255,.72);
+    font-size:.68rem;
+    font-weight:900;
+    letter-spacing:.8px;
+}
+.shopping-edit-header h3{
+    margin:10px 0 5px;
+    color:#fff;
+    font-size:1.15rem;
+    font-weight:900;
+}
+.shopping-edit-header p{
+    margin:0;
+    color:rgba(255,255,255,.68);
+    font-size:.82rem;
+}
+.shopping-edit-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
+.shopping-edit-field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    min-width:0;
+    padding:14px 15px;
+    border-radius:13px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.16);
+    box-sizing:border-box;
+    transition:background .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.shopping-edit-field:focus-within{
+    background:rgba(255,255,255,.12);
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent);
+}
+.shopping-edit-field span{
+    color:rgba(255,255,255,.62);
+    font-size:.70rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+}
+.shopping-edit-field input,
+.shopping-edit-field select,
+.shopping-edit-field textarea{
+    width:100%;
+    min-width:0;
+    border:1px solid rgba(255,255,255,.20);
+    border-radius:10px;
+    background:rgba(255,255,255,.09);
+    color:#fff;
+    font:inherit;
+    font-size:.86rem;
+    font-weight:700;
+    box-sizing:border-box;
+    transition:background .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.shopping-edit-field input,
+.shopping-edit-field select{
+    height:42px;
+    padding:0 12px;
+}
+.shopping-edit-field textarea{
+    min-height:92px;
+    padding:11px 12px;
+    resize:vertical;
+    line-height:1.5;
+}
+.shopping-edit-field input:focus,
+.shopping-edit-field select:focus,
+.shopping-edit-field textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+    background:rgba(255,255,255,.14);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent);
+}
+.shopping-edit-field input::placeholder,
+.shopping-edit-field textarea::placeholder{
+    color:rgba(255,255,255,.42);
+}
+.shopping-edit-field select option{
+    color:#111;
+    background:#fff;
+}
+.shopping-edit-full{
+    grid-column:1 / -1;
+}
+.shopping-edit-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.16);
+}
+.shopping-edit-actions .shopping-icon-btn{
+    width:44px;
+    height:44px;
+}
+.shopping-edit-save{
+    background:color-mix(in srgb,var(--success) 18%,rgba(255,255,255,.11));
+    border-color:color-mix(in srgb,var(--success) 45%,rgba(255,255,255,.20));
+}
+.shopping-edit-save:hover{
+    background:color-mix(in srgb,var(--success) 28%,rgba(255,255,255,.12));
+    border-color:var(--success);
+    color:var(--success);
+}
+@media(max-width:700px){
+    .shopping-edit{
+        padding:18px 18px 16px 22px;
+    }
+    .shopping-edit-grid{
+        grid-template-columns:1fr;
+    }
+    .shopping-edit-full{
+        grid-column:auto;
+    }
+}
+@media(max-width:480px){
+    .shopping-edit{
+        padding:17px 16px 14px 20px;
+    }
+    .shopping-edit-header h3{
+        font-size:1rem;
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    .shopping-edit-field,
+    .shopping-edit-field input,
+    .shopping-edit-field select,
+    .shopping-edit-field textarea{
+        transition:none;
+    }
+}
