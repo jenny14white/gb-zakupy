@@ -7,30 +7,38 @@ export default function AdminStats({
     acceptedCount,
     completedCount,
 }){
+
     const stats=[
+
         {
             icon:"📋",
             label:"Wszystkie zgłoszenia",
             value:allCount,
         },
+
         {
             icon:"🟡",
             label:"Oczekujące",
             value:pendingCount,
         },
+
         {
             icon:"🟢",
             label:"Przyjęte do realizacji",
             value:acceptedCount,
         },
+
         {
             icon:"🟣",
             label:"Zrealizowane",
             value:completedCount,
         },
+
     ];
 
+
     return(
+
         <section className="stats">
 
             {stats.map(item=>(
@@ -44,9 +52,11 @@ export default function AdminStats({
                         {item.icon}
                     </div>
 
+
                     <strong>
                         {item.value}
                     </strong>
+
 
                     <span>
                         {item.label}
@@ -57,5 +67,7 @@ export default function AdminStats({
             ))}
 
         </section>
+
     );
+
 }
