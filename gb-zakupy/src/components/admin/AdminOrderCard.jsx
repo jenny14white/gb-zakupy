@@ -9,9 +9,10 @@ export default function AdminOrderCard({
     order,
     selected=false,
     onSelect,
-    canOrder=true
+    canOrder=true,
+    expanded=false,
+    onToggle
 }){
-    const [expanded,setExpanded]=useState(false);
     const [isEditing,setIsEditing]=useState(false);
     const [loading,setLoading]=useState(false);
     const [adminComment,setAdminComment]=useState(order?.adminComment||"");
@@ -25,8 +26,6 @@ export default function AdminOrderCard({
     const isPending=order.status===ORDER_STATUS.PENDING;
     const isAccepted=order.status===ORDER_STATUS.ACCEPTED;
     const isCompleted=order.status===ORDER_STATUS.COMPLETED;
-    const statusClass=isPending?"pending":isAccepted?"progress":"done";
-    const statusText=isPending?"🟡 Oczekujące":isAccepted?"🟢 Przyjęte":"🟣 Zrealizowane";
     async function handleAction(action){
         if(loading)return;
         try{
@@ -51,8 +50,10 @@ export default function AdminOrderCard({
             setShowDeleteDialog(false);
         });
     }
-    function toggleExpanded(){
-        setExpanded(current=>!current);
+    function handleToggle(){
+        if(onToggle){
+            onToggle();
+        }
     }
     if(isEditing){
         return(
@@ -75,12 +76,12 @@ export default function AdminOrderCard({
                 onConfirm={confirmDelete}
                 onCancel={()=>setShowDeleteDialog(false)}
             />
-            <article className={`shopping-card ${selected?"selected":""} ${expanded?"expanded":""}`}>
+            <article
+                className={`shopping-card ${selected?"selected":""} ${expanded?"expanded":""}`}
+                onClick={handleToggle}
+            >
                 <div className="shopping-card-bar"/>
-                <div
-                    className="shopping-card-content"
-                    onClick={toggleExpanded}
-                >
+                <div className="shopping-card-content">
                     <div className="shopping-card-top">
                         <div className="shopping-product">
                             {onSelect&&(
@@ -187,17 +188,13 @@ export default function AdminOrderCard({
                     )}
                 </div>
                 <div className="shopping-card-right">
-                    <div className={`shopping-status ${statusClass}`}>
-                        {statusText}
-                    </div>
                     <button
                         type="button"
-                        className="shopping-icon-btn"
                         aria-expanded={expanded}
                         aria-label={expanded?"Zwiń szczegóły":"Rozwiń szczegóły"}
                         onClick={e=>{
                             e.stopPropagation();
-                            toggleExpanded();
+                            handleToggle();
                         }}
                     >
                         {expanded?"▲":"▼"}
