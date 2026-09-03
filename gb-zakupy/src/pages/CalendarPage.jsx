@@ -30,7 +30,6 @@ export default function CalendarPage({
                 </button>
 
 
-
                 <div className="calendar-header-top">
 
 
@@ -53,7 +52,6 @@ export default function CalendarPage({
 
 
             </header>
-
 
 
             <section className="calendar-container">
