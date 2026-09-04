@@ -5,60 +5,48 @@
     "delete": "Delete",
     "confirm": "Confirm",
     "cancel": "Cancel",
-
+    "back": "Back",
     "saving": "Saving...",
     "deleting": "Deleting...",
-
     "loading": {
       "app": "Loading application..."
     }
   },
-
   "access": {
     "subtitle": "Office (new features coming soon!)",
-
     "codeLabel": "Enter access code",
-
     "enter": "Enter",
     "connecting": "Connecting...",
-
     "errors": {
       "invalidCode": "Invalid access code.",
       "connection": "Could not connect to the server."
     }
   },
-
   "home": {
     "subtitle": "Internal company portal (new features coming soon!)",
-
     "cards": {
       "shopping": {
         "title": "Shopping List",
         "description": "Office supplies and equipment requests"
       },
-
       "calendar": {
         "title": "GB Calendar",
         "description": "Holidays, company events and meetings"
       },
-
       "admin": {
         "title": "Admin Panel",
         "description": "Manage orders and company events"
       }
     }
   },
-
   "theme": {
     "title": "Choose theme",
-
     "themes": {
       "navy": "Navy",
       "forest": "Forest",
       "gold": "Gold"
     }
   },
-
   "language": {
     "languages": {
       "pl": "Polish",
@@ -66,129 +54,93 @@
       "uk": "Ukrainian"
     }
   },
-
   "shopping": {
     "header": {
       "title": "Shopping List",
-
       "summary": "Shopping list information",
-
       "introTitle": "Missing something in the office?",
-
       "intro1": "Afraid you'll forget it later? Enter your name and what you currently need below.",
-
       "intro2": "☕ Running out of your favorite tea? 🥛 No milk for your coffee? 🖊️ Need new pens or something was missed in the last order? Or maybe the person responsible for orders is currently unavailable? This is the perfect place to leave such information.",
-
       "intro3": "It only takes a moment, and thanks to that nothing will be forgotten. Your request will reach the right person and wait to be processed.",
-
       "currentListTitle": "Current shopping list",
-
-      "intro4": "below shows all products waiting to be ordered. If a product is no longer on the list, it means it has already been ordered.",
-
+      "intro4": "Below shows all products waiting to be ordered. If a product is no longer on the list, it means it has already been ordered.",
       "footer": "Thank you for helping keep our office running smoothly!"
     },
-
     "page": {
       "back": "Main menu",
       "thanks": "Thank you! ♡"
     },
-
     "form": {
       "name": "Name",
       "product": "What needs to be ordered?",
       "quantity": "Quantity",
       "unit": "Unit",
-
       "submit": "Add to list",
       "loading": "Adding...",
-
       "success": "Successfully added:",
-
       "saveChanges": "Save changes",
-
       "placeholders": {
         "name": "Enter your name",
         "product": "E.g. milk, coffee, pens..."
       },
-
       "errors": {
         "required": "Please fill in your name, product and quantity.",
         "addFailed": "Failed to add the product."
       }
     },
-
     "currentList": {
       "title": "Current shopping list",
-
       "expand": "Expand entire list ↓",
       "collapse": "Collapse list ↑",
-
       "loading": "Loading list...",
-
       "empty": "The current shopping list is empty."
     },
-
     "status": {
       "pending": "Pending",
       "accepted": "Accepted",
       "completed": "Completed"
     },
-
     "products": {
       "one": "product",
       "many": "products"
     },
-
     "history": {
       "added": "Added",
       "accepted": "Accepted",
       "completed": "Completed"
     },
-
     "actions": {
       "accept": "Accept",
       "markCompleted": "Mark as completed"
     },
-        "adminComment": {
+    "adminComment": {
       "title": "Admin comment",
       "placeholder": "Add a comment..."
     },
-
     "completed": {
       "title": "Completed",
-
       "searchPlaceholder": "Search product...",
-
       "exportExcel": "Export to Excel",
-
       "noDataExport": "No data available for export.",
-
       "empty": "No completed products.",
-
       "emptySearch": "No products found."
     },
-
     "empty": {
       "pending": "No pending requests.",
       "accepted": "No accepted products."
     },
-
     "deleteDialog": {
       "title": "Delete product",
       "message": "Are you sure you want to delete the product \"{{product}}\"?"
     },
-
     "errors": {
       "acceptFailed": "Failed to accept the product.",
       "completeFailed": "Failed to mark the product as completed.",
       "deleteFailed": "Failed to delete the product."
     },
-
     "excel": {
       "sheetName": "Shopping",
-
       "filePrefix": "shopping",
-
       "columns": {
         "month": "Month",
         "product": "Product",
@@ -203,20 +155,17 @@
       }
     }
   },
-
   "calendar": {
     "page": {
       "title": "Company Calendar",
       "description": "Holidays, company events and meetings.",
       "back": "Main menu"
     },
-
     "navigation": {
       "today": "Today",
       "previousMonth": "Previous month",
       "nextMonth": "Next month"
     },
-
     "weekdays": {
       "mon": "Mon",
       "tue": "Tue",
@@ -226,7 +175,6 @@
       "sat": "Sat",
       "sun": "Sun"
     },
-
     "eventTypes": {
       "company": "COMPANY",
       "holiday": "HOLIDAY",
@@ -235,12 +183,10 @@
       "vacation": "VACATION",
       "other": "OTHER"
     },
-
     "empty": {
       "title": "No events",
       "description": "There are no scheduled events for the selected day."
     },
-
     "form": {
       "title": "Title",
       "location": "Location",
@@ -250,71 +196,55 @@
       "type": "Event type",
       "icon": "Icon",
       "recurring": "Recurring event",
-
       "placeholders": {
         "title": "E.g. Management Meeting",
         "location": "Conference room",
         "description": "Event description..."
       }
     },
-
     "admin": {
       "title": "Manage Events",
-
       "description": "Create, edit and manage company events.",
-
       "loadingAccess": "Checking access...",
-
       "accessDenied": {
         "title": "Access denied",
         "description": "The events panel is available only to administrators."
       },
-
       "new": "New event",
       "edit": "Edit event",
-
       "fillForm": "Complete the form and save the event.",
-
       "save": "Save changes",
       "create": "Add event",
-
       "stats": {
         "all": "All",
         "recurring": "Recurring",
         "upcoming": "Upcoming"
       },
-
       "validation": {
         "titleRequired": "Please enter an event title.",
         "dateRequired": "Please select an event date."
       },
-
       "errors": {
         "save": "Failed to save the event.",
         "delete": "Failed to delete the event."
       },
-
       "deleteDialog": {
         "title": "Delete event",
         "message": "Are you sure you want to delete this event?"
       }
     }
   },
-    "notifications": {
+  "notifications": {
     "title": "Notifications",
-
     "description": "New requests waiting to be read.",
-
     "tabs": {
       "new": "New",
       "read": "Read"
     },
-
     "empty": {
       "unread": "No new notifications.",
       "read": "No read notifications."
     },
-
     "card": {
       "newRequest": "New request",
       "read": "Read",
@@ -322,49 +252,34 @@
       "readAt": "Read at",
       "markAsRead": "Mark as read"
     },
-
     "browser": {
       "title": "📦 GB Shopping",
       "body": "{{user}} added: {{product}}"
     }
   },
-
   "admin": {
     "title": "Administrator Panel",
-
     "login": {
       "title": "Admin Panel",
-
       "description": "Sign in as an administrator.",
-
       "email": "Email address",
-
       "password": "Password",
-
       "login": "Sign in",
-
       "loggingIn": "Signing in...",
-
       "back": "Back to shopping list",
-
       "errors": {
         "invalidCredentials": "Invalid credentials or administrator access required."
       }
     },
-
     "dashboard": {
       "title": "Dashboard",
-
       "loading": "Loading data...",
-
       "checkingPermissions": "Checking permissions...",
-
       "accessDenied": {
         "title": "Access denied",
         "description": "An administrator account is required."
       }
     },
-
     "sidebar": {
       "shopping": "Shopping List",
       "notifications": "Notifications",
@@ -374,27 +289,12 @@
       "backToApp": "Back to application",
       "logout": "Sign out"
     },
-
     "stats": {
       "all": "All"
     },
-
     "eventLog": {
       "title": "Event Log",
       "empty": "No entries."
     }
-  }
-}
-"common": {
-  "save": "Save",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirm": "Confirm",
-  "cancel": "Cancel",
-  "back": "Back",
-  "saving": "Saving...",
-  "deleting": "Deleting...",
-  "loading": {
-    "app": "Loading application..."
   }
 }
