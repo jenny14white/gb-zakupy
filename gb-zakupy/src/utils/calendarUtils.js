@@ -20,6 +20,8 @@ function createEvent(
     };
 }
 
+
+
 function fixedHolidayToEvent(year, holiday) {
     return createEvent(
         new Date(
@@ -33,6 +35,7 @@ function fixedHolidayToEvent(year, holiday) {
         holiday.publicHoliday
     );
 }
+
 
 
 export function getMovableHolidays(year) {
@@ -50,7 +53,7 @@ export function getMovableHolidays(year) {
         ),
 
         createEvent(
-            addDays(easter,1),
+            addDays(easter, 1),
             "Poniedziałek Wielkanocny",
             "🐣",
             "holiday",
@@ -58,7 +61,7 @@ export function getMovableHolidays(year) {
         ),
 
         createEvent(
-            addDays(easter,49),
+            addDays(easter, 49),
             "Zielone Świątki",
             "🌿",
             "holiday",
@@ -66,7 +69,7 @@ export function getMovableHolidays(year) {
         ),
 
         createEvent(
-            addDays(easter,60),
+            addDays(easter, 60),
             "Boże Ciało",
             "✝️",
             "holiday",
@@ -77,7 +80,8 @@ export function getMovableHolidays(year) {
 }
 
 
-export function getFixedHolidays(year){
+
+export function getFixedHolidays(year) {
 
     return POLISH_FIXED_HOLIDAYS.map(
         holiday =>
@@ -90,7 +94,8 @@ export function getFixedHolidays(year){
 }
 
 
-export function getUnusualHolidays(year){
+
+export function getUnusualHolidays(year) {
 
     return UNUSUAL_HOLIDAYS.map(
         holiday =>
@@ -110,35 +115,96 @@ export function getUnusualHolidays(year){
 }
 
 
-export function getAllCalendarEvents(year){
+
+export function getAllCalendarEvents(year) {
 
     return [
         ...getFixedHolidays(year),
         ...getMovableHolidays(year),
         ...getUnusualHolidays(year),
     ].sort(
-        (a,b)=>a.date-b.date
+        (a, b) => a.date - b.date
     );
 
 }
 
 
 
-function normalizeDate(date){
+function normalizeDate(date) {
 
-    if(!date)
+    if (!date)
         return null;
 
-    if(
+    if (
         typeof date.toDate === "function"
-    ){
+    ) {
         return date.toDate();
     }
 
-    if(date instanceof Date)
+    if (date instanceof Date)
         return date;
 
-    return new Date(date);
+    const normalized =
+        new Date(date);
+
+    if (Number.isNaN(normalized.getTime()))
+        return null;
+
+    return normalized;
+
+}
+
+
+
+function normalizeDay(date) {
+
+    const value =
+        normalizeDate(date);
+
+    if (!value)
+        return null;
+
+    return new Date(
+        value.getFullYear(),
+        value.getMonth(),
+        value.getDate()
+    );
+
+}
+
+
+
+function isDateInEventRange(
+    date,
+    event
+) {
+
+    const currentDate =
+        normalizeDay(date);
+
+    const startDate =
+        normalizeDay(event.date);
+
+    const endDate =
+        normalizeDay(
+            event.endDate || event.date
+        );
+
+    if (
+        !currentDate ||
+        !startDate ||
+        !endDate
+    ) {
+        return false;
+    }
+
+    return (
+        currentDate.getTime() >=
+            startDate.getTime() &&
+
+        currentDate.getTime() <=
+            endDate.getTime()
+    );
 
 }
 
@@ -147,24 +213,15 @@ function normalizeDate(date){
 export function getEventsForDate(
     date,
     events = []
-){
+) {
 
-    return events.filter(event=>{
-
-        const eventDate =
-            normalizeDate(
-                event.date
-            );
-
-        return (
-            eventDate &&
-            isSameDay(
-                eventDate,
-                date
+    return events.filter(
+        event =>
+            isDateInEventRange(
+                date,
+                event
             )
-        );
-
-    });
+    );
 
 }
 
@@ -173,7 +230,7 @@ export function getEventsForDate(
 export function hasEvents(
     date,
     events
-){
+) {
 
     return getEventsForDate(
         date,
@@ -187,19 +244,37 @@ export function hasEvents(
 export function isSameDay(
     first,
     second
-){
+) {
+
+    const firstDate =
+        normalizeDate(first);
+
+    const secondDate =
+        normalizeDate(second);
+
+    if (
+        !firstDate ||
+        !secondDate
+    ) {
+        return false;
+    }
 
     return (
-        first.getFullYear() === second.getFullYear() &&
-        first.getMonth() === second.getMonth() &&
-        first.getDate() === second.getDate()
+        firstDate.getFullYear() ===
+            secondDate.getFullYear() &&
+
+        firstDate.getMonth() ===
+            secondDate.getMonth() &&
+
+        firstDate.getDate() ===
+            secondDate.getDate()
     );
 
 }
 
 
 
-export function isToday(date){
+export function isToday(date) {
 
     return isSameDay(
         date,
@@ -213,11 +288,27 @@ export function isToday(date){
 export function isCurrentMonth(
     date,
     currentDate
-){
+) {
+
+    const value =
+        normalizeDate(date);
+
+    const current =
+        normalizeDate(currentDate);
+
+    if (
+        !value ||
+        !current
+    ) {
+        return false;
+    }
 
     return (
-        date.getMonth() === currentDate.getMonth() &&
-        date.getFullYear() === currentDate.getFullYear()
+        value.getMonth() ===
+            current.getMonth() &&
+
+        value.getFullYear() ===
+            current.getFullYear()
     );
 
 }
@@ -226,13 +317,14 @@ export function isCurrentMonth(
 
 export function generateCalendarDays(
     currentDate
-){
+) {
 
     const year =
         currentDate.getFullYear();
 
     const month =
         currentDate.getMonth();
+
 
 
     const firstDay =
@@ -243,30 +335,34 @@ export function generateCalendarDays(
         );
 
 
+
     const offset =
-        (firstDay.getDay()+6)%7;
+        (firstDay.getDay() + 6) % 7;
+
 
 
     const start =
         new Date(firstDay);
 
 
+
     start.setDate(
-        firstDay.getDate()-offset
+        firstDay.getDate() - offset
     );
+
 
 
     return Array.from(
         {
-            length:42
+            length: 42
         },
-        (_,index)=>{
+        (_, index) => {
 
             const day =
                 new Date(start);
 
             day.setDate(
-                start.getDate()+index
+                start.getDate() + index
             );
 
             return day;
@@ -278,23 +374,25 @@ export function generateCalendarDays(
 
 
 
-export function formatDate(date){
+export function formatDate(date) {
 
     const value =
         normalizeDate(date);
 
 
-    if(!value)
+
+    if (!value)
         return "";
+
 
 
     return value.toLocaleDateString(
         "pl-PL",
         {
-            weekday:"long",
-            day:"numeric",
-            month:"long",
-            year:"numeric",
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
         }
     );
 
