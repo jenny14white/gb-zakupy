@@ -1349,3 +1349,57 @@
 .calendar-event-action {
     transform: translateZ(0);
 }
+/* =====================================================
+   DAYS OUTSIDE CURRENT MONTH
+===================================================== */
+
+.react-calendar__tile--neighboringMonth {
+    opacity: 0.38;
+}
+
+.react-calendar__tile--neighboringMonth abbr {
+    color: var(--text-muted);
+}
+
+.react-calendar__tile--neighboringMonth .calendar-day-chip,
+.react-calendar__tile--neighboringMonth .calendar-event-dot,
+.react-calendar__tile--neighboringMonth .calendar-event-dots,
+.react-calendar__tile--neighboringMonth .calendar-more-events,
+.react-calendar__tile--neighboringMonth .calendar-holiday-markers {
+    opacity: 0.65;
+}
+
+
+/* =====================================================
+   HOLIDAYS
+===================================================== */
+
+.calendar-holiday-markers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 5px;
+}
+
+.calendar-holiday-emoji {
+    font-size: 15px;
+    line-height: 1;
+}
+
+.calendar-tile-holiday {
+    position: relative;
+}
+
+
+/* =====================================================
+   SYSTEM HOLIDAY CARD
+===================================================== */
+
+.calendar-event-card--system {
+    position: relative;
+}
+
+.calendar-event-card--system .calendar-event-actions {
+    display: none;
+}
