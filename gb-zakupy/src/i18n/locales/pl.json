@@ -664,3 +664,16 @@
   }
 
 }
+"common": {
+  "save": "Zapisz",
+  "edit": "Edytuj",
+  "delete": "Usuń",
+  "confirm": "Potwierdź",
+  "cancel": "Anuluj",
+  "back": "Wróć",
+  "saving": "Zapisywanie...",
+  "deleting": "Usuwanie...",
+  "loading": {
+    "app": "Ładowanie aplikacji..."
+  }
+}
