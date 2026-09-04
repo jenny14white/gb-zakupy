@@ -385,3 +385,16 @@
     }
   }
 }
+"common": {
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "back": "Back",
+  "saving": "Saving...",
+  "deleting": "Deleting...",
+  "loading": {
+    "app": "Loading application..."
+  }
+}
