@@ -9,7 +9,6 @@ export default function CalendarHeader({
 
     const { t, i18n } = useTranslation();
 
-
     const month = currentDate
         .toLocaleDateString(
             i18n.language || "pl-PL",
