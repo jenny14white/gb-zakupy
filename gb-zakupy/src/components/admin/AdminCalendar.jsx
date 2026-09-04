@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 
-const WEEK_DAYS=[
+const WEEK_DAYS = [
     "Pn",
     "Wt",
     "Śr",
@@ -12,7 +12,7 @@ const WEEK_DAYS=[
 ];
 
 
-const MONTHS=[
+const MONTHS = [
     "Styczeń",
     "Luty",
     "Marzec",
@@ -28,17 +28,16 @@ const MONTHS=[
 ];
 
 
-
 export default function AdminCalendar({
-    events=[],
+    events = [],
     onEdit,
     onDelete,
-}){
+}) {
 
-    const today=new Date();
+    const today = new Date();
 
 
-    const [currentMonth,setCurrentMonth]=useState(
+    const [currentMonth, setCurrentMonth] = useState(
         new Date(
             today.getFullYear(),
             today.getMonth(),
@@ -47,37 +46,38 @@ export default function AdminCalendar({
     );
 
 
-    const [selectedDate,setSelectedDate]=useState(
+    const [selectedDate, setSelectedDate] = useState(
         today
     );
 
 
-    const month=currentMonth.getMonth();
-    const year=currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const year = currentMonth.getFullYear();
 
 
+    const eventMap = useMemo(() => {
 
-    const eventMap=useMemo(()=>{
-
-        const map={};
+        const map = {};
 
 
-        events.forEach(event=>{
+        events.forEach(event => {
 
-            const date=
+            const date =
                 event.date?.toDate?.() ??
                 new Date(event.date);
 
 
-            if(Number.isNaN(date.getTime()))
+            if (Number.isNaN(date.getTime())) {
                 return;
+            }
 
 
-            const key=date.toDateString();
+            const key = date.toDateString();
 
 
-            if(!map[key])
-                map[key]=[];
+            if (!map[key]) {
+                map[key] = [];
+            }
 
 
             map[key].push(event);
@@ -87,65 +87,71 @@ export default function AdminCalendar({
 
         return map;
 
-    },[events]);
+    }, [events]);
 
 
+    /*
+     * Publiczny kalendarz zawsze ma 6 pełnych tygodni.
+     * Dzięki temu wysokość kalendarza nie zmienia się
+     * zależnie od miesiąca.
+     *
+     * Układ:
+     * Pn Wt Śr Cz Pt So Nd
+     *
+     * Dni poprzedniego i następnego miesiąca również
+     * są renderowane jako normalne pola.
+     */
+    const calendarDays = useMemo(() => {
 
-    const calendarDays=useMemo(()=>{
-
-        const firstDay=
-            new Date(
-                year,
-                month,
-                1
-            );
+        const firstDay = new Date(
+            year,
+            month,
+            1
+        );
 
 
-        const offset=
-            firstDay.getDay()===0
+        const offset =
+            firstDay.getDay() === 0
                 ? 6
-                : firstDay.getDay()-1;
+                : firstDay.getDay() - 1;
 
 
-        const days=
-            new Date(
-                year,
-                month+1,
-                0
-            ).getDate();
+        const startDate = new Date(
+            year,
+            month,
+            1 - offset
+        );
 
 
-        return [
+        return Array.from(
+            { length: 42 },
+            (_, index) => {
 
-            ...Array(offset).fill(null),
+                const date = new Date(
+                    startDate
+                );
 
-            ...Array.from(
-                {
-                    length:days,
-                },
-                (_,index)=>
-                    new Date(
-                        year,
-                        month,
-                        index+1
-                    )
-            ),
+                date.setDate(
+                    startDate.getDate() + index
+                );
 
-        ];
+                return date;
 
-    },[
+            }
+        );
+
+    }, [
         year,
         month,
     ]);
 
 
-
-    function changeMonth(step){
+    function changeMonth(step) {
 
         setCurrentMonth(
             new Date(
                 year,
-                month+step,
+                month + step,
                 1
             )
         );
@@ -153,10 +159,9 @@ export default function AdminCalendar({
     }
 
 
+    function goToday() {
 
-    function goToday(){
-
-        const now=new Date();
+        const now = new Date();
 
 
         setCurrentMonth(
@@ -173,20 +178,19 @@ export default function AdminCalendar({
     }
 
 
+    function getEvents(date) {
 
-    function getEvents(date){
-
-        return eventMap[
-            date.toDateString()
-        ] || [];
+        return (
+            eventMap[
+                date.toDateString()
+            ] || []
+        );
 
     }
 
 
-
-    const selectedEvents=
+    const selectedEvents =
         getEvents(selectedDate);
-
 
 
     return (
@@ -201,16 +205,20 @@ export default function AdminCalendar({
 
 
                     <button
+                        type="button"
                         className="calendar-nav"
-                        onClick={()=>changeMonth(-1)}
+                        onClick={() => changeMonth(-1)}
+                        aria-label="Poprzedni miesiąc"
                     >
                         ←
                     </button>
 
 
                     <button
+                        type="button"
                         className="calendar-nav"
-                        onClick={()=>changeMonth(1)}
+                        onClick={() => changeMonth(1)}
+                        aria-label="Następny miesiąc"
                     >
                         →
                     </button>
@@ -219,14 +227,13 @@ export default function AdminCalendar({
                 </div>
 
 
-
                 <h2>
                     {MONTHS[month]} {year}
                 </h2>
 
 
-
                 <button
+                    type="button"
                     className="calendar-today"
                     onClick={goToday}
                 >
@@ -237,8 +244,6 @@ export default function AdminCalendar({
             </div>
 
 
-
-
             <div className="react-calendar">
 
 
@@ -247,7 +252,7 @@ export default function AdminCalendar({
 
                     <div className="react-calendar__month-view__weekdays">
 
-                        {WEEK_DAYS.map(day=>(
+                        {WEEK_DAYS.map(day => (
 
                             <div
                                 key={day}
@@ -262,42 +267,24 @@ export default function AdminCalendar({
 
                         ))}
 
-
                     </div>
-
 
 
                     <div className="react-calendar__month-view__days">
 
-
-                        {calendarDays.map((date,index)=>(
+                        {calendarDays.map(date => (
 
                             <CalendarDay
-
-                                key={
-                                    date
-                                    ? date.toISOString()
-                                    : `empty-${index}`
-                                }
-
+                                key={date.toISOString()}
                                 date={date}
-
+                                currentMonth={currentMonth}
                                 today={today}
-
                                 selectedDate={selectedDate}
-
                                 onSelect={setSelectedDate}
-
-                                events={
-                                    date
-                                    ? getEvents(date)
-                                    : []
-                                }
-
+                                events={getEvents(date)}
                             />
 
                         ))}
-
 
                     </div>
 
@@ -308,8 +295,6 @@ export default function AdminCalendar({
             </div>
 
 
-
-
             <aside className="calendar-events">
 
 
@@ -318,18 +303,15 @@ export default function AdminCalendar({
 
                     <div>
 
-
                         <h3>
-
                             {selectedDate.toLocaleDateString(
                                 "pl-PL",
                                 {
-                                    day:"numeric",
-                                    month:"long",
-                                    year:"numeric",
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
                                 }
                             )}
-
                         </h3>
 
 
@@ -337,9 +319,7 @@ export default function AdminCalendar({
                             Wybrane wydarzenia
                         </p>
 
-
                     </div>
-
 
 
                     <span className="calendar-events-count">
@@ -350,9 +330,6 @@ export default function AdminCalendar({
                 </div>
 
 
-
-
-
                 {!selectedEvents.length ? (
 
                     <div className="calendar-empty">
@@ -361,9 +338,11 @@ export default function AdminCalendar({
                             📅
                         </div>
 
+
                         <h3>
                             Brak wydarzeń
                         </h3>
+
 
                         <p>
                             Na wybrany dzień nie dodano jeszcze żadnych wydarzeń.
@@ -371,16 +350,13 @@ export default function AdminCalendar({
 
                     </div>
 
-
                 ) : (
 
-                    selectedEvents.map(event=>{
+                    selectedEvents.map(event => {
 
-
-                        const date=
+                        const date =
                             event.date?.toDate?.() ??
                             new Date(event.date);
-
 
 
                         return (
@@ -391,8 +367,7 @@ export default function AdminCalendar({
                             >
 
 
-                                <div className="calendar-event-bar"/>
-
+                                <div className="calendar-event-bar" />
 
 
                                 <div className="calendar-event-time">
@@ -401,19 +376,18 @@ export default function AdminCalendar({
                                         {event.time || "--:--"}
                                     </strong>
 
+
                                     <span>
                                         {date.toLocaleDateString(
                                             "pl-PL",
                                             {
-                                                day:"numeric",
-                                                month:"short",
+                                                day: "numeric",
+                                                month: "short",
                                             }
                                         )}
                                     </span>
 
                                 </div>
-
-
 
 
                                 <div className="calendar-event-content">
@@ -428,27 +402,27 @@ export default function AdminCalendar({
                                     )}
 
 
-
                                     <h4>
                                         {event.emoji || "📅"} {event.title}
                                     </h4>
 
 
-
                                     {event.location && (
+
                                         <p>
                                             📍 {event.location}
                                         </p>
-                                    )}
 
+                                    )}
 
 
                                     {event.description && (
+
                                         <p>
                                             {event.description}
                                         </p>
-                                    )}
 
+                                    )}
 
 
                                     {event.recurring && (
@@ -463,29 +437,24 @@ export default function AdminCalendar({
                                 </div>
 
 
-
-
                                 <div className="calendar-event-actions">
 
 
                                     <button
                                         type="button"
                                         className="calendar-event-action"
-                                        onClick={()=>
-                                            onEdit?.(event)
-                                        }
+                                        onClick={() => onEdit?.(event)}
+                                        aria-label="Edytuj wydarzenie"
                                     >
                                         ✏️
                                     </button>
 
 
-
                                     <button
                                         type="button"
                                         className="calendar-event-action"
-                                        onClick={()=>
-                                            onDelete?.(event.id)
-                                        }
+                                        onClick={() => onDelete?.(event.id)}
+                                        aria-label="Usuń wydarzenie"
                                     >
                                         🗑️
                                     </button>
@@ -513,76 +482,87 @@ export default function AdminCalendar({
 }
 
 
-
-
-
 function CalendarDay({
     date,
+    currentMonth,
     today,
     selectedDate,
     onSelect,
     events,
-}){
+}) {
 
-
-    if(!date){
-
-        return (
-            <div className="react-calendar__tile empty-day"/>
-        );
-
-    }
-
-
-
-    const isToday=
-        date.toDateString()===
+    const isToday =
+        date.toDateString() ===
         today.toDateString();
 
 
-
-    const isSelected=
-        date.toDateString()===
+    const isSelected =
+        date.toDateString() ===
         selectedDate.toDateString();
 
+
+    const isOutsideMonth =
+        date.getMonth() !==
+        currentMonth.getMonth();
+
+
+    const dayOfWeek =
+        date.getDay();
+
+
+    const isWeekend =
+        dayOfWeek === 0 ||
+        dayOfWeek === 6;
+
+
+    const classes = [
+        "react-calendar__tile",
+        isToday
+            ? "react-calendar__tile--now"
+            : "",
+        isSelected
+            ? "react-calendar__tile--active"
+            : "",
+        isOutsideMonth
+            ? "react-calendar__tile--neighboringMonth"
+            : "",
+        isWeekend
+            ? "react-calendar__tile--weekend"
+            : "",
+    ]
+        .filter(Boolean)
+        .join(" ");
 
 
     return (
 
         <button
             type="button"
-            className={`
-                react-calendar__tile
-                ${isToday?"react-calendar__tile--now":""}
-                ${isSelected?"react-calendar__tile--active":""}
-            `}
-            onClick={()=>
-                onSelect(date)
-            }
+            className={classes}
+            onClick={() => onSelect(date)}
         >
+
 
             <abbr>
                 {date.getDate()}
             </abbr>
 
 
+            {events.length === 1 && (
 
-            {events.length===1 && (
-
-                <div className="calendar-event-dot"/>
+                <div className="calendar-event-dot" />
 
             )}
 
 
-
-            {events.length>=2 &&
-            events.length<=3 && (
+            {events.length >= 2 &&
+            events.length <= 3 && (
 
                 <div className="calendar-event-dots">
 
-                    {events.map((_,index)=>(
+                    {events.map((_, index) => (
 
-                        <span key={index}/>
+                        <span key={index} />
 
                     ))}
 
@@ -591,15 +571,13 @@ function CalendarDay({
             )}
 
 
-
-            {events.length>3 && (
+            {events.length > 3 && (
 
                 <div className="calendar-more-events">
                     +{events.length}
                 </div>
 
             )}
-
 
 
             {events[0]?.type && (
