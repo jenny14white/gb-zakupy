@@ -25,6 +25,10 @@ const ADMIN_UIDS = [
 ];
 
 
+/* =====================================================
+   ADMIN CHECK
+===================================================== */
+
 function checkAdmin() {
 
     const user =
@@ -43,12 +47,86 @@ function checkAdmin() {
 }
 
 
+/* =====================================================
+   TEXT CLEANING
+===================================================== */
+
 function cleanText(value = "") {
 
     return String(value).trim();
 
 }
 
+
+/* =====================================================
+   DATE HELPERS
+===================================================== */
+
+function normalizeDate(value) {
+
+    if (!value) {
+        return null;
+    }
+
+
+    const date =
+        value?.toDate?.() ??
+        new Date(value);
+
+
+    if (
+        !(date instanceof Date) ||
+        Number.isNaN(date.getTime())
+    ) {
+        return null;
+    }
+
+
+    return date;
+
+}
+
+
+function getEventDate(event) {
+
+    const date =
+        normalizeDate(event.date);
+
+
+    return date || new Date(0);
+
+}
+
+
+function getEventEndDate(event) {
+
+    const startDate =
+        getEventDate(event);
+
+
+    const endDate =
+        normalizeDate(event.endDate);
+
+
+    /*
+       Stare wydarzenia nie mają endDate.
+       W takim przypadku wydarzenie
+       trwa tylko jeden dzień.
+    */
+
+    if (!endDate) {
+        return startDate;
+    }
+
+
+    return endDate;
+
+}
+
+
+/* =====================================================
+   NORMALIZE EVENT
+===================================================== */
 
 function normalizeEvent(event) {
 
@@ -69,8 +147,16 @@ function normalizeEvent(event) {
         date:
             event.date || null,
 
+        endDate:
+            event.endDate ||
+            event.date ||
+            null,
+
         time:
             event.time || "",
+
+        endTime:
+            event.endTime || "",
 
         location:
             event.location || "",
@@ -92,20 +178,9 @@ function normalizeEvent(event) {
 }
 
 
-function getEventDate(event) {
-
-    const date =
-        event.date?.toDate?.()
-        ??
-        new Date(event.date);
-
-
-    return isNaN(date)
-        ? new Date(0)
-        : date;
-
-}
-
+/* =====================================================
+   SORT EVENTS
+===================================================== */
 
 function sortEvents(events) {
 
@@ -117,6 +192,10 @@ function sortEvents(events) {
 
 }
 
+
+/* =====================================================
+   PREPARE EVENT
+===================================================== */
 
 function prepareEvent(data) {
 
@@ -138,6 +217,46 @@ function prepareEvent(data) {
     }
 
 
+    const startDate =
+        normalizeDate(data.date);
+
+
+    if (!startDate) {
+
+        throw new Error(
+            "Nieprawidłowa data rozpoczęcia wydarzenia"
+        );
+
+    }
+
+
+    /*
+       Jeżeli użytkownik nie poda daty końcowej,
+       wydarzenie jest jednodniowe.
+    */
+
+    const endDate =
+        normalizeDate(data.endDate)
+        || startDate;
+
+
+    /*
+       Nie pozwalamy, żeby data końcowa
+       była wcześniejsza od początkowej.
+    */
+
+    if (
+        endDate.getTime() <
+        startDate.getTime()
+    ) {
+
+        throw new Error(
+            "Data zakończenia nie może być wcześniejsza niż data rozpoczęcia"
+        );
+
+    }
+
+
     return {
 
         title:
@@ -150,10 +269,16 @@ function prepareEvent(data) {
             cleanText(data.type) || "inne",
 
         date:
-            data.date,
+            startDate,
+
+        endDate:
+            endDate,
 
         time:
             cleanText(data.time),
+
+        endTime:
+            cleanText(data.endTime),
 
         location:
             cleanText(data.location),
@@ -168,6 +293,10 @@ function prepareEvent(data) {
 
 }
 
+
+/* =====================================================
+   LISTEN TO EVENTS
+===================================================== */
 
 export function listenToEvents(callback) {
 
@@ -198,6 +327,10 @@ export function listenToEvents(callback) {
 }
 
 
+/* =====================================================
+   GET ALL EVENTS
+===================================================== */
+
 export async function getAllCalendarEvents() {
 
     const snapshot =
@@ -224,41 +357,83 @@ export async function getAllCalendarEvents() {
 }
 
 
+/* =====================================================
+   CHECK DATE IN EVENT RANGE
+===================================================== */
+
+function isDateInEventRange(
+    date,
+    event
+) {
+
+    const currentDate =
+        new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+        );
+
+
+    const startDate =
+        getEventDate(event);
+
+
+    const endDate =
+        getEventEndDate(event);
+
+
+    const normalizedStart =
+        new Date(
+            startDate.getFullYear(),
+            startDate.getMonth(),
+            startDate.getDate()
+        );
+
+
+    const normalizedEnd =
+        new Date(
+            endDate.getFullYear(),
+            endDate.getMonth(),
+            endDate.getDate()
+        );
+
+
+    return (
+        currentDate.getTime()
+            >=
+        normalizedStart.getTime()
+        &&
+        currentDate.getTime()
+            <=
+        normalizedEnd.getTime()
+    );
+
+}
+
+
+/* =====================================================
+   GET EVENTS FOR DATE
+===================================================== */
+
 export function getEventsForDate(
     events,
     date
 ) {
 
-    return events.filter(event => {
-
-        const eventDate =
-            getEventDate(event);
-
-
-        return (
-
-            eventDate.getFullYear()
-            ===
-            date.getFullYear()
-
-            &&
-
-            eventDate.getMonth()
-            ===
-            date.getMonth()
-
-            &&
-
-            eventDate.getDate()
-            ===
-            date.getDate()
-
-        );
-
-    });
+    return events.filter(
+        event =>
+            isDateInEventRange(
+                date,
+                event
+            )
+    );
 
 }
 
+
+/* =====================================================
+   CREATE EVENT
+===================================================== */
 
 export async function createEvent(data) {
 
@@ -290,6 +465,10 @@ export async function createEvent(data) {
 }
 
 
+/* =====================================================
+   UPDATE EVENT
+===================================================== */
+
 export async function updateEvent(
     id,
     data
@@ -320,6 +499,10 @@ export async function updateEvent(
 
 }
 
+
+/* =====================================================
+   DELETE EVENT
+===================================================== */
 
 export async function deleteEvent(id) {
 
