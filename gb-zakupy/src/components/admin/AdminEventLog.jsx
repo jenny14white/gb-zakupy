@@ -1,27 +1,27 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { formatDate } from "../../utils/dateUtils";
 
 import "../../styles/admin-event-log.css";
-
 
 export default function AdminEventLog({
     logs = [],
     onRefresh
 }) {
+    const { t } = useTranslation();
 
     const [userFilter, setUserFilter] = useState("");
     const [orderFilter, setOrderFilter] = useState("");
     const [dateFilter, setDateFilter] = useState("");
 
-
-    /* =====================================================
-       FILTROWANIE
-       ===================================================== */
-
     const filteredLogs = useMemo(() => {
+        const normalizedUser =
+            userFilter.trim().toLowerCase();
+
+        const normalizedOrder =
+            orderFilter.trim().toLowerCase();
 
         return logs.filter(log => {
-
             const userName =
                 String(
                     log.userName ||
@@ -30,36 +30,16 @@ export default function AdminEventLog({
                     ""
                 ).toLowerCase();
 
-
             const orderName =
                 String(
                     log.orderName ||
                     log.order?.name ||
-                    log.name ||
                     ""
                 ).toLowerCase();
-
 
             const createdAt =
                 log.createdAt?.toDate?.() ??
                 log.createdAt;
-
-
-            const normalizedUser =
-                userFilter
-                    .trim()
-                    .toLowerCase();
-
-
-            const normalizedOrder =
-                orderFilter
-                    .trim()
-                    .toLowerCase();
-
-
-            /* -------------------------------------------------
-               UŻYTKOWNIK
-               ------------------------------------------------- */
 
             if (
                 normalizedUser &&
@@ -68,11 +48,6 @@ export default function AdminEventLog({
                 return false;
             }
 
-
-            /* -------------------------------------------------
-               NAZWA ZAMÓWIENIA
-               ------------------------------------------------- */
-
             if (
                 normalizedOrder &&
                 !orderName.includes(normalizedOrder)
@@ -80,57 +55,41 @@ export default function AdminEventLog({
                 return false;
             }
 
-
-            /* -------------------------------------------------
-               DATA WYKONANIA OPERACJI
-               ------------------------------------------------- */
-
             if (dateFilter && createdAt) {
-
                 const date =
                     createdAt instanceof Date
                         ? createdAt
                         : new Date(createdAt);
 
-
                 if (Number.isNaN(date.getTime())) {
                     return false;
                 }
 
-
                 const year =
                     date.getFullYear();
-
 
                 const month =
                     String(
                         date.getMonth() + 1
                     ).padStart(2, "0");
 
-
                 const day =
                     String(
                         date.getDate()
                     ).padStart(2, "0");
 
-
                 const formattedDate =
                     `${year}-${month}-${day}`;
-
 
                 if (
                     formattedDate !== dateFilter
                 ) {
                     return false;
                 }
-
             }
 
-
             return true;
-
         });
-
     }, [
         logs,
         userFilter,
@@ -138,60 +97,85 @@ export default function AdminEventLog({
         dateFilter
     ]);
 
-
-    /* =====================================================
-       WYCZYŚĆ FILTRY
-       ===================================================== */
-
     const clearFilters = () => {
-
         setUserFilter("");
         setOrderFilter("");
         setDateFilter("");
-
     };
-
 
     const hasFilters =
         userFilter ||
         orderFilter ||
         dateFilter;
 
+    const getActionLabel = log => {
+        switch (log.action) {
+            case "create":
+                return "dodał zamówienie";
+
+            case "edit":
+            case "update":
+                return "edytował zamówienie";
+
+            case "delete":
+                return "usunął zamówienie";
+
+            case "accept":
+                return "przyjął zamówienie do realizacji";
+
+            case "complete":
+                return "oznaczył zamówienie jako zrealizowane";
+
+            default:
+                return null;
+        }
+    };
+
+    const getUserName = log =>
+        log.userName ||
+        log.user ||
+        log.userDisplayName ||
+        log.email ||
+        "Nieznany użytkownik";
+
+    const getOrderName = log =>
+        log.orderName ||
+        log.order?.name ||
+        "";
+
+    const getOrderDate = log => {
+        if (!log.orderDate) {
+            return null;
+        }
+
+        return (
+            log.orderDate?.toDate?.() ??
+            log.orderDate
+        );
+    };
 
     return (
-
         <section className="event-log-page">
-
-
-            {/* =====================================================
-                HEADER
-               ===================================================== */}
-
             <div className="event-log-header">
-
                 <div className="event-log-header-left">
-
                     <span className="event-log-eyebrow">
                         EVENT LOG
                     </span>
 
-
                     <h1>
-                        Dziennik zdarzeń
+                        {t(
+                            "admin.eventLog.title",
+                            "Dziennik zdarzeń"
+                        )}
                     </h1>
-
 
                     <p>
                         Historia aktywności systemu i wykonanych operacji.
                     </p>
-
                 </div>
 
-
                 <div className="event-log-toolbar">
-
                     {onRefresh && (
-
                         <button
                             type="button"
                             className="event-log-button-secondary"
@@ -199,22 +183,12 @@ export default function AdminEventLog({
                         >
                             ↻ Odśwież
                         </button>
-
                     )}
-
                 </div>
-
             </div>
 
-
-            {/* =====================================================
-                FILTRY
-               ===================================================== */}
-
             <div className="event-log-filters">
-
                 <div className="event-log-filter">
-
                     <label htmlFor="event-user-filter">
                         Użytkownik
                     </label>
@@ -224,16 +198,15 @@ export default function AdminEventLog({
                         type="text"
                         value={userFilter}
                         onChange={e =>
-                            setUserFilter(e.target.value)
+                            setUserFilter(
+                                e.target.value
+                            )
                         }
                         placeholder="np. Natalia"
                     />
-
                 </div>
 
-
                 <div className="event-log-filter">
-
                     <label htmlFor="event-order-filter">
                         Nazwa zamówienia
                     </label>
@@ -243,16 +216,15 @@ export default function AdminEventLog({
                         type="text"
                         value={orderFilter}
                         onChange={e =>
-                            setOrderFilter(e.target.value)
+                            setOrderFilter(
+                                e.target.value
+                            )
                         }
                         placeholder="np. TEST"
                     />
-
                 </div>
 
-
                 <div className="event-log-filter">
-
                     <label htmlFor="event-date-filter">
                         Data wykonania
                     </label>
@@ -262,15 +234,14 @@ export default function AdminEventLog({
                         type="date"
                         value={dateFilter}
                         onChange={e =>
-                            setDateFilter(e.target.value)
+                            setDateFilter(
+                                e.target.value
+                            )
                         }
                     />
-
                 </div>
 
-
                 {hasFilters && (
-
                     <button
                         type="button"
                         className="event-log-clear"
@@ -278,20 +249,11 @@ export default function AdminEventLog({
                     >
                         Wyczyść
                     </button>
-
                 )}
-
             </div>
 
-
-            {/* =====================================================
-                LISTA
-               ===================================================== */}
-
             {!logs.length ? (
-
                 <div className="event-empty">
-
                     <h3>
                         Brak zdarzeń
                     </h3>
@@ -299,13 +261,9 @@ export default function AdminEventLog({
                     <p>
                         Nie znaleziono żadnych wpisów w dzienniku zdarzeń.
                     </p>
-
                 </div>
-
             ) : !filteredLogs.length ? (
-
                 <div className="event-empty">
-
                     <h3>
                         Brak wyników
                     </h3>
@@ -321,110 +279,101 @@ export default function AdminEventLog({
                     >
                         Wyczyść filtry
                     </button>
-
                 </div>
-
             ) : (
-
                 <div className="event-list">
+                    {filteredLogs.map(
+                        (log, index) => {
+                            const createdAt =
+                                log.createdAt?.toDate?.() ??
+                                log.createdAt;
 
-                    {filteredLogs.map((log, index) => {
+                            const userName =
+                                getUserName(log);
 
-                        const createdAt =
-                            log.createdAt?.toDate?.() ??
-                            log.createdAt;
+                            const orderName =
+                                getOrderName(log);
 
+                            const orderDate =
+                                getOrderDate(log);
 
-                        return (
+                            const action =
+                                getActionLabel(log);
 
-                            <article
-                                key={
-                                    log.id ||
-                                    `event-${index}`
-                                }
-                                className="event-card"
-                            >
+                            return (
+                                <article
+                                    key={
+                                        log.id ||
+                                        `event-${index}`
+                                    }
+                                    className="event-card"
+                                >
+                                    <div className="event-card-main">
+                                        <div className="event-message">
+                                            {action ? (
+                                                <>
+                                                    <strong>
+                                                        {userName}
+                                                    </strong>
 
-                                <div className="event-card-main">
+                                                    <span>
+                                                        {" "}
+                                                        {action}
+                                                        {orderName
+                                                            ? ":"
+                                                            : "."}
+                                                        {" "}
+                                                    </span>
 
-
-                                    {/* =================================================
-                                        OPIS
-                                       ================================================= */}
-
-                                    <div className="event-message">
-
-                                        <strong>
-                                            {log.userName ||
-                                                log.user ||
-                                                log.userDisplayName ||
-                                                "Użytkownik"}
-                                        </strong>
-
-                                        <span>
-                                            {" "}edytował zamówienie:{" "}
-                                        </span>
-
-                                        <strong>
-                                            {log.orderName ||
-                                                log.order?.name ||
-                                                log.name ||
-                                                "Nieznane zamówienie"}
-                                        </strong>
-
-                                        {log.orderDate && (
-
-                                            <>
-
-                                                <span>
-                                                    {" "}z dnia{" "}
-                                                </span>
-
-                                                <strong>
-                                                    {formatDate(
-                                                        log.orderDate?.toDate?.() ??
-                                                        log.orderDate
+                                                    {orderName && (
+                                                        <strong>
+                                                            {orderName}
+                                                        </strong>
                                                     )}
-                                                </strong>
 
-                                            </>
+                                                    {orderDate && (
+                                                        <>
+                                                            <span>
+                                                                {" "}
+                                                                z dnia{" "}
+                                                            </span>
 
-                                        )}
+                                                            <strong>
+                                                                {formatDate(
+                                                                    orderDate
+                                                                )}
+                                                            </strong>
+                                                        </>
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <span>
+                                                    {log.message ||
+                                                        "Wykonano operację systemową."}
+                                                </span>
+                                            )}
+                                        </div>
 
+                                        <div className="event-executed">
+                                            <span>
+                                                Wykonano
+                                            </span>
+
+                                            <strong>
+                                                {createdAt
+                                                    ? formatDate(
+                                                        createdAt
+                                                    )
+                                                    : "—"}
+                                            </strong>
+                                        </div>
                                     </div>
-
-
-                                    {/* =================================================
-                                        CZAS WYKONANIA
-                                       ================================================= */}
-
-                                    <div className="event-executed">
-
-                                        <span>
-                                            Wykonano
-                                        </span>
-
-                                        <strong>
-                                            {formatDate(createdAt)}
-                                        </strong>
-
-                                    </div>
-
-
-                                </div>
-
-                            </article>
-
-                        );
-
-                    })}
-
+                                </article>
+                            );
+                        }
+                    )}
                 </div>
-
             )}
-
         </section>
-
     );
-
 }
