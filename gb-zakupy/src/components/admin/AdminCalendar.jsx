@@ -1,5 +1,8 @@
 import { useMemo, useState } from "react";
 
+import { POLISH_FIXED_HOLIDAYS } from "../../data/polishHolidays";
+import { UNUSUAL_HOLIDAYS } from "../../data/unusualHolidays";
+
 
 const WEEK_DAYS = [
     "Pn",
@@ -28,6 +31,148 @@ const MONTHS = [
 ];
 
 
+const EVENT_TYPE_LABELS = {
+    meeting: "Spotkanie",
+    birthday: "Urodziny",
+    vacation: "Urlop",
+    holiday: "Święto",
+    other: "Inne",
+    special: "Nietypowe",
+};
+
+
+const ALL_HOLIDAYS = [
+    ...POLISH_FIXED_HOLIDAYS,
+    ...UNUSUAL_HOLIDAYS,
+];
+
+
+function getDateKey(date) {
+
+    return [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, "0"),
+        String(date.getDate()).padStart(2, "0"),
+    ].join("-");
+
+}
+
+
+function normalizeDate(value) {
+
+    if (!value) {
+        return null;
+    }
+
+
+    const date =
+        value?.toDate?.() ??
+        new Date(value);
+
+
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
+
+}
+
+
+function getEventEndDate(event, startDate) {
+
+    if (!event?.endDate) {
+        return startDate;
+    }
+
+
+    const endDate =
+        event.endDate?.toDate?.() ??
+        new Date(event.endDate);
+
+
+    if (Number.isNaN(endDate.getTime())) {
+        return startDate;
+    }
+
+
+    return new Date(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        endDate.getDate()
+    );
+
+}
+
+
+function isDateInRange(date, startDate, endDate) {
+
+    const current = date.getTime();
+    const start = startDate.getTime();
+    const end = endDate.getTime();
+
+    return current >= start && current <= end;
+
+}
+
+
+function createHolidayEvents(year) {
+
+    const holidays = [];
+
+
+    ALL_HOLIDAYS.forEach((holiday, index) => {
+
+        const date = new Date(
+            year,
+            holiday.month - 1,
+            holiday.day
+        );
+
+
+        holidays.push({
+            id: `holiday-${year}-${holiday.month}-${holiday.day}-${index}`,
+
+            title: holiday.title,
+
+            description: "",
+
+            location: "",
+
+            date,
+
+            endDate: date,
+
+            time: "",
+
+            endTime: "",
+
+            type: holiday.type,
+
+            emoji: holiday.emoji,
+
+            recurring: true,
+
+            systemHoliday: true,
+
+            publicHoliday:
+                holiday.publicHoliday ?? false,
+
+        });
+
+    });
+
+
+    return holidays;
+
+}
+
+
 export default function AdminCalendar({
     events = [],
     onEdit,
@@ -51,28 +196,38 @@ export default function AdminCalendar({
     );
 
 
-    const month = currentMonth.getMonth();
-    const year = currentMonth.getFullYear();
+    const month =
+        currentMonth.getMonth();
 
+    const year =
+        currentMonth.getFullYear();
+
+
+    /* =====================================================
+       SYSTEM HOLIDAYS
+    ===================================================== */
+
+    const holidayEvents = useMemo(
+        () => createHolidayEvents(year),
+        [year]
+    );
+
+
+    /* =====================================================
+       CALENDAR EVENTS
+    ===================================================== */
 
     const eventMap = useMemo(() => {
 
         const map = {};
 
 
-        events.forEach(event => {
+        function addEventToDate(
+            date,
+            event
+        ) {
 
-            const date =
-                event.date?.toDate?.() ??
-                new Date(event.date);
-
-
-            if (Number.isNaN(date.getTime())) {
-                return;
-            }
-
-
-            const key = date.toDateString();
+            const key = getDateKey(date);
 
 
             if (!map[key]) {
@@ -82,12 +237,117 @@ export default function AdminCalendar({
 
             map[key].push(event);
 
+        }
+
+
+        /* =============================================
+           FIREBASE EVENTS
+        ============================================= */
+
+        events.forEach(event => {
+
+            const startDate =
+                normalizeDate(event.date);
+
+
+            if (!startDate) {
+                return;
+            }
+
+
+            const endDate =
+                getEventEndDate(
+                    event,
+                    startDate
+                );
+
+
+            let currentDate =
+                new Date(startDate);
+
+
+            while (
+                currentDate.getTime() <=
+                endDate.getTime()
+            ) {
+
+                addEventToDate(
+                    currentDate,
+                    event
+                );
+
+
+                currentDate.setDate(
+                    currentDate.getDate() + 1
+                );
+
+            }
+
+        });
+
+
+        /* =============================================
+           HOLIDAYS
+        ============================================= */
+
+        holidayEvents.forEach(
+            holiday => {
+
+                addEventToDate(
+                    holiday.date,
+                    holiday
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           REMOVE DUPLICATE SYSTEM HOLIDAYS
+           np. Mikołajki / Sylwester występują
+           w obu tablicach.
+        ============================================= */
+
+        Object.keys(map).forEach(key => {
+
+            const uniqueEvents = [];
+            const seen = new Set();
+
+
+            map[key].forEach(event => {
+
+                const uniqueKey = event.systemHoliday
+                    ? `holiday-${event.title}`
+                    : `event-${event.id}`;
+
+
+                if (seen.has(uniqueKey)) {
+                    return;
+                }
+
+
+                seen.add(uniqueKey);
+                uniqueEvents.push(event);
+
+            });
+
+
+            map[key] = uniqueEvents;
+
         });
 
 
         return map;
 
-    }, [events]);
+    }, [
+        events,
+        holidayEvents,
+    ]);
+
+
+    /* =====================================================
+       CALENDAR DAYS
+    ===================================================== */
 
     const calendarDays = useMemo(() => {
 
@@ -119,9 +379,11 @@ export default function AdminCalendar({
                     startDate
                 );
 
+
                 date.setDate(
                     startDate.getDate() + index
                 );
+
 
                 return date;
 
@@ -133,6 +395,10 @@ export default function AdminCalendar({
         month,
     ]);
 
+
+    /* =====================================================
+       MONTH NAVIGATION
+    ===================================================== */
 
     function changeMonth(step) {
 
@@ -146,6 +412,10 @@ export default function AdminCalendar({
 
     }
 
+
+    /* =====================================================
+       TODAY
+    ===================================================== */
 
     function goToday() {
 
@@ -166,11 +436,15 @@ export default function AdminCalendar({
     }
 
 
+    /* =====================================================
+       GET EVENTS FOR DATE
+    ===================================================== */
+
     function getEvents(date) {
 
         return (
             eventMap[
-                date.toDateString()
+                getDateKey(date)
             ] || []
         );
 
@@ -186,6 +460,10 @@ export default function AdminCalendar({
         <section className="calendar-wrapper">
 
 
+            {/* =================================================
+                CALENDAR HEADER
+            ================================================= */}
+
             <div className="calendar-header">
 
 
@@ -195,7 +473,9 @@ export default function AdminCalendar({
                     <button
                         type="button"
                         className="calendar-nav"
-                        onClick={() => changeMonth(-1)}
+                        onClick={() =>
+                            changeMonth(-1)
+                        }
                         aria-label="Poprzedni miesiąc"
                     >
                         ←
@@ -205,7 +485,9 @@ export default function AdminCalendar({
                     <button
                         type="button"
                         className="calendar-nav"
-                        onClick={() => changeMonth(1)}
+                        onClick={() =>
+                            changeMonth(1)
+                        }
                         aria-label="Następny miesiąc"
                     >
                         →
@@ -232,11 +514,17 @@ export default function AdminCalendar({
             </div>
 
 
+            {/* =================================================
+                CALENDAR
+            ================================================= */}
+
             <div className="react-calendar">
 
 
                 <div className="react-calendar__month-view">
 
+
+                    {/* WEEK DAYS */}
 
                     <div className="react-calendar__month-view__weekdays">
 
@@ -257,6 +545,8 @@ export default function AdminCalendar({
 
                     </div>
 
+
+                    {/* DAYS */}
 
                     <div className="react-calendar__month-view__days">
 
@@ -282,6 +572,10 @@ export default function AdminCalendar({
 
             </div>
 
+
+            {/* =================================================
+                SELECTED DAY / EVENTS
+            ================================================= */}
 
             <aside className="calendar-events">
 
@@ -343,15 +637,41 @@ export default function AdminCalendar({
                     selectedEvents.map(event => {
 
                         const date =
-                            event.date?.toDate?.() ??
-                            new Date(event.date);
+                            normalizeDate(event.date);
+
+
+                        const endDate =
+                            getEventEndDate(
+                                event,
+                                date
+                            );
+
+
+                        const isMultiDay =
+                            !event.systemHoliday &&
+                            getDateKey(date) !==
+                            getDateKey(endDate);
+
+
+                        const typeLabel =
+                            EVENT_TYPE_LABELS[
+                                event.type
+                            ] ||
+                            event.type ||
+                            "Wydarzenie";
 
 
                         return (
 
                             <article
                                 key={event.id}
-                                className="calendar-event-card"
+                                className={
+                                    `calendar-event-card ${
+                                        event.systemHoliday
+                                            ? "calendar-event-card--system"
+                                            : ""
+                                    }`
+                                }
                             >
 
 
@@ -365,8 +685,15 @@ export default function AdminCalendar({
                                     </strong>
 
 
+                                    {event.endTime && (
+                                        <span>
+                                            {event.endTime}
+                                        </span>
+                                    )}
+
+
                                     <span>
-                                        {date.toLocaleDateString(
+                                        {date?.toLocaleDateString(
                                             "pl-PL",
                                             {
                                                 day: "numeric",
@@ -375,23 +702,54 @@ export default function AdminCalendar({
                                         )}
                                     </span>
 
+
+                                    {isMultiDay && (
+
+                                        <span>
+                                            →
+                                        </span>
+
+                                    )}
+
+
+                                    {isMultiDay && (
+
+                                        <span>
+                                            {endDate.toLocaleDateString(
+                                                "pl-PL",
+                                                {
+                                                    day: "numeric",
+                                                    month: "short",
+                                                }
+                                            )}
+                                        </span>
+
+                                    )}
+
                                 </div>
 
 
                                 <div className="calendar-event-content">
 
 
-                                    {event.type && (
+                                    <div className="calendar-event-category">
 
-                                        <div className="calendar-event-category">
-                                            {event.type}
-                                        </div>
+                                        {typeLabel}
 
-                                    )}
+                                        {event.systemHoliday && (
+                                            <span>
+                                                {event.publicHoliday
+                                                    ? " · dzień wolny"
+                                                    : " · kalendarz"}
+                                            </span>
+                                        )}
+
+                                    </div>
 
 
                                     <h4>
-                                        {event.emoji || "📅"} {event.title}
+                                        {event.emoji || "📅"}{" "}
+                                        {event.title}
                                     </h4>
 
 
@@ -413,7 +771,8 @@ export default function AdminCalendar({
                                     )}
 
 
-                                    {event.recurring && (
+                                    {event.recurring &&
+                                    !event.systemHoliday && (
 
                                         <div>
                                             🔁 Powtarzające się wydarzenie
@@ -425,30 +784,45 @@ export default function AdminCalendar({
                                 </div>
 
 
-                                <div className="calendar-event-actions">
+                                {/* ADMIN ACTIONS
+                                    Świąt systemowych nie można
+                                    edytować ani usuwać.
+                                */}
+
+                                {!event.systemHoliday && (
+
+                                    <div className="calendar-event-actions">
 
 
-                                    <button
-                                        type="button"
-                                        className="calendar-event-action"
-                                        onClick={() => onEdit?.(event)}
-                                        aria-label="Edytuj wydarzenie"
-                                    >
-                                        ✏️
-                                    </button>
+                                        <button
+                                            type="button"
+                                            className="calendar-event-action"
+                                            onClick={() =>
+                                                onEdit?.(event)
+                                            }
+                                            aria-label="Edytuj wydarzenie"
+                                        >
+                                            ✏️
+                                        </button>
 
 
-                                    <button
-                                        type="button"
-                                        className="calendar-event-action"
-                                        onClick={() => onDelete?.(event.id)}
-                                        aria-label="Usuń wydarzenie"
-                                    >
-                                        🗑️
-                                    </button>
+                                        <button
+                                            type="button"
+                                            className="calendar-event-action"
+                                            onClick={() =>
+                                                onDelete?.(
+                                                    event.id
+                                                )
+                                            }
+                                            aria-label="Usuń wydarzenie"
+                                        >
+                                            🗑️
+                                        </button>
 
 
-                                </div>
+                                    </div>
+
+                                )}
 
 
                             </article>
@@ -470,6 +844,10 @@ export default function AdminCalendar({
 }
 
 
+/* =========================================================
+   CALENDAR DAY
+========================================================= */
+
 function CalendarDay({
     date,
     currentMonth,
@@ -489,9 +867,15 @@ function CalendarDay({
         selectedDate.toDateString();
 
 
+    const isCurrentMonth =
+        date.getMonth() ===
+            currentMonth.getMonth() &&
+        date.getFullYear() ===
+            currentMonth.getFullYear();
+
+
     const isOutsideMonth =
-        date.getMonth() !==
-        currentMonth.getMonth();
+        !isCurrentMonth;
 
 
     const dayOfWeek =
@@ -503,20 +887,43 @@ function CalendarDay({
         dayOfWeek === 6;
 
 
+    const holidayEvents =
+        events.filter(
+            event =>
+                event.systemHoliday
+        );
+
+
+    const userEvents =
+        events.filter(
+            event =>
+                !event.systemHoliday
+        );
+
+
     const classes = [
         "react-calendar__tile",
+
         isToday
             ? "react-calendar__tile--now"
             : "",
+
         isSelected
             ? "react-calendar__tile--active"
             : "",
+
         isOutsideMonth
             ? "react-calendar__tile--neighboringMonth"
             : "",
+
         isWeekend
             ? "react-calendar__tile--weekend"
             : "",
+
+        holidayEvents.length
+            ? "calendar-tile-holiday"
+            : "",
+
     ]
         .filter(Boolean)
         .join(" ");
@@ -536,42 +943,78 @@ function CalendarDay({
             </abbr>
 
 
-            {events.length === 1 && (
+            {/* SYSTEM HOLIDAY */}
+
+            {holidayEvents.length > 0 && (
+
+                <div className="calendar-holiday-markers">
+
+                    {holidayEvents
+                        .slice(0, 2)
+                        .map(event => (
+
+                            <span
+                                key={event.id}
+                                className="calendar-holiday-emoji"
+                                title={event.title}
+                            >
+                                {event.emoji}
+                            </span>
+
+                        ))}
+
+                </div>
+
+            )}
+
+
+            {/* USER EVENTS */}
+
+            {userEvents.length === 1 && (
 
                 <div className="calendar-event-dot" />
 
             )}
 
 
-            {events.length >= 2 &&
-            events.length <= 3 && (
+            {userEvents.length >= 2 &&
+            userEvents.length <= 3 && (
 
                 <div className="calendar-event-dots">
 
-                    {events.map((_, index) => (
+                    {userEvents.map(
+                        (_, index) => (
 
-                        <span key={index} />
+                            <span key={index} />
 
-                    ))}
+                        )
+                    )}
 
                 </div>
 
             )}
 
 
-            {events.length > 3 && (
+            {userEvents.length > 3 && (
 
                 <div className="calendar-more-events">
-                    +{events.length}
+                    +{userEvents.length}
                 </div>
 
             )}
 
 
-            {events[0]?.type && (
+            {/* EVENT TYPE */}
+
+            {userEvents[0]?.type && (
 
                 <div className="calendar-day-chip">
-                    {events[0].type}
+
+                    {EVENT_TYPE_LABELS[
+                        userEvents[0].type
+                    ] ||
+                        userEvents[0].type}
+
                 </div>
 
             )}
