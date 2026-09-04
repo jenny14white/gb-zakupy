@@ -1087,3 +1087,22 @@
     }
 
 }
+.admin-events-header .back-button {
+    position: relative;
+    z-index: 5;
+    min-height: 46px;
+    padding: 0.85rem 1.3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--button-radius);
+    background: var(--surface);
+    color: var(--primary);
+    opacity: 1;
+    box-shadow: var(--shadow-small);
+}
+
+.admin-events-header .back-button:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
