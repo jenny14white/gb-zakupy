@@ -338,9 +338,7 @@ export default function Calendar() {
 
                         <div className="calendar-empty">
 
-                            <div className="calendar-empty-icon">
-                                📅
-                            </div>
+                        
 
                             <h4>
                                 {t("calendar.empty.title")}
