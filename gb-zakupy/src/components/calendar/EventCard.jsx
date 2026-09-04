@@ -1,39 +1,48 @@
-import {useState,useRef,useEffect} from "react";
-import {useTranslation} from "react-i18next";
-import{
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+
+import {
     addToGoogle,
     addToApple,
     addToOutlook,
-}from "../../utils/calendarExport";
+} from "../../utils/calendarExport";
 
-const EVENT_TYPES={
-    company:"company",
-    firma:"company",
-    holiday:"holiday",
-    święto:"holiday",
-    birthday:"birthday",
-    urodziny:"birthday",
-    meeting:"meeting",
-    spotkanie:"meeting",
-    vacation:"vacation",
-    urlop:"vacation",
+
+
+const EVENT_TYPES = {
+    company: "company",
+    firma: "company",
+
+    holiday: "holiday",
+    święto: "holiday",
+
+    birthday: "birthday",
+    urodziny: "birthday",
+
+    meeting: "meeting",
+    spotkanie: "meeting",
+
+    vacation: "vacation",
+    urlop: "vacation",
 };
 
-function safeText(value,language){
 
-    if(value==null)
+
+function safeText(value, language) {
+
+    if (value == null)
         return "";
 
-    if(typeof value==="string")
+    if (typeof value === "string")
         return value;
 
-    if(typeof value==="number")
+    if (typeof value === "number")
         return String(value);
 
-    if(value instanceof Date)
+    if (value instanceof Date)
         return value.toLocaleDateString(language);
 
-    if(typeof value?.toDate==="function")
+    if (typeof value?.toDate === "function")
         return value
             .toDate()
             .toLocaleDateString(language);
@@ -42,33 +51,101 @@ function safeText(value,language){
 
 }
 
+
+
+function normalizeDate(value) {
+
+    if (!value)
+        return null;
+
+    if (typeof value?.toDate === "function")
+        return value.toDate();
+
+    if (value instanceof Date)
+        return value;
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime()))
+        return null;
+
+    return date;
+
+}
+
+
+
+function formatDate(value, language) {
+
+    const date =
+        normalizeDate(value);
+
+    if (!date)
+        return "";
+
+    return date.toLocaleDateString(
+        language || "pl-PL",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        }
+    );
+
+}
+
+
+
+function formatTime(value) {
+
+    if (value == null)
+        return "";
+
+    if (typeof value === "string")
+        return value.trim();
+
+    if (typeof value === "number")
+        return String(value);
+
+    return "";
+}
+
+
+
 export default function EventCard({
     event,
-}){
+}) {
 
-    const {t,i18n}=useTranslation();
+    const { t, i18n } =
+        useTranslation();
 
-    const language=
-        i18n.language;
+    const language =
+        i18n.language || "pl-PL";
 
-    const menuRef=
+
+
+    const menuRef =
         useRef(null);
 
-    const[
+
+
+    const [
         showMenu,
         setShowMenu,
-    ]=useState(false);
+    ] = useState(false);
 
-    useEffect(()=>{
 
-        function handleClick(e){
 
-            if(
+    useEffect(() => {
+
+        function handleClick(e) {
+
+            if (
                 menuRef.current &&
                 !menuRef.current.contains(
                     e.target
                 )
-            ){
+            ) {
 
                 setShowMenu(false);
 
@@ -76,67 +153,168 @@ export default function EventCard({
 
         }
 
+
+
         document.addEventListener(
             "mousedown",
             handleClick
         );
 
-        return()=>document.removeEventListener(
-            "mousedown",
-            handleClick
-        );
 
-    },[]);
 
-    const title=
+        return () =>
+            document.removeEventListener(
+                "mousedown",
+                handleClick
+            );
+
+    }, []);
+
+
+
+    const title =
         safeText(
             event.title,
             language
         );
 
-    const type=
+
+
+    const type =
         EVENT_TYPES[
             safeText(
                 event.type,
                 language
             ).toLowerCase()
-        ]||"other";
+        ] || "other";
 
-    const emoji=
+
+
+    const emoji =
         safeText(
             event.emoji,
             language
         );
 
-    const time=
-        safeText(
-            event.time,
-            language
+
+
+    const time =
+        formatTime(
+            event.time
         );
 
-    const location=
+
+
+    const endTime =
+        formatTime(
+            event.endTime
+        );
+
+
+
+    const location =
         safeText(
             event.location,
             language
         );
 
-    const description=
+
+
+    const description =
         safeText(
             event.description,
             language
         );
 
-    const formattedDate=
-        safeText(
-            event.date,
+
+
+    const startDate =
+        normalizeDate(
+            event.date
+        );
+
+
+
+    const endDate =
+        normalizeDate(
+            event.endDate
+        );
+
+
+
+    const formattedStartDate =
+        formatDate(
+            startDate,
             language
         );
 
-    const badge=
+
+
+    const formattedEndDate =
+        formatDate(
+            endDate,
+            language
+        );
+
+
+
+    const isMultiDay =
+        startDate &&
+        endDate &&
+        startDate.getFullYear() !== endDate.getFullYear()
+            ? true
+            : startDate &&
+              endDate &&
+              startDate.getMonth() !== endDate.getMonth()
+                ? true
+                : startDate &&
+                  endDate &&
+                  startDate.getDate() !== endDate.getDate();
+
+
+
+    let formattedDate =
+        formattedStartDate;
+
+
+
+    if (
+        isMultiDay &&
+        formattedEndDate
+    ) {
+
+        formattedDate =
+            `${formattedStartDate} – ${formattedEndDate}`;
+
+    }
+
+
+
+    let formattedTime =
+        time;
+
+
+
+    if (
+        time &&
+        endTime
+    ) {
+
+        formattedTime =
+            `${time} – ${endTime}`;
+
+    }
+
+
+
+    const badge =
         t(
             `calendar.eventTypes.${type}`
         );
-        return(
+
+
+
+    return (
 
         <article
             className={
@@ -148,7 +326,7 @@ export default function EventCard({
 
                 <h3 className="event-title">
 
-                    {emoji&&(
+                    {emoji && (
 
                         <span className="event-emoji">
 
@@ -162,91 +340,126 @@ export default function EventCard({
 
                 </h3>
 
+
+
                 <div className="event-card-right">
 
-    <span
-        className={`event-badge ${type}`}
-    >
+                    <span
+                        className={`event-badge ${type}`}
+                    >
 
-        {badge}
+                        {badge}
 
-    </span>
+                    </span>
 
-    <div
-        className="event-card-actions"
-        ref={menuRef}
-    >
 
-        <button
-            type="button"
-            className="calendar-add-button"
-            onClick={()=>
-                setShowMenu(
-                    !showMenu
-                )
-            }
-            title="Dodaj do kalendarza"
-        >
 
-            +
+                    <div
+                        className="event-card-actions"
+                        ref={menuRef}
+                    >
 
-        </button>
+                        <button
+                            type="button"
+                            className="calendar-add-button"
+                            onClick={() =>
+                                setShowMenu(
+                                    !showMenu
+                                )
+                            }
+                            title="Dodaj do kalendarza"
+                        >
 
-        {showMenu&&(
+                            +
 
-            <div className="calendar-add-menu">
+                        </button>
 
-                <button
-                    type="button"
-                    onClick={()=>{
-                        addToGoogle(event);
-                        setShowMenu(false);
-                    }}
-                >
 
-                    Google Calendar
 
-                </button>
+                        {showMenu && (
 
-                <button
-                    type="button"
-                    onClick={()=>{
-                        addToApple(event);
-                        setShowMenu(false);
-                    }}
-                >
+                            <div className="calendar-add-menu">
 
-                    Apple Calendar
+                                <button
+                                    type="button"
+                                    onClick={() => {
 
-                </button>
+                                        addToGoogle(
+                                            event
+                                        );
 
-                <button
-                    type="button"
-                    onClick={()=>{
-                        addToOutlook(event);
-                        setShowMenu(false);
-                    }}
-                >
+                                        setShowMenu(
+                                            false
+                                        );
 
-                    Outlook
+                                    }}
+                                >
 
-                </button>
+                                    Google Calendar
+
+                                </button>
+
+
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+
+                                        addToApple(
+                                            event
+                                        );
+
+                                        setShowMenu(
+                                            false
+                                        );
+
+                                    }}
+                                >
+
+                                    Apple Calendar
+
+                                </button>
+
+
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+
+                                        addToOutlook(
+                                            event
+                                        );
+
+                                        setShowMenu(
+                                            false
+                                        );
+
+                                    }}
+                                >
+
+                                    Outlook
+
+                                </button>
+
+                            </div>
+
+                        )}
+
+                    </div>
+
+                </div>
 
             </div>
 
-        )}
 
-    </div>
 
-</div>
+            <div className="event-divider" />
 
-            </div>
 
-            <div className="event-divider"/>
 
             <div className="event-card-body">
 
-                {formattedDate&&(
+                {formattedDate && (
 
                     <div className="event-row date">
 
@@ -266,7 +479,9 @@ export default function EventCard({
 
                 )}
 
-                {time&&(
+
+
+                {formattedTime && (
 
                     <div className="event-row">
 
@@ -278,7 +493,7 @@ export default function EventCard({
 
                         <span className="event-text">
 
-                            {time}
+                            {formattedTime}
 
                         </span>
 
@@ -286,7 +501,9 @@ export default function EventCard({
 
                 )}
 
-                {location&&(
+
+
+                {location && (
 
                     <div className="event-row">
 
@@ -306,7 +523,9 @@ export default function EventCard({
 
                 )}
 
-                {description&&(
+
+
+                {description && (
 
                     <div className="event-description">
 
@@ -317,7 +536,8 @@ export default function EventCard({
                 )}
 
             </div>
-                </article>
+
+        </article>
 
     );
 
