@@ -59,9 +59,7 @@ const createEmptyForm = () => ({
 });
 
 
-export default function AdminEventsPage({
-    goBack,
-}) {
+export default function AdminEventsPage({ goBack }) {
 
     const { t } = useTranslation();
 
@@ -77,74 +75,81 @@ export default function AdminEventsPage({
     );
 
 
+    /* =====================================================
+       AUTHORIZATION
+       ===================================================== */
+
     useEffect(() => {
 
-        const unsubscribe =
-            onAuthStateChanged(
-                auth,
-                user => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            user => {
 
-                    setAuthorized(
-                        Boolean(
-                            user &&
-                            ADMIN_UIDS.includes(user.uid)
-                        )
-                    );
+                setAuthorized(
+                    Boolean(
+                        user &&
+                        ADMIN_UIDS.includes(user.uid)
+                    )
+                );
 
-                    setChecking(false);
-
-                }
-            );
-
+                setChecking(false);
+            }
+        );
 
         return unsubscribe;
 
     }, []);
 
 
+    /* =====================================================
+       EVENTS LISTENER
+       ===================================================== */
+
     useEffect(() => {
 
-        if (!authorized)
+        if (!authorized) {
             return;
-
+        }
 
         return listenToEvents(setEvents);
 
     }, [authorized]);
 
 
+    /* =====================================================
+       STATISTICS
+       ===================================================== */
+
     const stats = useMemo(() => {
 
         const now = new Date();
-
 
         return {
 
             all: events.length,
 
+            recurring: events.filter(
+                event => event.recurring
+            ).length,
 
-            recurring:
-                events.filter(
-                    event => event.recurring
-                ).length,
+            upcoming: events.filter(event => {
 
+                const date =
+                    event.date?.toDate?.() ??
+                    new Date(event.date);
 
-            upcoming:
-                events.filter(event => {
+                return date >= now;
 
-                    const date =
-                        event.date?.toDate?.() ??
-                        new Date(event.date);
-
-
-                    return date >= now;
-
-                }).length,
+            }).length,
 
         };
 
     }, [events]);
 
+
+    /* =====================================================
+       FORM CHANGE
+       ===================================================== */
 
     function handleChange(e) {
 
@@ -155,20 +160,20 @@ export default function AdminEventsPage({
             type,
         } = e.target;
 
-
         setForm(prev => ({
-
             ...prev,
-
             [name]:
                 type === "checkbox"
                     ? checked
                     : value,
-
         }));
 
     }
 
+
+    /* =====================================================
+       SUBMIT
+       ===================================================== */
 
     async function handleSubmit(e) {
 
@@ -182,7 +187,6 @@ export default function AdminEventsPage({
             );
 
             return;
-
         }
 
 
@@ -193,7 +197,6 @@ export default function AdminEventsPage({
             );
 
             return;
-
         }
 
 
@@ -201,6 +204,9 @@ export default function AdminEventsPage({
 
             const payload = {
                 ...form,
+                title: form.title.trim(),
+                description: form.description.trim(),
+                location: form.location.trim(),
                 date: new Date(form.date),
             };
 
@@ -225,10 +231,12 @@ export default function AdminEventsPage({
                 createEmptyForm()
             );
 
-
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Błąd zapisywania wydarzenia:",
+                error
+            );
 
             alert(
                 t("admin.events.errors.saveFailed")
@@ -238,6 +246,10 @@ export default function AdminEventsPage({
 
     }
 
+
+    /* =====================================================
+       EDIT EVENT
+       ===================================================== */
 
     function editEvent(event) {
 
@@ -283,6 +295,10 @@ export default function AdminEventsPage({
     }
 
 
+    /* =====================================================
+       DELETE EVENT
+       ===================================================== */
+
     async function removeEvent(id) {
 
         const confirmed =
@@ -291,8 +307,9 @@ export default function AdminEventsPage({
             );
 
 
-        if (!confirmed)
+        if (!confirmed) {
             return;
+        }
 
 
         try {
@@ -301,7 +318,10 @@ export default function AdminEventsPage({
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Błąd usuwania wydarzenia:",
+                error
+            );
 
             alert(
                 t("admin.events.errors.deleteFailed")
@@ -311,6 +331,10 @@ export default function AdminEventsPage({
 
     }
 
+
+    /* =====================================================
+       LOADING
+       ===================================================== */
 
     if (checking) {
 
@@ -333,6 +357,10 @@ export default function AdminEventsPage({
     }
 
 
+    /* =====================================================
+       NO ACCESS
+       ===================================================== */
+
     if (!authorized) {
 
         return (
@@ -341,9 +369,21 @@ export default function AdminEventsPage({
 
                 <section className="admin-events-card">
 
-                    <h1>
-                        🔒 {t("admin.events.noAccess.title")}
-                    </h1>
+                    <div className="card-title">
+
+                        <div>
+
+                            <span className="admin-events-eyebrow">
+                                GB PORTAL
+                            </span>
+
+                            <h2>
+                                🔒 {t("admin.events.noAccess.title")}
+                            </h2>
+
+                        </div>
+
+                    </div>
 
 
                     <p>
@@ -352,12 +392,12 @@ export default function AdminEventsPage({
 
 
                     <button
+                        type="button"
                         className="back-button"
                         onClick={goBack}
                     >
                         ← {t("common.back")}
                     </button>
-
 
                 </section>
 
@@ -368,19 +408,26 @@ export default function AdminEventsPage({
     }
 
 
+    /* =====================================================
+       MAIN PAGE
+       ===================================================== */
+
     return (
 
         <main className="admin-events-page">
 
 
-            <header className="admin-events-header">
+            {/* =================================================
+                PAGE HEADER
+            ================================================= */}
 
+            <header className="admin-events-header">
 
                 <div>
 
-                    <p className="admin-events-eyebrow">
-                        GB Portal
-                    </p>
+                    <span className="admin-events-eyebrow">
+                        GB PORTAL · ADMINISTRACJA
+                    </span>
 
 
                     <h1>
@@ -389,40 +436,56 @@ export default function AdminEventsPage({
 
 
                     <p className="admin-events-description">
-
                         {t("admin.events.description")}
-
                     </p>
 
                 </div>
 
 
                 <button
+                    type="button"
                     className="back-button"
                     onClick={goBack}
                 >
-
                     ← {t("common.back")}
-
                 </button>
-
 
             </header>
 
 
+            {/* =================================================
+                FORM + STATISTICS
+            ================================================= */}
+
             <section className="events-top">
 
+
+                {/* =============================================
+                    EVENT FORM
+                ============================================= */}
 
                 <section className="admin-events-card form-card">
 
 
-                    <h2>
+                    <div className="card-title">
 
-                        {editingId
-                            ? `✏️ ${t("admin.events.editEvent")}`
-                            : `➕ ${t("admin.events.newEvent")}`}
+                        <div>
 
-                    </h2>
+                            <h2>
+                                {editingId
+                                    ? `✏️ ${t("admin.events.editEvent")}`
+                                    : `➕ ${t("admin.events.newEvent")}`}
+                            </h2>
+
+                            <p>
+                                {editingId
+                                    ? "Edytuj dane istniejącego wydarzenia."
+                                    : "Dodaj nowe wydarzenie do kalendarza."}
+                            </p>
+
+                        </div>
+
+                    </div>
 
 
                     <form
@@ -431,117 +494,206 @@ export default function AdminEventsPage({
                     >
 
 
-                        <input
-                            name="title"
-                            value={form.title}
-                            placeholder={
-                                t(
-                                    "admin.events.placeholders.title"
-                                )
-                            }
-                            onChange={handleChange}
-                        />
+                        <div className="event-form-grid">
 
 
-                        <input
-                            name="location"
-                            value={form.location}
-                            placeholder={
-                                t(
-                                    "admin.events.placeholders.location"
-                                )
-                            }
-                            onChange={handleChange}
-                        />
+                            {/* TITLE */}
+
+                            <div className="form-group full">
+
+                                <label htmlFor="event-title">
+                                    Tytuł wydarzenia
+                                </label>
+
+                                <input
+                                    id="event-title"
+                                    type="text"
+                                    name="title"
+                                    value={form.title}
+                                    placeholder={t(
+                                        "admin.events.placeholders.title"
+                                    )}
+                                    onChange={handleChange}
+                                    autoComplete="off"
+                                />
+
+                            </div>
 
 
-                        <textarea
-                            name="description"
-                            value={form.description}
-                            placeholder={
-                                t(
-                                    "admin.events.placeholders.description"
-                                )
-                            }
-                            onChange={handleChange}
-                        />
+                            {/* LOCATION */}
+
+                            <div className="form-group full">
+
+                                <label htmlFor="event-location">
+                                    Lokalizacja
+                                </label>
+
+                                <input
+                                    id="event-location"
+                                    type="text"
+                                    name="location"
+                                    value={form.location}
+                                    placeholder={t(
+                                        "admin.events.placeholders.location"
+                                    )}
+                                    onChange={handleChange}
+                                    autoComplete="off"
+                                />
+
+                            </div>
 
 
-                        <input
-                            type="date"
-                            name="date"
-                            value={form.date}
-                            onChange={handleChange}
-                        />
+                            {/* DATE */}
+
+                            <div className="form-group">
+
+                                <label htmlFor="event-date">
+                                    Data
+                                </label>
+
+                                <input
+                                    id="event-date"
+                                    type="date"
+                                    name="date"
+                                    value={form.date}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
 
 
-                        <input
-                            type="time"
-                            name="time"
-                            value={form.time}
-                            onChange={handleChange}
-                        />
+                            {/* TIME */}
+
+                            <div className="form-group">
+
+                                <label htmlFor="event-time">
+                                    Godzina
+                                </label>
+
+                                <input
+                                    id="event-time"
+                                    type="time"
+                                    name="time"
+                                    value={form.time}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
 
 
-                        <select
-                            name="type"
-                            value={form.type}
-                            onChange={handleChange}
-                        >
+                            {/* TYPE */}
 
-                            {TYPES.map(type => (
+                            <div className="form-group">
 
-                                <option
-                                    key={type}
-                                    value={type}
+                                <label htmlFor="event-type">
+                                    Typ wydarzenia
+                                </label>
+
+                                <select
+                                    id="event-type"
+                                    name="type"
+                                    value={form.type}
+                                    onChange={handleChange}
                                 >
 
-                                    {
-                                        t(
-                                            `calendar.eventTypes.${type}`
-                                        )
-                                    }
+                                    {TYPES.map(type => (
 
-                                </option>
+                                        <option
+                                            key={type}
+                                            value={type}
+                                        >
+                                            {t(
+                                                `calendar.eventTypes.${type}`
+                                            )}
+                                        </option>
 
-                            ))}
+                                    ))}
 
-                        </select>
+                                </select>
+
+                            </div>
 
 
-                        <select
-                            name="emoji"
-                            value={form.emoji}
-                            onChange={handleChange}
-                        >
+                            {/* EMOJI */}
 
-                            {EMOJIS.map(icon => (
+                            <div className="form-group">
 
-                                <option
-                                    key={icon}
-                                    value={icon}
+                                <label htmlFor="event-emoji">
+                                    Ikona wydarzenia
+                                </label>
+
+                                <select
+                                    id="event-emoji"
+                                    name="emoji"
+                                    value={form.emoji}
+                                    onChange={handleChange}
                                 >
-                                    {icon}
-                                </option>
 
-                            ))}
+                                    {EMOJIS.map(icon => (
 
-                        </select>
+                                        <option
+                                            key={icon}
+                                            value={icon}
+                                        >
+                                            {icon}
+                                        </option>
+
+                                    ))}
+
+                                </select>
+
+                            </div>
 
 
-                        <label className="checkbox-row">
+                            {/* DESCRIPTION */}
 
-                            <input
-                                type="checkbox"
-                                name="recurring"
-                                checked={form.recurring}
-                                onChange={handleChange}
-                            />
+                            <div className="form-group full">
 
-                            {t("admin.events.fields.recurring")}
+                                <label htmlFor="event-description">
+                                    Opis
+                                </label>
 
-                        </label>
+                                <textarea
+                                    id="event-description"
+                                    name="description"
+                                    value={form.description}
+                                    placeholder={t(
+                                        "admin.events.placeholders.description"
+                                    )}
+                                    onChange={handleChange}
+                                />
 
+                            </div>
+
+
+                            {/* RECURRING */}
+
+                            <div className="form-group full">
+
+                                <label className="checkbox-row">
+
+                                    <input
+                                        type="checkbox"
+                                        name="recurring"
+                                        checked={form.recurring}
+                                        onChange={handleChange}
+                                    />
+
+                                    <span>
+                                        {t(
+                                            "admin.events.fields.recurring"
+                                        )}
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+                        </div>
+
+
+                        {/* SUBMIT */}
 
                         <button
                             className="save-event-button"
@@ -557,9 +709,12 @@ export default function AdminEventsPage({
 
                     </form>
 
-
                 </section>
 
+
+                {/* =============================================
+                    STATISTICS
+                ============================================= */}
 
                 <aside className="events-stats">
 
@@ -609,19 +764,17 @@ export default function AdminEventsPage({
             </section>
 
 
+            {/* =================================================
+                CALENDAR
+            ================================================= */}
+
             <section className="calendar-wrapper">
 
-
                 <AdminCalendar
-
                     events={events}
-
                     onEdit={editEvent}
-
                     onDelete={removeEvent}
-
                 />
-
 
             </section>
 
