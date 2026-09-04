@@ -1,5 +1,10 @@
 /* =========================================================
    ADMIN EVENTS
+   GB PORTAL DESIGN SYSTEM
+   ========================================================= */
+
+/* =========================================================
+   PAGE
    ========================================================= */
 
 .admin-events-page {
@@ -10,6 +15,7 @@
     flex-direction: column;
     gap: 2rem;
     box-sizing: border-box;
+    color: var(--text);
 }
 
 /* =========================================================
@@ -22,7 +28,11 @@
     align-items: flex-start;
     gap: 2rem;
     padding: 0 0 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--divider);
+}
+
+.admin-events-header > div {
+    min-width: 0;
 }
 
 .admin-events-eyebrow {
@@ -41,7 +51,7 @@
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -2px;
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 .admin-events-description {
@@ -76,38 +86,71 @@
 .event-stat-card {
     position: relative;
     overflow: hidden;
+
     background:
-        linear-gradient(
-            145deg,
-            rgba(255, 255, 255, 0.075),
-            rgba(255, 255, 255, 0.025)
-        ),
-        var(--glass-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 28px;
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    box-shadow: var(--shadow-lg);
+        var(--glass-gradient);
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: var(--radius-xl);
+
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+
+    box-shadow: var(--glass-shadow);
+
     box-sizing: border-box;
+
+    transition:
+        transform var(--transition-normal) ease,
+        box-shadow var(--transition-normal) ease,
+        border-color var(--transition-normal) ease,
+        background var(--transition-normal) ease;
 }
+
+/* =========================================================
+   CARD DECORATION
+   ========================================================= */
 
 .admin-events-card::before,
 .event-stat-card::before {
     content: "";
     position: absolute;
     inset: 0;
+
     background:
-        radial-gradient(
-            circle at top left,
-            var(--glass-highlight),
-            transparent 38%
-        ),
         linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.035),
-            transparent 50%
+            var(--decorative-highlight),
+            transparent 42%
         );
+
+    opacity: 0.75;
+
     pointer-events: none;
+
+    z-index: 0;
+}
+
+.admin-events-card::after,
+.event-stat-card::after {
+    content: "";
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -120px;
+    right: -100px;
+
+    background: var(--glass-glow);
+
+    opacity: 0.28;
+
+    filter: blur(10px);
+
+    pointer-events: none;
+
     z-index: 0;
 }
 
@@ -117,13 +160,19 @@
     z-index: 1;
 }
 
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
 .admin-events-card {
     padding: 1.75rem;
     min-width: 0;
 }
 
 .admin-events-card:hover {
-    border-color: var(--accent);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-large);
+    background: var(--glass-gradient-hover);
 }
 
 .form-card {
@@ -143,8 +192,9 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.5rem;
     gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
 }
 
 .card-title > div {
@@ -153,15 +203,19 @@
 
 .card-title h2 {
     margin: 0;
+
     font-size: 1.35rem;
     font-weight: 800;
     line-height: 1.25;
-    color: var(--text-primary);
+
+    color: var(--text);
 }
 
 .card-title p {
     margin: 0.45rem 0 0;
+
     color: var(--text-secondary);
+
     line-height: 1.55;
     font-size: 0.92rem;
 }
@@ -178,14 +232,19 @@
 
 .event-form-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
     gap: 1.25rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+
     gap: 0.55rem;
+
     min-width: 0;
 }
 
@@ -196,29 +255,44 @@
 .form-group label {
     font-size: 0.86rem;
     font-weight: 750;
+
     color: var(--text-secondary);
 }
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
     min-width: 0;
+
     box-sizing: border-box;
+
     padding: 0.9rem 1rem;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    background: var(--surface-soft);
-    color: var(--text-primary);
+
+    border-radius: var(--input-radius);
+
+    border: 1px solid var(--input-border);
+
+    background:
+        var(--input-background);
+
+    color: var(--text);
+
     font-family: inherit;
     font-size: 0.95rem;
     line-height: 1.4;
+
     outline: none;
+
     transition:
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
+        border-color var(--transition-normal) ease,
+        background var(--transition-normal) ease,
+        box-shadow var(--transition-normal) ease,
+        transform var(--transition-normal) ease;
 }
 
 .form-group input {
@@ -227,27 +301,46 @@
 
 .form-group textarea {
     min-height: 130px;
+
     resize: vertical;
+
     line-height: 1.6;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--text-muted);
+    color: var(--input-placeholder);
 }
+
+/* =========================================================
+   INPUT HOVER
+   ========================================================= */
 
 .form-group input:hover,
 .form-group textarea:hover,
 .form-group select:hover {
-    border-color: rgba(255, 255, 255, 0.18);
+    border-color: var(--input-border-hover);
 }
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: var(--accent);
-    background: var(--surface-hover);
-    box-shadow: 0 0 0 4px var(--focus-ring);
+    border-color: var(--input-focus);
+
+    background:
+        var(--surface-hover);
+
+    box-shadow:
+        0 0 0 4px
+        color-mix(
+            in srgb,
+            var(--input-focus) 18%,
+            transparent
+        );
 }
 
 .form-group select {
@@ -256,7 +349,7 @@
 
 .form-group select option {
     background: var(--surface);
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 /* =========================================================
@@ -266,25 +359,34 @@
 .checkbox-row {
     display: flex;
     align-items: center;
+
     gap: 0.8rem;
+
     cursor: pointer;
     user-select: none;
+
     padding: 0.15rem 0;
 }
 
 .checkbox-row input[type="checkbox"] {
     flex: 0 0 auto;
+
     width: 18px;
     height: 18px;
+
     margin: 0;
+
     accent-color: var(--accent);
+
     cursor: pointer;
 }
 
 .checkbox-row span {
     color: var(--text-secondary);
+
     font-size: 0.9rem;
     font-weight: 650;
+
     line-height: 1.4;
 }
 
@@ -295,54 +397,111 @@
 .save-event-button,
 .back-button {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 0.5rem;
+
     cursor: pointer;
+
     font-family: inherit;
     font-weight: 750;
+
     text-decoration: none;
+
     box-sizing: border-box;
+
     transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease,
-        border-color 0.3s ease;
+        transform var(--transition-normal) ease,
+        box-shadow var(--transition-normal) ease,
+        background var(--transition-normal) ease,
+        border-color var(--transition-normal) ease;
 }
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
 
 .save-event-button {
     align-self: flex-start;
+
     min-height: 50px;
+
     padding: 0.95rem 1.6rem;
-    border: 1px solid transparent;
-    border-radius: 18px;
-    background: var(--accent);
+
+    border: 1px solid var(--button-primary);
+
+    border-radius: var(--button-radius);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--button-primary),
+            var(--button-primary-hover)
+        );
+
     color: var(--button-text);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+
+    box-shadow:
+        var(--shadow-theme);
 }
 
 .save-event-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 18px 40px var(--accent-shadow);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--button-primary-hover),
+            var(--button-primary)
+        );
+
+    box-shadow:
+        var(--shadow-large);
 }
 
 .save-event-button:active {
     transform: translateY(-1px) scale(0.98);
 }
 
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
 .back-button {
     min-height: 46px;
+
     padding: 0.85rem 1.3rem;
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    background: var(--surface-soft);
-    color: var(--text-primary);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--button-radius);
+
+    background:
+        var(--glass-background);
+
+    color: var(--text);
+
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 .back-button:hover {
-    background: var(--surface-hover);
-    border-color: var(--accent);
-    transform: translateY(-2px);
+    background:
+        var(--glass-hover);
+
+    border-color:
+        var(--accent);
+
+    color:
+        var(--primary);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        var(--shadow-small);
 }
 
 /* =========================================================
@@ -352,58 +511,94 @@
 .events-stats {
     display: flex;
     flex-direction: column;
+
     gap: 1rem;
 }
 
 .event-stat-card {
     padding: 1.5rem;
+
     display: flex;
     flex-direction: column;
+
     gap: 0.45rem;
+
     min-height: 120px;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
 }
 
 .event-stat-card:hover {
     transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: var(--shadow-xl);
+
+    border-color:
+        var(--accent);
+
+    background:
+        var(--glass-gradient-hover);
+
+    box-shadow:
+        var(--shadow-large);
 }
+
+/* =========================================================
+   STAT NUMBER
+   ========================================================= */
 
 .stat-number {
     position: relative;
     z-index: 2;
+
     font-size: clamp(2rem, 4vw, 2.4rem);
+
     font-weight: 900;
+
     line-height: 1;
+
     letter-spacing: -1px;
-    color: var(--text-primary);
+
+    color: var(--primary);
 }
+
+/* =========================================================
+   STAT LABEL
+   ========================================================= */
 
 .stat-label {
     position: relative;
     z-index: 2;
+
     color: var(--text-secondary);
+
     font-size: 0.9rem;
+
     line-height: 1.45;
 }
 
 /* =========================================================
-   TYPOGRAPHY INSIDE CARDS
+   TYPOGRAPHY
    ========================================================= */
 
 .admin-events-card h1,
 .admin-events-card h2,
 .admin-events-card h3 {
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 .admin-events-card p {
     color: var(--text-secondary);
+
     line-height: 1.65;
+}
+
+/* =========================================================
+   NO ACCESS
+   ========================================================= */
+
+.admin-events-card > h1 {
+    margin-top: 0;
+}
+
+.admin-events-card > p {
+    margin-bottom: 1.5rem;
 }
 
 /* =========================================================
@@ -413,19 +608,37 @@
 .save-event-button:focus-visible,
 .back-button:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px var(--focus-ring);
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--accent) 35%,
+            transparent
+        ),
+        var(--shadow-medium);
 }
 
 .form-group input:focus-visible,
 .form-group textarea:focus-visible,
 .form-group select:focus-visible {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--focus-ring);
+
+    border-color:
+        var(--input-focus);
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--input-focus) 25%,
+            transparent
+        );
 }
 
 .checkbox-row:focus-within {
-    color: var(--text-primary);
+    color:
+        var(--text);
 }
 
 /* =========================================================
@@ -434,7 +647,11 @@
 
 .admin-events-card,
 .event-stat-card {
-    animation: eventPanelEnter 0.55s ease both;
+    animation:
+        eventPanelEnter
+        0.55s
+        ease
+        both;
 }
 
 .event-stat-card:nth-child(2) {
@@ -446,6 +663,7 @@
 }
 
 @keyframes eventPanelEnter {
+
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -455,6 +673,7 @@
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 /* =========================================================
@@ -466,7 +685,9 @@
 .save-event-button,
 .back-button {
     will-change: transform;
-    transform: translateZ(0);
+
+    transform:
+        translateZ(0);
 }
 
 /* =========================================================
@@ -474,29 +695,41 @@
    ========================================================= */
 
 @media (max-width: 1200px) {
+
     .events-top {
         grid-template-columns: 1fr;
     }
 
     .events-stats {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
     .event-stat-card {
         min-height: 115px;
     }
+
 }
 
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
 @media (max-width: 900px) {
+
     .admin-events-page {
         padding: 1.5rem;
+
         gap: 1.5rem;
     }
 
     .admin-events-header {
         flex-direction: column;
+
         align-items: stretch;
+
         gap: 1.25rem;
     }
 
@@ -520,6 +753,7 @@
     .save-event-button {
         align-self: stretch;
     }
+
 }
 
 /* =========================================================
@@ -527,36 +761,45 @@
    ========================================================= */
 
 @media (max-width: 640px) {
+
     .admin-events-page {
         width: 100%;
+
         padding: 1rem;
+
         gap: 1.25rem;
     }
 
     .admin-events-header {
         padding-bottom: 1.25rem;
+
         gap: 0.9rem;
     }
 
     .admin-events-eyebrow {
         font-size: 0.7rem;
+
         letter-spacing: 0.15em;
     }
 
     .admin-events-header h1 {
         font-size: 2rem;
+
         letter-spacing: -1.2px;
     }
 
     .admin-events-description {
         margin-top: 0.65rem;
+
         font-size: 0.9rem;
+
         line-height: 1.6;
     }
 
     .admin-events-card,
     .event-stat-card {
-        border-radius: 22px;
+        border-radius:
+            var(--radius-large);
     }
 
     .admin-events-card {
@@ -565,13 +808,17 @@
 
     .event-stat-card {
         padding: 1.25rem;
+
         min-height: 100px;
     }
 
     .card-title {
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 0.65rem;
+
         margin-bottom: 1.25rem;
     }
 
@@ -594,7 +841,9 @@
     .form-group input,
     .form-group textarea,
     .form-group select {
-        border-radius: 14px;
+        border-radius:
+            var(--input-radius);
+
         font-size: 0.92rem;
     }
 
@@ -604,12 +853,14 @@
 
     .save-event-button,
     .back-button {
-        border-radius: 15px;
+        border-radius:
+            var(--button-radius);
     }
 
     .stat-number {
         font-size: 2rem;
     }
+
 }
 
 /* =========================================================
@@ -617,8 +868,10 @@
    ========================================================= */
 
 @media (max-width: 480px) {
+
     .admin-events-page {
         padding: 0.75rem;
+
         gap: 1rem;
     }
 
@@ -628,7 +881,8 @@
 
     .admin-events-card,
     .event-stat-card {
-        border-radius: 19px;
+        border-radius:
+            var(--radius-medium);
     }
 
     .admin-events-card {
@@ -660,6 +914,7 @@
     .checkbox-row input[type="checkbox"] {
         margin-top: 2px;
     }
+
 }
 
 /* =========================================================
@@ -667,6 +922,7 @@
    ========================================================= */
 
 @media (max-width: 360px) {
+
     .admin-events-page {
         padding: 0.6rem;
     }
@@ -677,7 +933,8 @@
 
     .admin-events-card,
     .event-stat-card {
-        border-radius: 17px;
+        border-radius:
+            var(--radius-small);
     }
 
     .admin-events-card {
@@ -699,9 +956,12 @@
     .save-event-button,
     .back-button {
         min-height: 44px;
+
         padding: 0.8rem 1rem;
+
         font-size: 0.88rem;
     }
+
 }
 
 /* =========================================================
@@ -709,6 +969,7 @@
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     .admin-events-card,
     .event-stat-card,
     .save-event-button,
@@ -717,6 +978,7 @@
     .form-group textarea,
     .form-group select {
         animation: none;
+
         transition: none;
     }
 
@@ -726,4 +988,5 @@
     .back-button:hover {
         transform: none;
     }
+
 }
