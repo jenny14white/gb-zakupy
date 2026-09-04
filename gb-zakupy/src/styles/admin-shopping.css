@@ -1572,3 +1572,304 @@
     }
 
 }
+/* =========================================================
+   ZREALIZOWANE — DODATKOWE POPRAWKI UKŁADU
+   ========================================================= */
+
+/* Większy odstęp między opisem sekcji a pierwszą kartą */
+.admin-completed-list .completed-orders,
+.completed-list-panel .completed-orders {
+    margin-top: 14px;
+}
+
+
+/* =========================================================
+   KARTA ZREALIZOWANEGO ZAMÓWIENIA
+   ========================================================= */
+
+.admin-completed-list .shopping-main,
+.completed-list-panel .shopping-main {
+    grid-template-columns:
+        155px
+        minmax(240px, 1fr)
+        125px;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   NAZWA PRODUKTU
+   ========================================================= */
+
+.admin-completed-list .shopping-summary-product,
+.completed-list-panel .shopping-summary-product {
+    min-width: 0;
+    overflow: hidden;
+}
+
+
+.admin-completed-list .shopping-summary-product > span,
+.completed-list-panel .shopping-summary-product > span {
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   META — ILOŚĆ / UŻYTKOWNIK / DATA
+   ========================================================= */
+
+.admin-completed-list .shopping-summary-meta,
+.completed-list-panel .shopping-summary-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    min-width: 0;
+
+    flex-wrap: nowrap;
+}
+
+
+.admin-completed-list .shopping-summary-meta span,
+.completed-list-panel .shopping-summary-meta span {
+    flex: 0 0 auto;
+
+    font-size: .72rem;
+
+    white-space: nowrap;
+}
+
+
+/*
+   Data i godzina dostają zagwarantowane miejsce.
+*/
+.admin-completed-list .shopping-summary-meta span:last-child,
+.completed-list-panel .shopping-summary-meta span:last-child {
+    min-width: 118px;
+}
+
+
+/* =========================================================
+   SZCZEGÓŁY
+   ========================================================= */
+
+.admin-completed-list .shopping-expand,
+.completed-list-panel .shopping-expand {
+    width: 125px;
+    min-width: 125px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .admin-completed-list .shopping-main,
+    .completed-list-panel .shopping-main {
+        grid-template-columns:
+            140px
+            minmax(210px, 1fr)
+            115px;
+
+        gap: 14px;
+    }
+
+
+    .admin-completed-list .shopping-expand,
+    .completed-list-panel .shopping-expand {
+        width: 115px;
+        min-width: 115px;
+    }
+
+
+    .admin-completed-list .shopping-summary-meta,
+    .completed-list-panel .shopping-summary-meta {
+        gap: 6px;
+    }
+
+
+    .admin-completed-list .shopping-summary-meta span,
+    .completed-list-panel .shopping-summary-meta span {
+        font-size: .68rem;
+    }
+
+
+    .admin-completed-list .shopping-summary-meta span:last-child,
+    .completed-list-panel .shopping-summary-meta span:last-child {
+        min-width: 110px;
+    }
+}
+
+
+/* =========================================================
+   WĘŻSZY DESKTOP
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .admin-completed-list .shopping-main,
+    .completed-list-panel .shopping-main {
+        grid-template-columns:
+            130px
+            minmax(180px, 1fr)
+            105px;
+
+        gap: 12px;
+    }
+
+
+    .admin-completed-list .shopping-expand,
+    .completed-list-panel .shopping-expand {
+        width: 105px;
+        min-width: 105px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-completed-list .shopping-main,
+    .completed-list-panel .shopping-main {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+        min-height: auto;
+
+        padding:
+            17px
+            18px
+            17px
+            22px;
+    }
+
+
+    .admin-completed-list .shopping-summary,
+    .completed-list-panel .shopping-summary {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+
+    .admin-completed-list .shopping-summary-product,
+    .completed-list-panel .shopping-summary-product {
+        width: 100%;
+
+        white-space: normal;
+
+        overflow: visible;
+
+        line-height: 1.4;
+    }
+
+
+    .admin-completed-list .shopping-summary-product > span,
+    .completed-list-panel .shopping-summary-product > span {
+        white-space: normal;
+
+        overflow: visible;
+
+        text-overflow: unset;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .admin-completed-list .shopping-summary-meta,
+    .completed-list-panel .shopping-summary-meta {
+        width: 100%;
+
+        flex-wrap: wrap;
+    }
+
+
+    .admin-completed-list .shopping-summary-meta span:last-child,
+    .completed-list-panel .shopping-summary-meta span:last-child {
+        min-width: 0;
+    }
+
+
+    .admin-completed-list .shopping-expand,
+    .completed-list-panel .shopping-expand {
+        width: 100%;
+
+        min-width: 0;
+
+        justify-content: space-between;
+
+        margin-left: 0;
+
+        margin-top: 2px;
+    }
+
+
+    .admin-completed-list .completed-orders,
+    .completed-list-panel .completed-orders {
+        margin-top: 14px;
+    }
+}
+
+
+/* =========================================================
+   MAŁY TELEFON
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .admin-completed-list .shopping-summary-meta,
+    .completed-list-panel .shopping-summary-meta {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        width: 100%;
+
+        gap: 6px;
+    }
+
+
+    /*
+       Data i godzina mają całą linię,
+       dzięki czemu nie pojawi się np.
+       "1.09.2026, 12:..."
+    */
+    .admin-completed-list .shopping-summary-meta span:last-child,
+    .completed-list-panel .shopping-summary-meta span:last-child {
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+        min-width: 0;
+
+        justify-content: flex-start;
+
+        box-sizing: border-box;
+    }
+}
