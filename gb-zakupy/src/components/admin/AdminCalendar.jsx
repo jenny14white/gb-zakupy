@@ -89,18 +89,6 @@ export default function AdminCalendar({
 
     }, [events]);
 
-
-    /*
-     * Publiczny kalendarz zawsze ma 6 pełnych tygodni.
-     * Dzięki temu wysokość kalendarza nie zmienia się
-     * zależnie od miesiąca.
-     *
-     * Układ:
-     * Pn Wt Śr Cz Pt So Nd
-     *
-     * Dni poprzedniego i następnego miesiąca również
-     * są renderowane jako normalne pola.
-     */
     const calendarDays = useMemo(() => {
 
         const firstDay = new Date(
