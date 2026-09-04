@@ -25,7 +25,6 @@ const ADMIN_UIDS = [
 const TYPES = [
     "meeting",
     "birthday",
-    "company",
     "vacation",
     "holiday",
     "other",
@@ -44,6 +43,15 @@ const EMOJIS = [
     "🇵🇱",
     "❤️",
     "⭐",
+    "🎁",
+    "🏆",
+    "💼",
+    "📌",
+    "🔔",
+    "🌟",
+    "🥳",
+    "🍾",
+    "☀️",
 ];
 
 
@@ -51,12 +59,41 @@ const createEmptyForm = () => ({
     title: "",
     description: "",
     date: "",
+    endDate: "",
     time: "",
+    endTime: "",
     location: "",
     type: "meeting",
     emoji: "📅",
     recurring: false,
 });
+
+
+function formatDateForInput(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    const date =
+        value?.toDate?.() ??
+        new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "";
+    }
+
+    const year = date.getFullYear();
+    const month = String(
+        date.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        date.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
 
 
 export default function AdminEventsPage({ goBack }) {
@@ -77,7 +114,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        AUTHORIZATION
-       ===================================================== */
+    ===================================================== */
 
     useEffect(() => {
 
@@ -103,7 +140,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        EVENTS LISTENER
-       ===================================================== */
+    ===================================================== */
 
     useEffect(() => {
 
@@ -118,7 +155,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        STATISTICS
-       ===================================================== */
+    ===================================================== */
 
     const stats = useMemo(() => {
 
@@ -149,7 +186,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        FORM CHANGE
-       ===================================================== */
+    ===================================================== */
 
     function handleChange(e) {
 
@@ -172,8 +209,22 @@ export default function AdminEventsPage({ goBack }) {
 
 
     /* =====================================================
+       EMOJI CHANGE
+    ===================================================== */
+
+    function handleEmojiChange(emoji) {
+
+        setForm(prev => ({
+            ...prev,
+            emoji,
+        }));
+
+    }
+
+
+    /* =====================================================
        SUBMIT
-       ===================================================== */
+    ===================================================== */
 
     async function handleSubmit(e) {
 
@@ -200,14 +251,47 @@ export default function AdminEventsPage({ goBack }) {
         }
 
 
+        if (
+            form.endDate &&
+            form.endDate < form.date
+        ) {
+
+            alert(
+                "Data zakończenia nie może być wcześniejsza niż data rozpoczęcia."
+            );
+
+            return;
+        }
+
+
         try {
 
             const payload = {
+
                 ...form,
+
                 title: form.title.trim(),
-                description: form.description.trim(),
-                location: form.location.trim(),
-                date: new Date(form.date),
+
+                description:
+                    form.description.trim(),
+
+                location:
+                    form.location.trim(),
+
+                date:
+                    new Date(form.date),
+
+                endDate:
+                    new Date(
+                        form.endDate || form.date
+                    ),
+
+                time:
+                    form.time || "",
+
+                endTime:
+                    form.endTime || "",
+
             };
 
 
@@ -249,7 +333,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        EDIT EVENT
-       ===================================================== */
+    ===================================================== */
 
     function editEvent(event) {
 
@@ -257,32 +341,51 @@ export default function AdminEventsPage({ goBack }) {
             event.date?.toDate?.() ??
             new Date(event.date);
 
+        const endDate =
+            event.endDate?.toDate?.() ??
+            (
+                event.endDate
+                    ? new Date(event.endDate)
+                    : date
+            );
+
 
         setEditingId(event.id);
 
 
         setForm({
 
-            title: event.title || "",
+            title:
+                event.title || "",
 
-            description: event.description || "",
+            description:
+                event.description || "",
 
-            location: event.location || "",
+            location:
+                event.location || "",
 
             date:
-                date
-                    .toISOString()
-                    .split("T")[0],
+                formatDateForInput(date),
 
-            time: event.time || "",
+            endDate:
+                formatDateForInput(endDate),
 
-            type: event.type || "meeting",
+            time:
+                event.time || "",
 
-            emoji: event.emoji || "📅",
+            endTime:
+                event.endTime ||
+                event.time ||
+                "",
 
-            recurring: Boolean(
-                event.recurring
-            ),
+            type:
+                event.type || "meeting",
+
+            emoji:
+                event.emoji || "📅",
+
+            recurring:
+                Boolean(event.recurring),
 
         });
 
@@ -297,7 +400,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        DELETE EVENT
-       ===================================================== */
+    ===================================================== */
 
     async function removeEvent(id) {
 
@@ -334,7 +437,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        LOADING
-       ===================================================== */
+    ===================================================== */
 
     if (checking) {
 
@@ -359,7 +462,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        NO ACCESS
-       ===================================================== */
+    ===================================================== */
 
     if (!authorized) {
 
@@ -374,7 +477,7 @@ export default function AdminEventsPage({ goBack }) {
                         <div>
 
                             <span className="admin-events-eyebrow">
-                                GB PORTAL
+                                SEKRETARIAT
                             </span>
 
                             <h2>
@@ -410,7 +513,7 @@ export default function AdminEventsPage({ goBack }) {
 
     /* =====================================================
        MAIN PAGE
-       ===================================================== */
+    ===================================================== */
 
     return (
 
@@ -426,7 +529,7 @@ export default function AdminEventsPage({ goBack }) {
                 <div>
 
                     <span className="admin-events-eyebrow">
-                        GB PORTAL · ADMINISTRACJA
+                        SEKRETARIAT
                     </span>
 
 
@@ -543,12 +646,12 @@ export default function AdminEventsPage({ goBack }) {
                             </div>
 
 
-                            {/* DATE */}
+                            {/* DATE FROM */}
 
                             <div className="form-group">
 
                                 <label htmlFor="event-date">
-                                    Data
+                                    Data od
                                 </label>
 
                                 <input
@@ -562,12 +665,32 @@ export default function AdminEventsPage({ goBack }) {
                             </div>
 
 
-                            {/* TIME */}
+                            {/* DATE TO */}
+
+                            <div className="form-group">
+
+                                <label htmlFor="event-end-date">
+                                    Data do
+                                </label>
+
+                                <input
+                                    id="event-end-date"
+                                    type="date"
+                                    name="endDate"
+                                    value={form.endDate}
+                                    min={form.date || undefined}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+
+                            {/* TIME FROM */}
 
                             <div className="form-group">
 
                                 <label htmlFor="event-time">
-                                    Godzina
+                                    Godzina od
                                 </label>
 
                                 <input
@@ -581,9 +704,28 @@ export default function AdminEventsPage({ goBack }) {
                             </div>
 
 
-                            {/* TYPE */}
+                            {/* TIME TO */}
 
                             <div className="form-group">
+
+                                <label htmlFor="event-end-time">
+                                    Godzina do
+                                </label>
+
+                                <input
+                                    id="event-end-time"
+                                    type="time"
+                                    name="endTime"
+                                    value={form.endTime}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+
+                            {/* TYPE */}
+
+                            <div className="form-group full">
 
                                 <label htmlFor="event-type">
                                     Typ wydarzenia
@@ -616,31 +758,46 @@ export default function AdminEventsPage({ goBack }) {
 
                             {/* EMOJI */}
 
-                            <div className="form-group">
+                            <div className="form-group full">
 
-                                <label htmlFor="event-emoji">
+                                <label>
                                     Ikona wydarzenia
                                 </label>
 
-                                <select
-                                    id="event-emoji"
-                                    name="emoji"
-                                    value={form.emoji}
-                                    onChange={handleChange}
+                                <div
+                                    className="event-emoji-grid"
+                                    role="radiogroup"
+                                    aria-label="Ikona wydarzenia"
                                 >
 
                                     {EMOJIS.map(icon => (
 
-                                        <option
+                                        <button
                                             key={icon}
-                                            value={icon}
+                                            type="button"
+                                            className={
+                                                `event-emoji-option ${
+                                                    form.emoji === icon
+                                                        ? "selected"
+                                                        : ""
+                                                }`
+                                            }
+                                            onClick={() =>
+                                                handleEmojiChange(icon)
+                                            }
+                                            aria-label={`Wybierz ikonę ${icon}`}
+                                            aria-pressed={
+                                                form.emoji === icon
+                                            }
                                         >
-                                            {icon}
-                                        </option>
+                                            <span>
+                                                {icon}
+                                            </span>
+                                        </button>
 
                                     ))}
 
-                                </select>
+                                </div>
 
                             </div>
 
