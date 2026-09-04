@@ -1,768 +1,2863 @@
+/* =====================================================
+   ADMIN CALENDAR
+   DESKTOP + MOBILE
+   WERSJA ZGODNA ZE ZWYKŁYM KALENDARZEM
+   ===================================================== */
+
+
+/* =====================================================
+   STRONA ADMIN
+===================================================== */
+
+.calendar-page{
+
+    width:100%;
+    min-width:0;
+
+    box-sizing:border-box;
+
+    padding:24px 40px;
+
+    background:var(--page-gradient);
+
+}
+
+
+/* =====================================================
+   WRAPPER KALENDARZA
+   UWAGA:
+   NIE ZMIENIAMY JEGO POŁOŻENIA W ADMINIE
+===================================================== */
+
 .calendar-wrapper{
-position:relative;
-display:flex;
-flex-direction:column;
-gap:22px;
-padding:22px;
-overflow:hidden;
-border:1px solid var(--glass-border);
-border-radius:var(--radius-xl);
-background:var(--glass-background);
-backdrop-filter:blur(var(--glass-blur));
--webkit-backdrop-filter:blur(var(--glass-blur));
-box-shadow:var(--shadow-large);
+
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:22px;
+
+    width:100%;
+    min-width:0;
+
+    padding:22px;
+
+    overflow:hidden;
+
+    border:1px solid var(--glass-border);
+
+    border-radius:var(--radius-xl);
+
+    background:var(--glass-background);
+
+    backdrop-filter:blur(var(--glass-blur));
+    -webkit-backdrop-filter:blur(var(--glass-blur));
+
+    box-shadow:var(--shadow-large);
+
+    box-sizing:border-box;
+
 }
 
 
 .calendar-wrapper::before{
-content:"";
-position:absolute;
-inset:0;
-pointer-events:none;
-background:var(--glass-gradient);
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:var(--glass-gradient);
+
 }
+
 
 .calendar-wrapper::after{
-content:"";
-position:absolute;
-top:-100px;
-right:-100px;
-width:220px;
-height:220px;
-border-radius:50%;
-background:radial-gradient(var(--page-glow),transparent 70%);
-filter:blur(35px);
+
+    content:"";
+
+    position:absolute;
+
+    top:-100px;
+    right:-100px;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            var(--page-glow),
+            transparent 70%
+        );
+
+    filter:blur(35px);
+
+    pointer-events:none;
+
 }
+
+
+.calendar-wrapper > *{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =====================================================
+   HEADER STRONY
+===================================================== */
+
+.calendar-page-header{
+
+    width:100%;
+
+    max-width:none;
+
+    margin:0 0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+    padding:22px 32px;
+
+    border-radius:28px;
+
+    background:var(--glass-background);
+
+    backdrop-filter:blur(var(--glass-blur));
+    -webkit-backdrop-filter:blur(var(--glass-blur));
+
+    border:1px solid var(--glass-border);
+
+    box-shadow:var(--shadow-medium);
+
+    box-sizing:border-box;
+
+}
+
+
+.calendar-page-header h1{
+
+    margin:0;
+
+    color:var(--text-white);
+
+    font-size:30px;
+
+    font-weight:900;
+
+    line-height:1.15;
+
+}
+
+
+.calendar-eyebrow{
+
+    margin:0 0 6px;
+
+    color:var(--accent);
+
+    font-weight:900;
+
+    letter-spacing:.18em;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+}
+
+
+.calendar-description{
+
+    margin:8px 0 0;
+
+    color:var(--text-on-primary);
+
+    font-size:16px;
+
+    line-height:1.4;
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back-button{
+
+    align-self:flex-start;
+
+    margin-bottom:24px;
+
+    border:1px solid var(--glass-border);
+
+    padding:12px 22px;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    background:var(--glass-background);
+
+    color:var(--text-white);
+
+    font-weight:800;
+
+    backdrop-filter:blur(var(--glass-blur));
+
+    -webkit-backdrop-filter:blur(var(--glass-blur));
+
+    transition:.25s;
+
+}
+
+
+.back-button:hover{
+
+    background:var(--glass-hover);
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-theme);
+
+}
+
+
+/* =====================================================
+   HEADER KALENDARZA
+===================================================== */
 
 .calendar-header{
-position:relative;
-z-index:2;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:18px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    width:100%;
+
+    max-width:none;
+
+    margin:0;
+
+    padding:18px 28px 34px;
+
+    border-radius:28px;
+
+    background:var(--header-gradient);
+
+    box-shadow:var(--shadow-medium);
+
+    box-sizing:border-box;
+
 }
 
-.calendar-header h2{
-flex:1;
-margin:0;
-color:var(--text);
-text-align:center;
-font-size:1.8rem;
-font-weight:900;
-letter-spacing:-1px;
+
+.calendar-header::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:-10%;
+    right:-10%;
+
+    bottom:-60px;
+
+    height:95px;
+
+    background:#f8fbff;
+
+    border-radius:50% 50% 0 0;
+
 }
+
+
+.calendar-header > *{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =====================================================
+   GÓRA HEADERA
+===================================================== */
+
+.calendar-header-top{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+
+.calendar-year{
+
+    margin:0;
+
+    color:var(--text-on-primary);
+
+    font-size:18px;
+
+    letter-spacing:8px;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+}
+
+
+.calendar-month{
+
+    margin:5px 0;
+
+    color:var(--text-white);
+
+    font-size:48px;
+
+    font-weight:900;
+
+    line-height:1;
+
+    letter-spacing:5px;
+
+    font-family:
+        "Bebas Neue",
+        sans-serif;
+
+}
+
+
+/* =====================================================
+   DEKORACYJNA LINIA
+===================================================== */
+
+.calendar-divider{
+
+    width:170px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:14px auto 0;
+
+}
+
+
+.calendar-divider span{
+
+    flex:1;
+
+    height:2px;
+
+    background:var(--accent);
+
+}
+
+
+.calendar-divider-icon{
+
+    width:32px;
+    height:32px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--card);
+
+    color:var(--primary);
+
+    font-size:18px;
+
+}
+
+
+/* =====================================================
+   NAWIGACJA
+===================================================== */
 
 .calendar-navigation{
-display:flex;
-align-items:center;
-gap:10px;
+
+    position:relative;
+
+    z-index:3;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    width:100%;
+
+    margin-top:10px;
+
 }
+
 
 .calendar-nav,
-.calendar-today{
-display:flex;
-align-items:center;
-justify-content:center;
-border:none;
-cursor:pointer;
-transition:.25s;
+.calendar-nav-button,
+.calendar-today,
+.today-button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.25s;
+
 }
 
-.calendar-nav{
-width:42px;
-height:42px;
-border-radius:var(--radius-small);
-color:var(--text);
-background:var(--surface-secondary);
-border:1px solid var(--border);
-backdrop-filter:blur(12px);
+
+/* =====================================================
+   STRZAŁKI
+===================================================== */
+
+.calendar-nav,
+.calendar-nav-button{
+
+    width:45px;
+    height:45px;
+
+    flex:0 0 45px;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    color:var(--primary);
+
+    font-size:18px;
+
+    font-weight:900;
+
 }
 
-.calendar-nav:hover{
-transform:translateY(-2px);
-background:var(--surface-hover);
-box-shadow:var(--shadow-small);
+
+.calendar-nav:hover,
+.calendar-nav-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-small);
+
 }
 
-.calendar-nav:active{
-transform:scale(.95);
+
+.calendar-nav:active,
+.calendar-nav-button:active{
+
+    transform:scale(.95);
+
 }
 
-.calendar-today{
-height:42px;
-padding:0 16px;
-gap:8px;
-border-radius:var(--radius-small);
-color:var(--button-text);
-font-size:.85rem;
-font-weight:700;
-background:var(--accent);
+
+/* =====================================================
+   DZISIAJ
+===================================================== */
+
+.calendar-today,
+.today-button{
+
+    height:45px;
+
+    padding:0 25px;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    color:var(--primary);
+
+    font-size:15px;
+
+    font-weight:900;
+
 }
 
-.calendar-today:hover{
-transform:translateY(-2px);
-box-shadow:var(--shadow-theme);
+
+.calendar-today:hover,
+.today-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-small);
+
 }
+
+
+.calendar-today:active,
+.today-button:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* =====================================================
+   CHIP MIESIĄCA
+===================================================== */
 
 .calendar-month-chip{
-display:inline-flex;
-align-items:center;
-gap:8px;
-width:max-content;
-padding:8px 14px;
-border-radius:999px;
-border:1px solid var(--border);
-background:var(--surface-secondary);
-color:var(--accent);
-font-size:.75rem;
-font-weight:800;
-letter-spacing:1px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    width:max-content;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    border:1px solid var(--border);
+
+    background:var(--surface-secondary);
+
+    color:var(--accent);
+
+    font-size:.75rem;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
 }
+
+
+/* =====================================================
+   UKŁAD
+===================================================== */
+
+.calendar-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    width:100%;
+
+    min-width:0;
+
+}
+
+
+.calendar-main{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    width:100%;
+
+    min-width:0;
+
+}
+
+
+.calendar-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        320px;
+
+    gap:24px;
+
+    width:100%;
+
+    min-width:0;
+
+}
+
+
+/* =====================================================
+   REACT CALENDAR
+===================================================== */
 
 .react-calendar{
-position:relative;
-z-index:2;
-width:100%;
-border:none;
-background:transparent;
-font-family:inherit;
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    max-width:none;
+
+    border:none;
+
+    background:transparent;
+
+    font-family:inherit;
+
 }
+
+
+/* =====================================================
+   MIESIĄC
+===================================================== */
 
 .react-calendar__month-view{
-display:flex;
-flex-direction:column;
-gap:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
 }
+
+
+/* =====================================================
+   DNI TYGODNIA
+===================================================== */
 
 .react-calendar__month-view__weekdays{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:8px;
-margin-bottom:4px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,minmax(0,1fr));
+
+    gap:8px;
+
+    margin-bottom:4px;
+
 }
 
+
 .react-calendar__month-view__weekdays__weekday{
-display:flex;
-align-items:center;
-justify-content:center;
-padding:8px;
-color:var(--text-muted);
-font-size:.7rem;
-font-weight:800;
-letter-spacing:1px;
-text-transform:uppercase;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px;
+
+    color:var(--text-muted);
+
+    font-size:.7rem;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
 }
+
 
 .react-calendar__month-view__weekdays__weekday abbr{
-border:0;
-text-decoration:none;
+
+    border:0;
+
+    text-decoration:none;
+
 }
+
+
+/* =====================================================
+   DNI
+===================================================== */
 
 .react-calendar__month-view__days{
-display:grid!important;
-grid-template-columns:repeat(7,1fr);
-gap:8px;
+
+    display:grid !important;
+
+    grid-template-columns:
+        repeat(7,minmax(0,1fr));
+
+    gap:8px;
+
 }
+
+
+/* =====================================================
+   POJEDYNCZY DZIEŃ
+===================================================== */
 
 .react-calendar__tile{
-position:relative;
-display:flex;
-align-items:flex-start;
-justify-content:flex-start;
-height:72px;
-padding:10px;
-overflow:hidden;
-border:1px solid var(--border);
-border-radius:var(--radius-medium);
-background:var(--surface-secondary);
-color:var(--text);
-font-size:.9rem;
-font-weight:700;
-transition:.25s;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:flex-start;
+
+    width:100%;
+
+    min-width:0;
+
+    height:92px;
+
+    padding:10px;
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-medium);
+
+    background:var(--surface-secondary);
+
+    color:var(--text);
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+    transition:.25s;
+
+    box-sizing:border-box;
+
 }
 
-.react-calendar__tile>*{
-position:relative;
-z-index:2;
+
+.react-calendar__tile > *{
+
+    position:relative;
+
+    z-index:2;
+
 }
+
 
 .react-calendar__tile:hover{
-transform:translateY(-3px);
-background:var(--surface-hover);
-box-shadow:var(--shadow-medium);
+
+    transform:translateY(-3px);
+
+    background:var(--surface-hover);
+
+    box-shadow:var(--shadow-medium);
+
 }
+
 
 .react-calendar__tile--now{
-border-color:var(--accent);
-box-shadow:inset 0 0 0 1px var(--accent);
+
+    border-color:var(--accent);
+
+    box-shadow:
+        inset 0 0 0 1px var(--accent);
+
 }
+
 
 .react-calendar__tile--now::after{
-content:"";
-position:absolute;
-top:8px;
-right:8px;
-width:7px;
-height:7px;
-border-radius:50%;
-background:var(--accent);
-box-shadow:0 0 12px var(--accent);
+
+    content:"";
+
+    position:absolute;
+
+    top:8px;
+    right:8px;
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    box-shadow:
+        0 0 12px var(--accent);
+
 }
+
 
 .react-calendar__tile--active{
-color:var(--button-text)!important;
-background:var(--accent)!important;
-border-color:transparent;
-box-shadow:var(--shadow-theme);
+
+    color:var(--button-text)!important;
+
+    background:var(--accent)!important;
+
+    border-color:transparent;
+
+    box-shadow:var(--shadow-theme);
+
 }
+
 
 .react-calendar__tile--active:hover{
-transform:translateY(-3px);
+
+    transform:translateY(-3px);
+
 }
+
 
 .react-calendar__tile:disabled{
-opacity:.25;
-background:transparent;
+
+    opacity:.25;
+
+    background:transparent;
+
 }
+
 
 .react-calendar__month-view__days__day--weekend{
-color:var(--danger);
+
+    color:var(--danger);
+
 }
+
 
 .react-calendar__month-view__days__day--neighboringMonth{
-opacity:.35;
+
+    opacity:.35;
+
 }
+
+
+/* =====================================================
+   EVENTY W DNIU
+===================================================== */
+
+.calendar-day-events{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+    width:100%;
+
+    min-width:0;
+
+    margin-top:6px;
+
+    overflow:hidden;
+
+}
+
+
+.calendar-event-bubble{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:6px;
+
+    width:100%;
+
+    min-width:0;
+
+    padding:5px 8px;
+
+    border-radius:10px;
+
+    background:var(--surface-hover);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow-small);
+
+    transition:.2s;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    box-sizing:border-box;
+
+}
+
+
+.calendar-event-bubble:hover{
+
+    transform:translateY(-1px);
+
+    border-color:var(--primary);
+
+    box-shadow:var(--shadow-medium);
+
+}
+
+
+/* =====================================================
+   EVENT — IKONA
+===================================================== */
+
+.calendar-event-emoji{
+
+    flex:0 0 auto;
+
+    font-size:10px;
+
+    line-height:1.2;
+
+    margin-top:1px;
+
+}
+
+
+/* =====================================================
+   EVENT — NAZWA
+===================================================== */
+
+.calendar-event-name{
+
+    flex:1;
+
+    min-width:0;
+
+    overflow:hidden;
+
+    color:var(--text);
+
+    font-size:10px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    white-space:normal;
+
+    overflow-wrap:anywhere;
+
+    word-break:normal;
+
+}
+
+
+/* =====================================================
+   +X EVENTÓW
+===================================================== */
+
+.calendar-event-more{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    align-self:flex-start;
+
+    margin-top:2px;
+
+    padding:2px 8px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(12px);
+
+    -webkit-backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+    color:var(--primary);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    line-height:1;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   TYPY EVENTÓW
+===================================================== */
+
+.calendar-event-bubble.company{
+
+    border-left:3px solid #0353a4;
+
+}
+
+
+.calendar-event-bubble.holiday{
+
+    border-left:3px solid #22c55e;
+
+}
+
+
+.calendar-event-bubble.birthday{
+
+    border-left:3px solid #ec4899;
+
+}
+
+
+.calendar-event-bubble.meeting{
+
+    border-left:3px solid #8b5cf6;
+
+}
+
+
+.calendar-event-bubble.vacation{
+
+    border-left:3px solid #f59e0b;
+
+}
+
+
+.calendar-event-bubble.other{
+
+    border-left:3px solid #64748b;
+
+}
+
+
+/* =====================================================
+   KROPKI EVENTÓW
+===================================================== */
+
 .calendar-event-dot,
 .calendar-event-dots{
-position:absolute;
-left:50%;
-bottom:8px;
-transform:translateX(-50%);
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:8px;
+
+    transform:translateX(-50%);
+
 }
 
+
 .calendar-event-dot{
-width:7px;
-height:7px;
-border-radius:50%;
-background:var(--accent);
-box-shadow:0 0 12px var(--accent);
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    box-shadow:
+        0 0 12px var(--accent);
+
 }
+
 
 .calendar-event-dots{
-display:flex;
-gap:4px;
+
+    display:flex;
+
+    gap:4px;
+
 }
+
 
 .calendar-event-dots span{
-width:6px;
-height:6px;
-border-radius:50%;
-background:var(--accent);
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
 }
+
 
 .calendar-more-events{
-position:absolute;
-right:8px;
-bottom:8px;
-display:flex;
-align-items:center;
-justify-content:center;
-min-width:20px;
-height:20px;
-padding:0 5px;
-border-radius:999px;
-border:1px solid var(--border);
-background:var(--surface-secondary);
-color:var(--text);
-font-size:.65rem;
-font-weight:800;
+
+    position:absolute;
+
+    right:8px;
+    bottom:8px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-width:20px;
+    height:20px;
+
+    padding:0 5px;
+
+    border-radius:999px;
+
+    border:1px solid var(--border);
+
+    background:var(--surface-secondary);
+
+    color:var(--text);
+
+    font-size:.65rem;
+
+    font-weight:800;
+
 }
 
-.calendar-day-chip{
-position:absolute;
-left:8px;
-bottom:8px;
-max-width:70%;
-overflow:hidden;
-white-space:nowrap;
-text-overflow:ellipsis;
-padding:3px 7px;
-border-radius:999px;
-border:1px solid var(--border);
-background:var(--surface-secondary);
-color:var(--text-secondary);
-font-size:.58rem;
-font-weight:700;
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.calendar-sidebar{
+
+    width:100%;
+
+    min-width:0;
+
+    padding:20px;
+
+    border-radius:28px;
+
+    background:var(--card);
+
+    border:1px solid var(--border-light);
+
+    box-shadow:var(--shadow-medium);
+
+    box-sizing:border-box;
+
 }
 
-.calendar-events{
-display:flex;
-flex-direction:column;
-gap:12px;
-margin-top:14px;
+
+.selected-day{
+
+    margin:0 0 14px;
+
+    color:var(--primary);
+
+    font-size:21px;
+
+    font-weight:800;
+
 }
 
-.calendar-events-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:14px;
+
+/* =====================================================
+   EVENT CARD
+===================================================== */
+
+.event-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    width:100%;
+
+    min-width:0;
+
+    margin-bottom:16px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border-left:6px solid #64748b;
+
+    box-shadow:var(--shadow-small);
+
+    transition:.25s ease;
+
+    box-sizing:border-box;
+
 }
 
-.calendar-events-header h3{
-margin:0;
-color:var(--text);
-font-size:1.1rem;
-font-weight:800;
+
+.event-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-medium);
+
 }
 
-.calendar-events-header p{
-margin:4px 0 0;
-color:var(--text-muted);
-font-size:.85rem;
+
+.event-card-header{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:16px;
+
 }
 
-.calendar-events-count{
-padding:6px 12px;
-border-radius:999px;
-background:var(--surface-secondary);
-border:1px solid var(--border);
-color:var(--accent);
-font-size:.75rem;
-font-weight:800;
+
+.event-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-width:0;
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:18px;
+
+    font-weight:800;
+
 }
 
-.calendar-event-card{
-position:relative;
-display:flex;
-align-items:center;
-gap:14px;
-padding:16px;
-overflow:hidden;
-border-radius:var(--radius-medium);
-border:1px solid var(--border);
-background:var(--surface-secondary);
-transition:.25s;
+
+.event-emoji{
+
+    flex:0 0 auto;
+
+    font-size:20px;
+
 }
 
-.calendar-event-card:hover{
-transform:translateY(-3px);
-background:var(--surface-hover);
-box-shadow:var(--shadow-medium);
+
+.event-divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:var(--border);
+
 }
 
-.calendar-event-bar{
-width:4px;
-align-self:stretch;
-border-radius:999px;
-background:var(--accent);
+
+.event-card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
 }
 
-.calendar-event-time{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:3px;
-min-width:65px;
-padding:8px;
-border-radius:var(--radius-small);
-background:var(--surface);
-border:1px solid var(--border);
+
+.event-row{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    min-width:0;
+
+    color:var(--text-secondary);
+
+    font-size:14px;
+
+    line-height:1.4;
+
 }
 
-.calendar-event-time strong{
-color:var(--text);
-font-size:.9rem;
+
+.event-icon{
+
+    width:18px;
+
+    flex:0 0 18px;
+
+    text-align:center;
+
 }
 
-.calendar-event-time span{
-color:var(--text-muted);
-font-size:.65rem;
-text-transform:uppercase;
+
+.event-text{
+
+    flex:1;
+
+    min-width:0;
+
+    line-height:1.4;
+
+    overflow-wrap:anywhere;
+
 }
 
-.calendar-event-content{
-flex:1;
-display:flex;
-flex-direction:column;
-gap:6px;
+
+.event-description{
+
+    color:var(--text-muted);
+
+    font-size:14px;
+
+    line-height:1.5;
+
 }
 
-.calendar-event-content h4{
-margin:0;
-color:var(--text);
-font-size:.95rem;
-font-weight:800;
+
+.event-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:max-content;
+
+    max-width:100%;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.05em;
+
+    white-space:nowrap;
+
 }
 
-.calendar-event-content p{
-margin:0;
-color:var(--text-secondary);
-font-size:.85rem;
-line-height:1.45;
+
+/* =====================================================
+   TYPY EVENTÓW
+===================================================== */
+
+.event-card.birthday{
+
+    border-left-color:#ec4899;
+
+    background:#fff5fb;
+
 }
 
-.calendar-event-category{
-width:max-content;
-padding:4px 9px;
-border-radius:999px;
-border:1px solid var(--border);
-background:var(--surface);
-color:var(--accent);
-font-size:.62rem;
-font-weight:800;
-letter-spacing:.5px;
+
+.event-badge.birthday{
+
+    background:#fde7f3;
+
+    color:#be185d;
+
 }
 
-.calendar-event-actions{
-display:flex;
-gap:8px;
+
+.event-card.meeting{
+
+    border-left-color:#8b5cf6;
+
+    background:#faf5ff;
+
 }
 
-.calendar-event-action{
-display:flex;
-align-items:center;
-justify-content:center;
-width:36px;
-height:36px;
-border-radius:var(--radius-small);
-border:1px solid var(--border);
-background:var(--surface);
-color:var(--text);
-cursor:pointer;
-transition:.25s;
+
+.event-badge.meeting{
+
+    background:#ede9fe;
+
+    color:#6d28d9;
+
 }
 
-.calendar-event-action:hover{
-transform:scale(1.08);
-background:var(--surface-hover);
+
+.event-card.company{
+
+    border-left-color:#0353a4;
+
+    background:#f4f9ff;
+
 }
 
-.calendar-empty{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:14px;
-padding:45px 20px;
-border-radius:var(--radius-large);
-border:1px dashed var(--border);
-background:var(--surface-secondary);
-text-align:center;
+
+.event-badge.company{
+
+    background:#dbeafe;
+
+    color:#0353a4;
+
 }
 
-.calendar-empty-icon{
-display:flex;
-align-items:center;
-justify-content:center;
-width:64px;
-height:64px;
-border-radius:50%;
-background:var(--surface);
-border:1px solid var(--border);
-font-size:1.6rem;
+
+.event-card.holiday{
+
+    border-left-color:#22c55e;
+
+    background:#f2fff6;
+
 }
 
-.calendar-empty h3{
-margin:0;
-color:var(--text);
-font-size:1.1rem;
+
+.event-badge.holiday{
+
+    background:#dcfce7;
+
+    color:#166534;
+
 }
 
-.calendar-empty p{
-margin:0;
-max-width:360px;
-color:var(--text-muted);
-font-size:.85rem;
-line-height:1.5;
+
+.event-card.vacation{
+
+    border-left-color:#f59e0b;
+
+    background:#fff9ef;
+
 }
+
+
+.event-badge.vacation{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+
+.event-card.other{
+
+    border-left-color:#64748b;
+
+    background:#f8fafc;
+
+}
+
+
+.event-badge.other{
+
+    background:#e2e8f0;
+
+    color:#475569;
+
+}
+
+
+/* =====================================================
+   ADD TO CALENDAR
+===================================================== */
+
+.event-card-actions{
+
+    position:relative;
+
+    margin-left:auto;
+
+}
+
+
+.calendar-add-button{
+
+    width:22px;
+    height:22px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    transition:.2s;
+
+}
+
+
+.calendar-add-button:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:var(--shadow-small);
+
+}
+
+
+.calendar-add-menu{
+
+    position:absolute;
+
+    top:30px;
+    right:0;
+
+    min-width:170px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    background:var(--card);
+
+    border:1px solid var(--border-light);
+
+    box-shadow:var(--shadow-medium);
+
+    z-index:9999;
+
+}
+
+
+.calendar-add-menu button{
+
+    display:flex;
+
+    align-items:center;
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    padding:10px 12px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    transition:.2s;
+
+}
+
+
+.calendar-add-menu button:hover{
+
+    background:var(--surface-hover);
+
+}
+
+
+/* =====================================================
+   ANIMACJA
+===================================================== */
+
 .calendar-wrapper,
 .calendar-event-card,
 .react-calendar__tile{
-animation:calendarFade .35s ease both;
+
+    animation:calendarFade .35s ease both;
+
 }
+
 
 @keyframes calendarFade{
-from{
-opacity:0;
-transform:translateY(8px);
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
 }
-to{
-opacity:1;
-transform:none;
-}
-}
+
 
 .calendar-event-card:nth-child(2){
-animation-delay:.05s;
+
+    animation-delay:.05s;
+
 }
+
 
 .calendar-event-card:nth-child(3){
-animation-delay:.1s;
+
+    animation-delay:.1s;
+
 }
+
 
 .calendar-event-card:nth-child(4){
-animation-delay:.15s;
+
+    animation-delay:.15s;
+
 }
+
 
 .calendar-event-card:nth-child(5){
-animation-delay:.2s;
+
+    animation-delay:.2s;
+
 }
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
 
 .calendar-nav:focus-visible,
+.calendar-nav-button:focus-visible,
 .calendar-today:focus-visible,
+.today-button:focus-visible,
 .calendar-event-action:focus-visible,
 .react-calendar__tile:focus-visible{
-outline:none;
-box-shadow:0 0 0 3px var(--focus-ring);
+
+    outline:none;
+
+    box-shadow:
+        0 0 0 3px var(--focus-ring);
+
 }
+
+
+/* =====================================================
+   EVENT COLORS
+===================================================== */
 
 .calendar-event-dot.success{
-background:var(--success);
+
+    background:var(--success);
+
 }
+
 
 .calendar-event-dot.warning{
-background:var(--warning);
+
+    background:var(--warning);
+
 }
+
 
 .calendar-event-dot.error{
-background:var(--danger);
+
+    background:var(--danger);
+
 }
+
 
 .calendar-event-dot.info{
-background:var(--info);
+
+    background:var(--info);
+
 }
+
 
 .calendar-event-dot.purple{
-background:var(--purple);
+
+    background:var(--purple);
+
 }
+
+
+/* =====================================================
+   EVENT CONTENT
+===================================================== */
 
 .calendar-event-card .calendar-event-content strong{
-color:var(--text);
+
+    color:var(--text);
+
 }
+
 
 .calendar-event-card small{
-color:var(--text-muted);
+
+    color:var(--text-muted);
+
 }
+
 
 .calendar-event-card em{
-color:var(--accent);
-font-style:normal;
-}
 
-@media(max-width:1200px){
+    color:var(--accent);
 
-.calendar-wrapper{
-padding:20px;
-}
-
-.react-calendar__tile{
-height:64px;
-}
-
-.calendar-header h2{
-font-size:1.6rem;
-}
+    font-style:normal;
 
 }
 
-@media(max-width:992px){
 
-.calendar-header{
-flex-wrap:wrap;
-justify-content:center;
-}
+/* =====================================================
+   TABLET
+===================================================== */
 
-.calendar-header h2{
-order:1;
-width:100%;
-}
+@media (max-width:1200px){
 
-.calendar-navigation{
-order:2;
-}
+    .calendar-page{
 
-.calendar-today{
-order:3;
-}
+        padding:
+            20px
+            24px;
 
-.calendar-event-card{
-flex-wrap:wrap;
-}
+    }
 
-.calendar-event-actions{
-margin-left:auto;
-}
 
-}
+    .calendar-wrapper{
 
-@media(max-width:768px){
+        padding:20px;
 
-.calendar-wrapper{
-padding:16px;
-border-radius:20px;
-}
+    }
 
-.react-calendar__month-view__days,
-.react-calendar__month-view__weekdays{
-gap:6px;
-}
 
-.react-calendar__tile{
-height:56px;
-padding:8px;
-border-radius:12px;
-font-size:.8rem;
-}
+    .calendar-layout{
 
-.calendar-nav{
-width:38px;
-height:38px;
-border-radius:12px;
-}
+        grid-template-columns:
+            minmax(0,1fr)
+            300px;
 
-.calendar-today{
-height:38px;
-padding:0 12px;
-font-size:.75rem;
-}
+        gap:20px;
 
-.calendar-event-card{
-padding:12px;
-gap:10px;
-}
+    }
 
-.calendar-event-time{
-min-width:60px;
-}
 
-}
-@media(max-width:600px){
+    .react-calendar__tile{
 
-.calendar-header h2{
-font-size:1.35rem;
-}
+        height:78px;
 
-.react-calendar__month-view__weekdays__weekday{
-padding:5px;
-font-size:.6rem;
-}
+    }
 
-.react-calendar__tile{
-height:48px;
-padding:6px;
-border-radius:10px;
-font-size:.75rem;
-}
 
-.calendar-event-dot{
-width:5px;
-height:5px;
-bottom:6px;
-}
+    .calendar-header h2{
 
-.calendar-day-chip{
-display:none;
-}
+        font-size:1.6rem;
 
-.calendar-events-header h3{
-font-size:1rem;
-}
-
-.calendar-event-content h4{
-font-size:.85rem;
-}
-
-.calendar-event-content p{
-font-size:.75rem;
-}
-
-.calendar-event-action{
-width:32px;
-height:32px;
-border-radius:10px;
-font-size:.8rem;
-}
+    }
 
 }
 
-@media(max-width:480px){
 
-.calendar-wrapper{
-padding:12px;
-gap:16px;
-}
+/* =====================================================
+   TABLET / MAŁY DESKTOP
+===================================================== */
 
-.calendar-navigation{
-gap:6px;
-}
+@media (max-width:992px){
 
-.calendar-nav{
-width:34px;
-height:34px;
-}
+    .calendar-header{
 
-.calendar-today{
-width:auto;
-padding:0 10px;
-}
+        padding:
+            18px
+            22px
+            32px;
 
-.react-calendar__month-view__days{
-gap:4px;
-}
+    }
 
-.react-calendar__tile{
-height:42px;
-padding:5px;
-border-radius:9px;
-}
 
-.react-calendar__month-view__weekdays__weekday{
-letter-spacing:0;
-}
+    .calendar-header h2{
 
-.calendar-event-card{
-flex-direction:column;
-align-items:stretch;
-}
+        font-size:1.5rem;
 
-.calendar-event-bar{
-height:4px;
-width:100%;
-}
+    }
 
-.calendar-event-time{
-width:100%;
-flex-direction:row;
-justify-content:flex-start;
-}
 
-.calendar-event-actions{
-justify-content:flex-end;
-}
+    .calendar-layout{
+
+        grid-template-columns:
+            minmax(0,1fr);
+
+    }
+
+
+    .calendar-sidebar{
+
+        width:100%;
+
+    }
+
+
+    .event-card{
+
+        flex-wrap:wrap;
+
+    }
+
+
+    .event-card-actions{
+
+        margin-left:auto;
+
+    }
 
 }
 
-@media(prefers-reduced-motion:reduce){
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:767px){
+
+    *,
+    *::before,
+    *::after{
+
+        box-sizing:border-box;
+
+    }
+
+
+    html,
+    body{
+
+        overflow-x:hidden;
+
+    }
+
+
+    /* =================================================
+       STRONA
+    ================================================= */
+
+    .calendar-page{
+
+        width:100%;
+        max-width:100%;
+
+        min-height:100vh;
+
+        margin:0 auto;
+
+        padding:8px;
+
+        overflow-x:hidden;
+
+        background:var(--page-gradient);
+
+    }
+
+
+    /* =================================================
+       HEADER STRONY
+    ================================================= */
+
+    .calendar-page-header{
+
+        width:100%;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:14px;
+
+        padding:16px;
+
+        margin-bottom:14px;
+
+        border-radius:22px;
+
+    }
+
+
+    .calendar-page-header h1{
+
+        font-size:24px;
+
+        line-height:1.2;
+
+    }
+
+
+    .calendar-eyebrow{
+
+        margin:0;
+
+        font-size:11px;
+
+    }
+
+
+    .calendar-description{
+
+        margin:0;
+
+        font-size:13px;
+
+        line-height:1.45;
+
+    }
+
+
+    .back-button{
+
+        width:100%;
+
+        margin-bottom:0;
+
+        padding:12px;
+
+        border-radius:14px;
+
+        font-size:15px;
+
+    }
+
+
+    /* =================================================
+       WRAPPER
+    ================================================= */
+
+    .calendar-wrapper{
+
+        width:100%;
+
+        gap:14px;
+
+        padding:16px;
+
+        border-radius:20px;
+
+        overflow:hidden;
+
+    }
+
+
+    /* =================================================
+       HEADER MIESIĄCA
+    ================================================= */
+
+    .calendar-header{
+
+        width:100%;
+
+        padding:
+            18px
+            12px
+            34px;
+
+        border-radius:24px;
+
+    }
+
+
+    .calendar-header::after{
+
+        left:-8%;
+        right:-8%;
+
+        bottom:-62px;
+
+        height:96px;
+
+    }
+
+
+    .calendar-header-top{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        text-align:center;
+
+    }
+
+
+    .calendar-year{
+
+        font-size:18px;
+
+        letter-spacing:7px;
+
+    }
+
+
+    .calendar-month{
+
+        margin:4px 0 0;
+
+        font-size:42px;
+
+        line-height:1;
+
+        letter-spacing:3px;
+
+    }
+
+
+    /* =================================================
+       DEKORACJA
+    ================================================= */
+
+    .calendar-divider{
+
+        width:170px;
+
+        margin-top:14px;
+
+    }
+
+
+    .calendar-divider-icon{
+
+        width:32px;
+        height:32px;
+
+        font-size:18px;
+
+    }
+
+
+    /* =================================================
+       NAWIGACJA
+    ================================================= */
+
+    .calendar-navigation{
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        flex-wrap:nowrap;
+
+        gap:8px;
+
+        width:100%;
+
+        margin-top:18px;
+
+    }
+
+
+    .calendar-nav,
+    .calendar-nav-button{
+
+        width:42px;
+        height:42px;
+
+        flex:0 0 42px;
+
+        border-radius:14px;
+
+    }
+
+
+    .calendar-today,
+    .today-button{
+
+        flex:1;
+
+        min-width:0;
+
+        max-width:150px;
+
+        height:42px;
+
+        padding:
+            11px
+            14px;
+
+        border-radius:14px;
+
+        font-size:15px;
+
+    }
+
+
+    /* =================================================
+       KALENDARZ
+    ================================================= */
+
+    .react-calendar{
+
+        width:100%;
+
+    }
+
+
+    .react-calendar__month-view{
+
+        gap:8px;
+
+    }
+
+
+    .react-calendar__month-view__weekdays{
+
+        grid-template-columns:
+            repeat(7,minmax(0,1fr));
+
+        gap:4px;
+
+        margin-bottom:2px;
+
+    }
+
+
+    .react-calendar__month-view__weekdays__weekday{
+
+        padding:8px 0;
+
+        font-size:10px;
+
+        letter-spacing:0;
+
+    }
+
+
+    .react-calendar__month-view__days{
+
+        grid-template-columns:
+            repeat(7,minmax(0,1fr));
+
+        gap:3px;
+
+    }
+
+
+    .react-calendar__tile{
+
+        width:100%;
+
+        min-width:0;
+
+        height:auto;
+
+        aspect-ratio:1;
+
+        padding:5px;
+
+        border-radius:10px;
+
+        font-size:11px;
+
+    }
+
+
+    .react-calendar__tile:hover{
+
+        transform:none;
+
+    }
+
+
+    .react-calendar__tile--active:hover{
+
+        transform:none;
+
+    }
+
+
+    .react-calendar__tile--now::after{
+
+        top:5px;
+        right:5px;
+
+        width:5px;
+        height:5px;
+
+    }
+
+
+    /* =================================================
+       EVENTY W DNIU — MOBILE
+    ================================================= */
+
+    .calendar-day-events{
+
+        gap:2px;
+
+        margin-top:3px;
+
+    }
+
+
+    .calendar-event-bubble{
+
+        gap:2px;
+
+        min-height:12px;
+
+        padding:
+            1px
+            3px;
+
+        border-radius:6px;
+
+        font-size:7px;
+
+    }
+
+
+    .calendar-event-emoji{
+
+        font-size:7px;
+
+    }
+
+
+    .calendar-event-name{
+
+        min-width:0;
+
+        overflow:hidden;
+
+        white-space:nowrap;
+
+        text-overflow:ellipsis;
+
+        font-size:7px;
+
+        line-height:1;
+
+    }
+
+
+    .calendar-event-more{
+
+        padding:
+            2px
+            5px;
+
+        font-size:7px;
+
+    }
+
+
+    .calendar-mobile-dots{
+
+        display:none;
+
+    }
+
+
+    .calendar-event-dot{
+
+        width:5px;
+        height:5px;
+
+        bottom:6px;
+
+    }
+
+
+    .calendar-event-dots{
+
+        bottom:6px;
+
+    }
+
+
+    .calendar-event-dots span{
+
+        width:5px;
+        height:5px;
+
+    }
+
+
+    .calendar-more-events{
+
+        right:5px;
+        bottom:5px;
+
+        min-width:17px;
+
+        height:17px;
+
+        padding:0 4px;
+
+        font-size:.55rem;
+
+    }
+
+
+    /* =================================================
+       SIDEBAR
+    ================================================= */
+
+    .calendar-layout{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:14px;
+
+        width:100%;
+
+    }
+
+
+    .calendar-sidebar{
+
+        width:100%;
+
+        padding:18px;
+
+        border-radius:22px;
+
+    }
+
+
+    .selected-day{
+
+        margin:0 0 14px;
+
+        font-size:18px;
+
+    }
+
+
+    /* =================================================
+       EVENT CARD
+    ================================================= */
+
+    .event-card{
+
+        width:100%;
+
+        margin-top:12px;
+
+        margin-bottom:12px;
+
+        padding:14px;
+
+        border-radius:16px;
+
+        border-left-width:4px;
+
+    }
+
+
+    .event-card-header{
+
+        gap:10px;
+
+    }
+
+
+    .event-title{
+
+        min-width:0;
+
+        font-size:15px;
+
+        line-height:1.3;
+
+    }
+
+
+    .event-emoji{
+
+        font-size:18px;
+
+    }
+
+
+    .event-row{
+
+        align-items:flex-start;
+
+        gap:8px;
+
+        font-size:13px;
+
+        line-height:1.4;
+
+    }
+
+
+    .event-row.date{
+
+        font-size:12px;
+
+        font-style:italic;
+
+        color:var(--text-muted);
+
+    }
+
+
+    .event-icon{
+
+        width:16px;
+
+        flex:0 0 16px;
+
+    }
+
+
+    .event-text{
+
+        min-width:0;
+
+        overflow-wrap:anywhere;
+
+    }
+
+
+    .event-description{
+
+        margin-top:8px;
+
+        font-size:13px;
+
+        line-height:1.5;
+
+    }
+
+
+    .event-badge{
+
+        padding:
+            5px
+            12px;
+
+        font-size:11px;
+
+    }
+
+
+    /* =================================================
+       ADD TO CALENDAR — MOBILE
+    ================================================= */
+
+    .event-card-actions{
+
+        margin-left:auto;
+
+    }
+
+
+    .calendar-add-button{
+
+        width:22px;
+        height:22px;
+
+        flex:0 0 22px;
+
+    }
+
+
+    .calendar-add-menu{
+
+        top:24px;
+        right:0;
+
+        min-width:145px;
+
+        border-radius:10px;
+
+    }
+
+
+    .calendar-add-menu button{
+
+        padding:
+            10px
+            12px;
+
+        font-size:12px;
+
+        line-height:1.2;
+
+        white-space:nowrap;
+
+    }
+
+}
+
+
+/* =====================================================
+   MAŁE TELEFONY
+===================================================== */
+
+@media (max-width:480px){
+
+    .calendar-page{
+
+        padding:6px;
+
+    }
+
+
+    .calendar-wrapper{
+
+        padding:12px;
+
+        gap:16px;
+
+        border-radius:18px;
+
+    }
+
+
+    .calendar-header{
+
+        padding:
+            16px
+            8px
+            30px;
+
+    }
+
+
+    .calendar-month{
+
+        font-size:36px;
+
+    }
+
+
+    .calendar-year{
+
+        font-size:16px;
+
+        letter-spacing:5px;
+
+    }
+
+
+    .calendar-divider{
+
+        width:145px;
+
+    }
+
+
+    .calendar-nav,
+    .calendar-nav-button{
+
+        width:38px;
+        height:38px;
+
+        flex-basis:38px;
+
+    }
+
+
+    .calendar-today,
+    .today-button{
+
+        max-width:120px;
+
+        padding:
+            9px
+            10px;
+
+        font-size:13px;
+
+    }
+
+
+    .react-calendar__month-view__days{
+
+        gap:2px;
+
+    }
+
+
+    .react-calendar__tile{
+
+        padding:4px;
+
+        border-radius:8px;
+
+        font-size:10px;
+
+    }
+
+
+    .react-calendar__month-view__weekdays__weekday{
+
+        padding:6px 0;
+
+        font-size:9px;
+
+    }
+
+
+    .calendar-sidebar{
+
+        padding:15px;
+
+    }
+
+
+    .selected-day{
+
+        font-size:16px;
+
+    }
+
+
+    .event-card{
+
+        padding:12px;
+
+    }
+
+
+    .event-title{
+
+        font-size:14px;
+
+    }
+
+
+    .event-row{
+
+        font-size:12px;
+
+    }
+
+
+    .event-row.date{
+
+        font-size:11px;
+
+    }
+
+
+    .event-description{
+
+        font-size:12px;
+
+    }
+
+}
+
+
+/* =====================================================
+   BARDZO MAŁE TELEFONY
+===================================================== */
+
+@media (max-width:360px){
+
+    .calendar-page{
+
+        padding:5px;
+
+    }
+
+
+    .calendar-wrapper{
+
+        padding:10px;
+
+    }
+
+
+    .calendar-month{
+
+        font-size:33px;
+
+    }
+
+
+    .calendar-year{
+
+        font-size:15px;
+
+        letter-spacing:4px;
+
+    }
+
+
+    .calendar-divider{
+
+        width:130px;
+
+    }
+
+
+    .calendar-navigation{
+
+        gap:6px;
+
+    }
+
+
+    .calendar-nav,
+    .calendar-nav-button{
+
+        width:35px;
+        height:35px;
+
+        flex-basis:35px;
+
+        border-radius:11px;
+
+    }
+
+
+    .calendar-today,
+    .today-button{
+
+        max-width:105px;
+
+        height:35px;
+
+        padding:
+            8px
+            9px;
+
+        font-size:12px;
+
+        border-radius:11px;
+
+    }
+
+
+    .react-calendar__tile{
+
+        padding:3px;
+
+        border-radius:7px;
+
+        font-size:9px;
+
+    }
+
+
+    .react-calendar__month-view__weekdays__weekday{
+
+        font-size:8px;
+
+    }
+
+
+    .calendar-event-name{
+
+        font-size:6px;
+
+    }
+
+
+    .calendar-event-emoji{
+
+        font-size:6px;
+
+    }
+
+
+    .calendar-event-more{
+
+        font-size:6px;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    .calendar-wrapper,
+    .calendar-event-card,
+    .react-calendar__tile,
+    .calendar-nav,
+    .calendar-nav-button,
+    .calendar-event-action,
+    .calendar-today,
+    .today-button,
+    .event-card{
+
+        animation:none;
+
+        transition:none;
+
+    }
+
+}
+
+
+/* =====================================================
+   GPU / RENDERING
+===================================================== */
 
 .calendar-wrapper,
-.calendar-event-card,
-.react-calendar__tile,
-.calendar-nav,
-.calendar-event-action,
-.calendar-today{
-animation:none;
-transition:none;
-}
-
-}
-
-.calendar-wrapper,
 .react-calendar__tile,
 .calendar-event-card,
 .calendar-nav,
+.calendar-nav-button,
 .calendar-event-action{
-transform:translateZ(0);
+
+    transform:translateZ(0);
+
 }
